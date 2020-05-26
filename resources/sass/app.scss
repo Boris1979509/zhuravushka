@@ -1,1 +1,135 @@
-//
+@import "fonts";
+@import "variable";
+
+* {
+    padding: 0;
+    margin: 0;
+}
+
+html,
+body {
+    background-color: $bg-color;
+    color: #636b6f;
+    font-family: $font-family;
+    font-weight: 200;
+    display: flex;
+    min-height: 100vh;
+    flex-direction: column;
+}
+
+.full-height {
+    height: 100vh;
+}
+
+.row {
+    display: flex;
+    flex-wrap: wrap;
+}
+
+.container {
+    width: 1140px;
+    margin: 0 auto;
+}
+
+ul {
+    li {
+        list-style: none;
+    }
+}
+
+header {
+    a {
+        color: $color-text-top-bar;
+        text-decoration: none;
+        padding: .5rem 0;
+    }
+
+    /* top bar */
+    .top-bar {
+        background: $bg-orange;
+        color: $color-text-top-bar;
+        padding: .5rem 0;
+
+        /* header-nav */
+        .header__nav {
+            text-align: center;
+
+            .header__nav-item {
+                display: inline-block;
+                margin-right: 35px;
+
+                a {
+                    &.header__link {
+                        position: relative;
+                        &:before {
+                            content: "";
+                            width: 0;
+                            height: 2px;
+                            opacity: 0;
+                            visibility: hidden;
+                            transition: all .2s;
+                            background: $color-text-top-bar;
+                            position: absolute;
+                            bottom: 0;
+                            left: 0;
+                        }
+
+                        &:hover {
+                            &:before {
+                                width: 100%;
+                                opacity: 1;
+                                visibility: visible;
+                            }
+                        }
+
+                    }
+
+                }
+            }
+        }
+
+        .top-bar__right {
+            margin-left: auto;
+
+            ul {
+                li {
+                    display: inline-block;
+
+                    &:first-child {
+                        margin-right: 35px;
+                    }
+                }
+            }
+        }
+
+        .top-bar__phone {
+            margin: 0 auto;
+
+            span {
+                &:before {
+                    content: "";
+                    background: url('../images/icons/phone-icon.svg') no-repeat;
+                    height: 13px;
+                    width: 13px;
+                    display: inline-block;
+                    margin-right: 13px;
+                }
+            }
+
+        }
+
+
+    }
+
+    /* sub-header */
+    .sub-header {
+        background: $bg-blue;
+
+        #sub-header__logo-img {
+            width: 31px;
+            height: auto;
+        }
+    }
+}
+
+

@@ -31,9 +31,26 @@
         <div class="container">
             <div class="row">
                 <a href="/" class="sub-header__logo" title="">
-                    <img src="{{ asset('build/images/logo/logo.svg') }}" alt="logo" id="sub-header__logo-img"
+                    <img src="{{ asset('images/logo/logo.svg') }}" alt="logo" id="sub-header__logo-img"
                          class="sub-header__logo-img"><span>|</span>Строим вместе
                 </a>
+                <div class="b-head__search">
+                    <div class="b-search">
+                        <div class="b-search__input">
+                            <input type="text" class="b-input b-input_search" placeholder="Поиск по сайту">
+                            <button class="b-search__icon loupe"></button>
+                        </div>
+                    </div>
+                </div>
+                <div class="sub-header__right">
+                    <a href="" rel="nofollow" class="favorite">
+                        <span class="favorite__icon"></span>
+                        <span class="sub-header__label">
+                        Избранное
+                    </span>
+                        <span id="favorite-qty" class="favorite__qty">0</span>
+                    </a>
+                </div>
             </div>
         </div>
     </div>

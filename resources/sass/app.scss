@@ -34,9 +34,19 @@ body {
 ul {
     li {
         list-style: none;
+        padding: 0;
     }
 }
+.link{
+    font-size: 14px;
+    line-height: 17px;
+    color: #fff;
+    letter-spacing: .02em;
+    text-decoration: none;
+    cursor: pointer;
+}
 
+/* Start header */
 header {
     a {
         color: $color-text-top-bar;
@@ -46,9 +56,11 @@ header {
 
     /* top bar */
     .top-bar {
-        background: $bg-orange;
+        letter-spacing: 0.04em;
+        background: $bg-top-bar;
         color: $color-text-top-bar;
         padding: .5rem 0;
+        font-size: 13px;
 
         /* header-nav */
         .header__nav {
@@ -61,6 +73,7 @@ header {
                 a {
                     &.header__link {
                         position: relative;
+
                         &:before {
                             content: "";
                             width: 0;
@@ -94,6 +107,7 @@ header {
             ul {
                 li {
                     display: inline-block;
+                    font-weight: bold;
 
                     &:first-child {
                         margin-right: 35px;
@@ -104,11 +118,13 @@ header {
 
         .top-bar__phone {
             margin: 0 auto;
+            font-style: normal;
+            font-weight: bold;
 
             span {
                 &:before {
                     content: "";
-                    background: url('../images/icons/phone-icon.svg') no-repeat;
+                    background: url('../../images/icons/phone-icon.svg') no-repeat;
                     height: 13px;
                     width: 13px;
                     display: inline-block;
@@ -123,11 +139,47 @@ header {
 
     /* sub-header */
     .sub-header {
-        background: $bg-blue;
+        background: $bg-sub-header;
 
         #sub-header__logo-img {
             width: 31px;
             height: auto;
+        }
+
+        .b-head__search {
+            margin: 0 auto;
+
+            .b-input {
+                width: 100%;
+                padding: 10px;
+                border: none;
+                background: #fff;
+                border-radius: 4px;
+            }
+        }
+
+        .sub-header__right {
+            margin-left: auto;
+        }
+    }
+}
+
+footer {
+    .footer {
+        .footer-top {
+            padding: 60px 0;
+            background-color: $bg-footer-top;
+
+            .footer__title {
+                font-style: normal;
+                font-weight: bold;
+                font-size: 16px;
+                line-height: 21px;
+                letter-spacing: 0.04em;
+                color: $color-footer-title;
+                padding-bottom: 10px;
+                border-bottom: 1px solid rgba(255, 255, 255, 0.2)
+            }
         }
     }
 }

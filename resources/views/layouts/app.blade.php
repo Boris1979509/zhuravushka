@@ -10,10 +10,12 @@
 <body>
 @include('layouts.header')
 <div class="flex-center position-ref full-height">
-    <div class="content">
-        @yield('content')
+    <div class="container">
+        <div class="row">
+            @yield('content')
+        </div>
     </div>
 </div>
-<footer>copyright</footer>
+@include('layouts.footer')
 </body>
 </html>

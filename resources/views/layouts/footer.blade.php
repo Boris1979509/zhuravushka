@@ -2,7 +2,7 @@
     <div class="footer">
         <div class="footer-top">
             <div class="container">
-                <div class="row">
+                <div class="row footer-top__row">
                     <div class="footer__company">
                         <p class="footer__title">О компании</p>
                         <ul class="footer__nav">

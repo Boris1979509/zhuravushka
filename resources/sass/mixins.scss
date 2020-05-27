@@ -1,0 +1,57 @@
+@mixin inputPlaceholder() { // input placeholder
+    $selector: '';
+    $prefixes: (
+        moz: "::-moz",
+        webkit: "::-webkit",
+        ie: ":-ms"
+    );
+    @each $prop, $value in $prefixes {
+        @if $prop != "moz" {
+            $selector: #{$value}-input-placeholder;
+        } @else {
+            $selector: #{$value}-placeholder;
+        }
+        @if & {
+            &#{$selector} {
+                @content;
+            }
+        } @else {
+            #{$selector} {
+                @content;
+            }
+        }
+    }
+    &::placeholder {
+        @content;
+    }
+}
+// Hover link line
+@mixin hoverUnderline($color, $px, $link: false) {
+    &:before {
+        content: "";
+        width: 0;
+        height: $px;
+        opacity: 0;
+        visibility: hidden;
+        transition: all .2s;
+        background: $color;
+        position: absolute;
+        bottom: 0;
+        left: 0;
+    }
+
+    &:hover {
+        // if text change color hover
+        @if $link {
+            color: $color;
+        }
+
+        &:before {
+            width: 100%;
+            opacity: 1;
+            visibility: visible;
+        }
+    }
+
+
+}

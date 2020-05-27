@@ -19,4 +19,5 @@ mix
     .options({
         processCssUrls: false
     })
-    .version();
+    .version()
+    .copyDirectory('resources/fonts', 'public/build/fonts');

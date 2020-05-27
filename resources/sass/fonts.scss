@@ -1,2 +1,15 @@
-@import url("https://fonts.googleapis.com/css?family=PT+Sans:400,700&subset=cyrillic");
+@font-face {
+    font-family: 'PT Sans';
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/PTSans/PTSans-Regular.ttf") format("ttf");
+}
 
+@font-face {
+    font-family: 'Segoe UI';
+    font-style: normal;
+    font-weight: 400;
+    src: url("../fonts/SegoeUI/SegoeUI.woff") format("woff"),
+    url("../fonts/SegoeUI/SegoeUI.eot") format("eot"),
+    url("../fonts/SegoeUI/SegoeUI.ttf") format("ttf");
+}

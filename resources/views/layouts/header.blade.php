@@ -35,17 +35,21 @@
     <div class="sub-header">
         <div class="container">
             <div class="row sub-header__row">
-                <a href="/" class="sub-header__logo" title="Строим вместе">
-                    <img src="{{ asset('images/logo/logo.svg') }}" alt="Строим вместе" id="sub-header__logo-img"
-                         class="sub-header__logo-img">
-                </a>
+
+                <!--logo-container-->
+                <div class="sub-header__logo-container row">
+                    <a href="/"  id="sub-header__logo-img" title="Строим вместе"></a>
+                    <button class="btn btn-active catalog-spoiler-btn"></button>
+                </div>
+                <!--end logo-container-->
+
                 <!-- Start search header -->
-                <div class="b-search">
+                <form method="get" class="b-search">
                     <div class="b-search__content">
-                        <input type="text" class="input b-search__input" placeholder="Найдётся все! И не только">
+                        <input type="search" name="search" class="input b-search__input" placeholder="Найдется все! И не только">
                         <span class="b-search__icon loupe"></span>
                     </div>
-                </div>
+                </form>
                 <div class="sub-header__right">
                     <a href="" rel="nofollow" class="link compare">
                         <span class="icon compare__icon"></span>

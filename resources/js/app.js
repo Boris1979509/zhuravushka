@@ -1,1 +1,1 @@
-require('./bootstrap');
+require('./sticky-header/sticky');

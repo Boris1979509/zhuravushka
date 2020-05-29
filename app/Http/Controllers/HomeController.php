@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
+use App\Models\Shop\ShopCategory;
 
 class HomeController extends Controller
 {
@@ -32,7 +33,8 @@ class HomeController extends Controller
             ],
 
         ];
-        return view('home', compact('pages'));
+        $shopCategory = ShopCategory::all();
+        return view('home', compact('pages', 'shopCategory'));
     }
 
 }

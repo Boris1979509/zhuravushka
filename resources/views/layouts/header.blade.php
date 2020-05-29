@@ -1,14 +1,13 @@
 <header>
-    <!-- Start top-bar -->
-    <div class="top-bar">
+    <div class="top-bar"><!-- Start top-bar -->
         <div class="container">
             <div class="row top-bar__row">
                 <!---->
                 <nav>
-                    <ul class="header__nav">
+                    <ul class="top-bar__nav">
                         @foreach($pages as $key => $value)
-                            <li class="header__nav-item">
-                                <a href="{{ $value['alias'] }}" class="link header__link" title="{{ $value['title'] }}">
+                            <li class="top-bar__nav-item">
+                                <a href="{{ $value['alias'] }}" class="link top-bar__nav-link" title="{{ $value['title'] }}">
                                     {{ $value['title'] }}
                                 </a>
                             </li>
@@ -29,8 +28,8 @@
                 </div>
             </div>
         </div>
-    </div>
-    <!-- End top-bar -->
+    </div><!-- End top-bar -->
+
     <!-- Start sub-header -->
     <div class="sub-header">
         <div class="container">
@@ -38,7 +37,7 @@
 
                 <!--logo-container-->
                 <div class="sub-header__logo-container row">
-                    <a href="/"  id="sub-header__logo-img" title="Строим вместе"></a>
+                    <a href="/"  class="sub-header__logo-img" title="Строим вместе"></a>
                     <button class="btn btn-active catalog-spoiler-btn"></button>
                 </div>
                 <!--end logo-container-->

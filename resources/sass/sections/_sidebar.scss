@@ -1,0 +1,44 @@
+/* Start homepage-top */
+.homepage-top-grid {
+    &__menu {
+        background: $bg-homepage-top-grid-menu;
+        box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
+        border-radius: 4px;
+
+        @media (min-width: 1200px) {
+            .homepage-top-grid__menu {
+                display: flex;
+                max-width: 280px;
+                flex-shrink: 0;
+                flex-grow: 0;
+                flex-basis: 280px;
+            }
+        }
+
+        .menu-desktop {
+            &__root {
+
+            }
+
+            &__root-info {
+                display: inline-block;
+
+                .menu-desktop__root-title {
+                    font-family: $font-segoe-ui;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-size: 1rem;
+                    line-height: 1.5;
+                    color: #FFFFFF;
+
+                }
+            }
+        }
+    }
+
+    &__center {
+
+    }
+}
+
+/* End homepage-top */

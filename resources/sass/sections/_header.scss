@@ -1,0 +1,210 @@
+/* Start header */
+header {
+    z-index: 1;
+    /* Start top-bar */
+    .top-bar {
+        background: $bg-top-bar;
+        letter-spacing: 0.04rem;
+        color: $color-text-top-bar;
+        font-size: .8125rem;
+        line-height: .6;
+        padding: .5rem 0;
+
+        &__row {
+            justify-content: space-between;
+            align-items: center;
+            align-content: stretch;
+        }
+
+        /* top-bar__nav */
+        &__nav {
+            text-align: center;
+        }
+
+        &__nav-item {
+            display: inline-block;
+            margin-right: 35px;
+        }
+
+        &__nav-link {
+            position: relative;
+            padding-bottom: 9px;
+            @include hoverUnderline($color-text-top-bar, 2px);
+            font-size: inherit;
+        }
+
+        &__right {
+
+            ul {
+                li {
+                    display: inline-block;
+                    font-weight: bold;
+                    font-size: inherit;
+
+                    &:first-child {
+                        margin-right: 35px;
+                    }
+                }
+            }
+        }
+
+        &__phone {
+            margin: 0 auto;
+            font-style: normal;
+            font-weight: bold;
+
+            span {
+                &:before {
+                    content: "";
+                    background: url('../../images/icons/phone-icon.svg') no-repeat;
+                    height: 13px;
+                    width: 13px;
+                    display: inline-block;
+                    margin-right: 13px;
+                }
+            }
+        }
+    }
+
+    /* End top-bar */
+
+    /* Start sub-header */
+    .sub-header {
+        background: $bg-sub-header;
+        width: 100%;
+
+        &__row {
+            justify-content: flex-start;
+            align-items: center;
+
+            .sub-header__logo-container {
+                max-height: 64px;
+                min-width: 280px;
+                max-width: 280px;
+                //height: 64px;
+                align-items: center;
+
+                .sub-header__logo-img {
+                    transition: all 200ms ease-in 0s;
+                    background: url("../../images/logo/logo.svg") no-repeat left center;
+                    width: 212px;
+                    height: 64px;
+                    transform: translateY(0);
+                    display: inline-block;
+                }
+
+                .catalog-spoiler-btn {
+                    opacity: 0;
+                    visibility: hidden;
+                    position: absolute;
+                    left: -9999px;
+                }
+
+                &.large-btn {
+                    .sub-header__logo-img {
+                        background: url("../../images/logo/logo-mini.svg") no-repeat left center;
+                        width: 77px;
+                        background-size: 77px;
+                    }
+
+                    .catalog-spoiler-btn {
+                        width: calc(100% - 77px - 20px);
+                        transition: opacity 300ms ease-in 300ms; // delay 300ms
+                        opacity: 1;
+                        visibility: visible;
+                        position: relative;
+                        left: auto;
+                        margin-left: 20px;
+                        vertical-align: text-bottom;
+
+                        &:before {
+                            font-size: .875rem;
+                            line-height: 1.5;
+                            letter-spacing: 0.04em;
+                            content: "Каталог товаров";
+                        }
+                    }
+
+                }
+
+            }
+
+            /* Search header */
+            .b-search {
+                flex: 0;
+                padding: 12px 20px;
+
+                &__content {
+                    position: relative;
+                    width: inherit;
+
+                    .b-search__input {
+                        width: 366px;
+                    }
+
+                    /* Search icon loupe */
+                    .b-search__icon {
+                        &.loupe {
+                            position: absolute;
+                            background: url("../../images/icons/loupe.svg") no-repeat;
+                            width: 18px;
+                            height: 18px;
+                            cursor: pointer;
+                            top: .6875rem; // 11px
+                            right: 1rem;
+                        }
+                    }
+                }
+            }
+
+            .sub-header__right {
+                margin-left: auto;
+
+                a {
+                    vertical-align: text-top;
+
+                    &:not(:last-child) {
+                        margin-right: 24px;
+                    }
+
+                    .sub-header__label {
+                        font-family: $font-segoe-ui;
+                        font-style: normal;
+                        font-weight: normal;
+                        font-size: 1rem;
+                        line-height: 1.5;
+                        letter-spacing: 0.05em;
+                        vertical-align: super;
+                    }
+
+                    .icon {
+                        height: 24px;
+                        width: 24px;
+                        display: inline-block;
+                        margin-right: 12px;
+
+                        &.compare__icon {
+                            background: url('../../images/icons/compare-icon.svg') no-repeat;
+                        }
+
+                        &.favorite__icon {
+                            background: url('../../images/icons/heart-icon.svg') no-repeat;
+                        }
+
+                        &.cart__icon {
+                            background: url('../../images/icons/cart-icon.svg') no-repeat;
+                        }
+                    }
+
+                    .qty {
+                        vertical-align: top;
+                    }
+                }
+            }
+        }
+
+        /* End sub-header */
+    }
+}
+
+/* End header */

@@ -7,7 +7,8 @@
                     <ul class="top-bar__nav">
                         @foreach($pages as $key => $value)
                             <li class="top-bar__nav-item">
-                                <a href="{{ $value['alias'] }}" class="link top-bar__nav-link" title="{{ $value['title'] }}">
+                                <a href="{{ $value['alias'] }}" class="link top-bar__nav-link"
+                                   title="{{ $value['title'] }}">
                                     {{ $value['title'] }}
                                 </a>
                             </li>
@@ -37,7 +38,7 @@
 
                 <!--logo-container-->
                 <div class="sub-header__logo-container row">
-                    <a href="/"  class="sub-header__logo-img" title="Строим вместе"></a>
+                    <a href="/" class="sub-header__logo-img" title="Строим вместе"></a>
                     <button class="btn btn-active catalog-spoiler-btn"></button>
                 </div>
                 <!--end logo-container-->
@@ -45,7 +46,8 @@
                 <!-- Start search header -->
                 <form method="get" class="b-search">
                     <div class="b-search__content">
-                        <input type="search" name="search" class="input b-search__input" placeholder="Найдется все! И не только">
+                        <input type="search" name="search" class="input b-search__input"
+                               placeholder="Найдется все! И не только">
                         <span class="b-search__icon loupe"></span>
                     </div>
                 </form>

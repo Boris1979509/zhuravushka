@@ -8,7 +8,7 @@
     <link rel="stylesheet" href="{{ mix('css/app.css', 'build') }}">
 </head>
 <body>
-@include('layouts.header')
+@include('layouts.templates.header')
 <div class="flex-center position-ref full-height">
     <div class="container">
         <div class="row">
@@ -16,7 +16,7 @@
         </div>
     </div>
 </div>
-@include('layouts.footer')
+@include('layouts.templates.footer')
 <script src="{{ mix('js/app.js', 'build') }}"></script>
 </body>
 </html>

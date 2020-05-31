@@ -1,0 +1,100 @@
+.full-height {
+    height: 100vh;
+}
+
+.row {
+    display: flex;
+    flex-flow: row wrap;
+}
+
+.container {
+    width: 100%;
+    margin: 0 auto;
+    padding: 0 15px;
+    @media (min-width: 1200px) {
+        width: 1140px;
+    }
+    @media (max-width: 1199px) and (min-width: 992px) {
+        width: 960px;
+    }
+    @media (max-width: 991px) and (min-width: 768px) {
+        width: 720px;
+    }
+    @media (max-width: 767px) {
+        max-width: 540px;
+    }
+}
+
+/* links */
+.link {
+    font-size: 14px;
+    line-height: 17px;
+    letter-spacing: .02rem;
+    text-decoration: none;
+    cursor: pointer;
+    color: $color-text-top-bar;
+}
+
+/* Inputs */
+.input {
+    width: auto;
+    height: 40px;
+    border: none;
+    padding: 0 16px;
+    background: #fff;
+    border-radius: 4px;
+    font-style: normal;
+    font-weight: normal;
+    font-size: 14px;
+    line-height: 19px;
+    @include inputPlaceholder() { // mixin input text placeholder
+        color: #A3A3A3;
+        font-family: $font-segoe-ui;
+    }
+}
+
+/* button */
+button, span {
+    &.btn {
+        display: inline-block;
+        font-weight: bold;
+        font-family: inherit;
+        text-align: center;
+        vertical-align: middle;
+        user-select: none;
+        background-color: transparent;
+        border: 1px solid transparent;
+        padding: .625rem 1.25rem; // 10px 20px
+        font-size: .875rem;
+        line-height: 1.5;
+        border-radius: .25rem; // 4px
+        transition: all .2s ease; // background-color, color
+    }
+
+    /* btn-active style*/
+    &.btn-active {
+        background: $bg-color-btn-active;
+        color: $color-btn-active;
+
+        &:hover {
+            background: $bg-color-btn-active-hover;
+            cursor: pointer;
+        }
+    }
+
+    /* btn-outline */
+    &.btn-outline {
+        background: $bg-color-btn-outline;
+        color: $color-btn-outline;
+        border: 2px solid $color-border-btn-outline;
+
+        &:hover {
+            background: $bg-color-btn-outline-hover;
+            color: $color-btn-outline-hover;
+            cursor: pointer;
+        }
+    }
+
+}
+
+/* End button */

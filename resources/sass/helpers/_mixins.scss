@@ -25,6 +25,7 @@
         @content;
     }
 }
+
 // Hover link line
 @mixin hoverUnderline($color, $px, $link: false) {
     &:before {
@@ -53,5 +54,31 @@
         }
     }
 
+}
+
+// Fade animation
+@mixin fadeAnimate($class) {
+    -webkit-animation-name: #{ $class };
+    -webkit-animation-duration: 1.5s;
+    animation-name: #{ $class };
+    animation-duration: 1.5s;
+    @-webkit-keyframes #{ $class }
+    {
+        from {
+            opacity: .4
+        }
+        to {
+            opacity: 1
+        }
+    }
+    @keyframes #{ $class }
+    {
+        from {
+            opacity: .4
+        }
+        to {
+            opacity: 1
+        }
+    }
 
 }

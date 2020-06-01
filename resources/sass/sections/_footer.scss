@@ -17,12 +17,14 @@ footer {
                 }
 
                 .footer__nav-item {
+                    max-width: 200px;
+                    padding-bottom: 20px;
                     a {
                         &.footer__link {
                             position: relative;
                             padding-bottom: .4rem;
                             font-size: 1rem !important;
-                            line-height: 2.5;
+                            line-height: 1.5;
                             letter-spacing: 0.04em;
                             transition: color .2s ease;
                             @include hoverUnderline($bg-top-bar, 1px, true); // Hover link line

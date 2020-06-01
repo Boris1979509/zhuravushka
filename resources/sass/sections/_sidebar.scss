@@ -1,23 +1,27 @@
 /* Start homepage-top */
 .homepage-top-grid {
+display: flex;
     &__menu {
         background: $bg-homepage-top-grid-menu;
         box-shadow: 0px 1px 2px rgba(0, 0, 0, 0.15);
-        border-radius: 4px;
+        padding: 32px 20px;
 
         @media (min-width: 1200px) {
             .homepage-top-grid__menu {
                 display: flex;
-                max-width: 280px;
+                max-width: 268px;
                 flex-shrink: 0;
                 flex-grow: 0;
-                flex-basis: 280px;
+                flex-basis: 268px;
             }
         }
 
         .menu-desktop {
             &__root {
-
+                margin-bottom: 44px;
+                max-width: 220px;
+                display: flex;
+                align-items: flex-start;
             }
 
             &__root-info {
@@ -29,15 +33,19 @@
                     font-weight: normal;
                     font-size: 1rem;
                     line-height: 1.5;
-                    color: #FFFFFF;
+                    color: $color-homepage-top-grid-menu;
 
                 }
+            }
+
+            img {
+                margin-right: 24px;
             }
         }
     }
 
-    &__center {
-
+    &__right {
+        max-width: calc(100% - 300px);
     }
 }
 

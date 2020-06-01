@@ -6,8 +6,12 @@
 // helpers
 @import "helpers/mixins";
 @import "custom";
+
 // Sections
 @import "sections/header";
-@import "sections/footer1";
+@import "sections/footer";
 @import "sections/sidebar";
+
+// Components
+@import "components/homepageSlider";
 

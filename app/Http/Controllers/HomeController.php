@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 use App\Models\Shop\ShopCategory;
+use App\Models\Shop\Page;
 
 class HomeController extends Controller
 {
@@ -14,25 +15,7 @@ class HomeController extends Controller
 
     public function index(): view
     {
-        $pages = [
-            [
-                'title' => 'O компании',
-                'alias' => 'About'
-            ],
-            [
-                'title' => 'Советы',
-                'alias' => 'advices'
-            ],
-            [
-                'title' => 'Услуги',
-                'alias' => 'Services'
-            ],
-            [
-                'title' => 'Контакты',
-                'alias' => 'Contacts'
-            ],
-
-        ];
+        $pages = Page::all();
         $shopCategory = ShopCategory::all();
         return view('home', compact('pages', 'shopCategory'));
     }

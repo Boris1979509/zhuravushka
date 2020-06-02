@@ -1,0 +1,15 @@
+.breadcrumb {
+    display: flex;
+    padding: .75rem 1rem;
+    margin: 1rem 0;
+    background-color: #fc8507;
+    border-radius: .25rem;
+
+    .breadcrumb-item {
+        + .breadcrumb-item::before {
+            padding: 0 .5rem;
+            color: #6c757d;
+            content: "/";
+        }
+    }
+}

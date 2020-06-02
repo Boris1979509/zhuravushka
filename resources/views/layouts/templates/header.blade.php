@@ -5,11 +5,12 @@
                 <!---->
                 <nav>
                     <ul class="top-bar__nav">
-                        @foreach($pages as $key => $value)
+                        @php /** @var Page $pageItem  */use App\Models\Shop\Page;@endphp
+                        @foreach($pages as $pageItem)
                             <li class="top-bar__nav-item">
-                                <a href="{{ $value['alias'] }}" class="link top-bar__nav-link"
-                                   title="{{ $value['title'] }}">
-                                    {{ $value['title'] }}
+                                <a href="{{ route('page', $pageItem->slug) }}" class="link top-bar__nav-link"
+                                   title="{{ $pageItem->title }}">
+                                    {{ $pageItem->title }}
                                 </a>
                             </li>
                         @endforeach

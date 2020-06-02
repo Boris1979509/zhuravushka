@@ -1,4 +1,8 @@
 @extends('layouts.app')
+@section('title', 'Главная')
+
+@section('description', 'Описание')
+
 @section('content')
     <div class="homepage-top-grid">
         @include('layouts.templates.barMenu')

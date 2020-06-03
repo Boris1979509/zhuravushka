@@ -1,0 +1,81 @@
+.page-content {
+    display: block;
+}
+
+#about {
+    .about-statistic {
+        display: flex;
+        justify-content: space-around;
+        align-items: center;
+        height: 100%;
+        background: $bg-about-statistic;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        border-radius: 4px;
+        padding: 40px 60px;
+
+        &__item-sum {
+            font-weight: bold;
+            font-size: 4rem;
+            line-height: 1.5;
+            color: $color-statistic-sum;
+
+            &:not(:last-child) {
+                padding-right: 65px;
+            }
+
+        }
+
+        &__item {
+            span {
+                font-size: 1rem;
+                line-height: 1.5;
+                color: $color-span;
+                letter-spacing: 0.04em;
+            }
+
+            span:first-child {
+                margin-bottom: 5px;
+            }
+        }
+
+    }
+
+    .about-company {
+        margin: 40px 0;
+        line-height: 1.5;
+        letter-spacing: 0.04em;
+        color: $color-span;
+
+        p:first-child {
+            margin-bottom: 20px;
+        }
+
+
+    }
+
+    .guarantee {
+        color: $color-span;
+        display: flex;
+
+        &__item {
+
+        }
+
+        &__item-body {
+            &:before {
+                content: '';
+                background: url("../../images/icons/page-about/about-search.svg") no-repeat left center;
+                width: 74px;
+                background-size: 74px;
+                display: block;
+            }
+        }
+
+        &__item-title {
+            font-weight: bold;
+            font-size: 1.5rem;
+            line-height: 1.5;
+            margin-bottom: 10px;
+        }
+    }
+}

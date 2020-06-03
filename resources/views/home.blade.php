@@ -4,7 +4,7 @@
 @section('description', 'Описание')
 
 @section('content')
-    <div class="homepage-top-grid">
+    <div class="page-top-grid">
         @include('layouts.templates.barMenu')
         <div class="homepage-top-grid__right">
             @include('layouts.templates.homepage-slider')

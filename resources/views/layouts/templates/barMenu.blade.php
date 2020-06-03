@@ -1,4 +1,4 @@
-<div class="homepage-top-grid__menu"><!--Start barMenu-->
+<div class="page-top-grid__menu"><!--Start barMenu-->
     <div class="menu-desktop">
         @php /** @var ShopCategory $categoryItem */use App\Models\Shop\ShopCategory;@endphp
         @foreach($shopCategory as $categoryItem)

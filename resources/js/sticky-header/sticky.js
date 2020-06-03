@@ -8,9 +8,9 @@
 
     const subHeader = document.querySelector('.sub-header');
     const logoContainer = document.querySelector('.sub-header__logo-container');
-    const homepageTopMenu = document.querySelector('.homepage-top-grid__menu');
+    const homepageTopMenu = document.querySelector('.page-top-grid__menu');
     const catalogSpoiler = document.querySelector('.catalog-spoiler-btn');
-    const wrapper = document.querySelector('.homepage-top-grid');
+    const wrapper = document.querySelector('.page-top-grid');
 
     let stuck = false; //
     const stickPoint = getDistance(subHeader);
@@ -19,21 +19,29 @@
      */
     const menuDesktopWrapShowed = (clone) => {
         const arr = wrapper.querySelectorAll('.menu-desktop-wrap_showed');
-        if (arr.length === 0) {
+        if (0 === arr.length) {
             clone.classList.add('menu-desktop-wrap_showed');
             wrapper.appendChild(clone);
         } else {
             arr[0].remove();
         }
     }
-
-    if (catalogSpoiler) {
-        // if showed catalog-spoiler-btn
-        catalogSpoiler.addEventListener('click', () => {
-            const clone = homepageTopMenu.cloneNode(true);
-            menuDesktopWrapShowed(clone);
-        });
+    /**
+     *
+     * @param elem
+     */
+    const cloneMenu = (elem) => {
+        if (!elem) return;
+        if (catalogSpoiler) {
+            // if showed catalog-spoiler-btn
+            catalogSpoiler.addEventListener('click', () => {
+                const clone = elem.cloneNode(true);
+                menuDesktopWrapShowed(clone);
+            });
+        }
     }
+    cloneMenu(homepageTopMenu);
+
     /**
      * Stick menu large button
      * @param item
@@ -53,16 +61,31 @@
     const getStuck = () => {
         const distance = getDistance(subHeader) - window.pageYOffset;
         const offset = window.pageYOffset;
-        const distanceMenu = (homepageTopMenu.offsetHeight - stickPoint) - window.pageYOffset;
+        // if isset menu
+        const distanceMenu = (homepageTopMenu) ? (homepageTopMenu.offsetHeight - stickPoint) - window.pageYOffset : null;
         if ((distance <= 0) && !stuck) {
-            subHeader.setAttribute("style", "position: fixed; top: 0 ;");
+            if (!distanceMenu) {
+                logoContainer.classList.add('large-btn');
+            }
+            subHeader.setAttribute("style", "position: fixed; top: 0;");
             stuck = true;
         } else if (stuck && (offset <= stickPoint)) {
             subHeader.style.position = 'static';
             stuck = false;
         }
-        menuLargeButton(distanceMenu);
+        if (distanceMenu)
+            menuLargeButton(distanceMenu);
     }
+    // Events
     window.onload = getStuck;
     window.onscroll = getStuck;
+
+    // document.addEventListener('click', function (event) {
+    //     const e = document.querySelector('.menu-desktop-wrap_showed');
+    //     if (e.contains(event.target)) {
+    //         return;
+    //     }
+    //     e.style.display = 'none';
+    // });
+
 })();

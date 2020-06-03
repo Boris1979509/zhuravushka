@@ -12,14 +12,14 @@
 <body>
 @include('layouts.templates.header')
 
-@if(url()->current() != url('/'))
-    @php /** @var Breadcrumbs */ @endphp
-    <div class="container">
-        <div class="row">
-            {{ Breadcrumbs::render() }}
-        </div>
-    </div>
-@endif
+{{--@if(url()->current() != url('/'))--}}
+{{--    @php /** @var Breadcrumbs */ @endphp--}}
+{{--    <div class="container">--}}
+{{--        <div class="row">--}}
+{{--            {{ Breadcrumbs::render() }}--}}
+{{--        </div>--}}
+{{--    </div>--}}
+{{--@endif--}}
 <div class="flex-center position-ref full-height">
     <div class="container">
         <div class="row">

@@ -1,7 +1,6 @@
-/* Start homepage-top */
-.homepage-top-grid {
+/* Start page-top */
+.page-top-grid {
     display: flex;
-    background: #ffffff;
 
     &__menu {
         background: $bg-homepage-top-grid-menu;
@@ -13,7 +12,7 @@
         //}
 
         @media (min-width: 1200px) {
-            .homepage-top-grid__menu {
+            .page-top-grid__menu {
                 display: flex;
                 max-width: 268px;
                 flex-shrink: 0;
@@ -72,4 +71,4 @@
     }
 }
 
-/* End homepage-top */
+/* End page-top */

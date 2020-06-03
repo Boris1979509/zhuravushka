@@ -1,9 +1,11 @@
 (() => {
     // variables
+    const sliderContainer = document.querySelector('.slider');
+    if(!sliderContainer) return;
     const prev = document.querySelector('.prev');
     const next = document.querySelector('.next');
     const sliderItems = document.querySelectorAll('.slider__item');
-    const sliderContainer = document.querySelector('.slider');
+
 
     let index = 0; // Current position
     let pause = 5000;

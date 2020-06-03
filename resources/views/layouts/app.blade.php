@@ -12,20 +12,16 @@
 <body>
 @include('layouts.templates.header')
 
-{{--@if(url()->current() != url('/'))--}}
-{{--    @php /** @var Breadcrumbs */ @endphp--}}
-{{--    <div class="container">--}}
-{{--        <div class="row">--}}
-{{--            {{ Breadcrumbs::render() }}--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--@endif--}}
-<div class="flex-center position-ref full-height">
+@if(url()->current() != url('/'))
+    @php /** @var Breadcrumbs */ @endphp
     <div class="container">
         <div class="row">
-            @yield('content')
+            {{ Breadcrumbs::render() }}
         </div>
     </div>
+@endif
+<div class="flex-center position-ref full-height">
+    @yield('content')
 </div>
 @include('layouts.templates.footer')
 <script src="{{ mix('js/app.js', 'build') }}"></script>

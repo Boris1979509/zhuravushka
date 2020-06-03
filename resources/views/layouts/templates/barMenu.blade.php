@@ -7,7 +7,8 @@
                      src="{{ asset('images/icons/thumb/' . $categoryItem->slug . '.svg') }}"
                      alt="{{ $categoryItem->title }}">
                 <div class="menu-desktop__root-info">
-                    <a class="link menu-desktop__root-title" href="/catalog/id/slug/">{{ $categoryItem->title  }}</a>
+                    <a class="link menu-desktop__root-title"
+                       href="/catalog/id/slug/">{{ $categoryItem->title  }}</a>
                     <!--<div class="menu-desktop__root-subtitles">
                         <a class="link menu-desktop__root-subtitle" href=""></a>
                     </div>-->

@@ -7,7 +7,6 @@
         display: flex;
         justify-content: space-around;
         align-items: center;
-        height: 100%;
         background: $bg-about-statistic;
         box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
         border-radius: 4px;
@@ -58,17 +57,19 @@
         display: flex;
 
         &__item {
+            position: relative;
+        }
 
+        &__item-icon {
+            width: 74px;
+            height: 74px;
+            position: absolute;
+            top: 10px;
+            left: 0;
         }
 
         &__item-body {
-            &:before {
-                content: '';
-                background: url("../../images/icons/page-about/about-search.svg") no-repeat left center;
-                width: 74px;
-                background-size: 74px;
-                display: block;
-            }
+
         }
 
         &__item-title {
@@ -76,6 +77,18 @@
             font-size: 1.5rem;
             line-height: 1.5;
             margin-bottom: 10px;
+            width: calc(100% - 74px - 20px);
+            margin-left: auto;
+            padding-left: 20px;
+        }
+
+        &__item-description {
+            width: calc(100% - 74px - 20px);
+            margin-left: auto;
+            padding-left: 20px;
+            font-size: 1rem;
+            line-height: 1.5;
+            letter-spacing: 0.04em;
         }
     }
 }

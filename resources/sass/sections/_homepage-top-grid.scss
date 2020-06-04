@@ -26,9 +26,10 @@
                 max-width: 220px;
                 display: flex;
                 align-items: flex-start;
-
+                transition: all .5s;
                 &:hover {
                     background: rgba(0, 0, 0, 0.05);
+                    color: $bg-page-nav-button-active;
                 }
             }
 
@@ -49,6 +50,9 @@
             img {
                 margin-right: 24px;
             }
+            &__root-title{
+
+            }
 
         }
 
@@ -56,9 +60,8 @@
             //@include fadeAnimate(menu-desktop-wrap_showed);
             position: fixed;
             max-height: calc(100vh - 64px);
-            top: 64px;
             overflow-y: auto;
-            height: 100vh;
+            // height: 100vh;
             z-index: 1;
         }
 

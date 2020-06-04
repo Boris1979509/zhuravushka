@@ -15,6 +15,10 @@
             line-height: 2.9;
             font-size: 1rem;
             padding: 12px 26px;
+            transition: color .5s;
+            &:hover{
+                color: $bg-page-nav-button-active;
+            }
         }
 
         &:not(:last-child) {

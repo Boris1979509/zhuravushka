@@ -1,18 +1,16 @@
-h1{
+h1 {
     font-weight: 600;
     font-size: 2rem;
 }
+
 .full-height {
     /* height: 100vh;*/
-    padding-bottom: 50px;
+    //padding-bottom: 50px;
 }
 
 .row {
     display: flex;
     flex-flow: row wrap;
-}
-.hidden-block{
-    display: none;
 }
 
 .container {

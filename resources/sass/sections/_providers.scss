@@ -1,0 +1,29 @@
+%customFontsStyle {
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: 0.04em;
+    color: $color-providers;
+}
+
+#providers {
+    margin-bottom: 40px;
+
+    .providers {
+        &__primary-info-block {
+            @extend %customFontsStyle;
+            max-width: 612px;
+            padding: 50px;
+            background: $bg-providers-info-block;
+            box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+            border-radius: 4px;
+        }
+    }
+
+    .guarantee {
+        margin-top: 40px;
+        .row {
+            flex-flow: unset;
+        }
+        @include guaranteeBlock;
+    }
+}

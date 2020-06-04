@@ -18,6 +18,8 @@ class PagesTableSeeder extends Seeder
             ['title' => 'Советы'],
             ['title' => 'Услуги'],
             ['title' => 'Контакты'],
+            ['title' => 'Поставщики'],
+            ['title' => 'Реквизиты'],
         ];
         $data = [];
         foreach ($pages as $key => $value) {

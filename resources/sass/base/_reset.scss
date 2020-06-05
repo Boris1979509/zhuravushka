@@ -37,7 +37,7 @@ footer, header, hgroup, menu, nav, section {
 
 body {
     background-color: $bg-color;
-    color: #636b6f;
+    color: $color-body-default;
     font-family: $font-pt-sans;
     font-size: $font-size;
     font-weight: normal;
@@ -45,6 +45,7 @@ body {
     display: flex;
     min-height: 100vh;
     flex-direction: column;
+    letter-spacing: $letter-spacing-max;
 }
 
 ol, ul {
@@ -342,7 +343,7 @@ button,
 input,
 select,
 textarea {
-    color: #222;
+    color: $color-body-default;
 }
 
 

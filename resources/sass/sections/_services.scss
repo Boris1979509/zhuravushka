@@ -1,0 +1,56 @@
+%templateFontStyle {
+    font-size: 1rem;
+    line-height: 1.5;
+}
+
+#services {
+    .services {
+        display: flex;
+        align-items: flex-start;
+    }
+
+    .primary-info-block {
+        line-height: 1.5;
+        margin-top: 30px;
+    }
+
+    .search-map {
+        margin-bottom: 40px;
+    }
+
+    .side-bar {
+        background: #fff;
+        box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+        border-radius: 4px;
+        min-width: 257px;
+        margin-right: 30px;
+
+        &__list {
+            padding: 15px 0;
+        }
+
+        &__item {
+            padding: 15px 30px;
+
+            &.active {
+                background: #F2F2F2;
+            }
+        }
+
+        &__link {
+            @extend %templateFontStyle;
+        }
+    }
+
+    @include accordion;
+
+    .primary-info-block {
+
+    }
+
+    .payment-method-info {
+        display: flex;
+        margin: 70px 0 40px 0;
+        @include guaranteeBlock;
+    }
+}

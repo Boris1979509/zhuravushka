@@ -1,14 +1,19 @@
 @font-face {
-    font-family: 'PT Sans';
+    font-family: "PTSansRegular";
+    src: url("../../fonts/PTSans/PTSansRegular.eot");
+    src: url("../../fonts/PTSans/PTSansRegular.eot?#iefix")format("embedded-opentype"),
+    url("../../fonts/PTSans/PTSansRegular.woff") format("woff"),
+    url("../../fonts/PTSans/PTSansRegular.ttf") format("truetype");
     font-style: normal;
     font-weight: 400;
-    src: url("../../fonts/PTSans/PTSans-Regular.ttf") format("ttf");
 }
 
 @font-face {
-    font-family: 'Segoe UI';
+    font-family: 'SegoeUI';
+    src: url("../../fonts/SegoeUI/SegoeUI.eot");
+    src: url("../../fonts/SegoeUI/SegoeUI.eot?#iefix")format("embedded-opentype"),
+    url("../../fonts/SegoeUI/SegoeUI.woff") format("woff"),
+    url("../../fonts/SegoeUI/SegoeUI.ttf") format("ttf");
     font-style: normal;
     font-weight: 400;
-    src: url("../../fonts/SegoeUI/SegoeUI.eot") format("eot"),
-    url("../../fonts/SegoeUI/SegoeUI.ttf") format("ttf");
 }

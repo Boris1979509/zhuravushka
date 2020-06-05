@@ -17,7 +17,8 @@ class PageController extends Controller
     {
         $page = Page::where('slug', $pageSlug)->firstOrFail();
         $pages = Page::all(); // All pages
+        $pagesNav = Page::where('parent_id', 0)->orderBy('title')->get();
         $shopCategory = ShopCategory::all(); // All categories
-        return view('page', compact('page', 'pages', 'shopCategory'));
+        return view('page', compact('page', 'pages', 'shopCategory', 'pagesNav'));
     }
 }

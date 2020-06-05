@@ -81,10 +81,18 @@
         }
     }
 }
+
 // guarantee block with icon
 @mixin guaranteeBlock {
     &__item {
         position: relative;
+        @media (min-width: 1200px) {
+            width: 50%;
+            margin-bottom: 40px;
+            &:not(:last-child) {
+                margin-right: 40px;
+            }
+        }
     }
 
     &__item-icon {
@@ -118,5 +126,67 @@
         letter-spacing: 0.04em;
     }
 
+}
+
+/* Accordion style */
+@mixin accordion {
+    .accordion {
+        border: 1px solid #CCCCCC;
+
+        &__button-item {
+            width: 100%;
+            font-family: inherit;
+            background-color: #fff;
+            font-weight: bold;
+            text-align: left;
+            padding: 20px 30px;
+            font-size: 1rem;
+            cursor: pointer;
+            transition: background-color 0.2s linear;
+            border: none;
+
+            &:after {
+                content: '';
+                background: url("../../images/icons/plus.svg");
+                float: right;
+                width: 20px;
+                height: 20px;
+            }
+
+            &.active:after {
+                content: '';
+                background: url("../../images/icons/minus.svg");
+                float: right;
+                width: 20px;
+                height: 20px;
+            }
+        }
+
+        &__content {
+            background-color: white;
+            padding: 0 30px;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.2s ease-in-out;
+            line-height: 1.5;
+
+            p:not(.article) {
+                padding: 10px 0;
+
+                &:last-child {
+                    padding-bottom: 40px;
+                }
+            }
+
+            &:not(:last-child) {
+                border-bottom: 1px solid #ccc;
+            }
+
+            .article {
+                font-weight: bold;
+                margin-top: 10px;
+            }
+        }
+    }
 }
 

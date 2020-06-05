@@ -19,6 +19,7 @@ class CreatePagesTable extends Migration
             $table->string('slug');
             $table->text('description')->nullable();
             $table->text('content')->nullable();
+            $table->integer('parent_id')->default(0)->references('id')->on('pages')->onDelete('CASCADE');
         });
     }
 

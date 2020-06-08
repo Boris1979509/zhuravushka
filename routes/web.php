@@ -15,4 +15,4 @@ use Illuminate\Support\Facades\Route;
 /* home */
 Route::get('/', 'HomeController@index')->name('home');
 /* Pages */
-Route::get('page/{pageSlug}', 'PageController@page')->name('page');
+Route::get('page/{pageSlug}/{productId?}', 'PageController@page')->name('page');

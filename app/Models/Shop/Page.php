@@ -14,6 +14,9 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $slug
  * @property string $content
  * @property string $description
+ *
+ * @property Page $parent
+ * @property Page[] $children
  */
 class Page extends Model
 {

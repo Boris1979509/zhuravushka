@@ -1,12 +1,11 @@
 <div class="side-bar">
     <ul class="side-bar__list">
-        @forelse($page->children as $child)
-            <li class="side-bar__item  @if (url()->current() === route('page', $child->slug)) active @endif">
-                <a class="link side-bar__link" href="{{ route('page', $child->slug) }}">{{ $child->title }}</a>
+        @foreach($children as $item)
+            <li class="side-bar__item  @if (url()->current() === url('page/' . $item->parent->slug . '/' . $item->slug)) active @endif">
+                <a class="link side-bar__link"
+                   href="{{ url('page/' . $item->parent->slug . '/' . $item->slug) }}">{{ $item->title }}</a>
             </li>
-        @empty
-
-        @endforelse
+        @endforeach
     </ul>
 </div>
 

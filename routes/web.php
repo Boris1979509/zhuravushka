@@ -14,5 +14,14 @@ use Illuminate\Support\Facades\Route;
 */
 /* home */
 Route::get('/', 'HomeController@index')->name('home');
+
+Route::group([
+    'namespace' => 'Blog',
+    'prefix' => 'page',
+], static function () {
+    Route::get('sovety', 'BlogController@index')->name('blog');
+    //Route::get('/blog/{postSlug}', 'PostController@index')->name('post');
+});
+
 /* Pages */
 Route::get('page/{pageSlug}/{productId?}', 'PageController@page')->name('page');

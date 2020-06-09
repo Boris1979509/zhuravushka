@@ -1,0 +1,32 @@
+.pagination {
+    display: inline-block;
+    padding: 0;
+    margin: 0;
+
+    .page-item {
+        display: inline-block;
+        background: $bg-paginator-page-item;
+        border: 1px solid $color-paginator;
+        width: 30px;
+        height: 30px;
+
+        &.active {
+            background-color: $paginator-active;
+            border: 1px solid $paginator-active;
+
+            .page-link {
+                color: white;
+            }
+        }
+
+        .page-link {
+            color: $color-paginator;
+            float: left;
+            padding: 3px 11px;
+            text-decoration: none;
+            line-height: 1.5;
+            transition: background-color .3s;
+
+        }
+    }
+}

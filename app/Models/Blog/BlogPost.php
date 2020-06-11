@@ -2,11 +2,11 @@
 
 namespace App\Models\Blog;
 
-use App\Models\User;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\SoftDeletes;
+use Illuminate\Support\Str;
 
 /**
  * Class BlogPost
@@ -18,6 +18,8 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property bool $is_published
  * @property string $published_at
  * @property BlogCategory $category_id
+ * @property-read  BlogCategory $date_format
+ * @property-read  BlogCategory $limit_content
  */
 class BlogPost extends Model
 {
@@ -42,23 +44,22 @@ class BlogPost extends Model
         return $this->belongsTo(BlogCategory::class, 'category_id', 'id');
     }
 
+
     /**
-     * @return BelongsTo
+     * Accessor
+     * @return string
      */
-    public function user(): BelongsTo
+    public function getDateFormatAttribute(): string
     {
-        return $this->belongsTo(User::class, 'user_id', 'id');
+        return Carbon::parse($this->published_at)->format('d.m.Y');
     }
 
     /**
-     * @param $value
-     * @return string|null
+     * Accessor
+     * @return string
      */
-    public function getPublishedAtAttribute($value): ?string
+    public function getLimitContentAttribute(): string
     {
-        if (!$value) {
-            return null;
-        }
-        return Carbon::parse($value)->format('d.m.Y');
+        return Str::limit($this->content, 150, '...');
     }
 }

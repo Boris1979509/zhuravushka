@@ -18,25 +18,34 @@ class BlogPostRepository extends CoreRepository
 
     /**
      * @param null $perPage
+     * @param array $columns
+     * @param null $id
      * @return LengthAwarePaginator
      */
-    public function getAllWithPaginate($perPage = null): LengthAwarePaginator
+    public function getAllWithPaginate($perPage = null, $id = null, $columns = ['*']): LengthAwarePaginator
     {
-        $columns = [
-            'id',
-            'title',
-            'slug',
-            'excerpt',
-            'is_published',
-            'published_at',
-            'category_id',
-        ];
         $result = $this->startConditions()
             ->select($columns)
-            ->where('is_published', true)
+            ->where(function ($query) use ($id) {
+                if (!is_null($id)) {
+                    $query->where('category_id', $id);
+                }
+                return $query->where('is_published', true);
+            })
             ->orderBy('id', 'DESC')
             ->with(['category:title,id']) // LazyLoad
             ->paginate($perPage);
         return $result;
+    }
+
+    /**
+     * @param string $slug
+     * @return mixed
+     */
+    public function getPostBySlug(string $slug)
+    {
+        return $this->startConditions()
+            ->where('slug', $slug)
+            ->firstOrFail();
     }
 }

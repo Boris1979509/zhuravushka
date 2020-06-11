@@ -24,7 +24,7 @@ class PageRepository extends CoreRepository
      * @param string $slug
      * @return mixed
      */
-    public function getSinglePage(string $slug)
+    public function getSinglePage($slug)
     {
         $columns = [
             'slug',

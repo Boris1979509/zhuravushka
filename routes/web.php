@@ -17,10 +17,10 @@ Route::get('/', 'HomeController@index')->name('home');
 
 Route::group([
     'namespace' => 'Blog',
-    'prefix' => 'page',
 ], static function () {
-    Route::get('sovety', 'BlogController@index')->name('blog');
-    //Route::get('/blog/{postSlug}', 'PostController@index')->name('post');
+    Route::get('page/sovety', 'BlogController@index')->name('page.blog');
+    Route::get('blog/post/{postSlug}', 'PostController@index')->name('blog.post');
+    Route::get('blog/category/{CategorySlug}', 'BlogController@getByCategory')->name('blog.category');
 });
 
 /* Pages */

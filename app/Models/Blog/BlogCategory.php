@@ -4,6 +4,7 @@ namespace App\Models\Blog;
 
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
+use Illuminate\Database\Eloquent\Relations\HasOne;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -15,7 +16,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $description
  *
  * @property-read BelongsTo $parent
- * @property-read mixed|null $parentTitle
+ * @property-read int|null $post_count
  */
 class BlogCategory extends Model
 {
@@ -38,11 +39,18 @@ class BlogCategory extends Model
     }
 
     /**
-     * Accessor
-     * @return mixed|null
+     * @return HasOne
      */
-    public function getParentTitleAttribute()
+    public function posts(): HasOne
     {
-        //return $this->parent->title ?? null;
+        return $this->hasOne(BlogPost::class, 'category_id', 'id');
+    }
+
+    /**
+     * @return int|null
+     */
+    public function getPostCountAttribute()
+    {
+        return $this->posts->count ?? null;
     }
 }

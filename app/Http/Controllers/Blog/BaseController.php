@@ -8,7 +8,7 @@ use App\Http\Controllers\Controller;
 use App\Repositories\BlogCategoryRepository;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\PageRepository;
-use App\Repositories\ShopCategoryRepository;
+use App\Repositories\ProductCategoryRepository;
 
 abstract class BaseController extends Controller
 {
@@ -25,14 +25,14 @@ abstract class BaseController extends Controller
      */
     protected $pageRepository;
     /**
-     * @var ShopCategoryRepository
+     * @var ProductCategoryRepository
      */
     protected $shopCategoryRepository;
 
     public function __construct()
     {
         $this->pageRepository = app(PageRepository::class);
-        $this->shopCategoryRepository = app(ShopCategoryRepository::class);
+        $this->productCategoryRepository = app(ProductCategoryRepository::class);
         $this->blogPostRepository = app(BlogPostRepository::class);
         $this->blogCategoryRepository = new BlogCategoryRepository;
     }

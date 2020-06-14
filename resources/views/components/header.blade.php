@@ -7,15 +7,18 @@
                     <ul class="top-bar__nav">
                         @php /** @var Page $pageItem  */use App\Models\Shop\Page;@endphp
                         @foreach($pages as $key => $pageItem)
-                            @if($key <= 3)
+                            @if($key <= 2)
                                 <li class="top-bar__nav-item">
-                                    <a href="{{ route('page', $pageItem->slug) }}" class="link top-bar__nav-link"
+                                    <a href="{{ url('page', $pageItem->slug) }}" class="link top-bar__nav-link"
                                        title="{{ $pageItem->title }}">
                                         {{ $pageItem->title }}
                                     </a>
                                 </li>
                             @endif
                         @endforeach
+                        <li class="top-bar__nav-item">
+                            <a href="{{ route('blog') }}" class="link top-bar__nav-link" title="Советы">Советы</a>
+                        </li>
                     </ul>
                 </nav>
                 <!---->
@@ -41,7 +44,7 @@
 
                 <!--logo-container-->
                 <div class="sub-header__logo-container row">
-                    <a href="/" class="sub-header__logo-img" title="Строим вместе"></a>
+                    <a href="{{ route('home') }}" class="sub-header__logo-img" title="Строим вместе"></a>
                     <button class="btn btn-active catalog-spoiler-btn"></button>
                 </div>
                 <!--end logo-container-->
@@ -71,8 +74,13 @@
                         {{--<span id="cart-qty" class="qty cart__qty">[55]</span>--}}
                     </a>
                 </div>
+
+            </div>
+            <div id="catalogMenu" hidden>
+                @include('components.barMenu')
             </div>
         </div>
     </div>
+
     <!-- End sub-header -->
 </header>

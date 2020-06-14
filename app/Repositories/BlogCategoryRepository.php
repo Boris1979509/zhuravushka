@@ -26,7 +26,7 @@ class BlogCategoryRepository extends CoreRepository
     {
         $result = $this->startConditions()
             ->select($columns)
-            ->with(['posts' => function ($query) {
+            ->with(['posts' => static function ($query) {
                 $query->selectRaw('category_id, count(*) as count')
                     ->where('is_published', true)
                     ->groupBy('category_id');
@@ -38,7 +38,7 @@ class BlogCategoryRepository extends CoreRepository
      * @param string $slug
      * @return BlogCategory
      */
-    public function getCategoryBySlug(string $slug)
+    public function getCategoryBySlug(string $slug): BlogCategory
     {
         return $this->startConditions()
             ->where('slug', $slug)

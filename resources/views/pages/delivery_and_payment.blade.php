@@ -2,13 +2,13 @@
     <div class="row">
         <div class="services">
             @if(count($children))
-                @include('layouts.templates.leftSideBar')
+                @include('components.leftSideBar')
             @endif
             <div class="delivery-block">
                 <div class="search-map">
                     <img src="{{ asset('images/delivery-search-map.png') }}" alt="map">
                 </div>
-                @include('layouts.templates.accordion')
+                @include('components.accordion')
                 <div class="primary-info-block">
                     <p>
                         Строка поиска адреса расположена на карте. В поисковом поле укажите адрес предполагаемой

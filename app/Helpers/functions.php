@@ -8,6 +8,6 @@ if (!function_exists('isCurrentRoute')) {
      */
     function isCurrentRoute(string $name, array $parameters = [])
     {
-        return url()->current() === route($name, $parameters) ? 'active' : null;
+        return url()->current() === url($name, $parameters) ? 'active' : null;
     }
 }

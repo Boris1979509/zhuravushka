@@ -2,24 +2,31 @@
 
 namespace App\Http\Controllers\Blog;
 
-use Illuminate\Http\Request;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
 
 class PostController extends BaseController
 {
+    /**
+     * @var array $data
+     */
+    protected $data = [];
+
     public function __construct()
     {
         parent::__construct();
+        $this->data['pages'] = $this->pageRepository->getAllPagesNav();
+        $this->data['blogCategories'] = $this->BlogCategories();
+        $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
     }
 
-    public function index(Request $request, $slug)
+    /**
+     * @param string $slug
+     * @return Factory|View
+     */
+    public function index(string $slug)
     {
-        $pages = $this->pageRepository->getAllPages();
-
-        $post = $this->blogPostRepository->getPostBySlug($slug);
-        $page = $post; // title, description
-        $blogCategories = $this->BlogCategories(); // left bar menu
-
-        $shopCategory = $this->shopCategoryRepository->getAllShopCategory();
-        return view('blog.post', compact('post', 'blogCategories', 'page', 'pages', 'shopCategory'));
+        $this->data['post'] = $this->blogPostRepository->getPostBySlug($slug);
+        return view('blog.post', $this->data);
     }
 }

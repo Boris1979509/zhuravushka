@@ -13,15 +13,29 @@ use Illuminate\Support\Facades\Route;
 |
 */
 /* home */
-Route::get('/', 'HomeController@index')->name('home');
+Route::group([
+    'namespace' => 'Pages',
+], static function () {
+    Route::get('/', 'PageController@index')->name('home');
+    Route::group([
+        'prefix' => 'page',
+    ], static function () {
+        Route::get('/uslugi/{slug?}', 'PageController@services')->name('page.service');
+        Route::get('/{slug}', 'PageController@page');
+    });
+});
+
 
 Route::group([
     'namespace' => 'Blog',
 ], static function () {
-    Route::get('page/sovety', 'BlogController@index')->name('page.blog');
-    Route::get('blog/post/{postSlug}', 'PostController@index')->name('blog.post');
-    Route::get('blog/category/{CategorySlug}', 'BlogController@getByCategory')->name('blog.category');
-});
+    Route::get('blog', 'BlogController@index')->name('blog');
+    Route::group([
+        'prefix' => 'blog',
+        'as'     => 'blog.',
+    ], static function () {
+        Route::get('post/{postSlug}', 'PostController@index')->name('post');
+        Route::get('category/{CategorySlug}', 'BlogController@getByCategory')->name('category');
+    });
 
-/* Pages */
-Route::get('page/{pageSlug}/{productId?}', 'PageController@page')->name('page');
+});

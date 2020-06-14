@@ -1,6 +1,6 @@
 /* Start header */
 header {
-    z-index: 2;
+    z-index: 1001;
     /* Start top-bar */
     .top-bar {
         background: $bg-top-bar;
@@ -73,6 +73,7 @@ header {
         background: $bg-sub-header;
         width: 100%;
         box-shadow: 0 6px 8px rgba(0, 0, 0, 0.1);
+        z-index: 3;
 
         &__row {
             justify-content: flex-start;

@@ -2,7 +2,7 @@
     <div class="row">
         <div class="services">
             @if(count($children))
-                @include('layouts.templates.leftSideBar')
+                @include('components.leftSideBar')
             @endif
             <div class="cut-metal">
                 <div class="cut-metal__info-primary">

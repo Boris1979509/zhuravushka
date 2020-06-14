@@ -1,11 +1,11 @@
 @extends('layouts.app')
 
-@section('title', $page->title)
+@section('title', $post->title)
 
-@section('description', $page->description)
+@section('description', $post->excerpt)
 @section('content')
     <div class="container">
-        <h1 class="blog-title">{{ $page->title }}</h1>
+        <h1 class="blog-title">{{ $post->title }}</h1>
         <div class="blog-wrap">
             @include('blog.blog-categories-sideBar')
             <div class="blog">

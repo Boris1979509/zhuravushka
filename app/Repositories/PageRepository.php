@@ -30,16 +30,41 @@ class PageRepository extends CoreRepository
             'slug',
             'title',
         ];
-        $result = $this->startConditions()->select($columns)->where('slug', $slug)->firstOrFail();
+        $result = $this->startConditions()
+            ->select($columns)
+            ->where('slug', $slug)
+            ->firstOrFail();
         return $result;
     }
 
     /**
      * @return Application[]|Collection|\Illuminate\Database\Eloquent\Model[]|mixed[]
      */
-    public function getAllPages()
+    public function getAllPagesNav()
     {
-        $result = $this->startConditions()->where('parent_id', 0)->get();
-        return $result;
+        return $this->startConditions()
+            ->where('parent_id', 0)
+            ->where('page', '<>', 'home')
+            ->get();
+    }
+
+    /**
+     * @param string $slug
+     * @return mixed
+     */
+    public function getPageFirstBySlug(string $slug)
+    {
+        return $this->startConditions()
+            ->where('slug', $slug)->firstOrFail();
+    }
+
+    /**
+     * Load Home page
+     * @return mixed
+     */
+    public function homePage()
+    {
+        return $this->startConditions()
+            ->where('page', 'home')->first();
     }
 }

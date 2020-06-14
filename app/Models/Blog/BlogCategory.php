@@ -49,7 +49,7 @@ class BlogCategory extends Model
     /**
      * @return int|null
      */
-    public function getPostCountAttribute()
+    public function getPostCountAttribute(): ?int
     {
         return $this->posts->count ?? null;
     }

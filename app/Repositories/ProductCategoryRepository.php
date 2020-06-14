@@ -2,11 +2,12 @@
 
 
 namespace App\Repositories;
-use App\Models\Shop\ShopCategory as Model;
+
+use App\Models\Shop\ProductCategory as Model;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Collection;
 
-class ShopCategoryRepository extends CoreRepository
+class ProductCategoryRepository extends CoreRepository
 {
 
     /**
@@ -17,11 +18,21 @@ class ShopCategoryRepository extends CoreRepository
     {
         return Model::class;
     }
+
     /**
      * @return Application[]|Collection|\Illuminate\Database\Eloquent\Model[]|mixed[]
      */
-    public function getAllShopCategory(){
-        $result = $this->startConditions()->all();
-        return $result;
+    public function getAllProductCategories()
+    {
+        $columns = [
+            'id',
+            'title',
+            'slug',
+        ];
+        return $this->startConditions()
+            ->select($columns)
+            ->where('parent_id', 0)
+            ->with('children')
+            ->get();
     }
 }

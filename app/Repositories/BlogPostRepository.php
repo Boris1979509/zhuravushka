@@ -26,7 +26,7 @@ class BlogPostRepository extends CoreRepository
     {
         $result = $this->startConditions()
             ->select($columns)
-            ->where(function ($query) use ($id) {
+            ->where(static function ($query) use ($id) {
                 if (!is_null($id)) {
                     $query->where('category_id', $id);
                 }

@@ -6,21 +6,24 @@
                     <div class="footer__company">
                         <p class="footer__title">О компании</p>
                         <ul class="footer__nav">
-                            @foreach($pages as $key => $value)
-                                <li class="footer__nav-item">
-                                    <a href="{{ $value['alias'] }}" class="link footer__link"
-                                       title="{{ $value['title'] }}">
-                                        {{ $value['title'] }}
-                                    </a>
-                                </li>
+                            @php /** @var Page $pageItem  */use App\Models\Shop\Page;@endphp
+                            @foreach($pages as $key => $pageItem)
+                                @if($key <= 2)
+                                    <li class="footer__nav-item">
+                                        <a href="{{ url('page', $pageItem->slug) }}" class="link footer__link"
+                                           title="{{ $pageItem->title }}">
+                                            {{ $pageItem->title }}
+                                        </a>
+                                    </li>
+                                @endif
                             @endforeach
                         </ul>
                     </div>
                     <div class="footer__catalog">
                         <p class="footer__title">Товары компании</p>
                         <ul class="footer__nav footer_columns">
-                            @php /** @var ShopCategory $categoryItem */use App\Models\Shop\ShopCategory;@endphp
-                            @foreach($shopCategory as $categoryItem)
+                            @php /** @var ProductCategory $categoryItem */use App\Models\Shop\ProductCategory;@endphp
+                            @foreach($productCategories  as $categoryItem)
                                 <li class="footer__nav-item">
                                     <a class="link footer__link" href="" title="">{{ $categoryItem->title }}</a>
                                 </li>

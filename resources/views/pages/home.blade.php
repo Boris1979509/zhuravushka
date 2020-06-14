@@ -1,15 +1,15 @@
 @extends('layouts.app')
-@section('title', 'Главная')
+@section('title', $page->title)
 
-@section('description', 'Описание')
+@section('description', $page->description)
 
 @section('content')
     <div class="container">
         <div class="row">
             <div class="page-top-grid">
-                @include('layouts.templates.barMenu')
+                @include('components.barMenu')
                 <div class="homepage-top-grid__right">
-                    @include('layouts.templates.homepage-slider')
+                    @include('components.homepage-slider')
                 </div>
             </div>
         </div>

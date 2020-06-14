@@ -10,7 +10,7 @@
     <link rel="stylesheet" href="{{ mix('css/app.css', 'build') }}">
 </head>
 <body>
-@include('layouts.templates.header')
+@include('components.header')
 
 {{--@if(url()->current() != url('/'))--}}
 {{--    @php /** @var Breadcrumbs */ @endphp--}}
@@ -23,7 +23,7 @@
 <div class="flex-center position-ref full-height">
     @yield('content')
 </div>
-@include('layouts.templates.footer')
+@include('components.footer')
 <script src="{{ mix('js/app.js', 'build') }}"></script>
 </body>
 </html>

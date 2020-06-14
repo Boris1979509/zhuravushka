@@ -8,12 +8,12 @@
     <div class="container">
         <div class="row">
             <div class="page-top-grid page-content">
-                @include('layouts.templates.pageNavMenu')
+                @include('components.pageNavMenu')
             </div>
         </div>
     </div>
     @include('pages.' . $page->slug)
     <div hidden>
-        @include('layouts.templates.barMenu')
+        @include('components.barMenu')
     </div>
 @endsection

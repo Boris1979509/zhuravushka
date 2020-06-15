@@ -27,7 +27,7 @@ abstract class BaseController extends Controller
     /**
      * @var ProductCategoryRepository
      */
-    protected $shopCategoryRepository;
+    protected $productCategoryRepository;
 
     public function __construct()
     {

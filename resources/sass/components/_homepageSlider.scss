@@ -3,6 +3,7 @@
     width: 100%;
     overflow: hidden;
     position: relative;
+    grid-column: 2 / 4;
 
     &:hover {
         cursor: pointer;

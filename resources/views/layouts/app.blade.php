@@ -25,5 +25,7 @@
 </div>
 @include('components.footer')
 <script src="{{ mix('js/app.js', 'build') }}"></script>
+<script src="{{ asset('plugins/glider.min.js') }}"></script>
+@yield('scripts')
 </body>
 </html>

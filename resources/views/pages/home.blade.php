@@ -8,23 +8,28 @@
         <div class="page-top-grid">
             @include('components.barMenu')
             @include('components.homepage-slider')
-            @include('components.glider-carousel')
+            @include('components.homepage-top-tabs-category')
         </div>
     </div>
+    @include('components.banner')
+    @include('components.leaderSales')
 @endsection
 @section('scripts')
     <script>
-        new Glider(document.querySelector('.glider'), {
-            itemWidth: 'auto',
-            slidesToShow: 4, // auto
-            slidesToScroll: 4, // auto
+        const all = document.querySelectorAll('.glider');
+        Array.from(all, (item) => {
+            new Glider(item, {
+                //itemWidth: 'auto',
+                slidesToShow: 4, // auto
+                slidesToScroll: 4, // auto
 
-            draggable: true,
-            //dots: '.dots',
-            arrows: {
-                prev: '.glider-prev',
-                next: '.glider-next'
-            }
+                draggable: true,
+                //dots: '.dots',
+                arrows: {
+                    prev: '.glider-prev',
+                    next: '.glider-next'
+                }
+            });
         });
     </script>
 @endsection

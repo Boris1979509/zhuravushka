@@ -1,0 +1,26 @@
+.card {
+    position: relative;
+
+    &__title{
+        margin: 15px 0 20px 0;
+    }
+    &__link {
+        font-weight: bold;
+        font-size: 18px;
+        line-height: 1.2;
+        letter-spacing: $letter-spacing-min;
+        color: $color-card;
+        transition: color .5s;
+
+        &:hover {
+            color: $color-card-hover;
+        }
+
+    }
+
+    &__price {
+        font-size: 24px;
+        line-height: 31px;
+        color: #FC8507;
+    }
+}

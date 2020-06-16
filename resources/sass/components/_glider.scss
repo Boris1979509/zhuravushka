@@ -49,6 +49,8 @@
         user-select: none;
         background: #fff;
         min-width: 170px;
+        padding: 30px;
+        border-left: 1px solid #CCCCCC;
 
     }
 
@@ -74,8 +76,7 @@
     border-width: 0;
 
     &:hover:not(.disabled) {
-        background: #fc8908;
-        color: #fff;
+        background: $bg-top-bar;
     }
 }
 
@@ -89,12 +90,32 @@
 }
 
 .glider-next {
+    &:after {
+        @include arrow('arrow.svg', -180deg);
+    }
+
+    &:hover:not(.disabled) {
+        &:after {
+            @include arrow('arrow-hover.svg', 0);
+        }
+    }
+
     right: -30px;
     left: auto;
     //transform: translateX(10px) translateY(calc(20px - 50%));
 }
 
 .glider-prev {
+    &:after {
+        @include arrow('arrow.svg', 0);
+    }
+
+    &:hover:not(.disabled) {
+        &:after {
+            @include arrow('arrow-hover.svg', -180deg);
+        }
+    }
+
     left: -30px;
     right: auto;
     //transform: translateX(-10px) translateY(calc(20px - 50%));

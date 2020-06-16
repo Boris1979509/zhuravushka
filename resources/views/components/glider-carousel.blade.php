@@ -1,44 +1,71 @@
 <div class="glider-contain">
     <div class="glider">
         <div>
-            <img src="{{ asset('images/product-item.png') }}" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium aliquid aspernatur beatae
-                consequuntur corporis, cum doloremque eius facilis id magnam magni maiores nam numquam quam quidem
-                quisquam quo repellendus saepe similique soluta temporibus totam ut vel voluptate. Cum deleniti dolor
-                expedita harum, illum iure iusto molestiae rem repudiandae ut?</p>
+            <div class="card">
+                <img src="{{ asset('images/product-item.png') }}" class="card__img-top" alt="">
+                <p class="card__title">
+                    <a href="" class="link card__link">Дрель-шуруповерт сетевой Makita FS4300</a>
+                </p>
+                <p class="card__price">от 2 395 ₽</p>
+            </div>
         </div>
         <div>
-            <img src="{{ asset('images/product-item.png') }}" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium aliquid aspernatur beatae
-                consequuntur corporis, cum doloremque eius facilis id magnam magni maiores nam numquam quam quidem
-                quisquam quo repellendus saepe similique soluta temporibus totam ut vel voluptate. Cum deleniti dolor
-                expedita harum, illum iure iusto molestiae rem repudiandae ut?</p>
+            <div class="card">
+                <img src="{{ asset('images/product-item.png') }}" class="card__img-top" alt="">
+                <p class="card__title">
+                    <a href="" class="link card__link">Дрель-шуруповерт сетевой Makita FS4300</a>
+                </p>
+                <p class="card__price">от 2 395 ₽</p>
+            </div>
         </div>
         <div>
-            <img src="{{ asset('images/product-item.png') }}" alt="">
+            <div class="card">
+                <img src="{{ asset('images/product-item.png') }}" class="card__img-top" alt="">
+                <p class="card__title">
+                    <a href="" class="link card__link">Дрель-шуруповерт сетевой Makita FS4300</a>
+                </p>
+                <p class="card__price">от 2 395 ₽</p>
+            </div>
         </div>
         <div>
-            <img src="{{ asset('images/product-item.png') }}" alt="">
+            <div class="card">
+                <img src="{{ asset('images/product-item.png') }}" class="card__img-top" alt="">
+                <p class="card__title">
+                    <a href="" class="link card__link">Дрель-шуруповерт сетевой Makita FS4300</a>
+                </p>
+                <p class="card__price">от 2 395 ₽</p>
+            </div>
         </div>
         <div>
-            <img src="{{ asset('images/product-item.png') }}" alt="">
+            <div class="card">
+                <img src="{{ asset('images/product-item.png') }}" class="card__img-top" alt="">
+                <p class="card__title">
+                    <a href="" class="link card__link">Дрель-шуруповерт сетевой Makita FS4300</a>
+                </p>
+                <p class="card__price">от 2 395 ₽</p>
+            </div>
         </div>
         <div>
-            <img src="{{ asset('images/product-item.png') }}" alt="">
-            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. A accusantium aliquid aspernatur beatae
-                consequuntur corporis, cum doloremque eius facilis id magnam magni maiores nam numquam quam quidem
-                quisquam quo repellendus saepe similique soluta temporibus totam ut vel voluptate. Cum deleniti dolor
-                expedita harum, illum iure iusto molestiae rem repudiandae ut?</p>
+            <div class="card">
+                <img src="{{ asset('images/product-item.png') }}" class="card__img-top" alt="">
+                <p class="card__title">
+                    <a href="" class="link card__link">Дрель-шуруповерт сетевой Makita FS4300</a>
+                </p>
+                <p class="card__price">от 2 395 ₽</p>
+            </div>
         </div>
         <div>
-            <img src="{{ asset('images/product-item.png') }}" alt="">
-        </div>
-        <div>
-            <img src="{{ asset('images/product-item.png') }}" alt="">
+            <div class="card">
+                <img src="{{ asset('images/product-item.png') }}" class="card__img-top" alt="">
+                <p class="card__title">
+                    <a href="" class="link card__link">Дрель-шуруповерт сетевой Makita FS4300</a>
+                </p>
+                <p class="card__price">от 2 395 ₽</p>
+            </div>
         </div>
     </div>
 
-    <button aria-label="Previous" class="glider-prev">&#10094;</button>
-    <button aria-label="Next" class="glider-next">&#10095;</button>
+    <button aria-label="Previous" class="glider-prev"></button>
+    <button aria-label="Next" class="glider-next"></button>
     <div role="tablist" class="dots"></div>
 </div>

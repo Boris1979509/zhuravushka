@@ -190,3 +190,16 @@
     }
 }
 
+/**
+Arrow carousel
+ */
+@mixin arrow($iconName, $deg) {
+    content: "";
+    background: url('../../images/icons/#{ $iconName }') no-repeat;
+    width: 24px;
+    height: 24px;
+    display: block;
+    margin: 0 auto;
+    transform: rotateY($deg);
+}
+

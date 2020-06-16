@@ -23,7 +23,7 @@
         border-radius: 50%;
         position: absolute;
         z-index: 1;
-        top: 40%;
+        top: calc((100% - 60px) / 2);
         outline: none;
         opacity: 0;
         //transition: opacity .3s ease, transform .3s;
@@ -40,12 +40,32 @@
     }
 
     &__next {
+        &:after {
+            @include arrow('arrow.svg', -180deg);
+        }
+
+        &:hover:not(.disabled) {
+            &:after {
+                @include arrow('arrow-hover.svg', 0);
+            }
+        }
+
         right: .5rem;
         left: auto;
         transform: translateX(10px) translateY(calc(20px - 50%));
     }
 
     &__prev {
+        &:after {
+            @include arrow('arrow.svg', 0);
+        }
+
+        &:hover:not(.disabled) {
+            &:after {
+                @include arrow('arrow-hover.svg', -180deg);
+            }
+        }
+
         left: .5rem;
         right: auto;
         transform: translateX(-10px) translateY(calc(20px - 50%));

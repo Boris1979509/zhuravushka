@@ -42,19 +42,20 @@
                                     <div class="price">
                                         <div class="price__item">
                                             <p class="price__title-old">Старая цена</p>
-                                            <span class="bold price__old">282 ₽</span>
+                                            <span class="price__old">282</span>
+                                            <span class="rub">₽</span>
                                         </div>
                                         <div class="price__item">
                                             <p class="price__title-new">Новая цена</p>
-                                            <span class="bold price__new">272 ₽</span>
+                                            <span class="bold price__new">272&nbsp;₽</span>
                                             <span class="last-text-new">за шт.</span>
                                         </div>
                                     </div>
                                     <div class="product-qty">
                                         <div class="product-qty__qty">
-                                            <span class="product-qty__minus">—</span>
+                                            <span class="product-qty__minus"></span>
                                             <input type="text" class="product-qty__input" value="12 500">
-                                            <span class="product-qty__plus">+</span>
+                                            <span class="product-qty__plus"></span>
                                         </div>
 {{--                                        <button class="btn btn-active product-qty__btn">--}}
 {{--                                            В корзину--}}
@@ -100,19 +101,20 @@
                                     <div class="price">
                                         <div class="price__item">
                                             <p class="price__title-old">Старая цена</p>
-                                            <span class="bold price__old">282 ₽</span>
+                                            <span class="price__old">282</span>
+                                            <span class="rub">₽</span>
                                         </div>
                                         <div class="price__item">
                                             <p class="price__title-new">Новая цена</p>
-                                            <span class="bold price__new">272 ₽</span>
+                                            <span class="bold price__new">272&nbsp;₽</span>
                                             <span class="last-text-new">за шт.</span>
                                         </div>
                                     </div>
                                     <div class="product-qty">
                                         <div class="product-qty__qty">
-                                            <span class="product-qty__minus">—</span>
-                                            <input type="text" class="product-qty__input">
-                                            <span class="product-qty__plus">+</span>
+                                            <span class="product-qty__minus"></span>
+                                            <input type="text" class="product-qty__input" value="12 500">
+                                            <span class="product-qty__plus"></span>
                                         </div>
                                         {{--                                        <button class="btn btn-active product-qty__btn">--}}
                                         {{--                                            В корзину--}}
@@ -158,19 +160,20 @@
                                     <div class="price">
                                         <div class="price__item">
                                             <p class="price__title-old">Старая цена</p>
-                                            <span class="bold price__old">282 ₽</span>
+                                            <span class="price__old">282</span>
+                                            <span class="rub">₽</span>
                                         </div>
                                         <div class="price__item">
                                             <p class="price__title-new">Новая цена</p>
-                                            <span class="bold price__new">272 ₽</span>
+                                            <span class="bold price__new">272&nbsp;₽</span>
                                             <span class="last-text-new">за шт.</span>
                                         </div>
                                     </div>
                                     <div class="product-qty">
                                         <div class="product-qty__qty">
-                                            <span class="product-qty__minus">—</span>
-                                            <input type="text" class="product-qty__input">
-                                            <span class="product-qty__plus">+</span>
+                                            <span class="product-qty__minus"></span>
+                                            <input type="text" class="product-qty__input" value="12 500">
+                                            <span class="product-qty__plus"></span>
                                         </div>
                                         {{--                                        <button class="btn btn-active product-qty__btn">--}}
                                         {{--                                            В корзину--}}
@@ -216,19 +219,20 @@
                                     <div class="price">
                                         <div class="price__item">
                                             <p class="price__title-old">Старая цена</p>
-                                            <span class="bold price__old">282 ₽</span>
+                                            <span class="price__old">282</span>
+                                            <span class="rub">₽</span>
                                         </div>
                                         <div class="price__item">
                                             <p class="price__title-new">Новая цена</p>
-                                            <span class="bold price__new">272 ₽</span>
+                                            <span class="bold price__new">272&nbsp;₽</span>
                                             <span class="last-text-new">за шт.</span>
                                         </div>
                                     </div>
                                     <div class="product-qty">
                                         <div class="product-qty__qty">
-                                            <span class="product-qty__minus">—</span>
-                                            <input type="text" class="product-qty__input">
-                                            <span class="product-qty__plus">+</span>
+                                            <span class="product-qty__minus"></span>
+                                            <input type="text" class="product-qty__input" value="12 500">
+                                            <span class="product-qty__plus"></span>
                                         </div>
                                         {{--                                        <button class="btn btn-active product-qty__btn">--}}
                                         {{--                                            В корзину--}}
@@ -274,19 +278,20 @@
                                     <div class="price">
                                         <div class="price__item">
                                             <p class="price__title-old">Старая цена</p>
-                                            <span class="bold price__old">282 ₽</span>
+                                            <span class="price__old">282</span>
+                                            <span class="rub">₽</span>
                                         </div>
                                         <div class="price__item">
                                             <p class="price__title-new">Новая цена</p>
-                                            <span class="bold price__new">272 ₽</span>
+                                            <span class="bold price__new">272&nbsp;₽</span>
                                             <span class="last-text-new">за шт.</span>
                                         </div>
                                     </div>
                                     <div class="product-qty">
                                         <div class="product-qty__qty">
-                                            <span class="product-qty__minus">—</span>
-                                            <input type="text" class="product-qty__input">
-                                            <span class="product-qty__plus">+</span>
+                                            <span class="product-qty__minus"></span>
+                                            <input type="text" class="product-qty__input" value="12 500">
+                                            <span class="product-qty__plus"></span>
                                         </div>
                                         {{--                                        <button class="btn btn-active product-qty__btn">--}}
                                         {{--                                            В корзину--}}
@@ -332,19 +337,20 @@
                                     <div class="price">
                                         <div class="price__item">
                                             <p class="price__title-old">Старая цена</p>
-                                            <span class="bold price__old">282 ₽</span>
+                                            <span class="price__old">282</span>
+                                            <span class="rub">₽</span>
                                         </div>
                                         <div class="price__item">
                                             <p class="price__title-new">Новая цена</p>
-                                            <span class="bold price__new">272 ₽</span>
+                                            <span class="bold price__new">272&nbsp;₽</span>
                                             <span class="last-text-new">за шт.</span>
                                         </div>
                                     </div>
                                     <div class="product-qty">
                                         <div class="product-qty__qty">
-                                            <span class="product-qty__minus">—</span>
-                                            <input type="text" class="product-qty__input">
-                                            <span class="product-qty__plus">+</span>
+                                            <span class="product-qty__minus"></span>
+                                            <input type="text" class="product-qty__input" value="12 500">
+                                            <span class="product-qty__plus"></span>
                                         </div>
                                         {{--                                        <button class="btn btn-active product-qty__btn">--}}
                                         {{--                                            В корзину--}}
@@ -390,19 +396,20 @@
                                     <div class="price">
                                         <div class="price__item">
                                             <p class="price__title-old">Старая цена</p>
-                                            <span class="bold price__old">282 ₽</span>
+                                            <span class="price__old">282</span>
+                                            <span class="rub">₽</span>
                                         </div>
                                         <div class="price__item">
                                             <p class="price__title-new">Новая цена</p>
-                                            <span class="bold price__new">272 ₽</span>
+                                            <span class="bold price__new">272&nbsp;₽</span>
                                             <span class="last-text-new">за шт.</span>
                                         </div>
                                     </div>
                                     <div class="product-qty">
                                         <div class="product-qty__qty">
-                                            <span class="product-qty__minus">—</span>
-                                            <input type="text" class="product-qty__input">
-                                            <span class="product-qty__plus">+</span>
+                                            <span class="product-qty__minus"></span>
+                                            <input type="text" class="product-qty__input" value="12 500">
+                                            <span class="product-qty__plus"></span>
                                         </div>
                                         {{--                                        <button class="btn btn-active product-qty__btn">--}}
                                         {{--                                            В корзину--}}

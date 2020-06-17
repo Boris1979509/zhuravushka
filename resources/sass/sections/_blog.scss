@@ -1,7 +1,7 @@
 %templateFontStyle {
     font-size: 1.125rem;
     line-height: 1.6;
-    letter-spacing: $letter-spacing-max;
+    letter-spacing: $letter-spacing-4;
     color: $color-body-default;
 }
 
@@ -26,7 +26,7 @@
 .post-count {
     font-size: 1rem !important;
     line-height: 1.2;
-    letter-spacing: $letter-spacing-max;
+    letter-spacing: $letter-spacing-4;
     color: #B0B0B0;
     vertical-align: top;
 }

@@ -12,24 +12,5 @@
         </div>
     </div>
     @include('components.banner')
-{{--    @include('components.leaderSales')--}}
-@endsection
-@section('scripts')
-    <script>
-        // const all = document.querySelectorAll('.glider');
-        // Array.from(all, (item) => {
-        //     new Glider(item, {
-        //         //itemWidth: 'auto',
-        //         slidesToShow: 4, // auto
-        //         slidesToScroll: 4, // auto
-        //
-        //         draggable: true,
-        //         //dots: '.dots',
-        //         arrows: {
-        //             prev: '.glider-prev',
-        //             next: '.glider-next'
-        //         }
-        //     });
-        // });
-    </script>
+    @include('components.leaderSales')
 @endsection

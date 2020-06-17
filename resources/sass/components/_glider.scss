@@ -1,11 +1,8 @@
-.page-top-grid {
-    .glider-contain {
-        max-width: 860px;
-        position: relative;
-        margin: 0 auto;
-        padding: 0;
-        //height: 100vh;
-    }
+.glider-contain {
+    position: relative;
+    margin: 0 auto;
+    padding: 0;
+    //height: 100vh;
 }
 
 .glider {
@@ -36,22 +33,13 @@
                 user-select: none;
                 pointer-events: none;
                 height: auto;
-                min-width: 170px;
+                // min-width: 170px;
             }
         }
     }
 
     &.drag {
         cursor: grabbing;
-    }
-
-    .glider-slide {
-        user-select: none;
-        background: #fff;
-        min-width: 170px;
-        padding: 30px;
-        border-left: 1px solid #CCCCCC;
-
     }
 
     &::-webkit-scrollbar {

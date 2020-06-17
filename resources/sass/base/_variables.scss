@@ -3,8 +3,9 @@ $font-pt-sans: 'PTSansRegular';
 $font-segoe-ui: 'SegoeUI';
 $font-size: 1rem;
 $color-body-default: #404040;
-$letter-spacing-max: 0.04em;
-$letter-spacing-min: 0.02em;
+$letter-spacing-4: 0.04em;
+$letter-spacing-2: 0.02em;
+$letter-spacing-3: 0.03em;
 
 //colors
 $bg-color: #E5E5E5;
@@ -63,9 +64,15 @@ $bg-paginator-page-item: #F2F2F2;
 $color-paginator: #7A7A7A;
 
 // Card
+$bg-card: #fff;
 $color-card: #282828;
 $color-card-hover: #0075D2;
+$color-card-price: #FC8507;
+$color-card-old-price: #8A8A8A;
+$bg-card-icon-active: #FC8507;
 
 // Tabs border
 $border-tab-active-bottom: #282828;
 $color-tabs-nav: #282828;
+
+

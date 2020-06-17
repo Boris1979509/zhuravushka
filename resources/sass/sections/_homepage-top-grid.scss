@@ -4,6 +4,26 @@
     grid-template-columns: 280px 1fr 1fr;
     background: $bg-homepage-top-grid-menu;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+
+    .glider-contain {
+        max-width: 860px;
+    }
+
+    .homepage-top-tabs-category {
+        .card {
+            margin-top: -1px;
+            margin-bottom: -1px;
+
+            &:last-child {
+                margin-right: 0;
+                border-right: 0;
+            }
+
+            &__price {
+                margin-top: 20px;
+            }
+        }
+    }
 }
 
 #catalogMenu {

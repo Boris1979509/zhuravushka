@@ -91,12 +91,14 @@
 
         .product-qty {
             margin-top: 15px;
+            position: relative;
 
             &__qty {
                 width: 100%;
                 user-select: none;
                 position: relative;
                 border-radius: 0 4px 4px 0;
+
             }
 
             &__minus {
@@ -193,4 +195,36 @@
         }
     }
 
+    .btn-add {
+        font-style: normal;
+        font-weight: bold;
+        font-size: 14px;
+        line-height: 2.3;
+        letter-spacing: 0.06em;
+        text-transform: uppercase;
+        color: #FFFFFF;
+        text-decoration: none;
+        position: absolute;
+        left: 0;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        opacity: 1;
+        visibility: visible;
+
+        &:after {
+            content: "";
+            background: url('../../images/icons/card/add-card-icon.svg') no-repeat;
+            height: 20px;
+            width: 20px;
+            display: inline-block;
+            vertical-align: middle;
+            margin-left: 20px;
+        }
+
+        &.btn-hide {
+            opacity: 0;
+            visibility: hidden;
+        }
+    }
 }

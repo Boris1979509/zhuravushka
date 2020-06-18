@@ -12,21 +12,19 @@
 <body>
 @include('components.header')
 
-{{--@if(url()->current() != url('/'))--}}
-{{--    @php /** @var Breadcrumbs */ @endphp--}}
-{{--    <div class="container">--}}
-{{--        <div class="row">--}}
-{{--            {{ Breadcrumbs::render() }}--}}
-{{--        </div>--}}
-{{--    </div>--}}
-{{--@endif--}}
+@if(url()->current() != url('/'))
+    @php /** @var Breadcrumbs */ @endphp
+    <div class="container">
+        <div class="row">
+            {{ Breadcrumbs::render() }}
+        </div>
+    </div>
+@endif
 <div class="flex-center position-ref full-height">
     @yield('content')
 </div>
 @include('components.footer')
 <script src="{{ asset('plugins/glider.min.js') }}"></script>
 <script src="{{ mix('js/app.js', 'build') }}"></script>
-
-@yield('scripts')
 </body>
 </html>

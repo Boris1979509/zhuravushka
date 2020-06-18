@@ -60,7 +60,7 @@ h1 {
 }
 
 /* button */
-button, span {
+button, span, a {
     &.btn {
         display: inline-block;
         font-weight: bold;
@@ -84,6 +84,7 @@ button, span {
 
         &:hover {
             background: $bg-color-btn-active-hover;
+            box-shadow: 0 4px 8px rgba(255, 163, 65, 0.4);
             cursor: pointer;
         }
     }

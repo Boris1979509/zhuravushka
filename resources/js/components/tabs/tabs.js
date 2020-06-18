@@ -12,7 +12,7 @@ const tab = {
 
         // Error checking
         if (tab.nav.length === 0 || tab.txt.length === 0 || tab.nav.length !== tab.txt.length) {
-            console.log("ERROR STARTING TABS");
+            return;
         } else {
             // Attach onclick events to navigation tabs
 
@@ -46,6 +46,7 @@ const tab = {
         tab.glider();
     },
     glider: function () {
+        if (!tab.gl) return;
         const glider = new Glider(tab.gl, {
             //itemWidth: 'auto',
             slidesToShow: 4, // auto

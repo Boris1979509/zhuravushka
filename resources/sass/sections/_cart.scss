@@ -1,0 +1,178 @@
+%templateCountButton {
+    background: #F2F2F2;
+    border: 1px solid #D9D9D9;
+    border-radius: 0 4px 4px 0;
+    padding: 11px;
+    position: absolute;
+    top: 0;
+    cursor: pointer;
+    transition: all .3s;
+    bottom: 0;
+
+    &:hover {
+        background: #FC8507;
+        border: 1px solid #FC8507;
+    }
+}
+
+.cart-wrap {
+    display: grid;
+    grid-template-columns: 70% auto;
+    grid-template-areas: "Cart Total" "Cart Info";
+    gap: 40px;
+
+    .cart {
+
+        $self: &;
+        grid-area: Cart;
+
+        &__product {
+            display: flex;
+            background: #FFFFFF;
+            border: 1px solid #CCCCCC;
+            margin-bottom: -1px;
+            padding: 30px 30px 30px 22px;
+            flex-wrap: wrap;
+            justify-content: space-between;
+        }
+
+        &__img {
+            background: #FFFFFF;
+            border: 1px solid #CCCCCC;
+            padding: 13px 34px;
+        }
+
+        &__count {
+            .count {
+                display: inline-block;
+                position: relative;
+
+                .count__minus {
+                    @extend %templateCountButton;
+                    transform: matrix(-1, 0, 0, 1, 0, 0);
+                    left: 0;
+
+                    &:hover {
+                        path {
+                            fill: #fff;
+                        }
+                    }
+                }
+
+                .count__plus {
+
+                    @extend %templateCountButton;
+                    right: 0;
+
+                    &:hover {
+                        path {
+                            fill: #fff;
+                        }
+                    }
+
+                }
+
+                .count__input {
+                    max-width: 145px;
+                    height: 36px;
+                    border: 1px solid #D9D9D9;
+                    text-align: center;
+                    padding: 0;
+                    border-radius: 4px;
+                }
+            }
+
+            .qty-goods {
+                font-size: 0.875rem;
+                line-height: 1;
+                letter-spacing: $letter-spacing-4;
+
+                &__balance {
+                    margin-top: 12px;
+                    color: #005AA7;
+                }
+
+                &__order {
+                    margin-top: 6px;
+                    color: inherit;
+                }
+
+            }
+        }
+
+        &__sum {
+            font-weight: bold;
+            font-size: 1.75rem;
+            letter-spacing: $letter-spacing-4;
+            color: inherit;
+            white-space: nowrap;
+
+            .order {
+                font-size: 0.875rem;
+                margin-top: 6px;
+                color: inherit;
+                font-weight: normal;
+            }
+        }
+
+        &__name {
+            max-width: 30%;
+        }
+
+        &__name-link {
+            font-weight: bold;
+            font-size: 1.125rem;
+            line-height: 1.5;
+            letter-spacing: 0.03em;
+            color: #404040;
+            transition: color .3s;
+
+            &:hover {
+                color: #FC8507;
+            }
+        }
+
+        &__del {
+            align-self: center;
+
+            &:hover {
+                path {
+                    fill: #FC8507;
+                }
+            }
+        }
+
+    }
+
+    .cart-total-wrap {
+        background: #FFFFFF;
+        border: 1px solid #CCCCCC;
+        padding: 30px;
+        grid-area: Total;
+
+        .checkout-wrap {
+            .cart-sale, .cart-total {
+                display: flex;
+                justify-content: space-between;
+            }
+
+            .cart-checkout {
+                &__btn {
+                    width: 100%;
+                    margin-top: 20px;
+                }
+            }
+        }
+
+    }
+
+    .primary-info {
+        background: #F8F8F8;
+        border: 1px solid #CCCCCC;
+        padding: 30px;
+        grid-area: Info;
+        line-height: 1.5;
+        letter-spacing: $letter-spacing-3;
+    }
+
+}

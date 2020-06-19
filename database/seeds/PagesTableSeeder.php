@@ -20,6 +20,7 @@ class PagesTableSeeder extends Seeder
             ['title' => 'Контакты', 'page' => 'contacts'],
             ['title' => 'Поставщики', 'page' => 'providers'],
             ['title' => 'Реквизиты', 'page' => 'requisites'],
+            ['title' => 'Акции', 'page' => 'stocks'],
             ['title' => 'Доставка и оплата', 'page' => 'delivery_and_payment', 'parent_id' => 3],
             ['title' => 'Резка металла', 'page' => 'cut_metal', 'parent_id' => 3],
             ['title' => 'Прокат', 'page' => 'rental', 'parent_id' => 3],

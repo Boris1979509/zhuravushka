@@ -32,10 +32,15 @@ Route::group([
     Route::get('blog', 'BlogController@index')->name('blog');
     Route::group([
         'prefix' => 'blog',
-        'as'     => 'blog.',
+        'as' => 'blog.',
     ], static function () {
         Route::get('post/{postSlug}', 'PostController@index')->name('post');
         Route::get('category/{CategorySlug}', 'BlogController@getByCategory')->name('category');
     });
-
+});
+// cart
+Route::group([
+    'namespace' => 'Shop',
+], static function () {
+    Route::get('cart', 'CartController@index')->name('cart');
 });

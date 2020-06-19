@@ -38,3 +38,9 @@ Breadcrumbs::for('page', static function (Generator $trail, $pageSlug) {
     $page = app(Page::class)->getPageFirstBySlug($pageSlug);
     $trail->push($page->title, route('page', $page->slug));
 });
+// User Cart
+// Any Page
+Breadcrumbs::for('cart', static function (Generator $trail) {
+    $trail->parent('home');
+    $trail->push('Корзина товаров', route('cart'));
+});

@@ -1,8 +1,8 @@
 /**
  *
- * @param item
+ * @type {getPreloadCard}
  */
-getPreloadCard = (item) => {
+window.exports = getPreloadCard = (item) => {
     if (!item) return;
     const preloadElement = document.createElement("div");
     preloadElement.classList.add('lds-dual-ring');
@@ -12,5 +12,3 @@ getPreloadCard = (item) => {
         preloadElement.remove();
     }, 600);
 }
-
-window.exports = getPreloadCard;

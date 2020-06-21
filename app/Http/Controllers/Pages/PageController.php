@@ -18,6 +18,7 @@ class PageController extends BaseController
         parent::__construct();
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
+        $this->data['products'] = $this->productRepository->getAllProducts();
     }
 
     /**

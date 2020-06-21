@@ -65,6 +65,6 @@ class PageRepository extends CoreRepository
     public function homePage()
     {
         return $this->startConditions()
-            ->where('page', 'home')->first();
+            ->where('page', 'home')->firstOrFail();
     }
 }

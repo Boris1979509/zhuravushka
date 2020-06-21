@@ -32,7 +32,7 @@ Route::group([
     Route::get('blog', 'BlogController@index')->name('blog');
     Route::group([
         'prefix' => 'blog',
-        'as' => 'blog.',
+        'as'     => 'blog.',
     ], static function () {
         Route::get('post/{postSlug}', 'PostController@index')->name('post');
         Route::get('category/{CategorySlug}', 'BlogController@getByCategory')->name('category');
@@ -43,4 +43,12 @@ Route::group([
     'namespace' => 'Shop',
 ], static function () {
     Route::get('cart', 'CartController@index')->name('cart');
+    Route::get('category/{categorySlug}', 'ProductCategoryController@index')->name('category');
+    Route::get('product/{code}', 'ProductController@index')->name('product');
+    Route::group([
+        'as'     => 'cart.',
+        'prefix' => 'cart',
+    ], static function () {
+        Route::post('add/{id}', 'CartController@add')->name('add');
+    });
 });

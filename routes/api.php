@@ -14,6 +14,16 @@ use Illuminate\Support\Facades\Route;
 |
 */
 
-Route::middleware('auth:api')->get('/user', function (Request $request) {
+Route::middleware('auth:api')->get('/user', static function (Request $request) {
     return $request->user();
 });
+
+// Add to cart
+//Route::group([
+//    'namespace' => 'Shop',
+//    'as' => 'cart.',
+//    'prefix' => 'cart',
+//    'middleware' => 'auth:api',
+//], static function () {
+//    Route::post('add/{id}', 'CartController@add')->name('add');
+//});

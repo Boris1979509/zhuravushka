@@ -25,6 +25,7 @@ class ProductCategory extends Model
         'parent_id',
         'description',
     ];
+
     /**
      * @return BelongsTo
      */
@@ -39,5 +40,13 @@ class ProductCategory extends Model
     public function children(): HasMany
     {
         return $this->hasMany(self::class, 'parent_id', 'id');
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function products(): HasMany
+    {
+        return $this->hasMany(Product::class);
     }
 }

@@ -2,10 +2,15 @@
 
 namespace App\Http\Controllers\Shop;
 
-use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
 
-class ProductCategoryController extends Controller
+class ProductCategoryController extends BaseController
 {
-    //
+    /**
+     * @param $category
+     */
+    public function index($category)
+    {
+        dd($category);
+    }
 }

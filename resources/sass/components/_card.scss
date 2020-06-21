@@ -6,6 +6,8 @@
 
     &__title {
         margin-top: 15px;
+        max-height: 50px;
+        min-height: 50px;
     }
 
     &__link {
@@ -196,6 +198,7 @@
     }
 
     .btn-add {
+        width: 100%;
         font-style: normal;
         font-weight: bold;
         font-size: 14px;
@@ -225,6 +228,7 @@
         &.btn-hide {
             opacity: 0;
             visibility: hidden;
+            display: none;
         }
     }
 }

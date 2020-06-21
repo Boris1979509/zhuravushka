@@ -14,7 +14,7 @@ class CreateProductCategoriesTable extends Migration
     public function up(): void
     {
         Schema::create('product_categories', static function (Blueprint $table) {
-            $table->bigIncrements('id');
+            $table->id();
             $table->string('title')->unique();
             $table->string('slug');
             $table->text('description')->nullable();

@@ -23,9 +23,9 @@ class CartController extends BaseController
 
     public function index()
     {
-        $this->data['page']['title'] = 'Корзина товаров';
         $orderId = session()->get('orderId');
-        $this->data['order'] = Order::findOrFail($orderId);
+        $this->data['order'] = $this->orderRepository->find($orderId);
+
         return view('shop.userCart', $this->data);
     }
 
@@ -40,11 +40,12 @@ class CartController extends BaseController
 
         $orderId = session()->get('orderId');
         if (is_null($orderId)) {
-            $order = Order::create();
+            $order = $this->orderRepository->create();
             session()->put(['orderId' => $order->id]);
         } else {
-            $order = Order::find($orderId);
+            $order = $this->orderRepository->find($orderId);
         }
+        // соединить модели
         $order->products()->attach($product);
 //        $cart = session()->has('cart') ? session()->get('cart') : [];
 //        if (array_key_exists($product->id, $cart)) {
@@ -61,7 +62,7 @@ class CartController extends BaseController
 //        session()->flash('message', $product->title.' added to cart.');
 
         $this->data['order'] = $order;
-        $this->data['message'] = $product->title.' added to cart.';
+        $this->data['message'] = $product->title . ' added to cart.';
         return response()->json($this->data);
     }
 }

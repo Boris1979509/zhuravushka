@@ -40,4 +40,17 @@ class ProductRepository extends CoreRepository
         return $this->startConditions()
             ->findOrFail($product);
     }
+
+    /**
+     * @param $code
+     * @return mixed
+     */
+    public function getCodeFirst($code)
+    {
+        $columns = ['*'];
+        return $this->startConditions()
+            ->select($columns)
+            ->with('category')
+            ->where('code', $code)->first();
+    }
 }

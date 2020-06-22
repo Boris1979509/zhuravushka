@@ -1,22 +1,25 @@
 @extends('layouts.app')
-@section('title', $page['title'])
+@section('title', 'Корзина товаров')
 @section('content')
     <section id="cart">
         <div class="container">
             <h1 class="title">Корзина</h1>
             <div class="cart-wrap">
-                @if($order->count())
+                @php /** @var Product $product*/use App\Models\Shop\Product;@endphp
+                @if(is_null($order))
+                    <p>Ваша корзина пуста.</p>
+                @else
                     <div class="cart">
-                        @foreach ($order->products as $item)
+                        @foreach ($order->products as $product)
                             <div class="cart__product">
                                 <div class="cart__img">
                                     <a href="" target="_blank">
-                                        <img src="{{ asset($item->photo) }}" alt="" class="cart__image">
+                                        <img src="{{ asset($product->photo) }}" alt="{{ $product->title }}" class="cart__image">
                                     </a>
                                 </div>
                                 <div class="cart__name">
                                     <a href="" target="_blank" class="link cart__name-link">
-                                        {{ $item->title }}
+                                        {{ $product->title }}
                                     </a>
                                 </div>
                                 <div class="cart__count">
@@ -46,7 +49,7 @@
 
                                 </div>
                                 <div class="cart__sum">
-                                    <p class="cart__sum-price">{{ $item->price }} <span class="rub">₽</span></p>
+                                    <p class="cart__sum-price">{{ $product->price }} <span class="rub">₽</span></p>
                                     <p class="order">+25 шт. x 35 ₽</p>
                                 </div>
                                 <div title="Убрать из корзины" class="cart__del">
@@ -71,11 +74,11 @@
                         <div class="checkout-wrap">
                             <div class="cart-sale">
                                 <p class="cart-total-wrap__title">Скидка:</p>
-                                <p class="cart-total-wrap__total-price">1 000<span class="rub"></span></p>
+                                <p class="cart-total-wrap__total-price">1 000 <span class="rub">₽</span></p>
                             </div>
                             <div class="cart-total">
-                                <p class="cart-total-wrap__title">Итого:</p>
-                                <p class="cart-total-wrap__total-price">1 500<span class="rub">₽</span></p>
+                                <p class="cart-total-wrap__title bold">Итого:</p>
+                                <p class="cart-total-wrap__total-price bold">1 500 <span class="rub">₽</span></p>
                             </div>
                             <div class="cart-checkout">
                                 <button class="btn btn-active cart-checkout__btn">Оформить заказ</button>
@@ -86,8 +89,6 @@
                         <p>В Вашей корзине есть товар с пометкой "Под заказ", в связи с этим срок доставки может
                             измениться.</p>
                     </div>
-                @else
-                    <p>Ваша корзина пуста.</p>
                 @endif
             </div>
         </div>

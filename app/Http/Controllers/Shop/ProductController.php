@@ -2,13 +2,31 @@
 
 namespace App\Http\Controllers\Shop;
 
-use App\Http\Controllers\Controller;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
-class ProductController extends Controller
+class ProductController extends BaseController
 {
-    public function index($code): void
+    /**
+     * @var array $data
+     */
+    protected $data = [];
+
+    public function __construct()
     {
-        dd($code);
+        parent::__construct();
+        $this->data['pages'] = $this->pageRepository->getAllPagesNav();
+        $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
+    }
+
+    /**
+     * @param $code
+     * @return Factory|View
+     */
+    public function index($code)
+    {
+        $this->data['product'] = $this->productRepository->getCodeFirst($code);
+        return view('shop.product', $this->data);
     }
 }

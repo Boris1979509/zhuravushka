@@ -1,0 +1,66 @@
+.product-wrap {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    grid-template-areas: "Product Product" "Tabs Goods";
+    gap: 40px;
+
+    .product {
+        grid-area: Product;
+        display: flex;
+        flex-wrap: wrap;
+        background: #FFFFFF;
+        border: 1px solid #CCCCCC;
+        align-items: center;
+        justify-content: space-between;
+
+        &__photo-container {
+            align-self: self-start;
+        }
+
+        &__desc {
+            font-size: 1rem;
+            line-height: 1.5;
+            letter-spacing: $letter-spacing-3;
+            color: #404040;
+        }
+
+        .characteristics {
+            margin: 30px 0;
+
+            &__props {
+                display: flex;
+                font-size: 1rem;
+                line-height: 1.5;
+                letter-spacing: $letter-spacing-3;
+                color: #9A9A9A;
+            }
+
+            &__props-value {
+                width: 30%;
+                margin-left: auto;
+            }
+        }
+
+        &__actions-container {
+            .card {
+                position: unset;
+                background: none;
+                border: 0;
+                margin: 0;
+
+                &__footer {
+                    border: 0;
+                    padding: 0;
+                }
+            }
+        }
+    }
+
+    .add-info-tabs {
+        grid-area: Tabs;
+    }
+
+    .more-goods {
+        grid-area: Goods;
+    }
+}

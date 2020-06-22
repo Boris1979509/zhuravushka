@@ -14,6 +14,7 @@ use Illuminate\Database\Eloquent\Relations\HasMany;
  * @property string $slug
  * @property string $description
  * @property null|integer $parent_id
+ * @property mixed parent
  */
 class ProductCategory extends Model
 {

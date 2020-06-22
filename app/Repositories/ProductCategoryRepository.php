@@ -35,4 +35,17 @@ class ProductCategoryRepository extends CoreRepository
             ->with('children')
             ->get();
     }
+
+    /**
+     * @param $slug
+     * @param array $columns
+     * @return mixed
+     */
+    public function getBySlug($slug, $columns = ['*'])
+    {
+        return $this->startConditions()
+            ->select($columns)
+            ->where('slug', $slug)
+            ->firstOrFail();
+    }
 }

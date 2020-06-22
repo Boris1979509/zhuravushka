@@ -3,8 +3,7 @@
     display: grid;
     //grid-template-columns: 280px 1fr 1fr;
     grid-template-columns: 280px auto auto;
-    grid-template-areas: "Catalog Carousel"
-                         "Catalog TabsCategoryTop";
+    grid-template-areas: "Catalog Carousel" "Catalog TabsCategoryTop";
     background: $bg-homepage-top-grid-menu;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
 
@@ -26,6 +25,37 @@
 
             &__price {
                 margin-top: 20px;
+            }
+        }
+
+        .glider-contain {
+            .glider-prev, .glider-next {
+                opacity: 0;
+                visibility: hidden;
+            }
+
+            .glider-prev {
+                left: 10px;
+                right: auto;
+            }
+
+            .glider-next {
+                right: 10px;
+                left: auto;
+            }
+
+            &:hover {
+                .glider-prev {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateX(-40px);
+                }
+
+                .glider-next {
+                    opacity: 1;
+                    visibility: visible;
+                    transform: translateX(40px);
+                }
             }
         }
     }
@@ -103,7 +133,7 @@
     }
 
     &__sub-catalog-link {
-        font-size: 14px;
+        font-size: 0.875rem;
         color: #111 !important;
         padding-top: 5px;
         padding-bottom: 5px;

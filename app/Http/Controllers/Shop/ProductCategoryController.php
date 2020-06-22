@@ -6,10 +6,13 @@ use Illuminate\Http\Request;
 
 class ProductCategoryController extends BaseController
 {
-    /**
-     * @param $category
-     */
-    public function index($category)
+
+    public function index()
+    {
+        dd(__METHOD__);
+    }
+
+    public function category($category)
     {
         dd($category);
     }

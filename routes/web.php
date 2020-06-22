@@ -43,7 +43,8 @@ Route::group([
     'namespace' => 'Shop',
 ], static function () {
     Route::get('cart', 'CartController@index')->name('cart');
-    Route::get('category/{categorySlug}', 'ProductCategoryController@index')->name('category');
+    Route::get('category', 'ProductCategoryController@index')->name('category.main');
+    Route::get('category/{categorySlug}', 'ProductCategoryController@category')->name('category');
     Route::get('product/{code}', 'ProductController@index')->name('product');
     Route::group([
         'as'     => 'cart.',

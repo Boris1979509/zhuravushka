@@ -2,13 +2,15 @@
 
 use App\Repositories\PageRepository as Page;
 use App\Repositories\BlogCategoryRepository as BlogCategory;
+use App\Repositories\ProductRepository as Product;
+use App\Repositories\ProductCategoryRepository as CategoryProduct;
 use App\Repositories\BlogPostRepository as Post;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Generator;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
 
 // Home
 Breadcrumbs::for('home', static function (Generator $trail) {
-    $trail->push(__('Главная'), route('home'));
+    $trail->push('Главная', route('home'));
 });
 // Page Service
 Breadcrumbs::for('page.service', static function (Generator $trail) {
@@ -23,24 +25,46 @@ Breadcrumbs::for('blog', static function (Generator $trail) {
 // Category Blog
 Breadcrumbs::for('blog.category', static function (Generator $trail, $categorySlug) {
     $trail->parent('blog');
-    $category = app(BlogCategory::class)->getCategoryBySlug($categorySlug);
+    $category = (new BlogCategory)->getCategoryBySlug($categorySlug);
     $trail->push($category->title, route('blog.category', $category->slug));
 });
 // Blog Post
 Breadcrumbs::for('blog.post', static function (Generator $trail, $postSlug) {
     $trail->parent('blog');
-    $post = app(Post::class)->getPostBySlug($postSlug);
+    $post = (new Post)->getPostBySlug($postSlug);
     $trail->push($post->title, route('blog.category', $post->slug));
 });
 // Any Page
 Breadcrumbs::for('page', static function (Generator $trail, $pageSlug) {
     $trail->parent('home');
-    $page = app(Page::class)->getPageFirstBySlug($pageSlug);
+    $page = (new Page)->getPageFirstBySlug($pageSlug);
     $trail->push($page->title, route('page', $page->slug));
 });
 // User Cart
-// Any Page
 Breadcrumbs::for('cart', static function (Generator $trail) {
     $trail->parent('home');
     $trail->push('Корзина товаров', route('cart'));
+});
+// Catalog main
+Breadcrumbs::for('category.main', static function (Generator $trail) {
+    $trail->parent('home');
+    $trail->push('Каталог', route('category.main'));
+});
+// Product category
+Breadcrumbs::for('category', static function (Generator $trail, $categoryProductSlug) {
+    $category = (new CategoryProduct)->getBySlug($categoryProductSlug);
+    if ($parent = $category->parent) {
+        $trail->parent('category', $parent->slug);
+    } else {
+        $trail->parent('category.main');
+    }
+    $trail->push($category->title, route('category', $category->slug));
+});
+// Product
+Breadcrumbs::for('product', static function (Generator $trail, $code) {
+    $product = (new Product)->getCodeFirst($code);
+    if ($category = $product->category) {
+        $trail->parent('category', $category->slug);
+    }
+    $trail->push($product->title, route('product', $product->title));
 });

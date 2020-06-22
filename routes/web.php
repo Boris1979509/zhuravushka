@@ -51,5 +51,6 @@ Route::group([
         'prefix' => 'cart',
     ], static function () {
         Route::post('add/{id}', 'CartController@add')->name('add');
+        Route::post('remove/{id}', 'CartController@remove')->name('remove');
     });
 });

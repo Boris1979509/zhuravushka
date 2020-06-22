@@ -45,8 +45,15 @@ class CartController extends BaseController
         } else {
             $order = $this->orderRepository->find($orderId);
         }
-        // соединить модели
-        $order->products()->attach($product);
+
+        if ($order->products->contains($product)) { // if isset
+            $pivotRow = $order->products()->find('product_id', $product->id)->first()->pivot;
+            $pivotRow->count++;
+            $pivotRow->update();
+        } else {
+            $order->products()->attach($product); // соединить модели pivot
+        }
+
 //        $cart = session()->has('cart') ? session()->get('cart') : [];
 //        if (array_key_exists($product->id, $cart)) {
 //            $cart[$product->id]['quantity'] = $request->input('qty');
@@ -63,6 +70,19 @@ class CartController extends BaseController
 
         $this->data['order'] = $order;
         $this->data['message'] = $product->title . ' added to cart.';
+        return response()->json($this->data);
+    }
+
+    /**
+     * @param $product
+     * @return JsonResponse
+     */
+    public function remove($product): JsonResponse
+    {
+        $orderId = session()->get('orderId');
+        $order = $this->orderRepository->find($orderId);
+        $order->products()->detach($product);
+        $this->data['message'] = $product->title . ' remove from cart.';
         return response()->json($this->data);
     }
 }

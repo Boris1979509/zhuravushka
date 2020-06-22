@@ -12,6 +12,7 @@ class Order extends Model
      */
     public function products(): belongsToMany
     {
-        return $this->belongsToMany(Product::class);
+        return $this->belongsToMany(Product::class)
+            ->withPivot('count')->withTimestamps();
     }
 }

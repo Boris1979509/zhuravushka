@@ -13,18 +13,18 @@
         border-radius: 50%;
         border: 3px solid #fc8507;
         border-color: #fc8507 transparent #fc8507 transparent;
-        animation: lds-dual-ring 1.2s linear infinite;
+        animation: lds-dual-ring .5s linear infinite;
         margin: 9px auto;
         line-height: 30px;
+        transition: all .5s;
     }
 }
 
 @keyframes lds-dual-ring {
     0% {
+        background: #fff;
         opacity: 1;
         transform: rotate(0deg);
-        background: #FFF;
-        animation-timing-function: cubic-bezier(0.215, 0.610, 0.355, 1.000);
     }
     100% {
         opacity: 0;

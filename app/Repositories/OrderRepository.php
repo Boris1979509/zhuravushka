@@ -7,11 +7,17 @@ use App\Models\Shop\Order as Model;
 
 class OrderRepository extends CoreRepository
 {
+    /**
+     * @var OrderRepository
+     */
+    private $order;
 
     /**
      * Возвращает полное имя класса
      * @return string
      */
+
+
     protected function getModelClass(): string
     {
         return Model::class;
@@ -24,7 +30,9 @@ class OrderRepository extends CoreRepository
     public function find($order)
     {
         return $this->startConditions()
-            ->find($order);
+            ->find($order)
+            ->with('products')
+            ->first();
     }
 
     /**
@@ -35,4 +43,22 @@ class OrderRepository extends CoreRepository
         return $this->startConditions()->create();
     }
 
+    /**
+     * @param $product
+     * @param $inc
+     * @return mixed
+     */
+    public function pivotCount($product, $inc)
+    {
+        $order = $this->find(session()->get('orderId'));
+        $pivot = $order->products()
+            ->where('product_id', $product->id)
+            ->first()
+            ->pivot;
+        ("++" === $inc) ? $pivot->count++ : $pivot->count--;
+        if ($pivot->count < 1) {
+            $order->products()->detach($product);
+        }
+        return $pivot->update();
+    }
 }

@@ -6,24 +6,28 @@ window.exports = getQuantity = (e, input) => {
     }
 
     ((e, input) => {
-        const formAction = input.closest('form').action;
+        const form = input.closest('form');
         if (e.classList.contains("product-qty__plus")) {
             getPreloadCard(input);
-            input.value = isNumber(input.value) + 1;
-            addCart(formAction, input.value); // add to cart axios
+            input.value = isNumber(input.value) + 1; // add to cart axios
+            addCart(form.action, {inc: "++"}, (data) => {
+                console.log(data.message);
+            });
         } else if (e.classList.contains("product-qty__minus")) {
+
             if (input.value > 1) {
-                input.value = isNumber(input.value) - 1;
-                addCart(formAction, input.value); // add to cart axios
+                getPreloadCard(input);
+                input.value = isNumber(input.value) - 1; // add to cart axios
+                addCart(form.action, {inc: "--"}, (data) => {
+                    console.log(data.message);
+                });
             } else {
-                input.value = isNumber(input.value);
-                addCart(formAction, input.value); // add to cart axios
+                form.querySelector('button.btn-add').classList.remove('btn-hide');
             }
-            getPreloadCard(input);
         }
         input.addEventListener("input", function (e) {
             input.value = isNumber(input.value);
-            addCart(formAction, input.value); // add to cart axios
+            addCart(form.action, input.value); // add to cart axios
             getPreloadCard(input);
         });
     })(e, input);

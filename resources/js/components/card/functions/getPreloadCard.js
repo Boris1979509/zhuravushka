@@ -10,5 +10,5 @@ window.exports = getPreloadCard = (item) => {
     parentDiv.insertBefore(preloadElement, item);
     setTimeout(() => {
         preloadElement.remove();
-    }, 600);
+    }, 300);
 }

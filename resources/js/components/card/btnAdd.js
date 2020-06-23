@@ -8,8 +8,12 @@ window.exports = (btnAdd = () => {
                 el.addEventListener("click", function (e) {
                     e.preventDefault();
                     el.classList.add('btn-hide');
-                    addCart(item.action, item["qty"].value); // add to cart axios
                     getPreloadCard(el);
+                    addCart(item.action, {inc: "++"}, (data) => {
+                        const cartCount = data.cartCount;
+                        document.querySelector('.cart__qty').innerHTML = cartCount;
+                    }); // add to cart axios
+
                 })
             }
         });

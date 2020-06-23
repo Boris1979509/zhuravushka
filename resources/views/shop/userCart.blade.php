@@ -32,7 +32,7 @@
                                             fill="#7B7B7B"/>
                                     </svg>
                                 </span>
-                                        <input type="text" class="count__input" value="1">
+                                        <input type="text" class="count__input" value="{{ $product->pivot->count }}">
                                         <span class="count__plus">
                                     <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
                                          xmlns="http://www.w3.org/2000/svg">
@@ -49,7 +49,7 @@
 
                                 </div>
                                 <div class="cart__sum">
-                                    <p class="cart__sum-price">{{ $product->price }} <span class="rub">₽</span></p>
+                                    <p class="cart__sum-price">{{  $product->getItemTotalSum() }} <span class="rub">₽</span></p>
                                     <p class="order">+25 шт. x 35 ₽</p>
                                 </div>
                                 <div title="Убрать из корзины" class="cart__del">
@@ -78,7 +78,7 @@
                             </div>
                             <div class="cart-total">
                                 <p class="cart-total-wrap__title bold">Итого:</p>
-                                <p class="cart-total-wrap__total-price bold">1 500 <span class="rub">₽</span></p>
+                                <p class="cart-total-wrap__total-price bold">{{ $order->getTotalSum() }} <span class="rub">₽</span></p>
                             </div>
                             <div class="cart-checkout">
                                 <button class="btn btn-active cart-checkout__btn">Оформить заказ</button>

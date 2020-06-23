@@ -1,6 +1,8 @@
-window.exports = addCart = (action, qty) => {
-    Axios.post(action, {qty: qty}).then((resp) => {
-        console.log(resp);
+window.exports = addCart = (action, data, callback) => {
+    callback = callback || ((data) => {
+    });
+    Axios.post(action, data).then((response) => {
+        callback(response.data);
     }).catch(function (error) {
         console.log(error);
     });

@@ -6,7 +6,6 @@ use Illuminate\Http\Request;
 
 class ProductCategoryController extends BaseController
 {
-
     public function index()
     {
         dd(__METHOD__);

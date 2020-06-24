@@ -5,7 +5,6 @@ namespace App\Models\Shop;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Database\Eloquent\Relations\Pivot;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -45,10 +44,22 @@ class Product extends Model
         return $this->belongsTo(ProductCategory::class);
     }
 
-    public function getItemTotalSum()
+    /**
+     * @return float
+     */
+    public function getItemTotalSum(): ?float
     {
         if (!is_null($this->pivot)) {
-            return $this->pivot->count * $this->price;
+            return round($this->pivot->count * $this->price);
         }
     }
+
+    /**
+     * @return string
+     */
+    public function numberFormat(): string
+    {
+        return number_format($this->getItemTotalSum(), 0, '', ' ');
+    }
+
 }

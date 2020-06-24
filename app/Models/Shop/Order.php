@@ -30,21 +30,21 @@ class Order extends Model
     }
 
     /**
-     * @return int
+     * @return int| float
      */
     public function getTotalSum()
     {
         $total = 0;
+        /** @var Product $item */
         foreach ($this->products as $item) {
             $total += $item->getItemTotalSum();
         }
-        return $total;
+        return number_format(round($total), 0, '', ' ');
     }
-
     /**
      * @return int
      */
-    public function cartCount()
+    public function cartCount(): int
     {
         return $this->products()->count();
     }

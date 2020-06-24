@@ -2,8 +2,12 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Models\Shop\Order;
+use App\Repositories\OrderRepository;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class CartController extends BaseController
 {
@@ -17,14 +21,16 @@ class CartController extends BaseController
         parent::__construct();
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
+
     }
 
+    /**
+     * @return Factory|View
+     */
     public function index()
     {
-        $orderId = session()->get('orderId');
-        $order = $this->orderRepository->find($orderId);
-        $this->data['order'] = $order;
-        $this->data['cartCount'] = $order->cartCount();
+        $this->data['order'] = $this->orderRepository->find();
+        $this->data['cartCount'] = $this->orderRepository->cartCount();
         return view('shop.userCart', $this->data);
     }
 
@@ -35,24 +41,30 @@ class CartController extends BaseController
      */
     public function add($product, Request $request): JsonResponse
     {
+        /**
+         * @var  Order $order
+         */
+        $order;
+
         $product = $this->productRepository->getProductFirst($product);
 
-        $orderId = session()->get('orderId');
-        if (is_null($orderId)) {
+        if (is_null(session()->get('orderId'))) {
             $order = $this->orderRepository->create();
             session()->put(['orderId' => $order->id]);
-        } else {
-            $order = $this->orderRepository->find($orderId);
         }
+        $order = $this->orderRepository->find();
+
         if ($order->products->contains($product)) {
-            $inc = $request->input('inc');
+            $inc = $request->input('inc'); // increments ++ --
             $this->orderRepository->pivotCount($product, $inc);
         } else {
-            $order->products()->attach($product); // соединить модели pivot
+            $order->products()->attach($product);
         }
 
         $this->data['cartCount'] = $order->cartCount();
-        $this->data['message'] = $product->title . ' added to cart.';
+        $this->data['cartItemTotalSum'] = $order->products()->find($product)->numberFormat();
+        $this->data['cartTotalSum'] = $this->orderRepository->find()->getTotalSum();
+
         return response()->json($this->data);
     }
 
@@ -62,8 +74,7 @@ class CartController extends BaseController
      */
     public function remove($product): JsonResponse
     {
-        $orderId = session()->get('orderId');
-        $order = $this->orderRepository->find($orderId);
+        $order = $this->orderRepository->find();
 
         if ($this->productRepository->getProductFirst($product)) {
             $order->products()->detach($product);

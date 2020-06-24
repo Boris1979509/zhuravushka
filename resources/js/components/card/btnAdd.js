@@ -9,12 +9,15 @@ window.exports = (btnAdd = () => {
                     e.preventDefault();
                     el.classList.add('btn-hide');
                     getPreloadCard(el);
-                    addCart(item.action, {inc: "++"}, (data) => {
+                    xmlHttpRequest(item.action, {inc: "++"}, (data) => {
                         const cartCount = data.cartCount;
                         document.querySelector('.cart__qty').innerHTML = cartCount;
+                        addActiveIconColor(document.querySelector('.cart__icon'));
                     }); // add to cart axios
 
                 })
+            } else {
+                return null;
             }
         });
     });

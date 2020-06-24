@@ -48,39 +48,54 @@
                 display: inline-block;
                 position: relative;
 
-                .count__minus {
-                    @extend %templateCountButton;
-                    transform: matrix(-1, 0, 0, 1, 0, 0);
-                    left: 0;
+                .product-qty {
+                    &__minus {
+                        @extend %templateCountButton;
+                        transform: matrix(-1, 0, 0, 1, 0, 0);
+                        left: 0;
 
-                    &:hover {
-                        path {
-                            fill: #fff;
+                        &:before {
+                            content: "";
+                            background: url('../../images/icons/card/minus-icon-qty.svg') no-repeat;
+                            height: 14px;
+                            width: 14px;
+                            display: block;
                         }
-                    }
-                }
 
-                .count__plus {
+                        &:hover {
 
-                    @extend %templateCountButton;
-                    right: 0;
-
-                    &:hover {
-                        path {
-                            fill: #fff;
                         }
                     }
 
+                    &__plus {
+
+                        @extend %templateCountButton;
+                        right: 0;
+
+                        &:before {
+                            content: "";
+                            background: url('../../images/icons/card/plus-icon-qty.svg') no-repeat;
+                            height: 14px;
+                            width: 14px;
+                            display: block;
+                        }
+
+                        &:hover {
+
+                        }
+
+                    }
+
+                    &__input {
+                        max-width: 145px;
+                        height: 36px;
+                        border: 1px solid #D9D9D9;
+                        text-align: center;
+                        padding: 0;
+                        border-radius: 4px;
+                    }
                 }
 
-                .count__input {
-                    max-width: 145px;
-                    height: 36px;
-                    border: 1px solid #D9D9D9;
-                    text-align: center;
-                    padding: 0;
-                    border-radius: 4px;
-                }
             }
 
             .qty-goods {
@@ -118,6 +133,7 @@
 
         &__name {
             max-width: 30%;
+            min-width: 30%;
         }
 
         &__name-link {
@@ -177,7 +193,7 @@
             }
 
             .cart-sale {
-                .cart-total-wrap__total-price {
+                .cart-total-wrap__total-price, .cart-total-wrap__total-price-sale {
                     font-size: 1.5rem;
                     line-height: 1;
                     letter-spacing: $letter-spacing-3;
@@ -195,7 +211,6 @@
                     letter-spacing: $letter-spacing-3;
                     margin-left: auto;
                     //max-width: 73%;
-                    display: contents;
                 }
             }
         }

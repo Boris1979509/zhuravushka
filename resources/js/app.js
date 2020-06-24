@@ -3,7 +3,8 @@ window.Axios = require('axios');
 //     'X-Requested-With': 'XMLHttpRequest',
 //     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 // }
-import getPreloadCard from './components/card/functions/getPreloadCard';
+import xmlHttpRequest from './xmlHttpRequest/xmlHttpRequest';
+import getPreloadInput from './components/card/functions/getPreloadInput';
 import getQuantity from './components/card/functions/qty';
 import addActiveIconColor from './components/card/functions/addActiveIconColor';
 
@@ -14,6 +15,6 @@ require('./components/tabs/tabs');
 require('./components/leaders-sales/leaders-sales');
 require('./components/card/cardIcons');
 
-import addCart from './components/card/addCart';
+
 import btnAdd from './components/card/btnAdd';
 import btnQty from './components/card/btnQty';

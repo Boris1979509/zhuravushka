@@ -24,15 +24,15 @@ class OrderRepository extends CoreRepository
     }
 
     /**
-     * @param $order
      * @return mixed
      */
-    public function find($order)
+    public function find()
     {
-        return $this->startConditions()
-            ->find($order)
-            ->with('products')
-            ->first();
+        if (!is_null($order = session()->get('orderId'))) {
+            return $this->startConditions()
+                ->find($order);
+        }
+        return null;
     }
 
     /**
@@ -50,15 +50,39 @@ class OrderRepository extends CoreRepository
      */
     public function pivotCount($product, $inc)
     {
-        $order = $this->find(session()->get('orderId'));
-        $pivot = $order->products()
-            ->where('product_id', $product->id)
-            ->first()
-            ->pivot;
-        ("++" === $inc) ? $pivot->count++ : $pivot->count--;
-        if ($pivot->count < 1) {
-            $order->products()->detach($product);
+        $order = $this->find();
+        if (!is_null($order)) {
+            $pivot = $order->products()
+                ->where('product_id', $product->id)
+                ->first()
+                ->pivot;
+
+            switch ($inc) {
+                case '++':
+                    $pivot->count++;
+                    break;
+                case '--':
+                    $pivot->count--;
+                    break;
+                case 'input':
+                    break;
+            }
+            if ($pivot->count < 1) {
+                $order->products()->detach($product);
+            }
+            return $pivot->update();
         }
-        return $pivot->update();
     }
+
+    /**
+     * @return mixed
+     */
+    public function cartCount()
+    {
+        if (!is_null($this->find())) {
+            return $this->find()
+                ->products()->count();
+        }
+    }
+
 }

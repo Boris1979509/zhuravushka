@@ -13,34 +13,33 @@
                         @foreach ($order->products as $product)
                             <div class="cart__product">
                                 <div class="cart__img">
-                                    <a href="" target="_blank">
-                                        <img src="{{ asset($product->photo) }}" alt="{{ $product->title }}" class="cart__image">
+                                    <a href="{{ route('product', $product) }}" target="_blank">
+                                        <img src="{{ asset($product->photo) }}" alt="{{ $product->title }}"
+                                             class="cart__image">
                                     </a>
                                 </div>
                                 <div class="cart__name">
-                                    <a href="" target="_blank" class="link cart__name-link">
+                                    <a href="{{ route('product', $product) }}" target="_blank"
+                                       class="link cart__name-link">
                                         {{ $product->title }}
                                     </a>
                                 </div>
                                 <div class="cart__count">
                                     <div class="count">
-                                <span class="count__minus">
-                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M8.5 5.75C7.72744 5.75 6.49326 5.75 5.5 5.75H0V8.25H5.5C7.0559 8.25 7.67852 8.25 8.5 8.25H14V5.75H8.5Z"
-                                            fill="#7B7B7B"/>
-                                    </svg>
-                                </span>
-                                        <input type="text" class="count__input" value="{{ $product->pivot->count }}">
-                                        <span class="count__plus">
-                                    <svg width="14" height="14" viewBox="0 0 14 14" fill="none"
-                                         xmlns="http://www.w3.org/2000/svg">
-                                        <path
-                                            d="M8.5 5.75C8.36194 5.75 8.25 5.63806 8.25 5.5V0H5.75V5.5C5.75 5.63806 5.63806 5.75 5.5 5.75H0V8.25H5.5C5.63806 8.25 5.75 8.36194 5.75 8.5V14H8.25V8.5C8.25 8.36194 8.36194 8.25 8.5 8.25H14V5.75H8.5Z"
-                                            fill="#7B7B7B"/>
-                                    </svg>
-                                </span>
+                                        <form action="{{ route('cart.add', $product) }}" method="POST"
+                                              class="addCart">
+                                            @csrf
+                                            <div class="product-qty">
+                                                <div class="product-qty__qty">
+                                                    <span class="product-qty__minus">
+                                                    </span>
+                                                    <input type="text" class="product-qty__input"
+                                                           value="{{ $product->pivot->count }}">
+                                                    <span class="product-qty__plus">
+                                                    </span>
+                                                </div>
+                                            </div>
+                                        </form>
                                     </div>
                                     <div class="qty-goods">
                                         <p class="qty-goods__balance">1 шт. в наличии</p>
@@ -49,7 +48,8 @@
 
                                 </div>
                                 <div class="cart__sum">
-                                    <p class="cart__sum-price">{{  $product->getItemTotalSum() }} <span class="rub">₽</span></p>
+                                    <p class="cart__sum-price">{{  $product->numberFormat() }} <span
+                                            class="rub">₽</span></p>
                                     <p class="order">+25 шт. x 35 ₽</p>
                                 </div>
                                 <div title="Убрать из корзины" class="cart__del">
@@ -74,11 +74,12 @@
                         <div class="checkout-wrap">
                             <div class="cart-sale">
                                 <p class="cart-total-wrap__title">Скидка:</p>
-                                <p class="cart-total-wrap__total-price">1 000 <span class="rub">₽</span></p>
+                                <p class="cart-total-wrap__total-price-sale">1 000 <span class="rub">₽</span></p>
                             </div>
                             <div class="cart-total">
                                 <p class="cart-total-wrap__title bold">Итого:</p>
-                                <p class="cart-total-wrap__total-price bold">{{ $order->getTotalSum() }} <span class="rub">₽</span></p>
+                                <p class="cart-total-wrap__total-price bold">{{ $order->getTotalSum() }} <span
+                                        class="rub">₽</span></p>
                             </div>
                             <div class="cart-checkout">
                                 <button class="btn btn-active cart-checkout__btn">Оформить заказ</button>

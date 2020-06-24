@@ -18,6 +18,7 @@ class ProductController extends BaseController
         parent::__construct();
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
+
     }
 
     /**
@@ -26,6 +27,7 @@ class ProductController extends BaseController
      */
     public function index($code)
     {
+        $this->data['cartCount'] = $this->orderRepository->cartCount();
         $this->data['product'] = $this->productRepository->getCodeFirst($code);
         return view('shop.product', $this->data);
     }

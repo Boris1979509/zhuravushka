@@ -3,11 +3,11 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Models\Shop\Order;
-use App\Repositories\OrderRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Throwable;
 
 class CartController extends BaseController
 {
@@ -41,10 +41,7 @@ class CartController extends BaseController
      */
     public function add($product, Request $request): JsonResponse
     {
-        /**
-         * @var  Order $order
-         */
-        $order;
+        /** @var  Order $order */
 
         $product = $this->productRepository->getProductFirst($product);
 
@@ -61,9 +58,8 @@ class CartController extends BaseController
             $order->products()->attach($product);
         }
 
-        $this->data['cartCount'] = $order->cartCount();
         $this->data['cartItemTotalSum'] = $order->products()->find($product)->numberFormat();
-        $this->data['cartTotalSum'] = $this->orderRepository->find()->getTotalSum();
+        $this->refreshCart($order);
 
         return response()->json($this->data);
     }
@@ -71,18 +67,36 @@ class CartController extends BaseController
     /**
      * @param $product
      * @return JsonResponse
+     * @throws Throwable
      */
     public function remove($product): JsonResponse
     {
         $order = $this->orderRepository->find();
+        $this->data['order'] = $order;
 
-        if ($this->productRepository->getProductFirst($product)) {
+        if ($product = $this->productRepository->getProductFirst($product)) {
             $order->products()->detach($product);
+            $this->refreshCart($order);
+            $this->data['message'] = $product->title . ' remove from cart.';
+            if ($order->cartCount() === 0) {
+                $order->forceDelete();
+                session()->remove('orderId');
+                $this->data['message'] = 'Your cart is Empty.';
+                return response()->json([
+                    'view' => view('shop.cart', $this->data)->render()
+                ]);
+            }
         }
 
-        $this->data['message'] = $product->title . ' remove from cart.';
         return response()->json($this->data);
     }
 
-
+    /**
+     * @param $order
+     */
+    private function refreshCart($order)
+    {
+        $this->data['cartCount'] = $order->cartCount();
+        $this->data['cartTotalSum'] = $this->orderRepository->find()->getTotalSum();
+    }
 }

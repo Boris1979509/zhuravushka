@@ -105,7 +105,7 @@
                             </svg>
                             <span id="cart-qty" class="badge cart__qty">{{ $cartCount ?? 0 }}</span>
                         </div>
-                        <span class="sub-header__label @if($cartCount) cart-total-sum @endif">
+                        <span class="sub-header__label cart-total-sum">
                             @if($cartCount)
                                 {{ $order->getTotalSum() }} <span class="rub">₽</span>
                             @else

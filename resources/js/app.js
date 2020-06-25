@@ -4,9 +4,10 @@ window.Axios = require('axios');
 //     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
 // }
 import xmlHttpRequest from './xmlHttpRequest/xmlHttpRequest';
-import getPreloadInput from './components/card/functions/getPreloadInput';
+import refreshCart from './components/cart/refreshCart';
+import getPreload from './components/card/functions/getPreload';
 import getQuantity from './components/card/functions/qty';
-import addActiveIconColor from './components/card/functions/addActiveIconColor';
+import cartRemove from './components/cart/remove';
 
 require('./components/sticky-header/sticky');
 require('./components/homepage-slider/slider');

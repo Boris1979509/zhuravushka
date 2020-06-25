@@ -56,14 +56,14 @@
 
                         &:before {
                             content: "";
-                            background: url('../../images/icons/card/minus-icon-qty.svg') no-repeat;
                             height: 14px;
                             width: 14px;
                             display: block;
+                            background: url('../../images/icons/cart/minus.svg') no-repeat center;
                         }
 
-                        &:hover {
-
+                        &:hover:before {
+                            background: url('../../images/icons/cart/minus-hover.svg') no-repeat center;
                         }
                     }
 
@@ -74,14 +74,14 @@
 
                         &:before {
                             content: "";
-                            background: url('../../images/icons/card/plus-icon-qty.svg') no-repeat;
+                            background: url('../../images/icons/cart/plus.svg') no-repeat;
                             height: 14px;
                             width: 14px;
                             display: block;
                         }
 
-                        &:hover {
-
+                        &:hover:before {
+                            background: url('../../images/icons/cart/plus-hover.svg') no-repeat;
                         }
 
                     }
@@ -149,13 +149,27 @@
             }
         }
 
-        &__del {
+        .del-form {
             align-self: center;
+        }
 
-            &:hover {
-                path {
-                    fill: #FC8507;
-                }
+        &__del {
+            outline: none;
+            outline: 0;
+            border: 0;
+            background: none;
+
+            &:before {
+                content: "";
+                background: url('../../images/icons/cart/delete-item-cart.svg') no-repeat center;
+                height: 16px;
+                width: 16px;
+                display: block;
+                transition: all .3s;
+            }
+
+            &:hover:before {
+                background: url('../../images/icons/cart/delete-item-cart-hover.svg') no-repeat center;
             }
         }
 

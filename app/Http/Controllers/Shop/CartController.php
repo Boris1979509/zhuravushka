@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Models\Shop\Order;
+use App\Models\Shop\Product;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -29,8 +30,7 @@ class CartController extends BaseController
      */
     public function index()
     {
-        $this->data['order'] = $this->orderRepository->find();
-        $this->data['cartCount'] = $this->orderRepository->cartCount();
+        $this->refreshCart();
         return view('shop.userCart', $this->data);
     }
 
@@ -59,7 +59,7 @@ class CartController extends BaseController
         }
 
         $this->data['cartItemTotalSum'] = $order->products()->find($product)->numberFormat();
-        $this->refreshCart($order);
+        $this->refreshCart();
 
         return response()->json($this->data);
     }
@@ -72,31 +72,30 @@ class CartController extends BaseController
     public function remove($product): JsonResponse
     {
         $order = $this->orderRepository->find();
-        $this->data['order'] = $order;
 
         if ($product = $this->productRepository->getProductFirst($product)) {
             $order->products()->detach($product);
-            $this->refreshCart($order);
+
             $this->data['message'] = $product->title . ' remove from cart.';
-            if ($order->cartCount() === 0) {
+            if (!$order->cartCount()) {
                 $order->forceDelete();
                 session()->remove('orderId');
                 $this->data['message'] = 'Your cart is Empty.';
-                return response()->json([
-                    'view' => view('shop.cart', $this->data)->render()
-                ]);
+                $this->refreshCart();
+                $this->data['view'] = view('shop.cart', $this->data)->render();
+                return response()->json($this->data);
             }
         }
-
+        $this->refreshCart();
         return response()->json($this->data);
     }
 
-    /**
-     * @param $order
-     */
-    private function refreshCart($order)
+
+    private function refreshCart(): void
     {
-        $this->data['cartCount'] = $order->cartCount();
-        $this->data['cartTotalSum'] = $this->orderRepository->find()->getTotalSum();
+        $order = $this->orderRepository->find();
+        $this->data['order'] = $order;
+        $this->data['cartCount'] = ($order) ? $order->products()->count() : 0;
+        $this->data['cartTotalSum'] = ($order) ? $order->getTotalSum() : 0;
     }
 }

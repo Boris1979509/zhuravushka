@@ -24,33 +24,23 @@ class OrderRepository extends CoreRepository
     }
 
     /**
+     * @param $order
      * @return mixed
      */
-    public function find()
+    public function findByOrderId($order)
     {
-        if (!is_null($order = session()->get('orderId'))) {
             return $this->startConditions()
                 ->find($order);
-        }
-        return null;
-    }
-
-    /**
-     * @return mixed
-     */
-    public function create()
-    {
-        return $this->startConditions()->create();
     }
 
     /**
      * @param $product
      * @param $inc
+     * @param $order
      * @return mixed
      */
-    public function pivotCount($product, $inc)
+    public function pivotCount($product, $inc, $order)
     {
-        $order = $this->find();
         if (!is_null($order)) {
             $pivot = $order->products()
                 ->where('product_id', $product->id)
@@ -73,16 +63,4 @@ class OrderRepository extends CoreRepository
             return $pivot->update();
         }
     }
-
-    /**
-     * @return mixed
-     */
-    public function cartCount()
-    {
-        if (!is_null($this->find())) {
-            return $this->find()
-                ->products()->count();
-        }
-    }
-
 }

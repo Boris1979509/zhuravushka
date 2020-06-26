@@ -38,7 +38,7 @@ class ProductRepository extends CoreRepository
     public function getProductFirst($product)
     {
         return $this->startConditions()
-            ->findOrFail($product);
+            ->find($product);
     }
 
     /**

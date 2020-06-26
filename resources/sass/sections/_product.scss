@@ -1,8 +1,29 @@
 .product-wrap {
     display: grid;
-    grid-template-columns: 100% 1fr 1fr;
+    grid-template-columns: 100% 1fr 200px;
     grid-template-areas: "Product Product" "Tabs Goods";
     gap: 40px;
+
+    .characteristics {
+        margin: 30px 0;
+
+        &__props {
+            display: flex;
+            font-size: 1rem;
+            line-height: 1.5;
+            letter-spacing: $letter-spacing-3;
+
+        }
+
+        &__props-name {
+            color: #9A9A9A;
+        }
+
+        &__props-value {
+            width: 30%;
+            margin-left: auto;
+        }
+    }
 
     .product {
         grid-area: Product;
@@ -23,27 +44,6 @@
             line-height: 1.5;
             letter-spacing: $letter-spacing-3;
             color: #404040;
-        }
-
-        .characteristics {
-            margin: 30px 0;
-
-            &__props {
-                display: flex;
-                font-size: 1rem;
-                line-height: 1.5;
-                letter-spacing: $letter-spacing-3;
-
-            }
-
-            &__props-name {
-                color: #9A9A9A;
-            }
-
-            &__props-value {
-                width: 30%;
-                margin-left: auto;
-            }
         }
 
         &__actions-container {
@@ -86,15 +86,93 @@
                         }
                     }
                 }
+
+                &__icons {
+                    margin-top: 20px;
+
+                    .favorite, .compare, .informer {
+                        width: 100%;
+                        height: 100%;
+                        position: unset;
+                        display: flex;
+                        margin-bottom: 15px;
+
+                        &__title {
+                            align-self: center;
+                            margin-left: 15px;
+                            font-size: 0.875rem;
+                            line-height: 1.3;
+                            text-decoration-line: underline;
+                            color: #BCBCBC;
+                        }
+
+                        &__active {
+                            .favorite__title, .compare__title, .informer__title {
+                                color: #FC8507;
+                            }
+                        }
+                    }
+                }
             }
         }
     }
 
     .add-info-tabs {
         grid-area: Tabs;
+
+        .product-tabs {
+            background: #FFFFFF;
+            border: 1px solid #CCCCCC;
+
+            .tabs-nav {
+                font-size: 1.5rem;
+                line-height: 1.5;
+                font-weight: bold;
+                border-bottom: 1px solid #ccc;
+                border-left: 0;
+
+                &__item {
+                    &.active {
+                        border-bottom: 0;
+                        color: inherit;
+                        border-bottom: 0;
+                    }
+
+                    letter-spacing: $letter-spacing-4;
+                    color: #9A9A9A;
+                    font-weight: bold;
+                    transition: color .2s;
+
+                    &:hover:not(.active) {
+                        color: #005AA7;
+                    }
+                }
+            }
+        }
+
+        .tabs-content {
+            padding: 30px;
+
+            &__item {
+                font-size: 1rem;
+                line-height: 1.8;
+                letter-spacing: $letter-spacing-3;
+                color: #404040;
+
+                .description {
+                    margin-bottom: 15px;
+                }
+
+                .characteristics {
+                    width: 50%;
+                }
+            }
+        }
+
     }
 
     .more-goods {
         grid-area: Goods;
+        max-width: 300px;
     }
 }

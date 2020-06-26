@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shop;
 
 use App\Models\Shop\Order;
 use App\Models\Shop\Product;
+use App\Repositories\OrderRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -37,23 +38,24 @@ class CartController extends BaseController
     /**
      * @param $product
      * @param Request $request
+     * @param Order $order
      * @return JsonResponse
      */
-    public function add($product, Request $request): JsonResponse
+    public function add($product, Request $request, Order $order): JsonResponse
     {
         /** @var  Order $order */
 
         $product = $this->productRepository->getProductFirst($product);
 
-        if (is_null(session()->get('orderId'))) {
-            $order = $this->orderRepository->create();
-            session()->put(['orderId' => $order->id]);
+        if (is_null(session('orderId'))) {
+            $order = $order->create();
+            session(['orderId' => $order->id]);
         }
-        $order = $this->orderRepository->find();
+        $order = $this->orderRepository->findByOrderId(session('orderId'));
 
         if ($order->products->contains($product)) {
             $inc = $request->input('inc'); // increments ++ --
-            $this->orderRepository->pivotCount($product, $inc);
+            $this->orderRepository->pivotCount($product, $inc, $order);
         } else {
             $order->products()->attach($product);
         }
@@ -71,7 +73,7 @@ class CartController extends BaseController
      */
     public function remove($product): JsonResponse
     {
-        $order = $this->orderRepository->find();
+        $order = $this->orderRepository->findByOrderId(session('orderId'));
 
         if ($product = $this->productRepository->getProductFirst($product)) {
             $order->products()->detach($product);
@@ -91,11 +93,10 @@ class CartController extends BaseController
     }
 
 
-    private function refreshCart(): void
+    private function refreshCart()
     {
-        $order = $this->orderRepository->find();
-        $this->data['order'] = $order;
-        $this->data['cartCount'] = ($order) ? $order->products()->count() : 0;
-        $this->data['cartTotalSum'] = ($order) ? $order->getTotalSum() : 0;
+        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
+        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : 0;
+        $this->data['cartTotalSum'] = ($this->data['order']) ? $this->data['order']->getTotalSum() : 0;
     }
 }

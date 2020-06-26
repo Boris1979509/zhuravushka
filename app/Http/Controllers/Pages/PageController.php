@@ -26,8 +26,9 @@ class PageController extends BaseController
      */
     public function index()
     {
-        $this->data['cartCount'] = $this->orderRepository->cartCount();
-        $this->data['order'] = $this->orderRepository->find();
+        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
+        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : 0;
+
         $page = $this->pageRepository->homePage();
         $this->data['page'] = $page;
         return view('pages.home', $this->data);

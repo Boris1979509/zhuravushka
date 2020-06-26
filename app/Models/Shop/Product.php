@@ -47,7 +47,7 @@ class Product extends Model
     /**
      * @return float
      */
-    public function getItemTotalSum(): ?float
+    public function getItemTotalSum(): float
     {
         if (!is_null($this->pivot)) {
             return round($this->pivot->count * $this->price);

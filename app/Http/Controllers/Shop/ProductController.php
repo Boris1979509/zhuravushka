@@ -18,6 +18,7 @@ class ProductController extends BaseController
         parent::__construct();
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
+        $this->data['products'] = $this->productRepository->getAllProducts();
 
     }
 
@@ -27,7 +28,8 @@ class ProductController extends BaseController
      */
     public function index($code)
     {
-        $this->data['cartCount'] = $this->orderRepository->cartCount();
+        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
+        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : 0;
         $this->data['product'] = $this->productRepository->getCodeFirst($code);
         return view('shop.product', $this->data);
     }

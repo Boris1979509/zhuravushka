@@ -1,9 +1,9 @@
 <div class="glider-contain">
-    <div class="glider" id="moreGoods">
+    <div class="glider" id="more-goods">
         @php /** @var Product $productItem */use App\Models\Shop\Product;@endphp
         @foreach($products as $productItem)
-            <div>
-                <div class="card">
+            <div class="card">
+                <div>
                     <div class="card__icons">
                         <div class="favorite">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
@@ -65,7 +65,7 @@
             </div>
         @endforeach
     </div>
-    <button aria-label="Previous" class="glider-prev" id="glider-prev-moreGood"></button>
-    <button aria-label="Next" class="glider-next" id="glider-next-moreGoods"></button>
-    <div role="tablist" class="dots" id="moreGoodsDots"></div>
+    <button aria-label="Previous" class="glider-prev" id="glider-prev-more-goods"></button>
+    <button aria-label="Next" class="glider-next" id="glider-next-more-goods"></button>
+    <div role="tablist" class="glider-dots" id="more-goods-dots"></div>
 </div>

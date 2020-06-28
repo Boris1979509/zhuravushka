@@ -1,17 +1,18 @@
 ((elem) => {
     if (!elem)
         return;
-    const glider = new Glider(elem, {
-        //itemWidth: 'auto',
-        slidesToShow: 2, // auto
-        slidesToScroll: 2, // auto
+    new Glider(elem, {
+        slidesToShow: 'auto',
+        slidesToScroll: 'auto',
+        itemWidth: 300,
+        duration: 0.25,
         propagateEvent: false,
         draggable: false,
-        dots: '#moreGoodsDots',
+       dots: '#more-goods-dots',
         arrows: {
-            prev: '#glider-prev-moreGoods',
-            next: '#glider-next-moreGoods'
+            prev: '#glider-prev-more-goods',
+            next: '#glider-next-more-goods'
         }
     });
-})(document.getElementById('moreGoods'));
+})(document.getElementById('more-goods'));
 

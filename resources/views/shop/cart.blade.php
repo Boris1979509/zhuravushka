@@ -3,7 +3,7 @@
         <h1 class="title">Корзина</h1>
         <div class="cart-wrap">
             @php /** @var Product $product*/use App\Models\Shop\Product;@endphp
-            @if(is_null($order))
+            @if(!isset($order) && !cart())
                 <p>Ваша корзина пуста.</p>
             @else
                 <div class="cart">
@@ -60,7 +60,7 @@
                     <div class="checkout-wrap">
                         <div class="cart-sale">
                             <p class="cart-total-wrap__title">Скидка:</p>
-                            <p class="cart-total-wrap__total-price-sale">1 000 <span class="rub">₽</span></p>
+                            <p class="cart-total-wrap__total-price-sale">0 <span class="rub">₽</span></p>
                         </div>
                         <div class="cart-total">
                             <p class="cart-total-wrap__title bold">Итого:</p>
@@ -68,7 +68,7 @@
                                     class="rub">₽</span></p>
                         </div>
                         <div class="cart-checkout">
-                            <button class="btn btn-active cart-checkout__btn">Оформить заказ</button>
+                            <a class="btn btn-active cart-checkout__btn" href="{{ route('cart.place') }}">Оформить заказ</a>
                         </div>
                     </div>
                 </div>

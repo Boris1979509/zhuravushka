@@ -29,8 +29,8 @@ class OrderRepository extends CoreRepository
      */
     public function findByOrderId($order)
     {
-            return $this->startConditions()
-                ->find($order);
+        return $this->startConditions()
+            ->find($order);
     }
 
     /**
@@ -63,4 +63,5 @@ class OrderRepository extends CoreRepository
             return $pivot->update();
         }
     }
+
 }

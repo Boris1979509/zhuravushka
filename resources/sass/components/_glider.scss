@@ -1,12 +1,10 @@
 .glider-contain {
     position: relative;
-    margin: 0 auto;
     padding: 0;
-    //height: 100vh;
+    margin: 0 auto;
 }
 
 .glider {
-    margin: 0 auto;
     position: relative;
     overflow-y: hidden;
     overflow-x: auto;
@@ -111,4 +109,50 @@
 
 .glider-hide {
     opacity: 0;
+}
+
+.glider-dots {
+    user-select: none;
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: center;
+    margin: 0 auto;
+    padding: 0;
+}
+
+.glider-dot {
+    background: none;
+    border: 0;
+    padding: 0;
+    user-select: none;
+    outline: none;
+    display: block;
+    cursor: pointer;
+    color: #ccc;
+    border-radius: 999px;
+    background: #ccc;
+    width: 12px;
+    height: 12px;
+    margin: 7px;
+}
+
+.glider-dot {
+    &:hover, &:focus, &.active {
+        background: $bg-top-bar;
+    }
+}
+
+@media(max-width: 36em) {
+    .glider::-webkit-scrollbar {
+        opacity: 1;
+        -webkit-appearance: none;
+        width: 7px;
+        height: 3px;
+    }
+    .glider::-webkit-scrollbar-thumb {
+        opacity: 1;
+        border-radius: 99px;
+        background-color: rgba(156, 156, 156, 0.25);
+        box-shadow: 0 0 1px rgba(255, 255, 255, .25);
+    }
 }

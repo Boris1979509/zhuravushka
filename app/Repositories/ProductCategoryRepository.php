@@ -46,6 +46,6 @@ class ProductCategoryRepository extends CoreRepository
         return $this->startConditions()
             ->select($columns)
             ->where('slug', $slug)
-            ->firstOrFail();
+            ->first();
     }
 }

@@ -11,3 +11,12 @@ if (!function_exists('isCurrentRoute')) {
         return url()->current() === url($name, $parameters) ? 'active' : null;
     }
 }
+if (!function_exists('cart')) {
+    /**
+     * @return bool
+     */
+    function cart()
+    {
+        return session()->has('orderId') ? true : false;
+    }
+}

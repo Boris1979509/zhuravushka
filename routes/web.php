@@ -52,5 +52,7 @@ Route::group([
     ], static function () {
         Route::post('add/{id}', 'CartController@add')->name('add');
         Route::post('remove/{id}', 'CartController@remove')->name('remove');
+        Route::get('place', 'CartController@place')->name('place');
+        Route::post('confirm', 'CartController@confirm')->name('confirm');
     });
 });

@@ -2,8 +2,10 @@
 
 namespace App\Console\Commands;
 
+use App\Models\Shop\ProductCategory;
 use Illuminate\Console\Command;
-use XMLReader;
+use Illuminate\Support\Str;
+use Illuminate\Support\Facades\DB;
 
 class ParseCatalog extends Command
 {
@@ -21,76 +23,69 @@ class ParseCatalog extends Command
      */
     protected $description = 'Catalog parsing.';
 
-    /**
-     * Create a new command instance.
-     *
-     * @return void
-     */
-    public function __construct()
+    public const FIELDS_MAP = [
+        ['name' => 'ГруппаКатегории'],
+        ['name' => 'Категория'],
+    ];
+
+    public function handle(): bool
     {
-        parent::__construct();
-    }
 
-    /**
-     * Execute the console command.
-     *
-     * @return mixed
-     */
-    public function handle()
-    {
-        $file = $this->getFileName(); // get file
-        $xml = new XMLReader();
-        $xml->open($file);
-        while ($xml->read()) {
+        $path = $this->getFileName(); // get file path
+        $catalog = json_decode(file_get_contents($path), true);
 
-            if ($this->isStartProduct($xml)) {
-
-                $data = $this->getData($xml);
-
-                dd($data);
-
-            }
+        $data = [];
+        foreach ($catalog as $catalogItem) {
+            $data[$catalogItem[self::FIELDS_MAP[0]['name']]] = [
+                'title'     => $name = $catalogItem[self::FIELDS_MAP[0]['name']],
+                'slug'      => Str::slug($name),
+                'parent_id' => 0,
+            ];
         }
 
-//        return 0;
+        $result = DB::table('product_categories')->insert($this->arrayDefaultKey($data));
+        if ($result) {
+            $data = [];
+            $categories = ProductCategory::all();
+            foreach ($categories as $categoryItem) {
+                foreach ($catalog as $catalogItem) {
+                    if ($categoryItem->title === $catalogItem[self::FIELDS_MAP[0]['name']]) {
+                        $data[$catalogItem[self::FIELDS_MAP[1]['name']]] = [
+                            'title'     => $name = $catalogItem[self::FIELDS_MAP[1]['name']],
+                            'slug'      => Str::slug($name),
+                            'parent_id' => $categoryItem->id,
+                        ];
+                    }
+                }
+            }
+            DB::table('product_categories')->insert($this->arrayDefaultKey($data));
+        }
 
         $this->info('Successfully parsed.');
         return true;
     }
 
-    private function getFileName()
+    /**
+     * @return string
+     */
+    private function getFileName(): string
     {
         $file = $this->argument('file');
-        return storage_path('app/1C/' . $file);
+        return storage_path('app/Catalog/' . $file);
     }
 
-    private function isStartProduct($xml): bool
+    /**
+     * @param $array
+     * @return array
+     */
+    private function arrayDefaultKey($array): array
     {
-        return $xml->name === 'v8:CatalogObject.Номенклатура' && $xml->nodeType === XMLReader::ELEMENT;
-    }
-
-    const FIELDS_MAP = [
-        'v8:НаименованиеПолное' => 'name',
-        'v8:СтавкаНДС' => 'NDS'
-    ];
-
-    private function getData($xml): array
-    {
-        $data = [];
-
-        while ($xml->read()) {
-
-            if ($xml->name === 'v8:CatalogObject.Номенклатура' && $xml->nodeType === XMLReader::END_ELEMENT) {
-
-                return $data;
-            }
-
-            if (array_key_exists($xml->name, self::FIELDS_MAP) && $xml->nodeType == XMLReader::ELEMENT) {
-
-                $data[self::FIELDS_MAP[$xml->name]] = $xml->readString();
-            }
+        $arrayTemp = [];
+        $i = 0;
+        foreach ($array as $key => $val) {
+            $arrayTemp[$i] = $val;
+            $i++;
         }
-
-        return $data;
+        return $arrayTemp;
     }
 }

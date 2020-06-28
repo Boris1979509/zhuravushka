@@ -45,6 +45,11 @@ Breadcrumbs::for('cart', static function (Generator $trail) {
     $trail->parent('home');
     $trail->push('Корзина товаров', route('cart'));
 });
+// Order Cart
+Breadcrumbs::for('cart.place', static function (Generator $trail) {
+    $trail->parent('cart');
+    $trail->push(__('Order Place'), route('cart.place'));
+});
 // Catalog main
 Breadcrumbs::for('category.main', static function (Generator $trail) {
     $trail->parent('home');

@@ -4,7 +4,7 @@ namespace App\Http\Controllers\Shop;
 
 use App\Models\Shop\Order;
 use App\Models\Shop\Product;
-use App\Repositories\OrderRepository;
+use App\Repositories\ProductRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
@@ -31,7 +31,7 @@ class CartController extends BaseController
      */
     public function index()
     {
-        $this->refreshCart();
+        $this->getCart();
         return view('shop.userCart', $this->data);
     }
 
@@ -61,7 +61,7 @@ class CartController extends BaseController
         }
 
         $this->data['cartItemTotalSum'] = $order->products()->find($product)->numberFormat();
-        $this->refreshCart();
+        $this->getCart();
 
         return response()->json($this->data);
     }
@@ -77,26 +77,43 @@ class CartController extends BaseController
 
         if ($product = $this->productRepository->getProductFirst($product)) {
             $order->products()->detach($product);
-
             $this->data['message'] = $product->title . ' remove from cart.';
             if (!$order->cartCount()) {
                 $order->forceDelete();
                 session()->remove('orderId');
                 $this->data['message'] = 'Your cart is Empty.';
-                $this->refreshCart();
                 $this->data['view'] = view('shop.cart', $this->data)->render();
                 return response()->json($this->data);
             }
         }
-        $this->refreshCart();
+        $this->getCart();
         return response()->json($this->data);
     }
 
+    /**
+     * order registration
+     * @return Factory|View
+     */
+    public function place()
+    {
+        $this->getCart();
+        return view('shop.place', $this->data);
+    }
 
-    private function refreshCart()
+    public function confirm(Request $request)
+    {
+        if ($order = session()->has('orderId')) {
+            $this->orderRepository->findByOrderId($order);
+            return redirect()->route('shop.place');
+        }
+        return redirect()->route('home');
+
+    }
+
+    private function getCart(): void
     {
         $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
-        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : 0;
-        $this->data['cartTotalSum'] = ($this->data['order']) ? $this->data['order']->getTotalSum() : 0;
+        $this->data['cartCount'] = $this->data['order']->cartCount();
+        $this->data['cartTotalSum'] = $this->data['order']->getTotalSum();
     }
 }

@@ -1,6 +1,6 @@
 .product-wrap {
     display: grid;
-    grid-template-columns: 100% 1fr 200px;
+    grid-template-columns: auto;
     grid-template-areas: "Product Product" "Tabs Goods";
     gap: 40px;
 

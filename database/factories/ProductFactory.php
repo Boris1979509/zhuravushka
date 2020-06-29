@@ -11,7 +11,8 @@ $factory->define(Product::class, static function (Faker $faker) {
 
     return [
         'title'       => $name = $faker->unique()->words(random_int(1, 3), true),
-        'code'        => Str::slug($name),
+        'code'       => $faker->unique()->word,
+        'slug'        => Str::slug($name),
         'price'       => $faker->randomFloat(2, 100, 10000),
         'photo'       => 'images/leader-sales-product-item.jpg',
         'category_id' => random_int(11, 35),

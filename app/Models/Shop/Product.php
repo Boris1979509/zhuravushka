@@ -30,6 +30,10 @@ class Product extends Model
         'title',
         'code',
         'price',
+        'slug',
+        'quantity',
+        'unit_pricing_base_measure',
+        'article',
         'photo',
         'photo_thumb',
         'description',
@@ -50,16 +54,7 @@ class Product extends Model
     public function getItemTotalSum(): float
     {
         if (!is_null($this->pivot)) {
-            return round($this->pivot->count * $this->price);
+            return $this->pivot->count * $this->price;
         }
     }
-
-    /**
-     * @return string
-     */
-    public function numberFormat(): string
-    {
-        return number_format($this->getItemTotalSum(), 0, '', ' ');
-    }
-
 }

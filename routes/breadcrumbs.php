@@ -66,8 +66,8 @@ Breadcrumbs::for('category', static function (Generator $trail, $categoryProduct
     $trail->push($category->title, route('category', $category->slug));
 });
 // Product
-Breadcrumbs::for('product', static function (Generator $trail, $code) {
-    $product = (new Product)->getCodeFirst($code);
+Breadcrumbs::for('product', static function (Generator $trail, $slug) {
+    $product = (new Product)->getBySlug($slug);
     if ($category = $product->category) {
         $trail->parent('category', $category->slug);
     }

@@ -8,7 +8,7 @@
         <div class="product-wrap">
             <div class="product">
                 <div class="product__photo-container">
-                    <img src="{{ asset($product->photo) }}" alt="{{ $product->title }}" class="product__img">
+                    <img src="{{ asset("images/products/{$product->photo}.jpg") }}" alt="{{ $product->title }}" class="product__img">
                 </div>
                 <div class="product__all">
                     <h1>{{ $product->title }}</h1>
@@ -18,7 +18,7 @@
                     <div class="characteristics">
                         <div class="characteristics__props">
                             <p class="characteristics__props-name">Код товара</p>
-                            <p class="characteristics__props-value">75280</p>
+                            <p class="characteristics__props-value">{{ $product->code }}</p>
                         </div>
                         <div class="characteristics__props">
                             <p class="characteristics__props-name">Бренд</p>
@@ -49,7 +49,7 @@
                                 <div class="price">
                                     <div class="price__item">
                                         <p class="price__title-new">Новая цена</p>
-                                        <span class="bold price__new">{{ $product->price }}&nbsp;₽</span>
+                                        <span class="bold price__new">{{ numberFormat($product->price) }}&nbsp;₽</span>
                                         <span class="last-text-new">за шт.</span>
                                     </div>
                                     <div class="price__item">

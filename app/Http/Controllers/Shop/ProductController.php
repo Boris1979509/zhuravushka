@@ -23,14 +23,14 @@ class ProductController extends BaseController
     }
 
     /**
-     * @param $code
+     * @param $slug
      * @return Factory|View
      */
-    public function index($code)
+    public function index($slug)
     {
         $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
-        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : 0;
-        $this->data['product'] = $this->productRepository->getCodeFirst($code);
+        $this->data['cartCount'] = $this->data['order']->cartCount();
+        $this->data['product'] = $this->productRepository->getBySlug($slug);
         return view('shop.product', $this->data);
     }
 }

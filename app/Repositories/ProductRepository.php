@@ -28,7 +28,7 @@ class ProductRepository extends CoreRepository
         return $this->startConditions()
             ->select($columns)
             ->with('category')
-            ->get();
+            ->take(10)->get();
     }
 
     /**
@@ -42,15 +42,16 @@ class ProductRepository extends CoreRepository
     }
 
     /**
-     * @param $code
+     * @param $slug
      * @return mixed
      */
-    public function getCodeFirst($code)
+    public function getBySlug($slug)
     {
         $columns = ['*'];
         return $this->startConditions()
             ->select($columns)
             ->with('category')
-            ->where('code', $code)->first();
+            ->where('slug', $slug)
+            ->first();
     }
 }

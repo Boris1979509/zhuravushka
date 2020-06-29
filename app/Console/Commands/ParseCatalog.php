@@ -3,6 +3,8 @@
 namespace App\Console\Commands;
 
 use App\Models\Shop\ProductCategory;
+use Carbon\Carbon;
+use Doctrine\DBAL\Query\QueryException;
 use Illuminate\Console\Command;
 use Illuminate\Support\Str;
 use Illuminate\Support\Facades\DB;
@@ -58,11 +60,34 @@ class ParseCatalog extends Command
                     }
                 }
             }
-            DB::table('product_categories')->insert($this->arrayDefaultKey($data));
-        }
+            $result = DB::table('product_categories')->insert($this->arrayDefaultKey($data));
+            if ($result) {
+                $categories = ProductCategory::all();
+                    foreach ($catalog as $key => $catalogItem) {
+                        foreach ($categories as $categoryItem) {
+                        if ($categoryItem->title === $catalogItem[self::FIELDS_MAP[1]['name']]) {
+                            DB::table('products')->insert([
+                                'title'                     => $name = $catalogItem['Товар'],
+                                'slug'                      => Str::slug($name),
+                                'code'                      => $code = trim($catalogItem['Код']),
+                                'photo'                     => $code,
+                                'article'                   => $catalogItem['Артикул'],
+                                'quantity'                  => $catalogItem['КоличествоОстаток'],
+                                'price'                     => $catalogItem['Цена'],
+                                'description'               => $catalogItem['Описание'],
+                                'category_id'               => $categoryItem->id,
+                                'unit_pricing_base_measure' => $catalogItem['ЕдИзмерения'],
+                                'created_at'                => Carbon::now(),
+                                'updated_at'                => Carbon::now(),
+                            ]);
+                        }
+                    }
+                }
 
-        $this->info('Successfully parsed.');
-        return true;
+                $this->info('Successfully parsed.');
+                return true;
+            }
+        }
     }
 
     /**

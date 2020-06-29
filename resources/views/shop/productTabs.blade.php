@@ -9,13 +9,7 @@
 
     <div class="tabs-content">
         <div class="tabs-content__item">
-            <p class="description">Накопительный водонагреватель SUPERLUX NTS 50л. Электрический, с
-                эмалированным стальным баком
-            <p class="description">Водонагреватели под маркой Superlux изготавливаются в соответствии
-                с высокими требованиями к качеству
-                известного производителя бытовой техники Ariston. Такой контроль гарантирует надежность приборов и их
-                высокие технические и эксплуатационные параметры, но при этом позволяет сделать стоимость более
-                доступной</p>
+            <p class="description">{{ $product->description }}</p>
             <div class="characteristics">
                 <h2>Характеристики</h2>
                 <div class="characteristics__props">
@@ -57,7 +51,13 @@
                 exercitationem nulla repudiandae ullam ut. Aut, labore.</p>
         </div>
         <div class="tabs-content__item">
-            <p>Lorem ipsum dolor sit amet.</p>
+            <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Aliquam assumenda atque, cum delectus dolor eos
+                fuga illo iure labore molestias odit optio pariatur placeat quam quibusdam quos reprehenderit sequi
+                suscipit ullam ut vitae voluptate, voluptatibus? Cum id in ipsum iste laborum laudantium perspiciatis
+                ut! A ad, beatae delectus dolor magnam molestiae non qui quisquam voluptate. Ad asperiores at blanditiis
+                commodi dolores eum, exercitationem ipsam iure laborum, quas repellendus rerum tempora? A alias aperiam
+                at beatae cupiditate doloribus ducimus eaque esse, ipsum laboriosam libero maxime minima minus modi
+                molestias neque odit perferendis porro praesentium quaerat quasi, qui quia ratione sint veniam?</p>
         </div>
     </div>
 </div>

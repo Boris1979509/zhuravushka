@@ -60,7 +60,7 @@ class CartController extends BaseController
             $order->products()->attach($product);
         }
 
-        $this->data['cartItemTotalSum'] = $order->products()->find($product)->numberFormat();
+        $this->data['cartItemTotalSum'] = $order->products()->find($product)->getItemTotalSum();
         $this->getCart();
 
         return response()->json($this->data);

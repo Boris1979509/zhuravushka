@@ -45,7 +45,7 @@ Route::group([
     Route::get('cart', 'CartController@index')->name('cart');
     Route::get('category', 'ProductCategoryController@index')->name('category.main');
     Route::get('category/{categorySlug}', 'ProductCategoryController@category')->name('category');
-    Route::get('product/{code}', 'ProductController@index')->name('product');
+    Route::get('product/{slug}', 'ProductController@index')->name('product');
     Route::group([
         'as'     => 'cart.',
         'prefix' => 'cart',

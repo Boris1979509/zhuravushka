@@ -27,14 +27,14 @@
                         </div>
                     </div>
                     <div class="card__body">
-                        <a href="{{ route('product', $productItem->code) }}" title="{{ $productItem->title }}">
-                            <img src="{{ asset($productItem->photo) }}" class="card__img-top"
+                        <a href="{{ route('product', $productItem->slug) }}" title="{{ $productItem->title }}">
+                            <img src="{{ asset("images/products/{$productItem->photo}.jpg") }}" class="card__img-top"
                                  alt="{{ $productItem->title }}">
                         </a>
-                        <p class="card__title">
-                            <a href="{{ route('product', $productItem->code) }}"
-                               class="link card__link">{{ $productItem->title }}</a>
-                        </p>
+                    </div>
+                    <div class="card__title">
+                        <a href="{{ route('product', $productItem->slug) }}"
+                           class="link card__link">{{ $productItem->title }}</a>
                     </div>
                     <div class="card__footer">
                         <div class="price">
@@ -45,7 +45,7 @@
                             </div>
                             <div class="price__item">
                                 <p class="price__title-new">Новая цена</p>
-                                <span class="bold price__new">{{ $productItem->price }}&nbsp;₽</span>
+                                <span class="bold price__new">{{ numberFormat($productItem->price) }}&nbsp;₽</span>
                                 <span class="last-text-new">за шт.</span>
                             </div>
                         </div>

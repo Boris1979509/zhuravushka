@@ -39,7 +39,7 @@ class Order extends Model
         foreach ($this->products as $item) {
             $total += $item->getItemTotalSum();
         }
-        return number_format(round($total), 0, '', ' ');
+        return $total;
     }
     /**
      * @return int

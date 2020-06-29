@@ -20,7 +20,7 @@
         }
 
         &__props-value {
-            width: 30%;
+            width: 70%;
             margin-left: auto;
         }
     }
@@ -37,6 +37,7 @@
 
         &__photo-container {
             align-self: self-start;
+            max-width: 250px;
         }
 
         &__desc {
@@ -115,6 +116,9 @@
                 }
             }
         }
+        &__all{
+            max-width: 450px;
+        }
     }
 
     .add-info-tabs {
@@ -164,7 +168,10 @@
                 }
 
                 .characteristics {
-                    width: 50%;
+                    &__props-value {
+                        width: 50%;
+                        margin-left: auto;
+                    }
                 }
             }
         }
@@ -174,5 +181,14 @@
     .more-goods {
         grid-area: Goods;
         max-width: 300px;
+        h3{
+            padding: 30px 30px 15px 30px;
+            border: 1px solid #cccccc;
+            margin-bottom: -1px;
+            background: #fff;
+        }
+        .glider{
+            border-right: 1px solid #cccccc;
+        }
     }
 }

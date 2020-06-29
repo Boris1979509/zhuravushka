@@ -11,7 +11,7 @@
                         <div class="cart__product">
                             <div class="cart__img">
                                 <a href="{{ route('product', $product) }}" target="_blank">
-                                    <img src="{{ asset($product->photo) }}" alt="{{ $product->title }}"
+                                    <img src="{{ asset("images/products/{$product->photo}.jpg") }}" alt="{{ $product->title }}"
                                          class="cart__image">
                                 </a>
                             </div>
@@ -45,7 +45,7 @@
 
                             </div>
                             <div class="cart__sum">
-                                <p class="cart__sum-price">{{  $product->numberFormat() }} <span
+                                <p class="cart__sum-price">{{  numberFormat($product->getItemTotalSum()) }} <span
                                         class="rub">₽</span></p>
                                 <p class="order">+25 шт. x 35 ₽</p>
                             </div>

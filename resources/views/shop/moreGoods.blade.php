@@ -1,3 +1,4 @@
+<h3>Не забудьте купить</h3>
 <div class="glider-contain">
     <div class="glider" id="more-goods">
         @php /** @var Product $productItem */use App\Models\Shop\Product;@endphp
@@ -70,3 +71,22 @@
     <button aria-label="Next" class="glider-next" id="glider-next-more-goods"></button>
     <div role="tablist" class="glider-dots" id="more-goods-dots"></div>
 </div>
+@section('script')
+    <script>
+        ((elem) => {
+            if (!elem)
+                return;
+            new Glider(elem, {
+                slidesToShow: 2,
+                slidesToScroll: 2,
+                propagateEvent: false,
+                draggable: false,
+                dots: '#more-goods-dots',
+                arrows: {
+                    prev: '#glider-prev-more-goods',
+                    next: '#glider-next-more-goods'
+                }
+            });
+        })(document.getElementById('more-goods'));
+    </script>
+@endsection

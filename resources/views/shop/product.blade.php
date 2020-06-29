@@ -8,7 +8,8 @@
         <div class="product-wrap">
             <div class="product">
                 <div class="product__photo-container">
-                    <img src="{{ asset("images/products/{$product->photo}.jpg") }}" alt="{{ $product->title }}" class="product__img">
+                    <img src="{{ asset("images/products/{$product->photo}.jpg") }}" alt="{{ $product->title }}"
+                         class="product__img">
                 </div>
                 <div class="product__all">
                     <h1>{{ $product->title }}</h1>
@@ -118,7 +119,6 @@
                 @include('shop.productTabs')
             </div>
             <div class="more-goods">
-                <h3>Не забудьте купить</h3>
                 @include('shop.moreGoods')
             </div>
         </div>

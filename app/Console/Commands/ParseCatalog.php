@@ -63,8 +63,8 @@ class ParseCatalog extends Command
             $result = DB::table('product_categories')->insert($this->arrayDefaultKey($data));
             if ($result) {
                 $categories = ProductCategory::all();
-                    foreach ($catalog as $key => $catalogItem) {
-                        foreach ($categories as $categoryItem) {
+                foreach ($catalog as $key => $catalogItem) {
+                    foreach ($categories as $categoryItem) {
                         if ($categoryItem->title === $catalogItem[self::FIELDS_MAP[1]['name']]) {
                             DB::table('products')->insert([
                                 'title'                     => $name = $catalogItem['Товар'],

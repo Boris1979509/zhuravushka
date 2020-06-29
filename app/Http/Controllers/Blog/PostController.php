@@ -26,7 +26,17 @@ class PostController extends BaseController
      */
     public function index(string $slug)
     {
+        $this->getCart();
         $this->data['post'] = $this->blogPostRepository->getPostBySlug($slug);
         return view('blog.post', $this->data);
+    }
+
+    /**
+     * load cart
+     */
+    private function getCart(): void
+    {
+        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
+        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
     }
 }

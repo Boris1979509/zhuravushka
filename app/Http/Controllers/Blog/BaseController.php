@@ -7,8 +7,10 @@ namespace App\Http\Controllers\Blog;
 use App\Http\Controllers\Controller;
 use App\Repositories\BlogCategoryRepository;
 use App\Repositories\BlogPostRepository;
+use App\Repositories\OrderRepository;
 use App\Repositories\PageRepository;
 use App\Repositories\ProductCategoryRepository;
+use App\Repositories\ProductRepository;
 
 abstract class BaseController extends Controller
 {
@@ -28,6 +30,14 @@ abstract class BaseController extends Controller
      * @var ProductCategoryRepository
      */
     protected $productCategoryRepository;
+    /**
+     * @var ProductRepository
+     */
+    protected $productRepository;
+    /**
+     * @var OrderRepository
+     */
+    protected $orderRepository;
 
     public function __construct()
     {
@@ -35,7 +45,10 @@ abstract class BaseController extends Controller
         $this->productCategoryRepository = app(ProductCategoryRepository::class);
         $this->blogPostRepository = app(BlogPostRepository::class);
         $this->blogCategoryRepository = new BlogCategoryRepository;
+        $this->productRepository = app(ProductRepository::class);
+        $this->orderRepository = app(OrderRepository::class);
     }
+
     /**
      * @return mixed
      */

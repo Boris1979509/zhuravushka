@@ -1,8 +1,9 @@
 .product-wrap {
     display: grid;
-    grid-template-columns: auto;
+    grid-template-columns: repeat(12, 1fr);
     grid-template-areas: "Product Product" "Tabs Goods";
     gap: 40px;
+    margin-bottom: 40px;
 
     .characteristics {
         margin: 30px 0;
@@ -27,6 +28,7 @@
 
     .product {
         grid-area: Product;
+        grid-column-end: span 12;
         display: flex;
         flex-wrap: wrap;
         background: #FFFFFF;
@@ -116,13 +118,15 @@
                 }
             }
         }
-        &__all{
+
+        &__all {
             max-width: 450px;
         }
     }
 
     .add-info-tabs {
         grid-area: Tabs;
+        grid-column-end: span 6;
 
         .product-tabs {
             background: #FFFFFF;
@@ -180,14 +184,18 @@
 
     .more-goods {
         grid-area: Goods;
-        max-width: 300px;
-        h3{
+        //max-width: 300px;
+        grid-column-end: span 12;
+        grid-column-start: span 6;
+
+        h3 {
             padding: 30px 30px 15px 30px;
             border: 1px solid #cccccc;
             margin-bottom: -1px;
             background: #fff;
         }
-        .glider{
+
+        .glider {
             border-right: 1px solid #cccccc;
         }
     }

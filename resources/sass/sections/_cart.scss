@@ -15,6 +15,10 @@
     }
 }
 
+#cart {
+    margin-bottom: 40px;
+}
+
 .cart-wrap {
     display: grid;
     grid-template-columns: 70% auto;
@@ -41,6 +45,7 @@
             background: #FFFFFF;
             border: 1px solid #CCCCCC;
             max-width: 150px;
+            padding: 10px;
         }
 
         &__count {
@@ -190,6 +195,7 @@
 
             .cart-checkout {
                 display: flex;
+
                 &__btn {
                     width: 100%;
                     margin-top: 20px;

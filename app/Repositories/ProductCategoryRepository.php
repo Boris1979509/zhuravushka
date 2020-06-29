@@ -33,7 +33,7 @@ class ProductCategoryRepository extends CoreRepository
             ->select($columns)
             ->where('parent_id', 0)
             ->with('children')
-            ->get();
+            ->take(10)->get();
     }
 
     /**

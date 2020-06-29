@@ -29,7 +29,7 @@ class ProductController extends BaseController
     public function index($slug)
     {
         $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
-        $this->data['cartCount'] = $this->data['order']->cartCount();
+        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
         $this->data['product'] = $this->productRepository->getBySlug($slug);
         return view('shop.product', $this->data);
     }

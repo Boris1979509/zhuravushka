@@ -27,6 +27,6 @@
 
 <script src="{{ asset('plugins/glider.min.js') }}"></script>
 <script src="{{ mix('js/app.js', 'build') }}"></script>
-
+@yield('script')
 </body>
 </html>

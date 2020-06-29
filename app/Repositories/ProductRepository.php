@@ -28,7 +28,7 @@ class ProductRepository extends CoreRepository
         return $this->startConditions()
             ->select($columns)
             ->with('category')
-            ->take(10)->get();
+            ->take(20)->get();
     }
 
     /**

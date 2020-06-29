@@ -26,8 +26,7 @@ class PageController extends BaseController
      */
     public function index()
     {
-        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
-        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : 0;
+        $this->getCart();
 
         $page = $this->pageRepository->homePage();
         $this->data['page'] = $page;
@@ -40,6 +39,7 @@ class PageController extends BaseController
      */
     public function page(string $slug)
     {
+        $this->getCart();
         $page = $this->pageRepository->getPageFirstBySlug($slug);
         $this->data['page'] = $page;
         return view("pages.{$page->page}", $this->data);
@@ -51,6 +51,7 @@ class PageController extends BaseController
      */
     public function services($slug = null): view
     {
+        $this->getCart();
         $page = $this->pageRepository->getPageFirstBySlug('uslugi');
         $this->data['page'] = $page;
         $this->data['children'] = $page->children;
@@ -62,5 +63,11 @@ class PageController extends BaseController
             $this->data['subPage'] = $page->page;
         }
         return view('pages.services', $this->data);
+    }
+
+    private function getCart(): void
+    {
+        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
+        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
     }
 }

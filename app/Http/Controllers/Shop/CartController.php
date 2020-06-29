@@ -112,8 +112,11 @@ class CartController extends BaseController
 
     private function getCart(): void
     {
-        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
-        $this->data['cartCount'] = $this->data['order']->cartCount();
-        $this->data['cartTotalSum'] = $this->data['order']->getTotalSum();
+        $order = $this->orderRepository->findByOrderId(session('orderId'));
+        if ($order) {
+            $this->data['order'] = $order;
+            $this->data['cartCount'] = $order->cartCount();
+            $this->data['cartTotalSum'] = $order->getTotalSum();
+        }
     }
 }

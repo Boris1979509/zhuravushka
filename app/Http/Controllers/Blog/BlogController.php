@@ -27,6 +27,7 @@ class BlogController extends BaseController
      */
     public function index()
     {
+        $this->getCart();
         $this->data['paginator'] = $this->blogPostRepository->getAllWithPaginate(self::LIMIT);
         return view('blog.index', $this->data);
     }
@@ -37,10 +38,17 @@ class BlogController extends BaseController
      */
     public function getByCategory(string $slug): view
     {
+        $this->getCart();
         $this->data['category'] = $this->blogCategoryRepository->getCategoryBySlug($slug);
         $this->data['paginator'] = $this->blogPostRepository
             ->getAllWithPaginate(self::LIMIT, $this->data['category']->id);
 
         return view('blog.index', $this->data);
+    }
+
+    private function getCart(): void
+    {
+        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
+        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
     }
 }

@@ -116,8 +116,8 @@
     display: flex;
     flex-wrap: wrap;
     justify-content: center;
-    margin: 0 auto;
     padding: 0;
+    margin: 38px auto 0;
 }
 
 .glider-dot {
@@ -128,17 +128,23 @@
     outline: none;
     display: block;
     cursor: pointer;
-    color: #ccc;
+    color: $bg-dot;
     border-radius: 999px;
-    background: #ccc;
+    background: $bg-dot;
     width: 12px;
     height: 12px;
-    margin: 7px;
-}
+    margin: 6px;
+    transition: background-color .2s;
 
-.glider-dot {
-    &:hover, &:focus, &.active {
-        background: $bg-top-bar;
+    &:hover, &:focus {
+        background: $bg-dot-active;
+    }
+
+    &.active {
+        background: $bg-dot-active;
+        width: 16px;
+        height: 16px;
+        margin: 4px 6px;
     }
 }
 

@@ -3,9 +3,12 @@ $font-pt-sans: 'PTSansRegular';
 $font-segoe-ui: 'SegoeUI';
 $font-size: 1rem;
 $color-body-default: #404040;
+$letter-spacing-6: 0.06em;
+$letter-spacing-5: 0.05em;
 $letter-spacing-4: 0.04em;
 $letter-spacing-2: 0.02em;
 $letter-spacing-3: 0.03em;
+
 
 //colors
 $bg-color: #E5E5E5;
@@ -77,5 +80,9 @@ $color-tabs-nav: #282828;
 
 // sub header right icons
 $bg-color-icon-active: #FC8507;
+
+//Glider dots
+$bg-dot: #CCC;
+$bg-dot-active: #FC8507;
 
 

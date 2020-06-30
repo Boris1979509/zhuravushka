@@ -3,11 +3,13 @@ h1 {
     font-size: 2rem;
     margin-bottom: 30px;
 }
+
 h2 {
     font-weight: 600;
     font-size: 1.5rem;
     margin-bottom: 30px;
 }
+
 h3 {
     font-weight: 600;
     font-size: 1.3rem;
@@ -54,9 +56,8 @@ h3 {
 
 /* Inputs */
 .input {
-    width: auto;
+    width: calc(100% - 32px - 1px);
     height: 40px;
-    border: none;
     padding: 0 16px;
     background: #fff;
     border-radius: 4px;
@@ -64,6 +65,7 @@ h3 {
     font-weight: normal;
     font-size: 14px;
     line-height: 19px;
+    border: 1px solid #CCCCCC;
     @include inputPlaceholder() { // mixin input text placeholder
         color: #A3A3A3;
         font-family: $font-pt-sans;
@@ -86,6 +88,7 @@ button, span, a {
         line-height: 1.5;
         border-radius: .25rem; // 4px
         transition: all .2s ease; // background-color, color
+        letter-spacing: $letter-spacing-6;
     }
 
     /* btn-active style*/
@@ -113,6 +116,12 @@ button, span, a {
         }
     }
 
+}
+
+.form-input {
+    width: 100%;
+    margin-bottom: 20px;
+    position: relative;
 }
 
 .bold {

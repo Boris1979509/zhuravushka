@@ -203,3 +203,16 @@ Arrow carousel
     transform: rotateY($deg);
 }
 
+/**
+Add button icon
+ */
+@mixin btnIcon($url) {
+    content: "";
+    background: url($url) no-repeat;
+    width: 18px;
+    height: 18px;
+    display: inline-block;
+    margin-left: 20px;
+    vertical-align: top;
+}
+

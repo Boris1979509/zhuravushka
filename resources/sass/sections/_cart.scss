@@ -21,8 +21,8 @@
 
 .cart-wrap {
     display: grid;
-    grid-template-columns: 70% auto;
-    grid-template-areas: "Cart Total" "Cart Info";
+    grid-template-columns: 70% 1fr;
+    grid-template-areas: "Cart Total" "Cart Total";
     grid-template-rows: max-content;
     gap: 40px;
 
@@ -30,6 +30,8 @@
 
         $self: &;
         grid-area: Cart;
+        grid-row: auto;
+        //grid-column: 1 / span 10;
 
         &__product {
             display: flex;
@@ -181,12 +183,16 @@
     }
 
     .cart-total-wrap {
-        background: #FFFFFF;
-        border: 1px solid #CCCCCC;
-        padding: 30px;
+
         grid-area: Total;
+        grid-row: auto;
+        //grid-column: span 10 / span 12;
 
         .checkout-wrap {
+            background: #FFFFFF;
+            border: 1px solid #CCCCCC;
+            padding: 30px;
+
             .cart-sale, .cart-total {
                 display: flex;
                 justify-content: space-between;
@@ -194,13 +200,14 @@
             }
 
             .cart-checkout {
-                display: flex;
+                display: block;
 
                 &__btn {
-                    width: 100%;
+                    width: inherit;
                     margin-top: 20px;
                     text-transform: uppercase;
                     text-decoration: none;
+                    height: inherit;
 
                     &:after {
                         content: "";
@@ -243,10 +250,9 @@
         background: #F8F8F8;
         border: 1px solid #CCCCCC;
         padding: 30px;
-        grid-area: Info;
         line-height: 1.5;
         letter-spacing: $letter-spacing-3;
-        max-height: 100px;
+        margin-top: 40px;
     }
 
 }

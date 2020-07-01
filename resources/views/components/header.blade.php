@@ -107,7 +107,7 @@
                         </div>
                         <span class="sub-header__label cart-total-sum">
                             @if(cart())
-                                {{ $order->getTotalSum() }} <span class="rub">₽</span>
+                                {{ numberFormat($order->getTotalSum()) }} <span class="rub">₽</span>
                             @else
                                 Корзина
                             @endif

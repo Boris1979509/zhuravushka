@@ -1,23 +1,24 @@
 <section id="cart">
     <div class="container">
-        <h1 class="title">Корзина</h1>
+        <h1 class="title">{{ __('Cart') }}</h1>
         <div class="cart-wrap">
             @php /** @var Product $product*/use App\Models\Shop\Product;@endphp
             @if(!isset($order) && !cart())
-                <p>Ваша корзина пуста.</p>
+                <p>{{ __('CartEmptyMessage') }}</p>
             @else
                 <div class="cart">
                     @foreach ($order->products as $product)
                         <div class="cart__product">
                             <div class="cart__img">
-                                <a href="{{ route('product', $product) }}" target="_blank">
-                                    <img src="{{ asset("images/products/{$product->photo}.jpg") }}" alt="{{ $product->title }}"
+                                <a href="{{ route('product', $product->slug) }}" target="_blank">
+                                    <img src="{{ asset("images/products/{$product->photo}.jpg") }}"
+                                         alt="{{ $product->title }}"
                                          class="cart__image">
                                 </a>
                             </div>
                             <div class="cart__name">
-                                <a href="{{ route('product', $product) }}" target="_blank"
-                                   class="link cart__name-link">
+                                <a href="{{ route('product', $product->slug) }}" target="_blank"
+                                   class="link cart__name-link" title="{{ $product->title }}">
                                     {{ $product->title }}
                                 </a>
                             </div>
@@ -51,7 +52,7 @@
                             </div>
                             <form action="{{ route('cart.remove', $product) }}" class="del-form" method="POST">
                                 @csrf
-                                <button type="submit" title="Убрать из корзины" class="cart__del"></button>
+                                <button type="submit" title="{{ __('ButtonCartRemove') }}" class="cart__del"></button>
                             </form>
                         </div>
                     @endforeach
@@ -59,22 +60,23 @@
                 <div class="cart-total-wrap">
                     <div class="checkout-wrap">
                         <div class="cart-sale">
-                            <p class="cart-total-wrap__title">Скидка:</p>
+                            <p class="cart-total-wrap__title">{{ __('Sale') }}</p>
                             <p class="cart-total-wrap__total-price-sale">0 <span class="rub">₽</span></p>
                         </div>
                         <div class="cart-total">
-                            <p class="cart-total-wrap__title bold">Итого:</p>
-                            <p class="cart-total-wrap__total-price bold">{{ $order->getTotalSum() }} <span
+                            <p class="cart-total-wrap__title bold">{{ __('Total') }}</p>
+                            <p class="cart-total-wrap__total-price bold">{{ numberFormat($order->getTotalSum()) }} <span
                                     class="rub">₽</span></p>
                         </div>
                         <div class="cart-checkout">
-                            <a class="btn btn-active cart-checkout__btn" href="{{ route('cart.place') }}">Оформить заказ</a>
+                            <a class="btn btn-active cart-checkout__btn"
+                               href="{{ route('cart.place') }}">{{ __('OrderLinkTitle') }}</a>
                         </div>
                     </div>
-                </div>
-                <div class="primary-info">
-                    <p>В Вашей корзине есть товар с пометкой "Под заказ", в связи с этим срок доставки может
-                        измениться.</p>
+                    <div class="primary-info">
+                        <p>В Вашей корзине есть товар с пометкой "Под заказ", в связи с этим срок доставки может
+                            измениться.</p>
+                    </div>
                 </div>
             @endif
         </div>

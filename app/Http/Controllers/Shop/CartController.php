@@ -7,6 +7,7 @@ use App\Models\Shop\Product;
 use App\Repositories\ProductRepository;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Throwable;
@@ -51,7 +52,7 @@ class CartController extends BaseController
             $order = $order->create();
             session(['orderId' => $order->id]);
         }
-        $order = $this->orderRepository->findByOrderId(session('orderId'));
+        $order = $this->getOrder();
 
         if ($order->products->contains($product)) {
             $inc = $request->input('inc'); // increments ++ --
@@ -60,8 +61,8 @@ class CartController extends BaseController
             $order->products()->attach($product);
         }
 
-        $this->data['cartItemTotalSum'] = $order->products()->find($product)->getItemTotalSum();
-        $this->getCart();
+        $this->data['cartItemTotalSum'] = $this->numberFormat($order->products()->find($product)->getItemTotalSum());
+        $this->getCartAjax();
 
         return response()->json($this->data);
     }
@@ -73,7 +74,7 @@ class CartController extends BaseController
      */
     public function remove($product): JsonResponse
     {
-        $order = $this->orderRepository->findByOrderId(session('orderId'));
+        $order = $this->getOrder();
 
         if ($product = $this->productRepository->getProductFirst($product)) {
             $order->products()->detach($product);
@@ -86,7 +87,7 @@ class CartController extends BaseController
                 return response()->json($this->data);
             }
         }
-        $this->getCart();
+        $this->getCartAjax();
         return response()->json($this->data);
     }
 
@@ -100,6 +101,10 @@ class CartController extends BaseController
         return view('shop.place', $this->data);
     }
 
+    /**
+     * @param Request $request
+     * @return RedirectResponse
+     */
     public function confirm(Request $request)
     {
         if ($order = session()->has('orderId')) {
@@ -107,16 +112,40 @@ class CartController extends BaseController
             return redirect()->route('shop.place');
         }
         return redirect()->route('home');
-
     }
 
     private function getCart(): void
     {
-        $order = $this->orderRepository->findByOrderId(session('orderId'));
-        if ($order) {
+        if ($order = $this->getOrder()) {
             $this->data['order'] = $order;
             $this->data['cartCount'] = $order->cartCount();
             $this->data['cartTotalSum'] = $order->getTotalSum();
         }
+    }
+
+    private function getCartAjax()
+    {
+        if ($order = $this->getOrder()) {
+            $this->data['order'] = $order;
+            $this->data['cartCount'] = $order->cartCount();
+            $this->data['cartTotalSum'] = $this->numberFormat($order->getTotalSum());
+        }
+    }
+
+    /**
+     * @return Order|null
+     */
+    private function getOrder(): ?Order
+    {
+        return $this->orderRepository->findByOrderId(session('orderId'));
+    }
+
+    /**
+     * @param $str
+     * @return string
+     */
+    private function numberFormat($str): string
+    {
+        return number_format($str, 0, '', ' ');
     }
 }

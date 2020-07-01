@@ -16,6 +16,8 @@ require('./components/tabs/tabs');
 require('./components/leaders-sales/leaders-sales');
 require('./components/product/moreGoods');
 require('./components/card/cardIcons');
+require('./components/form/mask/phone-mask');
+require('./components/form/label/label-input-focus');
 
 
 import btnAdd from './components/card/btnAdd';

@@ -4,7 +4,7 @@ header {
     /* Start top-bar */
     .top-bar {
         background: $bg-top-bar;
-        letter-spacing: 0.04rem;
+        letter-spacing: $letter-spacing-4;
         color: $color-text-top-bar;
         font-size: .8125rem;
         line-height: .6;
@@ -100,6 +100,8 @@ header {
                     visibility: hidden;
                     position: absolute;
                     left: -9999px;
+                    height: inherit;
+                    text-transform: none;
                 }
 
                 &.large-btn {

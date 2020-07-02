@@ -97,6 +97,9 @@ class CartController extends BaseController
      */
     public function place()
     {
+        if (!$this->getOrder()) {
+            return redirect()->route('cart');
+        }
         $this->getCart();
         return view('shop.place', $this->data);
     }
@@ -107,7 +110,7 @@ class CartController extends BaseController
      */
     public function confirm(Request $request)
     {
-        if ($order = session()->has('orderId')) {
+        if ($order = getOrder()) {
             $this->orderRepository->findByOrderId($order);
             return redirect()->route('shop.place');
         }

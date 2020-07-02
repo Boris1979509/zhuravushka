@@ -216,3 +216,43 @@ Add button icon
     vertical-align: top;
 }
 
+@mixin orderRadioInput {
+    input[type="radio"] {
+        position: relative;
+        width: 2.5rem;
+        height: 2.5rem;
+        color: $bg-input-radio;
+        border: 1px solid #ccc;
+        border-radius: 100%;
+        appearance: none;
+        outline: 0;
+        cursor: pointer;
+        transition: background 175ms cubic-bezier(0.1, 0.1, 0.25, 1);
+
+        &::before {
+            position: absolute;
+            content: '';
+            display: block;
+            top: calc((100% - 18px) / 2);
+            left: calc((100% - 8px) / 2);
+            width: 8px;
+            height: 14px;
+            border-style: solid;
+            border-color: white;
+            border-width: 0 2px 2px 0;
+            transform: rotate(45deg);
+            opacity: 0;
+        }
+
+        &:checked {
+            color: white;
+            border-color: $bg-input-radio;
+            background: $bg-input-radio;
+
+            &::before {
+                opacity: 1;
+            }
+        }
+    }
+}
+

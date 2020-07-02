@@ -9,8 +9,8 @@
                 <div class="order-registration__select-delivery">
                     <div class="title">{{ __('SelectDeliveryTitle') }}</div>
                     <div class="delivery-type">
-                        <div class="delivery-type__saving">
-                            <div class="icon-title"></div>
+                        <div class="delivery-type__saving active">
+                            <input type="radio" id="delivery-saving" name="typeDelivery" checked>
                             <p class="title">{{ __('SavingTitle') }}</p>
                             <div class="description">
                                 {{ __('SavingTitleDescription') }}
@@ -19,12 +19,34 @@
                             <div class="question-block"><span class="question">?</span></div>
                         </div>
                         <div class="delivery-type__express">
-                            <div class="icon-title"></div>
+                            <input type="radio" id="delivery-express" name="typeDelivery">
                             <p class="title">{{ __('ExpressTitle') }}</p>
                             <div class="description">{{ __('ExpressTitleDescription') }}
                             </div>
                             <div class="price">{{ __('CalculatedByManager') }}</div>
                             <div class="question-block"><span class="question">?</span></div>
+                        </div>
+                    </div>
+                    <div class="date-time-delivery">
+                        <div class="date-delivery">
+                            <div class="date-delivery__title">Выберите дату и время доставки</div>
+                            <div class="date-delivery__tomorrow">
+                                {{ carbon()->tomorrow() }}
+                                <input type="hidden" value="">
+                            </div>
+                            <div class="date-delivery__day-after-tomorrow">
+                                {{ carbon()->addDays(2) }}
+                                <input type="hidden" value="">
+                            </div>
+                            <div class="date-delivery__select-date">
+                                {{__('Выберите дату') }}
+                            </div>
+                        </div>
+                        <div class="time-delivery">
+                            <div class="time-delivery__title">Выберите период доставки</div>
+                            <div class="time-delivery__select-block">
+                                {{ __('Выбрать период') }}
+                            </div>
                         </div>
                     </div>
                 </div>
@@ -55,8 +77,8 @@
                 <div class="order-registration__select-payment-method">
                     <div class="title">{{ __('SelectPaymentTitle') }}</div>
                     <div class="payment-type">
-                        <div class="payment-type__cash">
-                            <div class="icon-title"></div>
+                        <div class="payment-type__cash active">
+                            <input type="radio" id="payment-cash" name="typePayment" checked>
                             <p class="title">{{ __('DriverCashTitle') }}</p>
                             <div class="description">
                                 {{ __('DriverCashDescription') }}
@@ -64,7 +86,7 @@
                             <div class="question-block"><span class="question">?</span></div>
                         </div>
                         <div class="payment-type__online">
-                            <div class="icon-title"></div>
+                            <input type="radio" id="payment-online" name="typePayment">
                             <p class="title">{{ __('PaymentOnline') }}</p>
                             <div class="description">{{ __('PaymentOnlineDescription') }}
                             </div>
@@ -91,7 +113,8 @@
                     </div>
                     <div class="form-input">
                         <input type="text" name="phone" id="phone" class="input mask-input" placeholder=""
-                               pattern="(\+7[-_()\s]+|\+7\s?[(]{0,1}[0-9]{3}[)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2})" required autocomplete="off">
+                               pattern="(\+7[-_()\s]+|\+7\s?[(]{0,1}[0-9]{3}[)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2})"
+                               required autocomplete="off">
                         <label for="phone">{{ __('Phone') }}</label>
                     </div>
                     <div class="form-input">

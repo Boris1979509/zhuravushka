@@ -1,8 +1,4 @@
 window.Axios = require('axios');
-// window.Axios.defaults.headers.common = {
-//     'X-Requested-With': 'XMLHttpRequest',
-//     'X-CSRF-TOKEN' : document.querySelector('meta[name="csrf-token"]').getAttribute('content')
-// }
 import xmlHttpRequest from './xmlHttpRequest/xmlHttpRequest';
 import refreshCart from './components/cart/refreshCart';
 import getPreload from './components/card/functions/getPreload';
@@ -18,6 +14,7 @@ require('./components/product/moreGoods');
 require('./components/card/cardIcons');
 require('./components/form/mask/phone-mask');
 require('./components/form/label/label-input-focus');
+require('./components/form/radio/order-radio-input');
 
 
 import btnAdd from './components/card/btnAdd';

@@ -3,6 +3,7 @@
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" href="{{ asset('images/favicon.png') }}" sizes="16x16">
     <title>@yield('title')</title>
     <meta name="description" content="@yield('description')"/>
     <meta name="keywords" content=""/>

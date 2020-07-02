@@ -4,7 +4,7 @@
         "Read more about it at https://getcomposer.org/doc/01-basic-usage.md#installing-dependencies",
         "This file is @generated automatically"
     ],
-    "content-hash": "8621a135a7115a8c5d513454f6770b31",
+    "content-hash": "78343f33c4ee0a32deb291bfdac568b2",
     "packages": [
         {
             "name": "asm89/stack-cors",
@@ -1252,6 +1252,53 @@
                 }
             ],
             "time": "2020-05-18T15:13:39+00:00"
+        },
+        {
+            "name": "makkinga/laravel-carbon-helper",
+            "version": "1.0.1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/makkinga/laravel-carbon-helper.git",
+                "reference": "a775e44e3da8eee1afa9f8c12a2fedb614b276e5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/makkinga/laravel-carbon-helper/zipball/a775e44e3da8eee1afa9f8c12a2fedb614b276e5",
+                "reference": "a775e44e3da8eee1afa9f8c12a2fedb614b276e5",
+                "shasum": ""
+            },
+            "require": {
+                "illuminate/support": "~5.8.0|^6.0|^7.0",
+                "nesbot/carbon": "^2.0",
+                "php": "^7.2"
+            },
+            "type": "library",
+            "extra": {
+                "laravel": {
+                    "providers": [
+                        "Makkinga\\CarbonHelper\\CarbonHelperServiceProvider"
+                    ]
+                }
+            },
+            "autoload": {
+                "psr-4": {
+                    "Makkinga\\CarbonHelper\\": "src/"
+                },
+                "files": [
+                    "src/CarbonHelper.php"
+                ]
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Gydo Makkinga",
+                    "email": "gydo@makkinga.online"
+                }
+            ],
+            "time": "2020-03-18T15:33:47+00:00"
         },
         {
             "name": "monolog/monolog",
@@ -7533,7 +7580,8 @@
     "prefer-stable": true,
     "prefer-lowest": false,
     "platform": {
-        "php": "^7.2.5"
+        "php": "^7.2.5",
+        "ext-json": "*"
     },
     "platform-dev": [],
     "plugin-api-version": "1.1.0"

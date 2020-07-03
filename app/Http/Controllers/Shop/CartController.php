@@ -106,15 +106,11 @@ class CartController extends BaseController
 
     /**
      * @param Request $request
-     * @return RedirectResponse
+     * @return void
      */
     public function confirm(Request $request)
     {
-        if ($order = getOrder()) {
-            $this->orderRepository->findByOrderId($order);
-            return redirect()->route('shop.place');
-        }
-        return redirect()->route('home');
+
     }
 
     private function getCart(): void

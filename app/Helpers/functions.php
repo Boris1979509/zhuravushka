@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Str;
 use Jenssegers\Date\Date;
 
 if (!function_exists('isCurrentRoute')) {
@@ -39,6 +40,22 @@ if (!function_exists('parseDate')) {
      */
     function parseDate($str)
     {
+
         return Jenssegers\Date\Date::parse($str);
+    }
+}
+if (!function_exists('limitMonth')) {
+    /**
+     * @param $str
+     * @return string
+     */
+    function limitMonth($str)
+    {
+        $arr1 = explode(" ", $str);
+        $n = mb_strlen($arr1[1], 'utf-8');
+        if ($n > 3) {
+            return $arr1[0] . ' ' . Str::limit($arr1[1], 3, '.');
+        }
+        return $str;
     }
 }

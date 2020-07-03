@@ -27,25 +27,26 @@
                             <div class="question-block"><span class="question">?</span></div>
                         </div>
                     </div>
-                    <div class="date-time-delivery">
+                    <div class="date-time-delivery" hidden>
                         <div class="date-delivery">
                             <div class="date-delivery__title">{{ __('DateDeliveryTitle') }}</div>
-                            <div class="date-delivery__tomorrow">
-                                <p>{{ __('Tomorrow') . parseDate(carbon())->tomorrow()->format('j F') }}</p>
-                                <input type="hidden" value="">
-                            </div>
-                            <div class="date-delivery__day-after-tomorrow">
-                                <p>{{ __('DayAfterTomorrow') . parseDate(carbon())->addDays(2)->format('j F') }}</p>
-                                <input type="hidden" value="">
-                            </div>
-                            <div class="date-delivery__select-date">
-                                {{__('SelectDateDelivery') }}
+                            <div class="date-delivery__options">
+                                <div class="date-delivery__options-item">
+                                    <span>{{ __('Tomorrow') . limitMonth(parseDate(carbon())->tomorrow()->format('j F')) }}</span>
+                                </div>
+                                <div class="date-delivery__options-item">
+                                    <span>{{ __('DayAfterTomorrow') . limitMonth(parseDate(carbon())->addDays(2)->format('j F')) }}</span>
+                                </div>
+                                <div class="delivery-date-other-block">
+                                    <input type="text" id="other-date" name="datePicker" placeholder=" {{ __('SelectDateDelivery') }}" class="delivery-date-other"> <img
+                                        src="{{ asset('images/icons/order-registration/order-arrow.svg') }}" alt="">
+                                </div>
                             </div>
                         </div>
                         <div class="time-delivery">
                             <div class="time-delivery__title">{{ __('TimeDeliveryTitle') }}</div>
                             <div class="time-delivery__select-block">
-                                <select name="timeDelivery" class="">
+                                <select name="timeDelivery" class="select">
                                     <option selected>{{ __('SelectTimeDelivery') }}</option>
                                     <option value="с 10:00 до 12:00">с 10:00 до 12:00</option>
                                     <option value="с 12:00 до 16:00">с 12:00 до 16:00</option>
@@ -114,13 +115,21 @@
                     <div class="form-input">
                         <input type="text" name="middleName" id="middleName" class="input"
                                placeholder="">
-                        <label for="">{{ __('MiddleName') }}</label>
+                        <label for="middleName">{{ __('MiddleName') }}</label>
                     </div>
-                    <div class="form-input">
-                        <input type="text" name="phone" id="phone" class="input mask-input" placeholder=""
-                               pattern="(\+7[-_()\s]+|\+7\s?[(]{0,1}[0-9]{3}[)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2})"
-                               required autocomplete="off">
-                        <label for="phone">{{ __('Phone') }}</label>
+                    <div class="number-send-block">
+                        <div class="form-input">
+                            <input type="text" name="phone" id="phone" class="input mask-input" placeholder=""
+                                   pattern="(\+7[-_()\s]+|\+7\s?[(]{0,1}[0-9]{3}[)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2})"
+                                   required autocomplete="off">
+                            <label for="phone">{{ __('Phone') }}</label>
+                        </div>
+                        <button class="btn btn-active" id="number-btn">Отправить СМС</button>
+                        <div class="number-input-send-block" style="display: none;">
+                            <div></div>
+                            <input type="text" placeholder="Код подтверждения"> <span style="display: none;">Повторная отправка будет доступна через 0 сек.</span>
+                            <a href="#">Отправить еще раз</a>
+                        </div>
                     </div>
                     <div class="form-input">
                         <input type="email" name="email" id="email" class="input" placeholder="">
@@ -170,4 +179,12 @@
         </form>
     </div>
 @endsection
+@section('script')
+    <script>
+        // const elem = document.querySelector('input[name="datePicker"]');
+        // const datepicker = new Datepicker(elem, {
+        //     // ...options
+        // });
+    </script>
+    @endsection
 

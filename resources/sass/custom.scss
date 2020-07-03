@@ -63,8 +63,7 @@ h3 {
     border-radius: 4px;
     font-style: normal;
     font-weight: normal;
-    font-size: 14px;
-    line-height: 19px;
+    font-size: 0.875rem;
     border: 1px solid #CCCCCC;
     @include inputPlaceholder() { // mixin input text placeholder
         color: #A3A3A3;

@@ -19,6 +19,21 @@
         margin-bottom: 30px;
     }
 
+    &__contact-form {
+        .form-input {
+            width: 50%;
+        }
+
+        .number-send-block {
+            display: flex;
+
+            #number-btn {
+                width: auto;
+                margin: 0 20px;
+            }
+        }
+    }
+
     .question-block {
         position: absolute;
         width: 50px;
@@ -116,17 +131,79 @@
             @include btnIcon('../../images/icons/search-btn-white.svg')
         }
     }
-    .date-time-delivery{
+
+    .date-time-delivery {
         display: flex;
         flex-wrap: wrap;
         justify-content: space-between;
         margin-top: 30px;
-        .date-delivery, .time-delivery{
-            &__title{
+
+        .date-delivery, .time-delivery {
+            &__title {
                 font-weight: bold;
                 font-size: 0.875rem;
                 line-height: 18px;
                 letter-spacing: $letter-spacing-4;
+                margin-bottom: 10px;
+            }
+        }
+
+        .date-delivery {
+            &__options {
+                display: flex;
+            }
+
+            &__options-item {
+                cursor: pointer;
+                padding: 10px 20px;
+                font-size: 0.875rem;
+                border: 1px solid #ccc;
+                border-right: 0;
+                height: fit-content;
+                //flex-basis: 33%;
+            }
+
+            .delivery-date-other-block {
+                position: relative;
+
+                .delivery-date-other {
+                    display: block;
+                    width: inherit;
+                    height: calc(100% - 4px);
+                    border: 1px solid #ccc;
+                    text-indent: 1rem;
+                    font-size: 0.875rem;
+                    @include inputPlaceholder {
+                        font-family: $font-pt-sans;
+                        font-size: 0.875rem;
+                        color: inherit;
+                    }
+                }
+
+                img {
+                    position: absolute;
+                    top: calc((100% - 5px) / 2);
+                    right: 20px;
+                }
+            }
+
+        }
+
+        .time-delivery {
+            select {
+                width: 100%;
+                display: block;
+                padding: 8px 20px;
+                border: 1px solid #ccc;
+                font-family: $font-pt-sans;
+                font-size: 0.875rem;
+                color: inherit;
+                appearance: none; /* убираем дефолнтные стрелочки */
+            }
+
+            .select {
+                background-size: auto;
+                background: url("../../images/icons/order-registration/order-arrow.svg") no-repeat top 50% right 20px;
             }
         }
     }
@@ -134,6 +211,8 @@
 
     &__info-container {
         @extend %templateBlock;
+        position: relative;
+        padding-bottom: 20px !important;
 
         %templateBlockFonts {
             font-size: 1rem;
@@ -185,13 +264,15 @@
 
             .cart-total {
                 display: flex;
-                flex-wrap: wrap;
-                margin-top: 40px;
+                margin: 20px -30px 0 -30px;
+                border-top: 1px solid #F2F2F2;
+                padding-top: 20px;
 
                 &__title {
                     @extend %templateBlockFonts;
                     width: 50%;
                     letter-spacing: $letter-spacing-4;
+                    padding-left: 30px;
                 }
 
                 &__total-sum {
@@ -201,23 +282,27 @@
                     letter-spacing: $letter-spacing-3;
                     width: 50%;
                     text-align: right;
+                    padding-right: 30px;
                 }
             }
         }
 
-
-        //&:before{
-        //    //content: "";
-        // background-image: "●",
-        //    display: block;
-        //    background-repeat: repeat-y;
-        //    width: 10px;
-        //    height: 10px;
-        //}
+        &:after {
+            position: absolute;
+            display: block;
+            bottom: -5px;
+            left: 0;
+            height: 5px;
+            width: 100%;
+            content: "";
+            padding-top: 5px;
+            background: url('../../images/order-border.png') repeat-x;
+        }
     }
 
     .confirm-order-container {
-        margin-top: 30px;
+        margin: 30px auto 0;
+        width: calc(100% - 60px);
 
         &__primary-info {
             margin-top: 20px;

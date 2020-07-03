@@ -9,6 +9,8 @@ module.exports = (() => {
     }
     const payments = document.querySelectorAll('.payment-type > div');
     const delivery = document.querySelectorAll('.delivery-type > div');
+    const deliveryAdd = document.querySelector('.date-time-delivery');
+
     if (payments && delivery) {
         payments.forEach((item) => {
             item.addEventListener('click', (e) => {
@@ -18,6 +20,7 @@ module.exports = (() => {
         delivery.forEach((item) => {
             item.addEventListener('click', (e) => {
                 handleClick(e, delivery);
+                deliveryAdd.toggleAttribute("hidden");
             });
         });
     }

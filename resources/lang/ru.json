@@ -78,5 +78,11 @@
     "Restore": "Восстановить",
     "Categories": "Категории",
     "Regions": "Регионы",
-    "Not found": "не найдено."
+    "Not found": "не найдено.",
+    "Tomorrow": "Завтра, ",
+    "DayAfterTomorrow": "Послезавтра, ",
+    "SelectDateDelivery": "Выберите дату",
+    "SelectTimeDelivery": "Выбрать период",
+    "TimeDeliveryTitle": "Выберите период доставки",
+    "DateDeliveryTitle": "Выберите дату и время доставки"
 }

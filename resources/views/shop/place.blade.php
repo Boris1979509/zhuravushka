@@ -29,23 +29,28 @@
                     </div>
                     <div class="date-time-delivery">
                         <div class="date-delivery">
-                            <div class="date-delivery__title">Выберите дату и время доставки</div>
+                            <div class="date-delivery__title">{{ __('DateDeliveryTitle') }}</div>
                             <div class="date-delivery__tomorrow">
-                                {{ carbon()->tomorrow() }}
+                                <p>{{ __('Tomorrow') . parseDate(carbon())->tomorrow()->format('j F') }}</p>
                                 <input type="hidden" value="">
                             </div>
                             <div class="date-delivery__day-after-tomorrow">
-                                {{ carbon()->addDays(2) }}
+                                <p>{{ __('DayAfterTomorrow') . parseDate(carbon())->addDays(2)->format('j F') }}</p>
                                 <input type="hidden" value="">
                             </div>
                             <div class="date-delivery__select-date">
-                                {{__('Выберите дату') }}
+                                {{__('SelectDateDelivery') }}
                             </div>
                         </div>
                         <div class="time-delivery">
-                            <div class="time-delivery__title">Выберите период доставки</div>
+                            <div class="time-delivery__title">{{ __('TimeDeliveryTitle') }}</div>
                             <div class="time-delivery__select-block">
-                                {{ __('Выбрать период') }}
+                                <select name="timeDelivery" class="">
+                                    <option selected>{{ __('SelectTimeDelivery') }}</option>
+                                    <option value="с 10:00 до 12:00">с 10:00 до 12:00</option>
+                                    <option value="с 12:00 до 16:00">с 12:00 до 16:00</option>
+                                    <option value="с 16:00 до 21:00">с 16:00 до 21:00</option>
+                                </select>
                             </div>
                         </div>
                     </div>

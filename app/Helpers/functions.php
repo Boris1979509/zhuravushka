@@ -1,5 +1,7 @@
 <?php
 
+use Jenssegers\Date\Date;
+
 if (!function_exists('isCurrentRoute')) {
     /**
      * @param string $name
@@ -22,7 +24,7 @@ if (!function_exists('cart')) {
 }
 if (!function_exists('numberFormat')) {
     /**
-     * @param $str
+     * @param string $str
      * @return string
      */
     function numberFormat($str): string
@@ -30,21 +32,13 @@ if (!function_exists('numberFormat')) {
         return number_format($str, 0, '', ' ');
     }
 }
-if (!function_exists('loadImg')) {
-
-    function loadImg()
+if (!function_exists('parseDate')) {
+    /**
+     * @param string $str
+     * @return Date
+     */
+    function parseDate($str)
     {
-        $path = 'images/products'; // путь к директории с изображениями
-        $extensions = array('png', 'jpg', 'jpeg', 'gif'); // показывать расширения
-
-        $directoryIterator = new RecursiveDirectoryIterator($path, RecursiveDirectoryIterator::SKIP_DOTS);
-        $iteratorIterator = new RecursiveIteratorIterator($directoryIterator, RecursiveIteratorIterator::LEAVES_ONLY);
-
-        foreach ($iteratorIterator as $file) {
-            if (in_array($file->getExtension(), $extensions)) {
-                return $file->getPathname();
-                continue;
-            }
-        }
+        return Jenssegers\Date\Date::parse($str);
     }
 }

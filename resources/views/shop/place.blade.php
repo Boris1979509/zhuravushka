@@ -38,7 +38,7 @@
                                     <span>{{ __('DayAfterTomorrow') . limitMonth(parseDate(carbon())->addDays(2)->format('j F')) }}</span>
                                 </div>
                                 <div class="delivery-date-other-block">
-                                    <input type="text" id="other-date" name="datePicker" placeholder=" {{ __('SelectDateDelivery') }}" class="delivery-date-other"> <img
+                                    <input type="text" id="other-date" name="datePicker" autocomplete="off" placeholder=" {{ __('SelectDateDelivery') }}" class="delivery-date-other"> <img
                                         src="{{ asset('images/icons/order-registration/order-arrow.svg') }}" alt="">
                                 </div>
                             </div>

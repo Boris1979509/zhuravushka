@@ -51,9 +51,9 @@ Breadcrumbs::for('cart.place', static function (Generator $trail) {
     $trail->push(__('Order Place'), route('cart.place'));
 });
 // Catalog main
-Breadcrumbs::for('category.main', static function (Generator $trail) {
+Breadcrumbs::for('catalog', static function (Generator $trail) {
     $trail->parent('home');
-    $trail->push('Каталог', route('category.main'));
+    $trail->push('Каталог', route('catalog'));
 });
 // Product category
 Breadcrumbs::for('category', static function (Generator $trail, $categoryProductSlug) {
@@ -61,7 +61,7 @@ Breadcrumbs::for('category', static function (Generator $trail, $categoryProduct
     if ($parent = $category->parent) {
         $trail->parent('category', $parent->slug);
     } else {
-        $trail->parent('category.main');
+        $trail->parent('catalog');
     }
     $trail->push($category->title, route('category', $category->slug));
 });

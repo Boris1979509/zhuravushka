@@ -1,25 +1,22 @@
 <div class="homepage-top-tabs-category">
     <nav class="tabs-nav">
         <ul>
-            <li class="tabs-nav__item">Сезонные предложения</li>
-            <li class="tabs-nav__item">Для строительства</li>
-            <li class="tabs-nav__item">Для ремонта</li>
-            <li class="tabs-nav__item">Для сада и огорода</li>
+            @foreach($homePageTop as $parentItem)
+                <li class="tabs-nav__item">{{ $parentItem->title }}</li>
+            @endforeach
         </ul>
     </nav>
-
     <div class="tabs-content">
-        <div class="tabs-content__item">
-            @include('components.glider-carousel')
-        </div>
-        <div class="tabs-content__item">
-            @include('components.glider-carousel')
-        </div>
-        <div class="tabs-content__item">
-            @include('components.glider-carousel')
-        </div>
-        <div class="tabs-content__item">
-            @include('components.glider-carousel')
-        </div>
+        @foreach($homePageTop as $parentItem)
+            <div class="tabs-content__item">
+                <div class="glider-contain">
+                    <div class="glider" id="glider-{{ $parentItem->slug }}">
+                        @include('components.glider-carousel', ['children' => $parentItem->children])
+                    </div>
+                    <button aria-label="Previous" class="glider-prev"></button>
+                    <button aria-label="Next" class="glider-next"></button>
+                </div>
+            </div>
+        @endforeach
     </div>
 </div>

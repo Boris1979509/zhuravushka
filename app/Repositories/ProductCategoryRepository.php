@@ -32,8 +32,29 @@ class ProductCategoryRepository extends CoreRepository
         return $this->startConditions()
             ->select($columns)
             ->where('parent_id', 0)
-            ->with('children')
-            ->take(10)->get();
+            ->with(['children' => static function ($query) {
+                $query->withCount('products as productsCount');
+            }])->take(10)->get();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getHomePageTop()
+    {
+        $columns = [
+            'id',
+            'title',
+            'slug',
+            'parent_id',
+        ];
+        return $this->startConditions()
+            ->select($columns)
+            ->where('parent_id', 0)
+            ->orderBy('title', 'DESC')
+            ->with(['children' => static function ($query) {
+                $query->with('products');
+            }])->offset(15)->limit(4)->get();
     }
 
     /**
@@ -46,6 +67,7 @@ class ProductCategoryRepository extends CoreRepository
         return $this->startConditions()
             ->select($columns)
             ->where('slug', $slug)
+            ->with('parent')
             ->first();
     }
 }

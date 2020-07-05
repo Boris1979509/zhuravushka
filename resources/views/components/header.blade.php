@@ -50,13 +50,13 @@
                 <!--end logo-container-->
 
                 <!-- Start search header -->
-                <form method="get" class="b-search">
-                    <div class="b-search__content">
+                <div class="sub-header__search">
+                    <form method="get" class="b-search">
                         <input type="search" name="search" class="input b-search__input"
                                placeholder="Найдется все! И не только">
                         <span class="b-search__icon loupe"></span>
-                    </div>
-                </form>
+                    </form>
+                </div>
                 <div class="sub-header__right">
                     <a href="" rel="nofollow" class="link compare">
                         <div class="icon compare__icon">

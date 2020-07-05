@@ -51,11 +51,24 @@ if (!function_exists('limitMonth')) {
      */
     function limitMonth($str)
     {
-        $arr1 = explode(" ", $str);
+        $arr1 = explode(' ', $str);
         $n = mb_strlen($arr1[1], 'utf-8');
         if ($n > 3) {
             return $arr1[0] . ' ' . Str::limit($arr1[1], 3, '.');
         }
         return $str;
+    }
+}
+if (!function_exists('fileExist')) {
+    /**
+     * @param $path
+     * @return string
+     */
+    function fileExist($path): string
+    {
+        if (!file_exists($path)) {
+            return '/images/nophoto.png';
+        }
+        return $path;
     }
 }

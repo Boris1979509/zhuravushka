@@ -28,7 +28,7 @@ header {
 
         &__nav-link {
             position: relative;
-            padding-bottom: 9px;
+            padding-bottom: 8px;
             @include hoverUnderline($color-text-top-bar, 2px);
             font-size: inherit;
         }
@@ -52,6 +52,7 @@ header {
             margin: 0 auto;
             font-style: normal;
             font-weight: bold;
+            align-self: normal;
 
             span {
                 &:before {
@@ -112,15 +113,13 @@ header {
                     }
 
                     .catalog-spoiler-btn {
-                        width: calc(100% - 77px - 20px);
+                        width: auto;
                         transition: opacity 300ms ease-in 300ms; // delay 300ms
                         opacity: 1;
                         visibility: visible;
                         position: relative;
-                        left: auto;
                         margin-left: 20px;
-                        vertical-align: text-bottom;
-
+                        left: auto;
                         &:before {
                             font-size: .875rem;
                             line-height: 1.5;
@@ -134,35 +133,38 @@ header {
             }
 
             /* Search header */
-            .b-search {
-                flex: 0;
-                padding: 12px 20px;
+            .sub-header__search {
+                position: relative;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                flex-grow: 1;
+                .b-search{
+                    width: 100%;
+                }
 
-                &__content {
-                    position: relative;
-                    width: inherit;
+                .b-search__input {
+                    border: 0 !important;
+                    padding-right: 40px !important;
+                }
 
-                    .b-search__input {
-                        width: 366px;
-                    }
-
-                    /* Search icon loupe */
-                    .b-search__icon {
-                        &.loupe {
-                            position: absolute;
-                            background: url("../../images/icons/loupe.svg") no-repeat;
-                            width: 18px;
-                            height: 18px;
-                            cursor: pointer;
-                            top: .6875rem; // 11px
-                            right: 1rem;
-                        }
+                /* Search icon loupe */
+                .b-search__icon {
+                    &.loupe {
+                        position: absolute;
+                        background: url("../../images/icons/loupe.svg") no-repeat;
+                        width: 18px;
+                        height: 18px;
+                        cursor: pointer;
+                        top: calc((100% - 18px) / 2);
+                        right: 1rem;
                     }
                 }
+
             }
 
             .sub-header__right {
-                margin-left: auto;
+                margin-left: 24px;
 
                 .badge {
                     position: absolute;
@@ -180,7 +182,6 @@ header {
                 }
 
                 a {
-                    vertical-align: text-top;
 
                     &:not(:last-child) {
                         margin-right: 24px;

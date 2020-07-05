@@ -19,6 +19,7 @@ class PageController extends BaseController
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
         $this->data['products'] = $this->productRepository->getAllProducts();
+        $this->data['homePageTop'] = $this->productCategoryRepository->getHomePageTop();
     }
 
     /**
@@ -26,6 +27,8 @@ class PageController extends BaseController
      */
     public function index()
     {
+//        $res= $this->productCategoryRepository->catalog();
+//        dump($res->first()->products->take(10));
         $this->getCart();
 
         $page = $this->pageRepository->homePage();
@@ -70,4 +73,10 @@ class PageController extends BaseController
         $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
         $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
     }
+//    public function homepageTop(){
+//        $categories = $this->productCategoryRepository->getHomePageTop();
+//        $categories->each(static function($category) {
+//            $category->products()->take(3)->get();
+//        });
+//    }
 }

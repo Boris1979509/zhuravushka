@@ -19,6 +19,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer $category_id
  * @property string $description
  * @property BelongsToMany $pivot
+ * @property string $unit_pricing_base_measure
  */
 class Product extends Model
 {
@@ -45,7 +46,7 @@ class Product extends Model
      */
     public function category(): BelongsTo
     {
-        return $this->belongsTo(ProductCategory::class);
+        return $this->belongsTo(ProductCategory::class, 'category_id', 'id');
     }
 
     /**

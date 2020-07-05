@@ -8,10 +8,10 @@
                          src="{{ asset('images/icons/thumb/elektrika-i-osveshhenie.svg') }}"
                          alt="{{ $categoryItem->title }}">
                     {{ $categoryItem->title  }}</a>
-                @if($categoryItem->children->count())
+                @if($categoryItem->children)
                     <div class="catalog__sub-catalog">
                         @foreach($categoryItem->children as $childrenItem)
-                            <a href="{{ route('category', $childrenItem->slug) }}" class="link catalog__sub-catalog-link">{{ $childrenItem->title }}</a>
+                            <a href="{{ route('category', $childrenItem->slug) }}" class="link catalog__sub-catalog-link">{{ $childrenItem->title }} ({{  $childrenItem->productsCount }})</a>
                         @endforeach
                     </div>
                 @endif

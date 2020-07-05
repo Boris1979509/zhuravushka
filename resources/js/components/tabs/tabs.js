@@ -2,6 +2,8 @@ const tab = {
     nav: null, // holds all tabs
     txt: null, // holds all text containers
     gl: null,
+    prev: null,
+    next: null,
     init: function () {
         // tab.init() : init tab interface
 
@@ -24,8 +26,14 @@ const tab = {
             // Default - show first tab
             tab.nav[0].classList.add("active");
             tab.txt[0].classList.add("active");
-            tab.gl = document.querySelector(".tabs-content__item.active .glider");
+            tab.initGlider();
         }
+    },
+    initGlider: function () {
+        tab.gl = document.querySelector(".tabs-content__item.active .glider");
+        tab.prev = document.querySelector('.tabs-content__item.active .glider-prev');
+        tab.next = document.querySelector('.tabs-content__item.active .glider-next');
+        tab.glider();
     },
 
     switch: function () {
@@ -42,21 +50,19 @@ const tab = {
         // Set current tab
         tab.nav[this.dataset.pos].classList.add("active");
         tab.txt[this.dataset.pos].classList.add("active");
-        tab.gl = document.querySelector(".tabs-content__item.active .glider");
-        tab.glider();
+        tab.initGlider();
     },
     glider: function () {
         if (!tab.gl) return;
-        const glider = new Glider(tab.gl, {
+        new Glider(tab.gl, {
             //itemWidth: 'auto',
             slidesToShow: 4, // auto
             slidesToScroll: 4, // auto
-            propagateEvent: true,
-            draggable: true,
-            //dots: '.dots',
+            propagateEvent: false,
+            draggable: false,
             arrows: {
-                prev: '.glider-prev',
-                next: '.glider-next'
+                prev: tab.prev,
+                next: tab.next,
             }
         });
     }
@@ -64,5 +70,4 @@ const tab = {
 
 window.addEventListener("load", () => {
     tab.init();
-    tab.glider();
 });

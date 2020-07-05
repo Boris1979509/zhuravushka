@@ -203,11 +203,15 @@
                 display: block;
 
                 &__btn {
-                    width: inherit;
                     margin-top: 20px;
                     text-transform: uppercase;
                     text-decoration: none;
-                    height: inherit;
+                    height: 55px;
+                    padding: 0 !important;
+                    border: none;
+                    display: flex;
+                    justify-content: center;
+                    align-items: center;
 
                     &:after {
                         content: "";
@@ -216,7 +220,6 @@
                         height: 18px;
                         display: inline-block;
                         margin-left: 20px;
-                        vertical-align: top;
                     }
                 }
             }

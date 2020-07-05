@@ -169,7 +169,7 @@
                 .delivery-date-other {
                     display: block;
                     width: inherit;
-                    height: calc(100% - 4px);
+                    height: calc(100% - 2px);
                     border: 1px solid #ccc;
                     text-indent: 1rem;
                     font-size: 0.875rem;
@@ -236,6 +236,7 @@
                 width: 50%;
                 align-self: flex-end;
                 text-align: right;
+                line-height: 1;
             }
 
         }

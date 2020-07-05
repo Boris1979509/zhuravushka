@@ -84,5 +84,6 @@
     "SelectDateDelivery": "Выберите дату",
     "SelectTimeDelivery": "Выбрать период",
     "TimeDeliveryTitle": "Выберите период доставки",
-    "DateDeliveryTitle": "Выберите дату и время доставки"
+    "DateDeliveryTitle": "Выберите дату и время доставки",
+    "Catalog": "Каталог"
 }

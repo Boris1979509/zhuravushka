@@ -69,7 +69,7 @@
 .glider-next,
 .glider-pre {
     &.disabled {
-        opacity: .25;
+        opacity: .25 !important;
         color: #666;
         cursor: default;
     }

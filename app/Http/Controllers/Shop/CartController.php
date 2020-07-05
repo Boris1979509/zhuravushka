@@ -108,7 +108,7 @@ class CartController extends BaseController
      * @param Request $request
      * @return void
      */
-    public function confirm(Request $request)
+    public function confirm(Request $request): void
     {
 
     }

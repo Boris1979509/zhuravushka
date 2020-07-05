@@ -1,74 +1,26 @@
-<div class="glider-contain">
-<div class="glider">
-    <div>
-        <div class="card">
-            <div class="card__body">
-                <img src="{{ asset('images/product-item.png') }}" class="card__img-top" alt="">
-                <p class="card__title">
-                    <a href="" class="link card__link">Дрель-шуруповерт сетевой Makita FS4300</a>
-                </p>
-                <p class="card__price">от <span class="bold">2 395 ₽</span></p>
+@if(isset($children))
+    @foreach($children->take(1) as $childrenItem)
+        @foreach($childrenItem->products->take(8) as $productItem)
+            <div>
+                <div class="card">
+                    <div class="card__body">
+                        <a href="{{ route('product', $productItem->slug) }}" title="{{ $productItem->title }}">
+                            <img src="{{ fileExist("images/products/{$productItem->photo}.jpg") }}"
+                                 class="card__img-top"
+                                 alt="{{ $productItem->title }}">
+                        </a>
+                    </div>
+                    <div class="card__title">
+                        <a href="{{ route('product', $productItem->slug) }}"
+                           class="link card__link">{{ $productItem->title }}</a>
+                    </div>
+                    <div class="card__footer">
+                        <p class="card__price bold">от {{ numberFormat($productItem->price) }} <span
+                                    class="rub">₽</span></p>
+                    </div>
+                </div>
             </div>
-        </div>
-    </div>
-    <div>
-        <div class="card">
-            <div class="card__body">
-                <img src="{{ asset('images/product-item.png') }}" class="card__img-top" alt="">
-                <p class="card__title">
-                    <a href="" class="link card__link">Дрель-шуруповерт сетевой Makita FS4300</a>
-                </p>
-                <p class="card__price">от <span class="bold">2 395 ₽</span></p>
-            </div>
-        </div>
-    </div>
-    <div>
-        <div class="card">
-            <div class="card__body">
-                <img src="{{ asset('images/product-item.png') }}" class="card__img-top" alt="">
-                <p class="card__title">
-                    <a href="" class="link card__link">Дрель-шуруповерт сетевой Makita FS4300</a>
-                </p>
-                <p class="card__price">от <span class="bold">2 395 ₽</span></p>
-            </div>
-        </div>
-    </div>
-    <div>
-        <div class="card">
-            <div class="card__body">
-                <img src="{{ asset('images/product-item.png') }}" class="card__img-top" alt="">
-                <p class="card__title">
-                    <a href="" class="link card__link">Дрель-шуруповерт сетевой Makita FS4300</a>
-                </p>
-                <p class="card__price">от <span class="bold">2 395 ₽</span></p>
-            </div>
-        </div>
-    </div>
-    <div>
-        <div class="card">
-            <div class="card__body">
-                <img src="{{ asset('images/product-item.png') }}" class="card__img-top" alt="">
-                <p class="card__title">
-                    <a href="" class="link card__link">Дрель-шуруповерт сетевой Makita FS4300</a>
-                </p>
-                <p class="card__price">от <span class="bold">2 395 ₽</span></p>
-            </div>
-        </div>
-    </div>
-    <div>
-        <div class="card">
-            <div class="card__body">
-                <img src="{{ asset('images/product-item.png') }}" class="card__img-top" alt="">
-                <p class="card__title">
-                    <a href="" class="link card__link">Дрель-шуруповерт сетевой Makita FS4300</a>
-                </p>
-                <p class="card__price">от <span class="bold">2 395 ₽</span></p>
-            </div>
-        </div>
-    </div>
-</div>
-    <button aria-label="Previous" class="glider-prev"></button>
-    <button aria-label="Next" class="glider-next"></button>
-    <div role="tablist" class="dots"></div>
-</div>
+        @endforeach
+    @endforeach
+@endif
 

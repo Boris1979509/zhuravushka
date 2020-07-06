@@ -2,9 +2,9 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Http\Requests\ProductsFilterRequest;
 use App\Models\Shop\Product;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\View\View;
 
 class ProductCategoryController extends BaseController
@@ -32,11 +32,24 @@ class ProductCategoryController extends BaseController
     }
 
     /**
+     * @param ProductsFilterRequest $request
      * @param $slug
      * @return RedirectResponse|view
      */
-    public function category($slug)
+    public function category(ProductsFilterRequest $request, $slug)
     {
+        //dd($request->all());
+//        $productsQuery = Product::query();
+//        if ($request->anyFilled('priceFrom')) {
+//            $productsQuery->where('price', '>=', $request->priceFrom);
+//        }
+//        if ($request->anyFilled('priceTo')) {
+//            $productsQuery->where('price', '<=', $request->priceTo);
+//        }
+//        if($request->has('sortInStock')){
+//
+//        }
+//        $products = $productsQuery->paginate(10)->withPath('?' . $request->getQueryString());
 
         $this->data['category'] = $this->productCategoryRepository->getBySlug($slug);
 

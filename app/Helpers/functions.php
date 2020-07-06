@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Jenssegers\Date\Date;
 
@@ -66,9 +67,9 @@ if (!function_exists('fileExist')) {
      */
     function fileExist($path): string
     {
-        if (!file_exists($path)) {
-            return '/images/nophoto.png';
+        if (file_exists(public_path($path))) {
+            return asset($path);
         }
-        return $path;
+        return asset('images/nophoto.png');
     }
 }

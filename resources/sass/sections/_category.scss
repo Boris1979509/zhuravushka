@@ -1,5 +1,6 @@
 #catalog {
     background: #fff;
+    padding-bottom: 40px;
 
     %templateFontStyle {
         font-size: 1rem;
@@ -88,21 +89,24 @@
         }
 
         &__wrap {
-            display: grid;
-            grid-template-columns: repeat(12, 1fr);
-            grid-template-areas: "Subsection Items Items Items Items";
-            -ms-grid-row-span: 3;
+            display: flex;
+            flex-wrap: wrap;
         }
 
         &__subsection {
-            grid-area: Subsection;
-            grid-column: 1 / span 3;
+            flex-basis: 300px;
+            margin-right: -1px;
         }
 
         &__items-section {
-            grid-area: Items;
-            grid-column: span 3 / span 12;
-            grid-row: auto;
+            flex-basis: calc(100% - 300px);
+            .cart-container{
+                display: grid;
+                grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+                .card{
+                    margin-bottom: -1px;
+                }
+            }
         }
 
         &__category {
@@ -123,6 +127,7 @@
             background-size: auto;
             background: url('../../images/icons/order-registration/order-arrow.svg') no-repeat top 50% right 15px;
             box-sizing: border-box;
+
             .item-qty {
                 letter-spacing: $letter-spacing-4;
                 color: #BDBDBD;
@@ -154,7 +159,7 @@
             background: url('../../images/icons/order-registration/order-arrow.svg') no-repeat top 30% right 15px;
         }
 
-        &__brand-title , &__price-title{
+        &__brand-title, &__price-title {
             font-size: 0.875rem;
             line-height: 1.3;
         }

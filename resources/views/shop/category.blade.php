@@ -12,12 +12,17 @@
                         <span class="title">Сортировать по:</span>
                         <a href="{{ route('category', $category->slug) }}"
                            class="catalog__sorting-link  active">{{ __('All') }}</a>
-                        <a href="" class="catalog__sorting-link">Цене</a>
-                        <a href="" class="catalog__sorting-link">Популярности</a>
-                        <a href="" class="catalog__sorting-link">Названию</a>
+                        <a href="{{ route('category', $category->slug . '?sort=price') }}"
+                           class="catalog__sorting-link">Цене</a>
+                        <a href="{{ route('category', $category->slug . '?sort=popular') }}"
+                           class="catalog__sorting-link">Популярности</a>
+                        <a href="{{ route('category', $category->slug . '?sort=name') }}" class="catalog__sorting-link">Названию</a>
                         <div class="sort-in-stock">
-                            <input type="checkbox" name="sortInStock" class="catalog__sorting-link" id="sort-in-stock">
-                            <label for="sort-in-stock">Показать в наличии</label>
+                            <form action="{{ route('category', $category->slug) }}" method="GET">
+                                <input type="checkbox" name="sortInStock" class="catalog__sorting-link"
+                                       id="sort-in-stock" onchange="this.form.submit()" @if(request()->has('sortInStock')) checked @endif>
+                                <label for="sort-in-stock">Показать в наличии</label>
+                            </form>
                         </div>
                     </div>
 
@@ -64,14 +69,14 @@
                                 @endforeach
                             </ul>
                         @endif
-                        <form action="#" method="GET">
+                        <form action="{{ route('category', $category->slug) }}" method="GET">
                             <div class="catalog__price">
                                 <span class="catalog__price-title">{{ __('PriceTitle') }}</span>
                                 <div class="catalog__price__wrapper">
-                                    <input type="number" name="priceFrom" placeholder="{{ __('From') }}" value=""
+                                    <input type="number" name="priceFrom" placeholder="{{ __('From') }}" value="{{ old('priceFrom') }}"
                                            class="input catalog__price-from">
                                     <span class="line">—</span>
-                                    <input type="number" name="priceTo" placeholder="{{ __('To') }}" value=""
+                                    <input type="number" name="priceTo" placeholder="{{ __('To') }}" value="{{ old('priceTo') }}"
                                            class="input catalog__price-to">
                                 </div>
                             </div>
@@ -108,11 +113,11 @@
                         <div class="cart-container">
                             @include('shop.categoryProducts')
                         </div>
+                        @if($products->total() > $products->count())
+                            <div class="paginator-wrap">{{ $products->links() }}</div>
+                        @endif
                     </div>
                 </div>
-                @if($products->total() > $products->count())
-                    <div class="paginator-wrap">{{ $products->links() }}</div>
-                @endif
             </div>
         </div>
     </section>

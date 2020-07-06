@@ -1,5 +1,6 @@
-import { Datepicker } from 'vanillajs-datepicker';
+import {Datepicker} from 'vanillajs-datepicker';
 import ru from '../../node_modules/vanillajs-datepicker/js/i18n/locales/ru.js';
+
 Object.assign(Datepicker.locales, ru);
 
 window.Axios = require('axios');
@@ -26,8 +27,11 @@ import btnAdd from './components/card/btnAdd';
 import btnQty from './components/card/btnQty';
 
 // Datepicker
-const elem = document.querySelector('input[name="datePicker"]');
-const datepicker = new Datepicker(elem, {
-    language: 'ru'
-});
+((elem) => {
+    if (!elem) return;
+    const datepicker = new Datepicker(elem, {
+        language: 'ru'
+    });
+})(document.querySelector('input[name="datePicker"]'));
+
 

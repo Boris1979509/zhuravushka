@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Models\Shop\Product;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
@@ -43,6 +44,7 @@ class ProductCategoryController extends BaseController
             return redirect()->route('catalog');
         }
         $this->getCart();
+        $this->getAllProducts();
         return view('shop.category', $this->data);
     }
 
@@ -50,5 +52,13 @@ class ProductCategoryController extends BaseController
     {
         $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
         $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
+    }
+
+    private function getAllProducts(): void
+    {
+        $categoriesIds = $this->data['category']->children->each(static function ($category) {
+            return $category->id;
+        });
+        $this->data['products'] = $this->productRepository->whereIn($categoriesIds, 10);
     }
 }

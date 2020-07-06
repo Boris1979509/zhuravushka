@@ -6,6 +6,7 @@ namespace App\Repositories;
 use App\Models\Shop\ProductCategory as Model;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class ProductCategoryRepository extends CoreRepository
 {
@@ -67,7 +68,9 @@ class ProductCategoryRepository extends CoreRepository
         return $this->startConditions()
             ->select($columns)
             ->where('slug', $slug)
-            ->with('parent')
+            ->with(['parent', 'children' => static function ($query) {
+                $query->withCount('products as productCount');
+            }])
             ->first();
     }
 }

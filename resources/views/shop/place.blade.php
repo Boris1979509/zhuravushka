@@ -179,12 +179,4 @@
         </form>
     </div>
 @endsection
-@section('script')
-    <script>
-        // const elem = document.querySelector('input[name="datePicker"]');
-        // const datepicker = new Datepicker(elem, {
-        //     // ...options
-        // });
-    </script>
-    @endsection
 

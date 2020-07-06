@@ -54,4 +54,16 @@ class ProductRepository extends CoreRepository
             ->where('slug', $slug)
             ->first();
     }
+
+    /**
+     * @param null $perPage
+     * @param $array
+     * @param array $columns
+     * @return mixed
+     */
+    public function whereIn($array, $perPage = null, $columns = ['*'])
+    {
+        return $this->startConditions()
+            ->whereIn('category_id', $array)->paginate($perPage);
+    }
 }

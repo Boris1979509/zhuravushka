@@ -85,5 +85,12 @@
     "SelectTimeDelivery": "Выбрать период",
     "TimeDeliveryTitle": "Выберите период доставки",
     "DateDeliveryTitle": "Выберите дату и время доставки",
-    "Catalog": "Каталог"
+    "Catalog": "Каталог",
+    "PriceTitle": "Цена",
+    "BrandTitle": "Бренд",
+    "From": "от",
+    "To": "до",
+    "All": "Все",
+    "Apply": "Применить",
+    "Clear": "Очистить"
 }

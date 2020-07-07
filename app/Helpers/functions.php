@@ -12,7 +12,8 @@ if (!function_exists('isCurrentRoute')) {
      */
     function isCurrentRoute(string $name, array $parameters = [])
     {
-        return url()->current() === url($name, $parameters) ? 'active' : null;
+        // get queries with parameters
+        return url()->full() === route($name, $parameters) ? 'active' : null;
     }
 }
 if (!function_exists('cart')) {

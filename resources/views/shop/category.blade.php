@@ -9,19 +9,22 @@
             <div class="catalog">
                 <div class="catalog__sorting">
                     <div class="catalog__sorting-options">
-                        <span class="title">Сортировать по:</span>
+                        <span class="title">{{ __('SortBy') }}</span>
                         <a href="{{ route('category', $category->slug) }}"
-                           class="catalog__sorting-link  active">{{ __('All') }}</a>
-                        <a href="{{ route('category', $category->slug . '?sort=price') }}"
-                           class="catalog__sorting-link">Цене</a>
+                           class="catalog__sorting-link {{ isCurrentRoute('category', [$category->slug]) }}">{{ __('All') }}</a>
+                        <a href="{{ route('category', [$category->slug, 'sort=price']) }}"
+                           class="catalog__sorting-link {{ isCurrentRoute('category', [$category->slug, 'sort=price']) }}">{{ __('SortByPrice') }}</a>
                         <a href="{{ route('category', $category->slug . '?sort=popular') }}"
-                           class="catalog__sorting-link">Популярности</a>
-                        <a href="{{ route('category', $category->slug . '?sort=name') }}" class="catalog__sorting-link">Названию</a>
-                        <div class="sort-in-stock">
+                           class="catalog__sorting-link {{ isCurrentRoute('category', [$category->slug, 'sort=popular']) }}">{{ __('SortByPopular') }}</a>
+                        <a href="{{ route('category', $category->slug . '?sort=name') }}"
+                           class="catalog__sorting-link {{ isCurrentRoute('category', [$category->slug, 'sort=name']) }}">{{ __('SortByName') }}</a>
+                        <div
+                            class="sort-in-stock catalog__sorting-link @if(request()->has('sortInStock')) active @endif">
                             <form action="{{ route('category', $category->slug) }}" method="GET">
                                 <input type="checkbox" name="sortInStock" class="catalog__sorting-link"
-                                       id="sort-in-stock" onchange="this.form.submit()" @if(request()->has('sortInStock')) checked @endif>
-                                <label for="sort-in-stock">Показать в наличии</label>
+                                       id="sort-in-stock" onchange="this.form.submit()"
+                                       @if(request()->has('sortInStock')) checked @endif>
+                                <label for="sort-in-stock">{{ __('SortInStock') }}</label>
                             </form>
                         </div>
                     </div>
@@ -57,7 +60,7 @@
                 <h1>{{ $category->title }}</h1>
                 <div class="catalog__wrap">
                     <div class="catalog__subsection">
-                        @if(!is_null($category->children))
+                        @if(($category->children)->count())
                             <ul class="catalog__category">
                                 @foreach($category->children as $categoryItem)
                                     <a href="{{ route('category', $categoryItem->slug) }}"
@@ -73,10 +76,12 @@
                             <div class="catalog__price">
                                 <span class="catalog__price-title">{{ __('PriceTitle') }}</span>
                                 <div class="catalog__price__wrapper">
-                                    <input type="number" name="priceFrom" placeholder="{{ __('From') }}" value="{{ old('priceFrom') }}"
+                                    <input type="number" name="priceFrom" placeholder="{{ __('From') }}"
+                                           value="{{  request()->has('priceFrom') ? request()->input('priceFrom') : "" }}"
                                            class="input catalog__price-from">
                                     <span class="line">—</span>
-                                    <input type="number" name="priceTo" placeholder="{{ __('To') }}" value="{{ old('priceTo') }}"
+                                    <input type="number" name="priceTo" placeholder="{{ __('To') }}"
+                                           value="{{ request()->has('priceTo') ? request()->input('priceTo') : "" }}"
                                            class="input catalog__price-to">
                                 </div>
                             </div>
@@ -103,8 +108,9 @@
                             </div>
                             <div class="catalog__confirm">
                                 <div class="catalog__confirm__wrapper">
-                                    <button class="btn btn-active btn__confirm">{{ __('Apply') }}</button>
-                                    <a href="#" class="btn__clear">{{ __('Clear') }}</a>
+                                    <button type="submit" class="btn btn-active btn__confirm">{{ __('Apply') }}</button>
+                                    <a href="{{ route('category', $category->slug) }}"
+                                       class="btn__clear">{{ __('Clear') }}</a>
                                 </div>
                             </div>
                         </form>

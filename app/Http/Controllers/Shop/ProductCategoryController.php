@@ -3,8 +3,9 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Requests\ProductsFilterRequest;
-use App\Models\Shop\Product;
-use Illuminate\Http\RedirectResponse;
+use App\Models\Shop\ProductCategory;
+use Illuminate\Http\Request;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class ProductCategoryController extends BaseController
@@ -13,6 +14,10 @@ class ProductCategoryController extends BaseController
      * @var array $data
      */
     protected $data = [];
+    /**
+     * Paginate limit
+     */
+    public const PAGE_LIMIT = 18;
 
     public function __construct()
     {
@@ -32,32 +37,40 @@ class ProductCategoryController extends BaseController
     }
 
     /**
-     * @param ProductsFilterRequest $request
+     * @param Request $request
      * @param $slug
-     * @return RedirectResponse|view
+     * @return void
      */
-    public function category(ProductsFilterRequest $request, $slug)
+    public function category(Request $request, $slug)
     {
-        //dd($request->all());
-//        $productsQuery = Product::query();
-//        if ($request->anyFilled('priceFrom')) {
-//            $productsQuery->where('price', '>=', $request->priceFrom);
-//        }
-//        if ($request->anyFilled('priceTo')) {
-//            $productsQuery->where('price', '<=', $request->priceTo);
-//        }
-//        if($request->has('sortInStock')){
-//
-//        }
-//        $products = $productsQuery->paginate(10)->withPath('?' . $request->getQueryString());
+        $category = $this->productCategoryRepository->getBySlug($slug);
+        $categoryIds = $this->getAllProductsIds($category);
 
-        $this->data['category'] = $this->productCategoryRepository->getBySlug($slug);
+        $this->data['products'] = $this->productRepository
+            ->whereIn($categoryIds ?: $category, self::PAGE_LIMIT)
+            ->withPath('?' . $request->getQueryString());
+
+        // Sort
+        $this->sort($request, $categoryIds ?: $category);
+
+        // Sort by price from && to
+        $this->sortByPrice($request, $categoryIds ?: $category);
+
+        /**
+         * Stocks
+         */
+        if ($request->has('sortInStock')) {
+            $this->data['products'] = $this->productRepository
+                ->sortByStock($categoryIds ?: $category, self::PAGE_LIMIT)
+                ->withPath('?' . $request->getQueryString());
+        }
+
+        $this->data['category'] = $category;
 
         if (is_null($this->data['category'])) {
             return redirect()->route('catalog');
         }
         $this->getCart();
-        $this->getAllProducts();
         return view('shop.category', $this->data);
     }
 
@@ -67,11 +80,70 @@ class ProductCategoryController extends BaseController
         $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
     }
 
-    private function getAllProducts(): void
+    /**
+     * @param $category
+     * @return mixed
+     */
+    private function getAllProductsIds($category)
     {
-        $categoriesIds = $this->data['category']->children->each(static function ($category) {
-            return $category->id;
-        });
-        $this->data['products'] = $this->productRepository->whereIn($categoriesIds, 10);
+
+        if (($category->children)->count()) {
+            // if is children
+            return $category->children->map(static function ($categoryItem) {
+                return $categoryItem->id;
+            });
+        }
+    }
+
+    /**
+     * Sort
+     * @param $request
+     * @param $id
+     * @return null
+     */
+    public function sort($request, $id)
+    {
+        if ($sort = $request->input('sort')) {
+            $this->data['products'] = $this->productRepository
+                ->sortBy($sort, $id, self::PAGE_LIMIT)
+                ->withPath('?' . $request->getQueryString());
+        }
+    }
+
+    /**
+     * Sort price inputs
+     * @param $request
+     * @param $id
+     */
+    public function sortByPrice($request, $id)
+    {
+        /**
+         * Price from
+         */
+        if ($request->anyFilled('priceFrom')) {
+            $num = $request->input('priceFrom');
+            $this->data['products'] = $this->productRepository
+                ->getPriceSort($id, $num, $opr = '>=', self::PAGE_LIMIT)
+                ->withPath('?' . $request->getQueryString());
+        }
+        /**
+         * Price to
+         */
+        if ($request->anyFilled('priceTo')) {
+            $num = $request->input('priceTo');
+            $this->data['products'] = $this->productRepository
+                ->getPriceSort($id, $num, $opr = '<=', self::PAGE_LIMIT)
+                ->withPath('?' . $request->getQueryString());
+        }
+        /**
+         * Price to && Price From
+         */
+        if ($request->anyFilled('priceTo') && $request->anyFilled('priceFrom')) {
+            $priceFrom = $request->input('priceFrom');
+            $priceTo = $request->input('priceTo');
+            $this->data['products'] = $this->productRepository
+                ->getPriceSort($id, [$priceFrom, $priceTo], null, self::PAGE_LIMIT)
+                ->withPath('?' . $request->getQueryString());
+        }
     }
 }

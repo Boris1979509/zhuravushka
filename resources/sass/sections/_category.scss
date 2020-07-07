@@ -101,12 +101,44 @@
         &__items-section {
             flex-basis: calc(100% - 300px);
 
-            .cart-container {
+            .card-container {
                 display: grid;
                 grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 
                 .card {
                     margin-bottom: -1px;
+                }
+
+                &.simple-card-mode {
+                    grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+
+                    .card {
+                        display: flex;
+                        justify-content: space-between;
+
+                        &__footer {
+                            border: 0 !important;
+                            align-self: flex-end;
+                            flex-basis: 200px;
+                            min-width: 200px;
+                        }
+
+                        &__title {
+                            height: auto !important;
+                            text-align: left;
+                            padding-bottom: 0;
+                            align-self: center;
+                            flex-basis: 350px;
+                        }
+                        &__link{
+                            position: inherit;
+                            background: none;
+                            &:hover{
+                                padding-bottom: 0;
+                                box-shadow: none !important;
+                            }
+                        }
+                    }
                 }
             }
         }

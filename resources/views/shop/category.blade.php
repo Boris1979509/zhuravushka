@@ -30,7 +30,7 @@
                     </div>
 
                     <div class="catalog__sorting-icons">
-                        <div class="mode-tile active">
+                        <div class="mode-tile active" title="{{ __('Tile') }}">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M15 9H9V15H15V9Z" fill="#C0C0C0"/>
@@ -44,7 +44,7 @@
                                 <path d="M24 18H18V24H24V18Z" fill="#C0C0C0"/>
                             </svg>
                         </div>
-                        <div class="mode-simple">
+                        <div class="mode-simple" title="{{ __('Simple') }}">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path d="M0 0H5V6H0V0Z" fill="#C0C0C0"/>
@@ -116,7 +116,7 @@
                         </form>
                     </div>
                     <div class="catalog__items-section">
-                        <div class="cart-container">
+                        <div class="card-container">
                             @include('shop.categoryProducts')
                         </div>
                         @if($products->total() > $products->count())

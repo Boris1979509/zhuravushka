@@ -97,5 +97,7 @@
     "SortByPrice": "Цене",
     "SortByPopular": "Популярности",
     "SortByName": "Названию",
-    "SortInStock": "Показать в наличии"
+    "SortInStock": "Показать в наличии",
+    "Tile": "Плиткой",
+    "Simple": "Горизонтально"
 }

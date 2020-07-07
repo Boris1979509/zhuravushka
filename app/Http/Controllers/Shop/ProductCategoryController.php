@@ -39,31 +39,26 @@ class ProductCategoryController extends BaseController
     /**
      * @param Request $request
      * @param $slug
-     * @return void
+     * @return View
      */
-    public function category(Request $request, $slug)
+    public function category(Request $request, $slug): view
     {
         $category = $this->productCategoryRepository->getBySlug($slug);
-        $categoryIds = $this->getAllProductsIds($category);
+        $categoryIds = $this->getAllCategoryIds($category);
 
         $this->data['products'] = $this->productRepository
             ->whereIn($categoryIds ?: $category, self::PAGE_LIMIT)
             ->withPath('?' . $request->getQueryString());
 
+        // Stocks
+        $this->sortStock($request, $categoryIds ?: $category);
+
         // Sort
         $this->sort($request, $categoryIds ?: $category);
 
         // Sort by price from && to
-        $this->sortByPrice($request, $categoryIds ?: $category);
+        $this->sortByPrice($request, $categoryIds ?: $category->id);
 
-        /**
-         * Stocks
-         */
-        if ($request->has('sortInStock')) {
-            $this->data['products'] = $this->productRepository
-                ->sortByStock($categoryIds ?: $category, self::PAGE_LIMIT)
-                ->withPath('?' . $request->getQueryString());
-        }
 
         $this->data['category'] = $category;
 
@@ -84,7 +79,7 @@ class ProductCategoryController extends BaseController
      * @param $category
      * @return mixed
      */
-    private function getAllProductsIds($category)
+    private function getAllCategoryIds($category)
     {
 
         if (($category->children)->count()) {
@@ -99,9 +94,9 @@ class ProductCategoryController extends BaseController
      * Sort
      * @param $request
      * @param $id
-     * @return null
+     * @return void
      */
-    public function sort($request, $id)
+    public function sort($request, $id): void
     {
         if ($sort = $request->input('sort')) {
             $this->data['products'] = $this->productRepository
@@ -111,11 +106,27 @@ class ProductCategoryController extends BaseController
     }
 
     /**
+     * @param $request
+     * @param $id
+     */
+    public function sortStock($request, $id): void
+    {
+        /**
+         * Stocks
+         */
+        if ($request->has('sortInStock')) {
+            $this->data['products'] = $this->productRepository
+                ->sortByStock($id, self::PAGE_LIMIT)
+                ->withPath('?' . $request->getQueryString());
+        }
+    }
+
+    /**
      * Sort price inputs
      * @param $request
      * @param $id
      */
-    public function sortByPrice($request, $id)
+    public function sortByPrice($request, $id): void
     {
         /**
          * Price from

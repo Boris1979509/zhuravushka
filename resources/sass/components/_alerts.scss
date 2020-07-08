@@ -1,0 +1,44 @@
+.alert {
+    background: #FFFFFF;
+    box-shadow: 0 2px 12px rgba(201, 201, 201, 0.82);
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    margin-bottom: 15px;
+
+    .alert-info {
+        &__icon {
+            border-right: 1px solid #E1E1E1;
+            padding: 25px;
+        }
+
+        &__message {
+            align-self: center;
+            flex: auto;
+            padding: 15px;
+            color: #0075d2;
+            letter-spacing: $letter-spacing-6;
+        }
+
+        &__close {
+            position: relative;
+
+            &__icon-close {
+                position: absolute;
+                background: url('../../images/icons/alerts/close.svg') no-repeat center;
+                height: 16px;
+                width: 16px;
+                display: block;
+                transition: all .3s;
+                top: calc((100% - 16px) / 2);
+                right: 15px;
+                cursor: pointer;
+
+                &:hover {
+                    background: url('../../images/icons/alerts/close-hover.svg') no-repeat center;
+                }
+            }
+        }
+    }
+
+}

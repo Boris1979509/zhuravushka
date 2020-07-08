@@ -52,7 +52,7 @@
             color: #404040;
 
             &.active {
-                color: #005AA7;
+                color: #0075d2;
 
                 &:after {
                     bottom: -17px;
@@ -61,7 +61,7 @@
                     height: 5px;
                     left: 0;
                     position: absolute;
-                    background: #005AA7;
+                    background: #0075d2;
                     transition: width .3s ease 0s, left 0s ease 0s;
                     width: 100%;
                 }
@@ -130,10 +130,12 @@
                             align-self: center;
                             flex-basis: 350px;
                         }
-                        &__link{
+
+                        &__link {
                             position: inherit;
                             background: none;
-                            &:hover{
+
+                            &:hover {
                                 padding-bottom: 0;
                                 box-shadow: none !important;
                             }
@@ -187,10 +189,39 @@
             }
         }
 
+        &__price__wrapper {
+            .form-input {
+                margin-bottom: 0;
+            }
+        }
+
+        &__price-from, &__price-to {
+            box-sizing: border-box;
+            text-indent: 0;
+        }
+
         &__brand {
             margin-top: -1px;
+
+            padding: 0 !important;
+
+            &__wrapper {
+                display: block;
+                padding: 15px 15px 5px 15px;
+                border-top: 1px solid #ccc;
+                margin-top: 0 !important;
+
+                .form-input {
+                    margin-bottom: 10px !important;
+                }
+            }
+        }
+
+        &__brand-title {
+            cursor: pointer;
             background-size: auto;
-            background: url('../../images/icons/catalog/arrow-down.svg') no-repeat top 30% right 15px;
+            background: url('../../images/icons/catalog/arrow-down.svg') no-repeat top 50% right 15px;
+            padding: 15px;
         }
 
         &__brand-title, &__price-title {

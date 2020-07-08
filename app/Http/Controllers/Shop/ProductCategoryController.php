@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shop;
 
 use App\Http\Requests\ProductsFilterRequest;
 use App\Models\Shop\ProductCategory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Collection;
 use Illuminate\View\View;
@@ -37,18 +38,17 @@ class ProductCategoryController extends BaseController
     }
 
     /**
-     * @param Request $request
+     * @param ProductsFilterRequest $request
      * @param $slug
-     * @return View
+     * @return View|RedirectResponse
      */
-    public function category(Request $request, $slug): view
+    public function category(ProductsFilterRequest $request, $slug)
     {
         $category = $this->productCategoryRepository->getBySlug($slug);
         $categoryIds = $this->getAllCategoryIds($category);
 
         $this->data['products'] = $this->productRepository
-            ->whereIn($categoryIds ?: $category, self::PAGE_LIMIT)
-            ->withPath('?' . $request->getQueryString());
+            ->whereIn($categoryIds ?: $category, self::PAGE_LIMIT);
 
         // Stocks
         $this->sortStock($request, $categoryIds ?: $category);
@@ -59,11 +59,17 @@ class ProductCategoryController extends BaseController
         // Sort by price from && to
         $this->sortByPrice($request, $categoryIds ?: $category->id);
 
+        // Sort by brands
+        $this->sortByBrands($request, $categoryIds ?: $category);
 
         $this->data['category'] = $category;
 
         if (is_null($this->data['category'])) {
             return redirect()->route('catalog');
+        }
+        // if empty sort products
+        if (!$this->data['products']->total()) {
+            return redirect()->route('category', $slug)->with('message', __('NotFound'));
         }
         $this->getCart();
         return view('shop.category', $this->data);
@@ -96,7 +102,7 @@ class ProductCategoryController extends BaseController
      * @param $id
      * @return void
      */
-    public function sort($request, $id): void
+    private function sort($request, $id): void
     {
         if ($sort = $request->input('sort')) {
             $this->data['products'] = $this->productRepository
@@ -109,7 +115,7 @@ class ProductCategoryController extends BaseController
      * @param $request
      * @param $id
      */
-    public function sortStock($request, $id): void
+    private function sortStock($request, $id): void
     {
         /**
          * Stocks
@@ -126,7 +132,7 @@ class ProductCategoryController extends BaseController
      * @param $request
      * @param $id
      */
-    public function sortByPrice($request, $id): void
+    private function sortByPrice($request, $id): void
     {
         /**
          * Price from
@@ -155,6 +161,18 @@ class ProductCategoryController extends BaseController
             $this->data['products'] = $this->productRepository
                 ->getPriceSort($id, [$priceFrom, $priceTo], null, self::PAGE_LIMIT)
                 ->withPath('?' . $request->getQueryString());
+        }
+    }
+
+    /**
+     * Sort brands
+     * @param $request
+     * @param $id
+     */
+    private function sortByBrands($request, $id)
+    {
+        if ($request->has('brand')) {
+            dump($request->input('brand'));
         }
     }
 }

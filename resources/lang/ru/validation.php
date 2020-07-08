@@ -190,5 +190,7 @@ return [
         'time'                  => 'Время',
         'available'             => 'Доступно',
         'size'                  => 'Размер',
+        'priceFrom'                  => 'от',
+        'priceTo'                  => 'до',
     ],
 ];

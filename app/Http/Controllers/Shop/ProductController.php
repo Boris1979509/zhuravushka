@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Http\Controllers\Core;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
 
-class ProductController extends BaseController
+class ProductController extends Core
 {
     /**
      * @var array $data

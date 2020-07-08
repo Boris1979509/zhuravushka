@@ -73,3 +73,24 @@ Breadcrumbs::for('product', static function (Generator $trail, $slug) {
     }
     $trail->push($product->title, route('product', $product->title));
 });
+
+// Login
+Breadcrumbs::for('login', static function (Generator $trail) {
+    $trail->parent('home');
+    $trail->push(__('Login'), route('login'));
+});
+// Register
+Breadcrumbs::for('register', static function (Generator $trail) {
+    $trail->parent('home');
+    $trail->push(__('Register'), route('register'));
+});
+// Reset Password
+Breadcrumbs::for('password.request', static function (Generator $trail) {
+    $trail->parent('login');
+    $trail->push(__('ResetPassword'), route('password.request'));
+});
+// Cabinet
+Breadcrumbs::for('cabinet.home', static function (Generator $trail) {
+    $trail->parent('home');
+    $trail->push(__('Cabinet'), route('cabinet.home'));
+});

@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Http\Controllers\Core;
 use App\Http\Requests\ProductsFilterRequest;
-use App\Models\Shop\ProductCategory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
-use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
-class ProductCategoryController extends BaseController
+class ProductCategoryController extends Core
 {
     /**
      * @var array $data

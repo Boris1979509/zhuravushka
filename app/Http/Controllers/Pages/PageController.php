@@ -2,11 +2,12 @@
 
 namespace App\Http\Controllers\Pages;
 
+use App\Http\Controllers\Core;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 
-class PageController extends BaseController
+class PageController extends Core
 {
     /**
      * @var array $data

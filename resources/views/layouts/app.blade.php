@@ -12,9 +12,8 @@
 </head>
 <body>
 @include('components.header')
-
+@php /**  @uses Breadcrumbs \DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs*/@endphp
 @if(url()->current() != url('/'))
-    @php /** @var Breadcrumbs */ @endphp
     <div class="container">
         <div class="row">
             {{ Breadcrumbs::render() }}

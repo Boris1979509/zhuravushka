@@ -56,3 +56,14 @@ Route::group([
         Route::post('confirm', 'CartController@confirm')->name('confirm');
     });
 });
+
+Auth::routes();
+
+Route::group([
+    'namespace' => 'Cabinet',
+    'prefix'    => 'cabinet',
+], static function () {
+    Route::get('/', 'HomeController@index')->name('cabinet.home');
+});
+
+

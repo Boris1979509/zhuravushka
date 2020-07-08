@@ -1,10 +1,8 @@
 <?php
 
 
-namespace App\Http\Controllers\Blog;
+namespace App\Http\Controllers;
 
-
-use App\Http\Controllers\Controller;
 use App\Repositories\BlogCategoryRepository;
 use App\Repositories\BlogPostRepository;
 use App\Repositories\OrderRepository;
@@ -12,7 +10,7 @@ use App\Repositories\PageRepository;
 use App\Repositories\ProductCategoryRepository;
 use App\Repositories\ProductRepository;
 
-abstract class BaseController extends Controller
+abstract class Core extends Controller
 {
     /**
      * @var BlogPostRepository
@@ -44,7 +42,7 @@ abstract class BaseController extends Controller
         $this->pageRepository = app(PageRepository::class);
         $this->productCategoryRepository = app(ProductCategoryRepository::class);
         $this->blogPostRepository = app(BlogPostRepository::class);
-        $this->blogCategoryRepository = new BlogCategoryRepository;
+        $this->blogCategoryRepository = app(BlogCategoryRepository::class);
         $this->productRepository = app(ProductRepository::class);
         $this->orderRepository = app(OrderRepository::class);
     }
@@ -64,3 +62,4 @@ abstract class BaseController extends Controller
         return $blogCategories;
     }
 }
+

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Blog;
 
+use App\Http\Controllers\Core;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
-class BlogController extends BaseController
+class BlogController extends Core
 {
     // Paginate
     public const LIMIT = 10;

@@ -2,10 +2,11 @@
 
 namespace App\Http\Controllers\Blog;
 
+use App\Http\Controllers\Core;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
-class PostController extends BaseController
+class PostController extends Core
 {
     /**
      * @var array $data

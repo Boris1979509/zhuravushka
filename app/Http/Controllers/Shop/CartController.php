@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Http\Controllers\Core;
 use App\Models\Shop\Order;
 use App\Models\Shop\Product;
 use App\Repositories\ProductRepository;
@@ -12,7 +13,7 @@ use Illuminate\Http\Request;
 use Illuminate\View\View;
 use Throwable;
 
-class CartController extends BaseController
+class CartController extends Core
 {
     /**
      * @var array $data
@@ -122,7 +123,7 @@ class CartController extends BaseController
         }
     }
 
-    private function getCartAjax()
+    private function getCartAjax(): void
     {
         if ($order = $this->getOrder()) {
             $this->data['order'] = $order;

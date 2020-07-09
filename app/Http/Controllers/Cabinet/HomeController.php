@@ -29,6 +29,6 @@ class HomeController extends Core
      */
     public function index(): Renderable
     {
-        return view('home', $this->data);
+        return view('cabinet.home', $this->data);
     }
 }

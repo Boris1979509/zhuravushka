@@ -17,7 +17,7 @@
                             @endif
                         @endforeach
                         <li class="top-bar__nav-item">
-                            <a href="{{ route('blog') }}" class="link top-bar__nav-link" title="Советы">Советы</a>
+                            <a href="{{ route('blog') }}" class="link top-bar__nav-link" title="{{ __('Sovety') }}">{{ __('Sovety') }}</a>
                         </li>
                     </ul>
                 </nav>
@@ -28,8 +28,12 @@
                 <div class="top-bar__right">
                     <div class="top-bar__user-login">
                         <ul>
-                            <li><a class="link" href="/login">Войти</a></li>
-                            <li><a class="link" href="/register">Регистрация</a></li>
+                            <li>
+                                <a class="link" id="login" href="javascript:void(0)">{{ __('Login') }}</a>
+                            </li>
+                            <li>
+                                <a class="link" href="{{ route('register') }}">{{ __('Registration') }}</a>
+                            </li>
                         </ul>
                     </div>
                 </div>
@@ -44,7 +48,7 @@
 
                 <!--logo-container-->
                 <div class="sub-header__logo-container row">
-                    <a href="{{ route('home') }}" class="sub-header__logo-img" title="Строим вместе"></a>
+                    <a href="{{ route('home') }}" class="sub-header__logo-img" title="{{ __('Home') }}"></a>
                     <button class="btn btn-active catalog-spoiler-btn"></button>
                 </div>
                 <!--end logo-container-->
@@ -58,7 +62,7 @@
                     </form>
                 </div>
                 <div class="sub-header__right">
-                    <a href="" rel="nofollow" class="link compare">
+                    <a href="{{ route('compare') }}" rel="nofollow" class="link compare">
                         <div class="icon compare__icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -74,9 +78,9 @@
                             </svg>
                             <span id="compare-qty" class="badge compare__qty">0</span>
                         </div>
-                        <span class="sub-header__label">Сравнение</span>
+                        <span class="sub-header__label">{{ __('Compare') }}</span>
                     </a>
-                    <a href="" rel="nofollow" class="link favorite">
+                    <a href="{{ route('favorite') }}" rel="nofollow" class="link favorite">
                         <div class="icon favorite__icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
@@ -93,7 +97,7 @@
                             </svg>
                             <span id="favorite-qty" class="badge favorite__qty">0</span>
                         </div>
-                        <span class="sub-header__label">Избранное</span>
+                        <span class="sub-header__label">{{ __('Favorite') }}</span>
                     </a>
                     <a href="{{ route('cart') }}" rel="nofollow" class="link cart">
                         <div class="icon cart__icon {{ cart() ? 'active' : '' }}">
@@ -109,13 +113,14 @@
                             @if(cart())
                                 {{ numberFormat($order->getTotalSum()) }} <span class="rub">₽</span>
                             @else
-                                Корзина
+                                {{ __('Cart') }}
                             @endif
                         </span>
                     </a>
                 </div>
 
             </div>
+            @include('auth.login')
             <div id="catalogMenu" hidden>
                 @include('components.barMenu')
             </div>

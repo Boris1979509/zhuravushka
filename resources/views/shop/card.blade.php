@@ -46,7 +46,7 @@
                             <div class="price__item">
                                 <p class="price__title-new">Новая цена</p>
                                 <span class="bold price__new">{{ numberFormat($productItem->price) }}&nbsp;₽</span>
-                                <span class="last-text-new">за шт.</span>
+                                <span class="last-text-new">за {{ $productItem->unit_pricing_base_measure }}.</span>
                             </div>
                         </div>
                         <form action="{{ route('cart.add', $productItem) }}" method="POST" class="addCart">

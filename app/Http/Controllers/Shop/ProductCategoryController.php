@@ -67,7 +67,7 @@ class ProductCategoryController extends Core
         }
         // if empty sort products
         if (!$this->data['products']->total()) {
-            return redirect()->route('category', $slug)->with('message', __('NotFound'));
+            return redirect()->route('category', $slug)->with('info', __('NotFound'));
         }
         $this->getCart();
         return view('shop.category', $this->data);

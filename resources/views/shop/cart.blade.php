@@ -1,17 +1,19 @@
+@php /** @var Product $product*/use App\Models\Shop\Product;@endphp
 <section id="cart">
     <div class="container">
         <h1 class="title">{{ __('Cart') }}</h1>
-        <div class="cart-wrap">
-            @php /** @var Product $product*/use App\Models\Shop\Product;@endphp
-            @if(!isset($order) && !cart())
-                <p>{{ __('CartEmptyMessage') }}</p>
-            @else
+        @if(!isset($order) && !cart())
+            <div class="row">
+                @include('flash.index', ['info' => __('CartEmptyMessage')])
+            </div>
+        @else
+            <div class="cart-wrap">
                 <div class="cart">
                     @foreach ($order->products as $product)
                         <div class="cart__product">
                             <div class="cart__img">
                                 <a href="{{ route('product', $product->slug) }}" target="_blank">
-                                    <img src="{{ asset("images/products/{$product->photo}.jpg") }}"
+                                    <img src="{{ fileExist("images/products/{$product->photo}.jpg") }}"
                                          alt="{{ $product->title }}"
                                          class="cart__image">
                                 </a>
@@ -78,8 +80,7 @@
                             измениться.</p>
                     </div>
                 </div>
-            @endif
-        </div>
+            </div>
+        @endif
     </div>
-
 </section>

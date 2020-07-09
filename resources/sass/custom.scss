@@ -36,6 +36,7 @@ h3 {
     width: 100%;
     margin: 0 auto;
     padding: 0 15px;
+    position: relative;
     @media (min-width: 1200px) {
         width: 1140px;
     }
@@ -150,6 +151,12 @@ textarea {
     width: 100%;
     margin-bottom: 20px;
     position: relative;
+}
+
+.form-label {
+    margin-bottom: 15px;
+    display: block;
+    margin-top: 10px;
 }
 
 .bold {

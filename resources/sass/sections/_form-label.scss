@@ -10,9 +10,13 @@
         transition: all 0.2s ease-in-out;
     }
 
-    input {
+    input[type="text"],
+    input[type="email"],
+    input[type="number"],
+    input[type="password"],
+    input[type="hidden"] {
         height: 53px;
-        text-indent: 1rem;
+        // text-indent: 1rem;
         // &:valid + label,
         &[data-empty="false"] + label,
         &:focus + label {

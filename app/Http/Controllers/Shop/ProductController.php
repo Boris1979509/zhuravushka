@@ -29,9 +29,41 @@ class ProductController extends Core
      */
     public function index($slug)
     {
+        $this->getCart();
+        if (!$product = $this->productRepository->getBySlug($slug)) {
+            //return redirect()->view('errors.404', $this->data, 404);
+            abort(404);
+        }
+        $this->data['product'] = $product;
+        return view('shop.product', $this->data);
+    }
+
+    /**
+     * Favorite
+     * @return Factory|View
+     */
+    public function favorite()
+    {
+        $this->getCart();
+        return view('shop.favorite', $this->data)->with('info', __('IsEmptyFavoriteMessage'));
+    }
+
+    /**
+     * Compare
+     * @return Factory|View
+     */
+    public function compare()
+    {
+        $this->getCart();
+        return view('shop.compare', $this->data)->with('info', __('IsEmptyCompareMessage'));
+    }
+
+    /**
+     * Cart
+     */
+    private function getCart(): void
+    {
         $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
         $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
-        $this->data['product'] = $this->productRepository->getBySlug($slug);
-        return view('shop.product', $this->data);
     }
 }

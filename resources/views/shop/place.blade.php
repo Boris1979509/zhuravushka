@@ -124,7 +124,7 @@
                                    required autocomplete="off">
                             <label for="phone">{{ __('Phone') }}</label>
                         </div>
-                        <button class="btn btn-active" id="number-btn">Отправить СМС</button>
+                        <button class="btn btn-active" id="number-btn">{{ __('ButtonTitleSendSms') }}</button>
                         <div class="number-input-send-block" style="display: none;">
                             <div></div>
                             <input type="text" placeholder="Код подтверждения"> <span style="display: none;">Повторная отправка будет доступна через 0 сек.</span>

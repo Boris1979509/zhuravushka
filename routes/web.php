@@ -46,6 +46,8 @@ Route::group([
     Route::get('category', 'ProductCategoryController@index')->name('catalog');
     Route::get('category/{categorySlug}', 'ProductCategoryController@category')->name('category');
     Route::get('product/{slug}', 'ProductController@index')->name('product');
+    Route::get('favorite', 'ProductController@favorite')->name('favorite');
+    Route::get('compare', 'ProductController@compare')->name('compare');
     Route::group([
         'as'     => 'cart.',
         'prefix' => 'cart',

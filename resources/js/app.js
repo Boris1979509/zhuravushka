@@ -24,6 +24,7 @@ require('./components/form/radio/order-radio-input');
 require('./components/mode-tile/tile');
 require('./components/catalog-filter/brands');
 require('./components/alerts/close');
+require('./components/login/login');
 
 
 import btnAdd from './components/card/btnAdd';

@@ -1,6 +1,7 @@
 {
     "Home": "Главная",
-    "Register": "Регистрация",
+    "Registration": "Регистрация",
+    "Login": "Войти",
     "FirstName": "Имя*",
     "LastName": "Фамилия",
     "YourOrderTitle": "Ваш заказ",
@@ -30,6 +31,7 @@
     "ButtonCartRemove": "Убрать из корзины",
     "E-Mail Address": "Ваш Email",
     "Password": "Пароль",
+    "PasswordConfirm": "Подтверждение пароля",
     "Quantity": "Кол-во:",
     "Sale": "Скидка:",
     "Total": "Итого:",
@@ -101,5 +103,17 @@
     "Tile": "Плиткой",
     "Simple": "Горизонтально",
     "NotFound": "Ничего не найдено.",
-    "Close": "Закрыть"
+    "Close": "Закрыть",
+    "Remember Me": "Запомнить меня",
+    "Forgot Your Password?": "Забыли пароль?",
+    "ButtonTitleSendSms": "Отправить СМС",
+    "ButtonTitleConfirmPhone": "Подтвердить",
+    "CodeConfirmBy": "Код для потверждения",
+    "UserDataTitle": "Ваши данные",
+    "Register": "Зарегистрироваться",
+    "Sovety": "Советы",
+    "Favorite": "Избранное",
+    "Compare": "Сравнение",
+    "IsEmptyCompareMessage": "Список для сравнения пуст.",
+    "IsEmptyFavoriteMessage": "Список избранных продуктов пуст."
 }

@@ -16,7 +16,7 @@
 @if(url()->current() != url('/'))
     <div class="container">
         <div class="row">
-            {{ Breadcrumbs::render() }}
+{{--            {{ Breadcrumbs::render() }}--}}
         </div>
     </div>
 @endif

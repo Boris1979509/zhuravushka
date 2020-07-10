@@ -38,13 +38,15 @@ class PageRepository extends CoreRepository
     }
 
     /**
+     * @param array $columns
      * @return Application[]|Collection|\Illuminate\Database\Eloquent\Model[]|mixed[]
      */
-    public function getAllPagesNav()
+    public function getAllPagesNav($columns = ['*'])
     {
         return $this->startConditions()
-            ->where('parent_id', 0)
+            ->select($columns)
             ->where('page', '<>', 'home')
+            ->with(['children', 'parent'])
             ->get();
     }
 
@@ -55,7 +57,7 @@ class PageRepository extends CoreRepository
     public function getPageFirstBySlug(string $slug)
     {
         return $this->startConditions()
-            ->where('slug', $slug)->firstOrFail();
+            ->where('slug', $slug)->first();
     }
 
     /**

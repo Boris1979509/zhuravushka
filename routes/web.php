@@ -20,7 +20,7 @@ Route::group([
     Route::group([
         'prefix' => 'page',
     ], static function () {
-        Route::get('/uslugi/{slug?}', 'PageController@services')->name('page.service');
+        //Route::get('/uslugi/{slug?}', 'PageController@services')->name('page.service');
         Route::get('/{slug}', 'PageController@page')->name('page');
     });
 });

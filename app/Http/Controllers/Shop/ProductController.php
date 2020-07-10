@@ -31,8 +31,7 @@ class ProductController extends Core
     {
         $this->getCart();
         if (!$product = $this->productRepository->getBySlug($slug)) {
-            //return redirect()->view('errors.404', $this->data, 404);
-            abort(404);
+            return abort(404);
         }
         $this->data['product'] = $product;
         return view('shop.product', $this->data);

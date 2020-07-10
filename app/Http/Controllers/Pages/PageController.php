@@ -13,6 +13,10 @@ class PageController extends Core
      * @var array $data
      */
     protected $data = [];
+    /**
+     * Home page
+     */
+    public const HOME_PAGE_NAME = 'home';
 
     public function __construct()
     {
@@ -28,12 +32,8 @@ class PageController extends Core
      */
     public function index()
     {
-//        $res= $this->productCategoryRepository->catalog();
-//        dump($res->first()->products->take(10));
         $this->getCart();
-
-        $page = $this->pageRepository->homePage();
-        $this->data['page'] = $page;
+        $this->data['page'] = $this->data['pages']->where('page', self::HOME_PAGE_NAME)->first();
         return view('pages.home', $this->data);
     }
 
@@ -43,41 +43,24 @@ class PageController extends Core
      */
     public function page(string $slug)
     {
-        $this->getCart();
-        $page = $this->pageRepository->getPageFirstBySlug($slug);
+        if (!$this->pageRepository->getPageFirstBySlug($slug)) {
+            return abort(404);
+        }
+        $page = $this->data['pages']->where('slug', $slug)->first();
+
         $this->data['page'] = $page;
-        return view("pages.{$page->page}", $this->data);
+        $this->data['pagesNavMenu'] = $this->data['pages']->where('parent_id', 0);
+        $this->data['subPage'] = ($page->children) ? $page->children->first() : $page->parent->children->first();
+        $this->getCart();
+        return view('page', $this->data);
     }
 
     /**
-     * @param null $slug
-     * @return View
+     * Cart
      */
-    public function services($slug = null): view
-    {
-        $this->getCart();
-        $page = $this->pageRepository->getPageFirstBySlug('uslugi');
-        $this->data['page'] = $page;
-        $this->data['children'] = $page->children;
-        $this->data['subPage'] = $page->children[0]->page; // Default load subPage
-
-        if ($slug) {
-            $page = $this->pageRepository->getPageFirstBySlug($slug);
-            $this->data['page'] = $page;
-            $this->data['subPage'] = $page->page;
-        }
-        return view('pages.services', $this->data);
-    }
-
     private function getCart(): void
     {
         $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
         $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
     }
-//    public function homepageTop(){
-//        $categories = $this->productCategoryRepository->getHomePageTop();
-//        $categories->each(static function($category) {
-//            $category->products()->take(3)->get();
-//        });
-//    }
 }

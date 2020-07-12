@@ -17,7 +17,7 @@ class HomeController extends Core
     public function __construct()
     {
         parent::__construct();
-        $this->middleware('auth');
+        //$this->middleware('auth');
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
     }

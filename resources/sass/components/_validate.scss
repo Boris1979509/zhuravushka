@@ -1,10 +1,7 @@
 .invalid-feedback {
     margin-top: 10px;
-
-    &__item {
-        color: red;
-        font-size: .8rem;
-        line-height: 1.2;
-        letter-spacing: $letter-spacing-6;
-    }
+    color: red;
+    font-size: .8rem;
+    line-height: 1.2;
+    letter-spacing: $letter-spacing-6;
 }

@@ -1,10 +1,10 @@
 <div class="sub-header__login" hidden>
-    <form method="POST" action="{{ route('login') }}" >
+    <form method="POST" action="{{ route('login') }}" id="login-form">
         @csrf
         <div class="form-input">
-            <label for="phone" class="form-input-label">{{ __('Phone') }}</label>
-            <input id="phone" type="text" class="input mask-input" placeholder="+7 (999) 999-99-99"
-                   pattern="(\+7[-_()\s]+|\+7\s?[(]{0,1}[0-9]{3}[)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2})"
+            <label for="phone-login" class="form-input-label">{{ __('Phone') }}</label>
+            <input id="phone-login" type="text" class="input mask-input" placeholder="+7 (999) 999-99-99"
+{{--                   pattern="(\+7[-_()\s]+|\+7\s?[(]{0,1}[0-9]{3}[)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2})"--}}
                    name="phone" value="{{ old('phone') }}"
                    autocomplete="phone" autofocus>
             @error('phone')

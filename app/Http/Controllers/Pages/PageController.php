@@ -32,8 +32,12 @@ class PageController extends Core
      */
     public function index()
     {
+        $page = $this->pageRepository->getFirstPage(self::HOME_PAGE_NAME);
+        if (!$page) {
+            return abort(404);
+        }
         $this->getCart();
-        $this->data['page'] = $this->data['pages']->where('page', self::HOME_PAGE_NAME)->first();
+        $this->data['page'] = $page;
         return view('pages.home', $this->data);
     }
 
@@ -43,10 +47,10 @@ class PageController extends Core
      */
     public function page(string $slug)
     {
-        if (!$this->pageRepository->getPageFirstBySlug($slug)) {
+        $page = $this->pageRepository->getFirstPageBySlug($slug);
+        if (!$page) {
             return abort(404);
         }
-        $page = $this->data['pages']->where('slug', $slug)->first();
 
         $this->data['page'] = $page;
         $this->data['pagesNavMenu'] = $this->data['pages']->where('parent_id', 0);

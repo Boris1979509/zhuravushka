@@ -61,11 +61,16 @@ Route::group([
 
 Auth::routes();
 
+// User Cabinet
 Route::group([
-    'namespace' => 'Cabinet',
-    'prefix'    => 'cabinet',
+    'namespace'  => 'Cabinet',
+    'prefix'     => 'cabinet',
+    'as'         => 'cabinet.',
+    'middleware' => 'auth',
 ], static function () {
-    Route::get('/', 'HomeController@index')->name('cabinet.home');
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::get('/edit', 'ProfileController@edit')->name('edit');
+    Route::put('/update', 'ProfileController@update')->name('update');
 });
 
 

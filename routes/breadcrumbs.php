@@ -98,8 +98,24 @@ Breadcrumbs::for('password.request', static function (Generator $trail) {
     $trail->parent('login');
     $trail->push(__('ResetPassword'), route('password.request'));
 });
+
 // Cabinet
-Breadcrumbs::for('cabinet.home', static function (Generator $trail) {
-    $trail->parent('home');
-    $trail->push(__('Cabinet'), route('cabinet.home'));
+Breadcrumbs::register('cabinet.home', static function (Generator $crumbs) {
+    $crumbs->parent('home');
+    $crumbs->push(__('Cabinet'), route('cabinet.home'));
+});
+
+Breadcrumbs::register('cabinet.profile.home', static function (Generator $crumbs) {
+    $crumbs->parent('cabinet.home');
+    $crumbs->push(__('Profile'), route('cabinet.profile.home'));
+});
+
+Breadcrumbs::register('cabinet.profile.edit', static function (Generator $crumbs) {
+    $crumbs->parent('cabinet.profile.home');
+    $crumbs->push(__('Edit'), route('cabinet.profile.edit'));
+});
+
+Breadcrumbs::register('cabinet.profile.phone', static function (Generator $crumbs) {
+    $crumbs->parent('cabinet.profile.home');
+    $crumbs->push(__('Phone'), route('cabinet.profile.phone'));
 });

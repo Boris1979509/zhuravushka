@@ -21,23 +21,6 @@ class PageRepository extends CoreRepository
     }
 
     /**
-     * @param string $slug
-     * @return mixed
-     */
-    public function getSinglePage($slug)
-    {
-        $columns = [
-            'slug',
-            'title',
-        ];
-        $result = $this->startConditions()
-            ->select($columns)
-            ->where('slug', $slug)
-            ->firstOrFail();
-        return $result;
-    }
-
-    /**
      * @param array $columns
      * @return Application[]|Collection|\Illuminate\Database\Eloquent\Model[]|mixed[]
      */
@@ -54,7 +37,7 @@ class PageRepository extends CoreRepository
      * @param string $slug
      * @return mixed
      */
-    public function getPageFirstBySlug(string $slug)
+    public function getFirstPageBySlug(string $slug)
     {
         return $this->startConditions()
             ->where('slug', $slug)->first();
@@ -62,11 +45,12 @@ class PageRepository extends CoreRepository
 
     /**
      * Load Home page
+     * @param $page
      * @return mixed
      */
-    public function homePage()
+    public function getFirstPage(string $page)
     {
         return $this->startConditions()
-            ->where('page', 'home')->firstOrFail();
+            ->where('page', $page)->first();
     }
 }

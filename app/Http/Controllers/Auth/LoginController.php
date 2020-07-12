@@ -3,47 +3,99 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
-use App\Http\Controllers\Core;
-use App\Providers\RouteServiceProvider;
-use Illuminate\Foundation\Auth\AuthenticatesUsers;
-use Illuminate\View\View;
+use App\Http\Requests\Auth\LoginRequest;
+use App\Models\User;
+use Illuminate\Foundation\Auth\ThrottlesLogins;
+use Illuminate\Http\RedirectResponse;
+use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
+use Illuminate\Validation\ValidationException;
+use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-class LoginController extends Core
+class LoginController extends Controller
 {
+    use ThrottlesLogins;
 
-    //use AuthenticatesUsers;
-
-    /**
-     * Where to redirect users after login.
-     *
-     * @var string
-     */
-    protected $redirectTo = RouteServiceProvider::HOME;
-    /**
-     * @var array
-     */
-    protected $data = [];
 
     public function __construct()
     {
-        parent::__construct();
         $this->middleware('guest')->except('logout');
-        $this->data['pages'] = $this->pageRepository->getAllPagesNav();
-        $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
+    }
+
+
+
+    public function login(LoginRequest $request): RedirectResponse
+    {
+//        if ($this->hasTooManyLoginAttempts($request)) {
+//            $this->fireLockoutEvent($request);
+//            $this->sendLockoutResponse($request);
+//        }
+//
+//        $authenticate = Auth::attempt(
+//            $request->only(['phone', 'password'])
+//            // $request->filled('remember')
+//        );
+
+//        if ($authenticate) {
+//            $request->session()->regenerate();
+//            $this->clearLoginAttempts($request);
+//            $user = Auth::user();
+//            if ($user->isWait()) {
+//                Auth::logout();
+//                return back()->with('error', 'You need to confirm your account. Please check your email.');
+//            }
+//            return redirect()->intended(route('cabinet.home'));
+//        }
+//
+//        $this->incrementLoginAttempts($request);
+//
+//        throw ValidationException::withMessages(['email' => [trans('auth.failed')]]);
+    }
+
+
+    public function verify(Request $request)
+    {
+        if ($this->hasTooManyLoginAttempts($request)) {
+            $this->fireLockoutEvent($request);
+            $this->sendLockoutResponse($request);
+        }
+
+        $this->validate($request, [
+            'token' => 'required|string',
+        ]);
+
+        if (!$session = $request->session()->get('auth')) {
+            throw new BadRequestHttpException('Missing token info.');
+        }
+
+        /** @var User $user */
+        $user = User::findOrFail($session['id']);
+
+        if ($request['token'] === $session['token']) {
+            $request->session()->flush();
+            $this->clearLoginAttempts($request);
+            Auth::login($user, $session['remember']);
+            return redirect()->intended(route('cabinet.home'));
+        }
+
+        $this->incrementLoginAttempts($request);
+
+        throw ValidationException::withMessages(['token' => ['Invalid auth token.']]);
     }
 
     /**
-     * @return view
+     * @param Request $request
+     * @return RedirectResponse
      */
-    public function showLoginForm(): View
+    public function logout(Request $request): RedirectResponse
     {
-        $this->getCart();
-        return view('auth.login', $this->data);
+        Auth::guard()->logout();
+        $request->session()->invalidate();
+        return redirect()->route('home');
     }
 
-    private function getCart(): void
+    protected function username(): string
     {
-        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
-        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
+        return 'phone';
     }
 }

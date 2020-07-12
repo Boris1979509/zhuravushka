@@ -65,6 +65,8 @@
     .catalog {
         position: absolute;
         min-width: 280px;
+        box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+
     }
 }
 
@@ -80,6 +82,7 @@
 
     &__item {
         transition: all .5s;
+        position: relative;
 
         &:hover {
             background: rgba(0, 0, 0, 0.05);
@@ -106,6 +109,7 @@
     }
 
     &__sub-catalog {
+        box-sizing: border-box;
         width: 100%;
         display: flex;
         flex-direction: column;
@@ -116,25 +120,40 @@
         visibility: hidden;
         left: calc(100% + 10px);
         top: 0;
-        height: calc(100% - 40px);
+        // height: calc(100% - 40px);
         padding: 20px;
         transition: all .3s;
         min-width: max-content;
-        border-left: 1px solid rgba(0, 0, 0, 0.05);
     }
 
     &__item:hover .catalog__sub-catalog {
         z-index: 1000;
         visibility: visible;
-        left: calc(100%);
+        left: 100%;
         opacity: 1;
-        border-left: 1px solid rgba(0, 0, 0, 0.05);
+        box-shadow: 0 0 10px rgba(0, 0, 0, 0.08);
+        min-height: 64px;
+
+        &:after {
+            content: "";
+            position: absolute;
+            left: -10px;
+            top: calc((64px - 10px) / 2);
+            border: 5px solid transparent;
+            border-right: 5px solid #ffffff;
+        }
     }
 
     &__sub-catalog-link {
         font-size: 0.875rem;
-        color: #111 !important;
-        padding-top: 5px;
-        padding-bottom: 5px;
+        line-height: 1;
+        padding: 5px 0;
+        color: inherit;
+        transition: all .3s;
+        box-sizing: border-box;
+
+        &:hover {
+            color: $bg-page-nav-button-active;
+        }
     }
 }

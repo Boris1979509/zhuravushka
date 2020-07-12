@@ -7,7 +7,7 @@
         @php /** @var BlogCategory $category
         */use App\Models\Blog\BlogCategory; @endphp
         @foreach($blogCategories as $category)
-            <li class="side-bar__item {{ isCurrentRoute('blog/category', [$category->slug]) }}">
+            <li class="side-bar__item {{ isCurrentRoute('blog.category', [$category->slug]) }}">
                 <a class="link side-bar__link"
                    href="{{ route('blog.category', $category->slug) }}"
                    title="{{ $category->title }}">{{ $category->title }}&nbsp;<span

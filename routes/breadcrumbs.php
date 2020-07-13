@@ -37,7 +37,7 @@ Breadcrumbs::for('blog.post', static function (Generator $trail, $postSlug) {
 // Any Page
 Breadcrumbs::for('page', static function (Generator $trail, $pageSlug) {
     $trail->parent('home');
-    $page = (new Page)->getPageFirstBySlug($pageSlug);
+    $page = (new Page)->getFirstPageBySlug($pageSlug);
     $trail->push($page->title, route('page', $page->slug));
 });
 // User Cart

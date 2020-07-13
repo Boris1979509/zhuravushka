@@ -66,7 +66,7 @@ Route::group([
     'namespace'  => 'Cabinet',
     'prefix'     => 'cabinet',
     'as'         => 'cabinet.',
-    'middleware' => 'auth',
+    //'middleware' => 'auth',
 ], static function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::get('/edit', 'ProfileController@edit')->name('edit');

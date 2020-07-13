@@ -129,7 +129,9 @@
 }
 
 /* Accordion style */
-@mixin accordion {
+@mixin accordion(
+    $iconBefore: "../../images/icons/plus.svg",
+ $iconAfter: "../../images/icons/minus.svg") {
     .accordion {
         border: 1px solid #CCCCCC;
 
@@ -147,7 +149,7 @@
 
             &:after {
                 content: '';
-                background: url("../../images/icons/plus.svg");
+                background: url($iconBefore) no-repeat;
                 float: right;
                 width: 20px;
                 height: 20px;
@@ -155,7 +157,7 @@
 
             &.active:after {
                 content: '';
-                background: url("../../images/icons/minus.svg");
+                background: url($iconAfter) no-repeat;
                 float: right;
                 width: 20px;
                 height: 20px;

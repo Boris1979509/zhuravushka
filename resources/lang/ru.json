@@ -115,5 +115,19 @@
     "Favorite": "Избранное",
     "Compare": "Сравнение",
     "IsEmptyCompareMessage": "Список для сравнения пуст.",
-    "IsEmptyFavoriteMessage": "Список избранных продуктов пуст."
+    "IsEmptyFavoriteMessage": "Список избранных продуктов пуст.",
+    "CabinetOrders": "Заказы",
+    "CabinetComments": "Отзывы",
+    "CabinetFeedBack": "Обратная связь",
+    "ProfileSetting": "Настройки профиля",
+    "ProfileFavorite": "Избранное",
+    "LogOut": "Выйти",
+    "Cabinet": "Личный кабинет",
+    "CabinetNumberOrder": "Номер заказа",
+    "CabinetDataCreatedOrder": "Дата создания заказа",
+    "CabinetTotalItem": "Общая сумма",
+    "CabinetStatusOrder": "Статус заказа",
+    "CabinetNameOfGoods": "Наименование товара",
+    "CabinetPricePerPiece": "Цена за шт.",
+    "CabinetPricePerPiece": "Количество"
 }

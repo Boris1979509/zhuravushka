@@ -1,0 +1,124 @@
+#cabinet {
+    background: #fff;
+    padding: 40px 0;
+
+    %templateFlex {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+    }
+
+    %templateFontStyle {
+        font-size: 1rem;
+        line-height: 1.4;
+        letter-spacing: $letter-spacing-4;
+    }
+
+    .cabinet {
+        &__sorting {
+            @extend %templateFlex;
+            align-items: center;
+            padding-bottom: 15px;
+            border-bottom: 2px solid #DBDBDB;
+        }
+
+        &__sorting-options {
+            @extend %templateFlex;
+            margin-top: 10px;
+            min-width: 60%;
+
+            .sort-in-stock {
+                align-self: center;
+            }
+        }
+
+        &__sorting-link {
+            @extend %templateFontStyle;
+            position: relative;
+            text-decoration: none;
+            color: #404040;
+
+            &.active {
+                color: #0075d2;
+
+                &:after {
+                    bottom: -17px;
+                    content: "";
+                    display: block;
+                    height: 5px;
+                    left: 0;
+                    position: absolute;
+                    background: #0075d2;
+                    transition: width .3s ease 0s, left 0s ease 0s;
+                    width: 100%;
+                }
+            }
+        }
+
+        &__sorting-logout {
+            align-self: flex-end;
+            @extend %templateFlex;
+
+            .link {
+                @extend %templateFontStyle;
+                color: $color-body-default;
+                font-weight: 600;
+            }
+        }
+
+        .cabinet-orders {
+            &__item {
+                .content-block {
+                    @extend %templateFlex;
+                    border-bottom: 1px solid #CCCCCC;
+                    padding: 30px;
+                    align-items: center;
+
+                    &__title-prop {
+                        font-size: 14px;
+                        line-height: 18px;
+                        letter-spacing: $letter-spacing-4;
+                        color: #858585;
+                    }
+
+                    &__title-value {
+                        font-size: 18px;
+                        line-height: 23px;
+                        letter-spacing: $letter-spacing-4;
+                        color: #404040;
+
+                        &.total {
+                            font-weight: bold;
+                        }
+                    }
+
+                    &__sub-content {
+                        background-color: white;
+                        padding: 0 30px;
+                        width: 100%;
+                        max-height: 0;
+                        overflow: hidden;
+                        transition: max-height 0.2s ease-in-out;
+                        box-sizing: border-box;
+                    }
+                }
+            }
+        }
+
+        .accordion__button-item {
+            order: -1;
+            display: inline-block;
+            background: url("../../images/icons/cabinet/right-arrow.svg") no-repeat;
+            width: 20px;
+            height: 20px;
+            cursor: pointer;
+
+            &.active {
+                background: url("../../images/icons/cabinet/bottom-arrow.svg") no-repeat;
+                width: 20px;
+                height: 20px;
+            }
+        }
+    }
+
+}

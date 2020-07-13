@@ -67,23 +67,24 @@
         }
 
         .cabinet-orders {
+            margin-top: 30px;
             &__item {
                 .content-block {
                     @extend %templateFlex;
                     border-bottom: 1px solid #CCCCCC;
-                    padding: 30px;
+                    padding: 30px 0;
                     align-items: center;
 
                     &__title-prop {
-                        font-size: 14px;
-                        line-height: 18px;
+                        font-size: 0.875rem;
+                        line-height: 1.3;
                         letter-spacing: $letter-spacing-4;
                         color: #858585;
                     }
 
                     &__title-value {
-                        font-size: 18px;
-                        line-height: 23px;
+                        font-size: 1.125rem;
+                        line-height: 1.3;
                         letter-spacing: $letter-spacing-4;
                         color: #404040;
 
@@ -94,14 +95,23 @@
 
                     &__sub-content {
                         background-color: white;
-                        padding: 0 30px;
-                        width: 100%;
+                        //width: 100%;
                         max-height: 0;
                         overflow: hidden;
                         transition: max-height 0.2s ease-in-out;
                         box-sizing: border-box;
+                        margin-left: auto;
                     }
                 }
+            }
+        }
+
+        table {
+            margin-top: 60px;
+            text-align: left;
+
+            td, th {
+                padding: 10px;
             }
         }
 
@@ -117,6 +127,11 @@
                 background: url("../../images/icons/cabinet/bottom-arrow.svg") no-repeat;
                 width: 20px;
                 height: 20px;
+                //transform:
+                //    //rotate(90deg)
+                //    //translate(0, -100%) /* go from bottom right to top right */
+                //    rotate(90deg)
+                //    translate(0, 100%);
             }
         }
     }

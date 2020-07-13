@@ -129,5 +129,7 @@
     "CabinetStatusOrder": "Статус заказа",
     "CabinetNameOfGoods": "Наименование товара",
     "CabinetPricePerPiece": "Цена за шт.",
-    "CabinetPricePerPiece": "Количество"
+    "CabinetOrderQty": "Количество",
+    "CabinetTotalPrice": "Общая стоимость",
+    "GoOn": "Продолжить"
 }

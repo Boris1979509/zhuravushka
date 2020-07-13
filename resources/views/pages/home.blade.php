@@ -6,7 +6,7 @@
 @section('content')
     <div class="container">
         <div class="page-top-grid">
-            @include('components.barMenu')
+            @include('components.barMenu', ['take' => 9])
             @include('components.homepage-slider')
             @include('components.homepage-top-tabs-category')
         </div>

@@ -131,5 +131,6 @@
     "CabinetPricePerPiece": "Цена за шт.",
     "CabinetOrderQty": "Количество",
     "CabinetTotalPrice": "Общая стоимость",
-    "GoOn": "Продолжить"
+    "GoOn": "Продолжить",
+    "SeeAllCatalog": "Смотреть весь каталог"
 }

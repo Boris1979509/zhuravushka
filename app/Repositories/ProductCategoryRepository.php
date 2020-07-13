@@ -35,7 +35,7 @@ class ProductCategoryRepository extends CoreRepository
             ->where('parent_id', 0)
             ->with(['children' => static function ($query) {
                 $query->withCount('products as productsCount');
-            }])->take(10)->get();
+            }])->get();
     }
 
     /**

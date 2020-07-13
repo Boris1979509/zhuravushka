@@ -1,9 +1,12 @@
 <div class="catalog">
-    <ul class="catalog__list">
-        @php /** @var ProductCategory $categoryItem */use App\Models\Shop\ProductCategory;@endphp
+    <div class="catalog__list">
+        @php /** @var ProductCategory $categoryItem */use App\Models\Shop\ProductCategory;
+            $productCategories = (isset($take)) ? $productCategories->take($take) : $productCategories
+        @endphp
         @foreach($productCategories as $categoryItem)
-            <li class="catalog__item">
-                <a href="{{ route('category' , $categoryItem->slug) }}" class="link catalog__link">
+            <div class="catalog__item">
+                <a href="{{ route('category' , $categoryItem->slug) }}" class="link catalog__link"
+                   title="{{ $categoryItem->title }}">
                     <img class="catalog__link-img"
                          src="{{ asset('images/icons/thumb/elektrika-i-osveshhenie.svg') }}"
                          alt="{{ $categoryItem->title }}">
@@ -11,11 +14,22 @@
                 @if($categoryItem->children)
                     <div class="catalog__sub-catalog">
                         @foreach($categoryItem->children as $childrenItem)
-                            <a href="{{ route('category', $childrenItem->slug) }}" class="link catalog__sub-catalog-link">{{ $childrenItem->title }} ({{  $childrenItem->productsCount }})</a>
+                            <a href="{{ route('category', $childrenItem->slug) }}"
+                               class="link catalog__sub-catalog-link"
+                               title="{{ $childrenItem->title }}">{{ $childrenItem->title }} ({{
+                                $childrenItem->productsCount }})</a>
                         @endforeach
                     </div>
                 @endif
-            </li>
+            </div>
         @endforeach
-    </ul>
+        @if(isset($take))
+            <div class="catalog__item">
+                <a href="{{ route('catalog') }}" class="link catalog__link" title="{{  __('SeeAllCatalog') }}">
+                    <img class="catalog__link-img"
+                         src="{{ asset('images/icons/thumb/elektrika-i-osveshhenie.svg') }}"
+                         alt="{{  __('SeeAllCatalog') }}">{{ __('SeeAllCatalog') }}</a>
+            </div>
+        @endif
+    </div>
 </div>

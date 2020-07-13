@@ -1,0 +1,18 @@
+#page-catalog {
+    padding-bottom: 40px;
+
+    .catalog {
+        position: relative !important;
+
+        &__link {
+            border: 1px solid #ccc;
+            margin-right: -1px;
+            margin-bottom: -1px;
+        }
+
+        &__link-img {
+            margin-right: 10px;
+        }
+    }
+
+}

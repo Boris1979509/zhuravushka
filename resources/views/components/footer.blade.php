@@ -23,7 +23,7 @@
                         <p class="footer__title">Товары компании</p>
                         <ul class="footer__nav footer_columns">
                             @php /** @var ProductCategory $categoryItem */use App\Models\Shop\ProductCategory;@endphp
-                            @foreach($productCategories  as $categoryItem)
+                            @foreach($productCategories->take(10)  as $categoryItem)
                                 <li class="footer__nav-item">
                                     <a class="link footer__link" href="" title="">{{ $categoryItem->title }}</a>
                                 </li>

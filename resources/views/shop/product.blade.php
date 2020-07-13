@@ -8,7 +8,7 @@
         <div class="product-wrap">
             <div class="product">
                 <div class="product__photo-container">
-                    <img src="{{ asset("images/products/{$product->photo}.jpg") }}" alt="{{ $product->title }}"
+                    <img src="{{ fileExist("images/products/{$product->photo}.jpg") }}" alt="{{ $product->title }}"
                          class="product__img">
                 </div>
                 <div class="product__all">

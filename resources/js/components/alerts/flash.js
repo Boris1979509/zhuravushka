@@ -1,23 +1,28 @@
-window.exports = flash = (message = null) => {
+window.exports = flash = (message = null, status = 'success') => {
+    let t = null;
     const div = document.createElement('div');
-    const closeBlock = document.createElement('div');
     const close = document.createElement('span');
+    close.className = 'alert-info__icon-close';
 
-    close.className = 'alert-info__close__icon-close';
-    closeBlock.className = 'alert-info__close';
-    closeBlock.append(close);
-
-    div.className = 'alert alert-flash';
+    div.className = `alert alert-flash ${status}`;
     div.innerHTML = `<p>${message}</p>`;
-    div.appendChild(closeBlock);
-
+    div.appendChild(close);
     document.body.appendChild(div);
 
-    setTimeout(() => {
-        div.remove();
-    }, 3000);
-
     close.addEventListener('click', () => {
-        close.closest('.alert').remove();
+        div.remove();
+    });
+
+    (() => {
+        t = setTimeout(() => {
+            div.remove();
+        }, 3000);
+    })();
+
+    div.addEventListener('mouseenter', () => {
+        clearTimeout(t);
+    });
+    div.addEventListener('mouseleave', () => {
+        div.remove();
     });
 }

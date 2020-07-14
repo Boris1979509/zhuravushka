@@ -7,9 +7,7 @@
             <p>{{ session('info') ?? $info }}</p>
         </div>
         @if(session('info'))
-            <div class="alert-info__close">
-                <span class="alert-info__close__icon-close" title="{{ __('Close') }}"></span>
-            </div>
+            <span class="alert-info__icon-close" title="{{ __('Close') }}"></span>
         @endif
     </div>
 @endif

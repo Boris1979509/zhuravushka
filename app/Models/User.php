@@ -15,7 +15,10 @@ use Illuminate\Notifications\Notifiable;
  * @property string $middle_name
  * @property string $email
  * @property string $phone
- * @property string $phone_verified_at
+ * @property bool $phone_verified
+ * @property string $verify_token
+ * @property string $phone_verify_token
+ * @property Carbon $phone_verify_token_expire
  */
 class User extends Authenticatable
 {
@@ -25,7 +28,7 @@ class User extends Authenticatable
      * @var array
      */
     protected $fillable = [
-        'name', 'email', 'password', 'phone',
+        'name', 'email', 'password', 'phone', 'last_name', 'middle_name', 'verify_token',
     ];
 
     /**
@@ -43,8 +46,9 @@ class User extends Authenticatable
      * @var array
      */
     protected $casts = [
-        'email_verified_at' => 'datetime',
-        'phone_verified_at' => 'datetime',
+        //'email_verified_at'         => 'datetime',
+        'phone_verified' => 'boolean',
+        'phone_verify_token_expire' => 'datetime',
     ];
 
     public function isWait(): bool

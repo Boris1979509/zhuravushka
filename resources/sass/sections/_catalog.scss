@@ -4,6 +4,10 @@
 
     .catalog {
         position: relative !important;
+        background: none !important;
+        box-shadow: none !important;
+        right: 0;
+        left: 0;
 
         &__link {
             border: 1px solid #ccc;

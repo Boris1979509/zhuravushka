@@ -69,8 +69,15 @@ Route::group([
     //'middleware' => 'auth',
 ], static function () {
     Route::get('/', 'HomeController@index')->name('home');
-    Route::get('/edit', 'ProfileController@edit')->name('edit');
-    Route::put('/update', 'ProfileController@update')->name('update');
+    /* Profile */
+    Route::get('/home', 'ProfileController@index')->name('profile.home');
+    Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
+    Route::put('/update', 'ProfileController@update')->name('profile.update');
+    /* End Profile */
+    Route::get('/favorite', 'FavoriteController@index')->name('favorite');
+    Route::get('/feedback', 'FeedbackController@index')->name('feedback');
+    Route::get('/comment', 'CommentController@index')->name('comment');
+    Route::get('/order', 'OrderController@index')->name('order');
 });
 
 

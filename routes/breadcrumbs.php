@@ -101,21 +101,40 @@ Breadcrumbs::for('password.request', static function (Generator $trail) {
 
 // Cabinet
 Breadcrumbs::register('cabinet.home', static function (Generator $crumbs) {
-    $crumbs->parent('home');
     $crumbs->push(__('Cabinet'), route('cabinet.home'));
+});
+/* Home */
+Breadcrumbs::register('cabinet.favorite', static function (Generator $crumbs) {
+    $crumbs->parent('cabinet.home');
+    $crumbs->push(__('Favorite'), route('cabinet.favorite'));
+});
+/* Feedback */
+Breadcrumbs::register('cabinet.feedback', static function (Generator $crumbs) {
+    $crumbs->parent('cabinet.home');
+    $crumbs->push(__('CabinetFeedBack'), route('cabinet.feedback'));
+});
+/* Comment */
+Breadcrumbs::register('cabinet.comment', static function (Generator $crumbs) {
+    $crumbs->parent('cabinet.home');
+    $crumbs->push(__('CabinetComment'), route('cabinet.comment'));
+});
+/* Order */
+Breadcrumbs::register('cabinet.order', static function (Generator $crumbs) {
+    $crumbs->parent('cabinet.home');
+    $crumbs->push(__('CabinetOrder'), route('cabinet.order'));
 });
 
 Breadcrumbs::register('cabinet.profile.home', static function (Generator $crumbs) {
     $crumbs->parent('cabinet.home');
-    $crumbs->push(__('Profile'), route('cabinet.profile.home'));
+    $crumbs->push(__('CabinetProfile'), route('cabinet.profile.home'));
 });
 
 Breadcrumbs::register('cabinet.profile.edit', static function (Generator $crumbs) {
     $crumbs->parent('cabinet.profile.home');
-    $crumbs->push(__('Edit'), route('cabinet.profile.edit'));
+    $crumbs->push(__('CabinetProfileEdit'), route('cabinet.profile.edit'));
 });
 
 Breadcrumbs::register('cabinet.profile.phone', static function (Generator $crumbs) {
     $crumbs->parent('cabinet.profile.home');
-    $crumbs->push(__('Phone'), route('cabinet.profile.phone'));
+    $crumbs->push(__('cabinetProfilePhone'), route('cabinet.profile.phone'));
 });

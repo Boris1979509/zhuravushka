@@ -15,59 +15,10 @@
     }
 
     .cabinet {
-        &__sorting {
-            @extend %templateFlex;
-            align-items: center;
-            padding-bottom: 15px;
-            border-bottom: 2px solid #DBDBDB;
-        }
-
-        &__sorting-options {
-            @extend %templateFlex;
-            margin-top: 10px;
-            min-width: 60%;
-
-            .sort-in-stock {
-                align-self: center;
-            }
-        }
-
-        &__sorting-link {
-            @extend %templateFontStyle;
-            position: relative;
-            text-decoration: none;
-            color: #404040;
-
-            &.active {
-                color: #0075d2;
-
-                &:after {
-                    bottom: -17px;
-                    content: "";
-                    display: block;
-                    height: 5px;
-                    left: 0;
-                    position: absolute;
-                    background: #0075d2;
-                    transition: width .3s ease 0s, left 0s ease 0s;
-                    width: 100%;
-                }
-            }
-        }
-
-        &__sorting-logout {
-            align-self: flex-end;
-            @extend %templateFlex;
-
-            .link {
-                @extend %templateFontStyle;
-                color: $color-body-default;
-                font-weight: 600;
-            }
-        }
 
         .cabinet-orders {
             margin-top: 30px;
+
             &__item {
                 .content-block {
                     @extend %templateFlex;
@@ -100,8 +51,64 @@
                         overflow: hidden;
                         transition: max-height 0.2s ease-in-out;
                         box-sizing: border-box;
-                        margin-left: auto;
+                        margin-left: calc(23.4% - 10px);
                     }
+
+                    &__item {
+                        min-width: 16.7%;
+
+                        &.status-pending-payment,
+                        &.status-order-processing,
+                        &.status-order-confirmed,
+                        &.status-order-cancel {
+                            display: flex;
+                            align-items: center;
+                        }
+
+                        &.status-pending-payment {
+                            @include cabinet-status('credit-card.svg', #0075D2);
+                        }
+
+                        &.status-order-processing {
+                            @include cabinet-status('clock.svg', #FC8507);
+                        }
+
+                        &.status-order-confirmed {
+                            @include cabinet-status('check-ok.svg', #3DBA29);
+                        }
+
+                        &.status-order-cancel {
+                            @include cabinet-status('check-cancel.svg', #EF2020);
+                        }
+                    }
+                }
+            }
+
+            .primary-info-block {
+                @extend %templateFlex;
+                margin-top: 30px;
+                font-size: 1rem;
+                line-height: 1.4;
+                letter-spacing: $letter-spacing-4;
+                color: #858585;
+
+                > div, path {
+                    transition: .3s;
+                    display: flex;
+                    align-items: center;
+
+                    &:hover {
+                        cursor: pointer;
+                        color: #FC8507;
+
+                        path {
+                            fill: #FC8507;
+                        }
+                    }
+                }
+
+                svg {
+                    margin-right: 15px;
                 }
             }
         }
@@ -119,19 +126,50 @@
             order: -1;
             display: inline-block;
             background: url("../../images/icons/cabinet/right-arrow.svg") no-repeat;
-            width: 20px;
-            height: 20px;
+            width: 10px;
+            height: 15px;
             cursor: pointer;
+            transition: all 0.4s ease;
 
             &.active {
-                background: url("../../images/icons/cabinet/bottom-arrow.svg") no-repeat;
-                width: 20px;
-                height: 20px;
-                //transform:
-                //    //rotate(90deg)
-                //    //translate(0, -100%) /* go from bottom right to top right */
-                //    rotate(90deg)
-                //    translate(0, 100%);
+                transform: rotateZ(90deg);
+            }
+        }
+
+        %templateIcon {
+            margin-right: 11px !important;
+            margin-left: 0 !important;
+            transform: translateY(3px);
+            vertical-align: baseline !important;
+        }
+
+        /* Go on btn */
+        .btn-go-on {
+            &:before {
+                @include btnIcon("../../images/icons/cabinet/go-on.svg");
+                @extend %templateIcon;
+            }
+
+            &:hover {
+                &:before {
+                    @include btnIcon("../../images/icons/cabinet/go-on-hover.svg");
+                    @extend %templateIcon;
+                }
+            }
+        }
+
+        /* Cancel btn */
+        .btn-cancel {
+            &:before {
+                @include btnIcon("../../images/icons/cabinet/cancel.svg");
+                @extend %templateIcon;
+            }
+
+            &:hover {
+                &:before {
+                    @include btnIcon("../../images/icons/cabinet/cancel-hover.svg");
+                    @extend %templateIcon;
+                }
             }
         }
     }

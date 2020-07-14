@@ -62,8 +62,10 @@ class CartController extends Core
             $order->products()->attach($product);
         }
 
-        $this->data['cartItemTotalSum'] = $this->numberFormat($order->products()->find($product)->getItemTotalSum());
+
         $this->getCartAjax();
+        $this->data['cartItemTotalSum'] = $this->numberFormat($order->products()->find($product)->getItemTotalSum());
+        $this->data['message'] = 'Товар ' . $product->title . ' упешно добавлен в корзину.';
 
         return response()->json($this->data);
     }
@@ -125,6 +127,7 @@ class CartController extends Core
 
     private function getCartAjax(): void
     {
+        $this->data = [];
         if ($order = $this->getOrder()) {
             $this->data['order'] = $order;
             $this->data['cartCount'] = $order->cartCount();

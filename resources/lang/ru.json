@@ -116,8 +116,8 @@
     "Compare": "Сравнение",
     "IsEmptyCompareMessage": "Список для сравнения пуст.",
     "IsEmptyFavoriteMessage": "Список избранных продуктов пуст.",
-    "CabinetOrders": "Заказы",
-    "CabinetComments": "Отзывы",
+    "CabinetOrder": "Заказы",
+    "CabinetComment": "Отзывы",
     "CabinetFeedBack": "Обратная связь",
     "ProfileSetting": "Настройки профиля",
     "ProfileFavorite": "Избранное",
@@ -132,5 +132,14 @@
     "CabinetOrderQty": "Количество",
     "CabinetTotalPrice": "Общая стоимость",
     "GoOn": "Продолжить",
-    "SeeAllCatalog": "Смотреть весь каталог"
+    "SeeAllCatalog": "Смотреть весь каталог",
+    "Cancel": "Отменить",
+    "Confirmed": "Подтвержден",
+    "PendingPayment": "Ожидает оплаты",
+    "OrderProcessing": "В обработке",
+    "OrderRepeat": "Повторить заказ",
+    "OrderPrint": "Распечатать",
+    "FeedBackTitle": "Если у вас есть вопросы и предложения — смело пишите нам.",
+    "SendEmail": "Отправить письмо",
+    "MessageTextArea": "Текст письма"
 }

@@ -19,6 +19,7 @@ window.exports = getQuantity = (e, input) => {
             xmlHttpRequest(form.action, {inc: "++"}, (data) => {
                 refreshCart(data.cartItemTotalSum, data.cartTotalSum, data.cartCount, cart);
                 preload.remove();
+                flash(data.message);
             });
         } else if (e.classList.contains("product-qty__minus")) {
 

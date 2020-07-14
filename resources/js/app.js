@@ -10,6 +10,7 @@ import refreshCart from './components/cart/refreshCart';
 import getPreload from './components/card/functions/getPreload';
 import getQuantity from './components/card/functions/qty';
 import cartRemove from './components/cart/remove';
+import flash from './components/alerts/flash';
 
 require('./components/sticky-header/sticky');
 require('./components/homepage-slider/slider');
@@ -24,6 +25,7 @@ require('./components/form/radio/order-radio-input');
 require('./components/mode-tile/tile');
 require('./components/catalog-filter/brands');
 require('./components/alerts/close');
+require('./components/alerts/flash');
 require('./components/login/login');
 
 

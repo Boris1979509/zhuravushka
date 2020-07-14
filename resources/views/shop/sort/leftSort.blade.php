@@ -50,7 +50,7 @@
     </div>
     <div class="catalog__confirm">
         <div class="catalog__confirm__wrapper">
-            <button type="submit" class="btn btn-active btn__confirm">{{ __('Apply') }}</button>
+            <button type="submit" class="btn btn-outline btn__confirm">{{ __('Apply') }}</button>
             <a href="{{ route('category', $category->slug) }}"
                class="btn__clear">{{ __('Clear') }}</a>
         </div>

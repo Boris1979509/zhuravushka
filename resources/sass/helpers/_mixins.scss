@@ -258,3 +258,18 @@ Add button icon
     }
 }
 
+@mixin cabinet-status($icon, $color) {
+    &:before {
+        content: '';
+        background: url("../../images/icons/cabinet/#{$icon}");
+        width: 24px;
+        height: 24px;
+        display: inline-block;
+        margin-right: 20px;
+    }
+
+    .content-block__title-value {
+        color: $color;
+    }
+}
+

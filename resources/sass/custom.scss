@@ -116,9 +116,12 @@ button, span, a {
 
     /* btn-outline */
     &.btn-outline {
+        font-weight: normal;
+        text-transform: none;
+        font-size: 1.125rem;
         background: $bg-color-btn-outline;
         color: $color-btn-outline;
-        border: 2px solid $color-border-btn-outline;
+        border: 1px solid $color-border-btn-outline;
 
         &:hover {
             background: $bg-color-btn-outline-hover;

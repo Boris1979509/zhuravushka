@@ -1,13 +1,14 @@
 <?php
 
+
 namespace App\Http\Controllers\Cabinet;
 
-use App\Http\Controllers\Controller;
-use App\Http\Controllers\Core;
-use Illuminate\Contracts\Support\Renderable;
-use Illuminate\Http\Request;
 
-class HomeController extends Core
+use App\Http\Controllers\Core;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\View\View;
+
+class OrderController extends Core
 {
     /**
      * @var array
@@ -23,17 +24,17 @@ class HomeController extends Core
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return Renderable
+     * @return Factory|View
      */
-    public function index(): Renderable
+    public function index()
     {
         $this->getCart();
-        return view('cabinet.home', $this->data);
+        return view('cabinet.order.index', $this->data);
     }
+
     /**
      * Cart
+     * @return void
      */
     private function getCart(): void
     {

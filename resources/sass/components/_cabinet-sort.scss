@@ -1,0 +1,50 @@
+.cabinet__sorting {
+    @extend %templateFlex;
+    align-items: center;
+    padding-bottom: 15px;
+    border-bottom: 2px solid #DBDBDB;
+}
+
+.cabinet__sorting-options {
+    @extend %templateFlex;
+    margin-top: 10px;
+    min-width: 60%;
+
+    .sort-in-stock {
+        align-self: center;
+    }
+}
+
+.cabinet__sorting-link {
+    @extend %templateFontStyle;
+    position: relative;
+    text-decoration: none;
+    color: #404040;
+
+    &.active {
+        color: #0075d2;
+
+        &:after {
+            bottom: -17px;
+            content: "";
+            display: block;
+            height: 5px;
+            left: 0;
+            position: absolute;
+            background: #0075d2;
+            transition: width .3s ease 0s, left 0s ease 0s;
+            width: 100%;
+        }
+    }
+}
+
+.cabinet__sorting-logout {
+    align-self: flex-end;
+    @extend %templateFlex;
+
+    .link {
+        @extend %templateFontStyle;
+        color: $color-body-default;
+        font-weight: 600;
+    }
+}

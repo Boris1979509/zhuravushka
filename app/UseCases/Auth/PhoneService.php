@@ -20,8 +20,10 @@ class PhoneService
 
     public function request($phone)
     {
+        return  $this->getToken(Carbon::now());
         //$this->sms->send($user->phone, 'Phone verification token: ' . $token);
-        $token = $this->getToken(Carbon::now());
+
+        //return $token;
 //        if (!session('expire_token')->gt($now)) {
 //            throw new \DomainException('Token is already requested.');
 //        }
@@ -32,12 +34,17 @@ class PhoneService
         //return 'Phone ' . $phone . ' verification token: ' . $token;
     }
 
-    private function getToken(Carbon $now)
+    /**
+     * @param Carbon $now
+     * @return string
+     * @throws \Exception
+     */
+    private function getToken(Carbon $now): string
     {
         $phone_verify_token = (string)random_int(1000, 9999);
-        $expire_token = $now->copy()->addSeconds(100);
-        return cookie('expire_token', $expire_token, $expire_token);
-        //return $phone_verify_token;
+        $expire_token = $now->copy()->addSeconds(100)->timestamp;
+        //session(['expire_token' => $expire_token]);
+        return $expire_token;
     }
 
 }

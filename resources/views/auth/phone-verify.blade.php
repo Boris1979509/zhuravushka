@@ -6,7 +6,7 @@
             <div class="input-phone-block">
                 <div class="form-input">
                     <label for="phone" class="form-input-label">{{ __('Phone') }}</label>
-                    <input type="text" name="phone" id="phone" class="input mask-input"
+                    <input type="tel" name="phone" id="phone" class="input mask-input"
                            placeholder="+7 (666) 555-55-55"
                            pattern="(\+7[-_()\s]+|\+7\s?[(]{0,1}[0-9]{3}[)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2})"
                            autocomplete="off" autofocus>

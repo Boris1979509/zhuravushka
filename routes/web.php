@@ -32,7 +32,7 @@ Route::group([
     Route::get('blog', 'BlogController@index')->name('blog');
     Route::group([
         'prefix' => 'blog',
-        'as'     => 'blog.',
+        'as' => 'blog.',
     ], static function () {
         Route::get('post/{postSlug}', 'PostController@index')->name('post');
         Route::get('category/{CategorySlug}', 'BlogController@getByCategory')->name('category');
@@ -49,7 +49,7 @@ Route::group([
     Route::get('favorite', 'ProductController@favorite')->name('favorite');
     Route::get('compare', 'ProductController@compare')->name('compare');
     Route::group([
-        'as'     => 'cart.',
+        'as' => 'cart.',
         'prefix' => 'cart',
     ], static function () {
         Route::post('add/{id}', 'CartController@add')->name('add');
@@ -63,9 +63,9 @@ Auth::routes();
 
 // User Cabinet
 Route::group([
-    'namespace'  => 'Cabinet',
-    'prefix'     => 'cabinet',
-    'as'         => 'cabinet.',
+    'namespace' => 'Cabinet',
+    'prefix' => 'cabinet',
+    'as' => 'cabinet.',
     //'middleware' => 'auth',
 ], static function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -78,6 +78,10 @@ Route::group([
     Route::get('/feedback', 'FeedbackController@index')->name('feedback');
     Route::get('/comment', 'CommentController@index')->name('comment');
     Route::get('/order', 'OrderController@index')->name('order');
+});
+// Phone register verify
+Route::group(['namespace' => 'auth',], static function () {
+    Route::post('/phone', 'PhoneController@verify')->name('phone.verify');
 });
 
 

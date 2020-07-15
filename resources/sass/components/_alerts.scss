@@ -58,6 +58,34 @@
             flex-basis: 80%;
         }
     }
+
+    &.web-dev-info {
+        padding: 15px;
+        display: inline-block;
+        text-align: center;
+        font-size: 1.3rem;
+        letter-spacing: $letter-spacing-6;
+        line-height: 1.1;
+        background: #ec9942;
+        color: #fff;
+
+        .description {
+            font-size: 1.2rem !important;
+        }
+
+        .cancel {
+            font-size: 14px !important;
+            text-decoration: underline;
+            cursor: pointer;
+        }
+    }
+}
+
+#modal-info {
+    width: 100%;
+    top: 0;
+    position: fixed;
+    z-index: 9999;
 }
 
 

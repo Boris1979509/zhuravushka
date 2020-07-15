@@ -9,6 +9,10 @@ window.exports = (cartRemove = () => {
                 refreshCart(data.cartItemTotalSum, data.cartTotalSum, data.cartCount);
                 if (data.view) {
                     document.querySelector('.flex-center').innerHTML = data.view;
+                } else {
+                    if (data.dataMsg.status === 'success') {
+                        flash(data.dataMsg.message, data.dataMsg.status);
+                    }
                 }
             });
         })

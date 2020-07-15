@@ -45,8 +45,11 @@ class CartController extends Core
      */
     public function add($product, Request $request, Order $order): JsonResponse
     {
+        if (!$request->wantsJson()) {
+            abort(400);
+        }
         /** @var  Order $order */
-
+        $message = '';
         $product = $this->productRepository->getProductFirst($product);
 
         if (is_null(session('orderId'))) {
@@ -57,40 +60,46 @@ class CartController extends Core
 
         if ($order->products->contains($product)) {
             $inc = $request->input('inc'); // increments ++ --
-            $this->orderRepository->pivotCount($product, $inc, $order);
+            $message = $this->orderRepository->pivotCount($product, $inc, $order);
         } else {
+            $message = 'Товар ' . $product->title . ' упешно добавлен в корзину.';
             $order->products()->attach($product);
         }
 
-
         $this->getCartAjax();
         $this->data['cartItemTotalSum'] = $this->numberFormat($order->products()->find($product)->getItemTotalSum());
-        $this->data['message'] = 'Товар ' . $product->title . ' упешно добавлен в корзину.';
+        $this->data['dataMsg'] = ['status' => 'success', 'message' => $message];
 
         return response()->json($this->data);
     }
 
     /**
      * @param $product
+     * @param Request $request
      * @return JsonResponse
      * @throws Throwable
      */
-    public function remove($product): JsonResponse
+    public function remove($product, Request $request): JsonResponse
     {
+        if (!$request->wantsJson()) {
+            abort(400);
+        }
         $order = $this->getOrder();
 
         if ($product = $this->productRepository->getProductFirst($product)) {
             $order->products()->detach($product);
-            $this->data['message'] = $product->title . ' remove from cart.';
+            $this->getCartAjax();
+            $this->data['dataMsg'] = ['status' => 'success', 'message' => 'Товар ' . $product->title . ' упешно удален из корзины.'];
             if (!$order->cartCount()) {
                 $order->forceDelete();
-                session()->remove('orderId');
-                $this->data['message'] = 'Your cart is Empty.';
+                session()->forget('orderId');
+                $this->getCartAjax();
+                //$this->data['dataMsg'] = ['status' => 'success', 'message' => __('CartEmptyMessage')];
                 $this->data['view'] = view('shop.cart', $this->data)->render();
                 return response()->json($this->data);
             }
         }
-        $this->getCartAjax();
+
         return response()->json($this->data);
     }
 

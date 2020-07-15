@@ -13,7 +13,7 @@
                     <div class="contacts__props">
                         <p class="contacts__props-name">Телефон:</p>
                         <p class="contacts__props-value">
-                            8 (961) 196-3000
+                            +7 (961) 199 92-92
                         </p>
                     </div>
                     <div class="contacts__props">
@@ -21,6 +21,10 @@
                         <p class="contacts__props-value">
                             <a href="#" class="link contact-email-link">zhyravyshka@mail.ru</a>
                         </p>
+                    </div>
+                    <div class="contacts__props">
+                        <p class="contacts__props-name">Часы работы:</p>
+                        <p class="contacts__props-value">Пн - Сб: 8:30 - 17:30,<br> Воскресенье: 9:00 - 15:00</p>
                     </div>
                 </div>
             </div>

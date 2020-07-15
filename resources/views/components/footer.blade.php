@@ -118,7 +118,7 @@
                             </a>
                         </div>
                         <div class="footer__phone">
-                            <div id="footer-online-phone">+7 (4722) 400 999</div>
+                            <div id="footer-online-phone">+7 (961) 199 92-92</div>
                             <span>Многоканальная линия</span>
                         </div>
                     </div>

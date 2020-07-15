@@ -11,6 +11,7 @@ import getPreload from './components/card/functions/getPreload';
 import getQuantity from './components/card/functions/qty';
 import cartRemove from './components/cart/remove';
 import flash from './components/alerts/flash';
+import validator from './components/validate-errors/validator';
 
 require('./components/sticky-header/sticky');
 require('./components/homepage-slider/slider');
@@ -27,6 +28,8 @@ require('./components/catalog-filter/brands');
 require('./components/alerts/close');
 require('./components/alerts/flash');
 require('./components/login/login');
+require('./components/modals/webDevModal');
+require('./components/verify-phone/phone');
 
 
 import btnAdd from './components/card/btnAdd';

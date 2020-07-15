@@ -19,7 +19,9 @@ window.exports = getQuantity = (e, input) => {
             xmlHttpRequest(form.action, {inc: "++"}, (data) => {
                 refreshCart(data.cartItemTotalSum, data.cartTotalSum, data.cartCount, cart);
                 preload.remove();
-                flash(data.message);
+                if (data.dataMsg.status === 'success') {
+                    flash(data.dataMsg.message, data.dataMsg.status);
+                }
             });
         } else if (e.classList.contains("product-qty__minus")) {
 
@@ -32,6 +34,9 @@ window.exports = getQuantity = (e, input) => {
                 xmlHttpRequest(form.action, {inc: "--"}, (data) => {
                     refreshCart(data.cartItemTotalSum, data.cartTotalSum, data.cartCount, cart);
                     preload.remove();
+                    if (data.dataMsg.status === 'success') {
+                        flash(data.dataMsg.message, data.dataMsg.status);
+                    }
                 });
             } else {
                 if (!btn)

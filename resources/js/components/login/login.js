@@ -30,15 +30,9 @@ module.exports = ((login) => {
         }
         xmlHttpRequest(loginForm.action, data, (data) => {
             const errorMessage = document.querySelectorAll('.invalid-feedback');
-            errorMessage.forEach((element) => {
-                element.remove();
-            });
-            Array.from(loginForm.elements, (el) => {
-                if (data.errors[el['name']]) {
-                    const errorItem = data.errors[el['name']][0];
-                    el.insertAdjacentHTML('afterend', `<div class="invalid-feedback">${errorItem}</div>`);
-                }
-            });
+            if (data.errors) {
+                validator(loginForm, data.errors);
+            }
         });
     });
 })(document.querySelector('#login'));

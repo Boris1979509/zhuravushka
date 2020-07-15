@@ -1,4 +1,4 @@
-window.exports = flash = (message = null, status = 'success') => {
+window.exports = flash = (message = '', status = '') => {
     let t = null;
     const div = document.createElement('div');
     const close = document.createElement('span');

@@ -42,6 +42,7 @@ class OrderRepository extends CoreRepository
     public function pivotCount($product, $inc, $order)
     {
         if (!is_null($order)) {
+            $message = '';
             $pivot = $order->products()
                 ->where('product_id', $product->id)
                 ->first()
@@ -50,9 +51,11 @@ class OrderRepository extends CoreRepository
             switch ($inc) {
                 case '++':
                     $pivot->count++;
+                    $message = 'Товар ' . $product->title . ' упешно добавлен в корзину.';
                     break;
                 case '--':
                     $pivot->count--;
+                    $message = 'Товар ' . $product->title . ' упешно удален из корзины.';
                     break;
                 case 'input':
                     break;
@@ -60,7 +63,8 @@ class OrderRepository extends CoreRepository
             if ($pivot->count < 1) {
                 $order->products()->detach($product);
             }
-            return $pivot->update();
+            $pivot->update();
+            return $message;
         }
     }
 

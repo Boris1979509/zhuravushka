@@ -51,8 +51,20 @@ class User extends Authenticatable
         'phone_verify_token_expire' => 'datetime',
     ];
 
-    public function isWait(): bool
+    public function requestPhoneVerification(Carbon $now)
     {
-        return $this->phone_verified_at === null;
+        if (empty($this->phone)) {
+            throw new \DomainException('Phone number is empty.');
+        }
+        if (!empty($this->phone_verify_token) && $this->phone_verify_token_expire && $this->phone_verify_token_expire->gt($now)) {
+            throw new \DomainException('Token is already requested.');
+        }
+        $this->phone_verified = false;
+        $this->phone_verify_token = (string)random_int(1000, 9999);
+        $this->phone_verify_token_expire = $now->copy()->addSeconds(300);
+        $this->saveOrFail();
+
+        return $this->phone_verify_token;
     }
+
 }

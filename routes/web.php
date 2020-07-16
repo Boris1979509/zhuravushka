@@ -81,7 +81,8 @@ Route::group([
 });
 // Phone register verify
 Route::group(['namespace' => 'auth',], static function () {
-    Route::post('/phone', 'PhoneController@verify')->name('phone.verify');
+    Route::post('/phone', 'PhoneController@request')->name('phone.request');
+    Route::post('/verify', 'PhoneController@verify')->name('phone.verify');
 });
 
 

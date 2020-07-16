@@ -20,18 +20,13 @@ class PhoneService
 
     public function request($phone)
     {
-        return  $this->getToken(Carbon::now());
-        //$this->sms->send($user->phone, 'Phone verification token: ' . $token);
-
-        //return $token;
-//        if (!session('expire_token')->gt($now)) {
-//            throw new \DomainException('Token is already requested.');
-//        }
-//        if (cookie()->has('expire_token')) {
-//            return session('expire_token') . ' | ' . Carbon::now();
-//        }
-
-        //return 'Phone ' . $phone . ' verification token: ' . $token;
+        //$this->sms->send($user->phone, 'Phone verification token: ' . $token); // Send ...
+        if ($token = $this->getToken(Carbon::now())) {
+            return [
+                'status'  => 'success',
+                'message' => 'verification token: ' . $token
+            ];
+        }
     }
 
     /**
@@ -43,8 +38,19 @@ class PhoneService
     {
         $phone_verify_token = (string)random_int(1000, 9999);
         $expire_token = $now->copy()->addSeconds(100)->timestamp;
-        //session(['expire_token' => $expire_token]);
-        return $expire_token;
+
+        if (is_null(session('expireToken'))) {
+            session(['expireToken' => $expire_token, 'token' => $phone_verify_token]);
+            return $phone_verify_token;
+        }
+        if (session('expireToken') && session('expireToken') > $now->timestamp) {
+            return 'Token is already requested.';
+            // throw new \DomainException('Token is already requested.');
+        }
+        session()->forget('expireToken');
+    }
+    public function verify(){
+
     }
 
 }

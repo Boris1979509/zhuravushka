@@ -22,7 +22,7 @@
             }
         }
 
-        &__form, .phone-verify__form {
+        &__form, .phone-verify__form-request, .phone-verify__form-verify {
             .input {
                 border-radius: 0 !important;
                 height: 53px;
@@ -33,7 +33,7 @@
         }
 
         &__number-send-block {
-            .input-phone-block, .input-phone-confirm {
+            .input-phone-block, #verify {
                 display: flex;
                 flex-wrap: wrap;
                 justify-content: space-between;

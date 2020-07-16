@@ -6,7 +6,7 @@
             <div class="row">
                 <div class="register">
                     <h1>{{ __('Registration') }}</h1>
-                    @include('auth.phone-verify')
+                    @include('auth.phoneRequest')
                     <form method="POST" action="{{ route('register') }}" class="register__form">
                         @csrf
                         <div class="register__userData">

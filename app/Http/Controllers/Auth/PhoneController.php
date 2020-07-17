@@ -6,10 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Requests\Auth\PhoneRequest;
 use App\UseCases\Auth\PhoneService;
 use Carbon\Carbon;
-use http\Env\Response;
-use Illuminate\Support\Facades\Cookie;
 use Illuminate\Http\Request;
-use App\Http\Requests\Auth\PhoneVerifyRequest;
 
 class PhoneController extends Controller
 {
@@ -29,18 +26,20 @@ class PhoneController extends Controller
         $phone = $request->input('phone');
 
         if (is_null(session('phone'))) {
-            session(['phone' => $phone]);
+            //session(['phone' => $phone]);
         }
 
-        $this->data['result'] = $this->service->request($phone);
-        $this->data['view'] = view('auth.phoneVerify', $this->data)->render();
-
+        $this->data['resultVerify'] = $this->service->request($phone);
+        if ($this->data['resultVerify']['status']) {
+            $this->data['view'] = view('auth.phoneVerify', $this->data)->render();
+        }
         return response()->json($this->data);
 
     }
 
     public function verify(Request $request)
     {
-        $this->service->verify();
+        $this->data = $this->service->verify($request->input('tokenClient'));
+        return response()->json($this->data);
     }
 }

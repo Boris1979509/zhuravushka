@@ -1,0 +1,51 @@
+.phone-verify {
+    %templateFormInput {
+        .form-input {
+            &:first-child {
+                flex-basis: 48% !important;
+
+                .input {
+                    width: inherit;
+                }
+            }
+
+            &:last-child {
+                flex-basis: 48% !important;
+                margin-top: 34px;
+            }
+        }
+    }
+
+    .form-request-phone, .form-verify-phone {
+        .input {
+            border-radius: 0 !important;
+            height: 53px;
+
+            &:focus {
+                border: 2px solid #FC8507;
+            }
+        }
+    }
+
+    .request-block, .verify-block {
+        display: flex;
+        flex-wrap: wrap;
+        justify-content: space-between;
+        @extend %templateFormInput;
+    }
+
+    .code-confirm {
+        font-size: 1rem;
+        line-height: 1.5;
+        letter-spacing: $letter-spacing-4;
+        text-decoration-line: underline;
+        color: #FC8507;
+        outline: none;
+        border: 0;
+        background: none;
+    }
+
+    .confirm-timer {
+        color: #A2A2A2;
+    }
+}

@@ -22,66 +22,34 @@ class LoginController extends Controller
         $this->middleware('guest')->except('logout');
     }
 
-
-
+    /**
+     * @param LoginRequest $request
+     * @return RedirectResponse
+     * @throws ValidationException
+     */
     public function login(LoginRequest $request): RedirectResponse
-    {
-//        if ($this->hasTooManyLoginAttempts($request)) {
-//            $this->fireLockoutEvent($request);
-//            $this->sendLockoutResponse($request);
-//        }
-//
-//        $authenticate = Auth::attempt(
-//            $request->only(['phone', 'password'])
-//            // $request->filled('remember')
-//        );
-
-//        if ($authenticate) {
-//            $request->session()->regenerate();
-//            $this->clearLoginAttempts($request);
-//            $user = Auth::user();
-//            if ($user->isWait()) {
-//                Auth::logout();
-//                return back()->with('error', 'You need to confirm your account. Please check your email.');
-//            }
-//            return redirect()->intended(route('cabinet.home'));
-//        }
-//
-//        $this->incrementLoginAttempts($request);
-//
-//        throw ValidationException::withMessages(['email' => [trans('auth.failed')]]);
-    }
-
-
-    public function verify(Request $request)
     {
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
             $this->sendLockoutResponse($request);
         }
 
-        $this->validate($request, [
-            'token' => 'required|string',
-        ]);
+        $authenticate = Auth::attempt(
+            $request->only(['phone', 'password'])
+        // $request->filled('remember')
+        );
 
-        if (!$session = $request->session()->get('auth')) {
-            throw new BadRequestHttpException('Missing token info.');
-        }
-
-        /** @var User $user */
-        $user = User::findOrFail($session['id']);
-
-        if ($request['token'] === $session['token']) {
-            $request->session()->flush();
+        if ($authenticate) {
+            $request->session()->regenerate();
             $this->clearLoginAttempts($request);
-            Auth::login($user, $session['remember']);
             return redirect()->intended(route('cabinet.home'));
         }
 
         $this->incrementLoginAttempts($request);
-
-        throw ValidationException::withMessages(['token' => ['Invalid auth token.']]);
+        // Неверный логин или пароль
+        throw ValidationException::withMessages(['password' => [trans('auth.failed')]]);
     }
+
 
     /**
      * @param Request $request
@@ -94,6 +62,9 @@ class LoginController extends Controller
         return redirect()->route('home');
     }
 
+    /**
+     * @return string
+     */
     protected function username(): string
     {
         return 'phone';

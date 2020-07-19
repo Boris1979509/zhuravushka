@@ -116,6 +116,7 @@
       <path value="$PROJECT_DIR$/vendor/makkinga/laravel-carbon-helper" />
       <path value="$PROJECT_DIR$/vendor/jenssegers/date" />
       <path value="$PROJECT_DIR$/vendor/laravel/ui" />
+      <path value="$PROJECT_DIR$/vendor/psr/http-client" />
     </include_path>
   </component>
   <component name="PhpProjectSharedConfiguration" php_language_level="7.2" />

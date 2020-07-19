@@ -3,15 +3,15 @@
 
 namespace App\UseCases\Auth;
 
-use App\Http\Requests\Auth\PhoneVerifyRequest;
 use App\Services\Sms\SmsSender;
-use App\Models\User;
-use Illuminate\Http\Request;
+use Exception;
 use Illuminate\Support\Carbon;
 
 class PhoneService
 {
     private $sms;
+    public const ATTEMPTS = 3;
+    public const TIMER = 60; // 60 sec.
 
     public function __construct(/*SmsSender $sms*/)
     {
@@ -20,38 +20,43 @@ class PhoneService
 
     public function request($phone)
     {
-        return $this->getToken(Carbon::now());
-        //$this->sms->send($user->phone, 'Phone verification token: ' . $token); // Send ...
+        $data = $this->getToken($phone, Carbon::now());
+        if (isset($data['token'])) {
+            //$this->sms->send($phone, __('Phone verification token: ') . $data['token']); // Send ...
+        }
+        return $data;
     }
 
     /**
+     * @param string $phone
      * @param Carbon $now
      * @return bool | array
-     * @throws \Exception
+     * @throws Exception
      */
-    private function getToken(Carbon $now)
+    private function getToken($phone, Carbon $now)
     {
-        if (session('attempts') <= 3) {
+        if (session('attempts') <= self::ATTEMPTS) {
             $i = 0;
             $phone_verify_token = (string)random_int(1000, 9999);
-            $expire_token = $now->copy()->addSeconds(60)->timestamp;
+            $expire_token = $now->copy()->addSeconds(self::TIMER)->timestamp;
 
             if (session('expireToken') && session('expireToken') > $now->timestamp) {
-                return ['status' => false, 'message' => 'Token is already requested.'];
+                return ['status' => false, 'message' => __('Token is already requested')];
             } else {
                 $i = session('attempts'); // number of attempts
                 session([
                     'expireToken' => $expire_token,
-                    'token' => $phone_verify_token,
-                    'attempts' => ++$i
+                    'token'       => $phone_verify_token,
+                    'phone'       => $phone,
+                    'attempts'    => ++$i,
                 ]);
                 return ['status' => true, 'token' => $phone_verify_token];
             }
         }
         return [
-            'status' => false,
+            'status'   => false,
             'attempts' => true,
-            'message' => 'The maximum number of attempts has been reached.',
+            'message'  => __('The maximum number of attempts has been reached'),
         ];
     }
 
@@ -62,14 +67,38 @@ class PhoneService
     public function verify($tokenClient)
     {
         if (session('token') === $tokenClient) {
-            return [
-                'status' => true,
-            ];
+            $data = ['verified' => true];
+            session($data);
+            return $data;
         }
+        $this->forget();
         return [
-            'status' => false,
-            'message' => 'Неверный код подтверждения.',
+            'verified' => false,
+            'message'  => __('Invalid confirmation code'),
         ];
+    }
+
+    /**
+     * Forget session
+     */
+    public function forget(): void
+    {
+        session()->forget([
+            'expireToken',
+            'token',
+            'verified',
+            'phone',
+            'attempts',
+        ]);
+    }
+
+    /**
+     * @param string $phone
+     * @return string|string[]|null
+     */
+    public function filterPhone($phone)
+    {
+        return preg_replace('/[^0-9]/', '', $phone); //
     }
 
 }

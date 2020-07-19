@@ -5,7 +5,7 @@
             <label for="verifyToken" class="form-input-label">{{ __('CodeConfirmBy') }}</label>
             <input type="text" name="verifyToken" maxlength="4" placeholder="{{ __('CodeConfirmBy') }}"
                    id="verifyToken"
-                   class="input">
+                   class="input" autocomplete="off">
         </div>
         <div class="form-input verify-block-timer"></div>
     </div>

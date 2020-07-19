@@ -26,7 +26,7 @@ class SmsRu implements SmsSender
         $this->client->post($this->url, [
             'form_params' => [
                 'api_id' => $this->appId,
-                'to' => '+' . trim($number, '+'),
+                'to' => preg_replace('/[^\d+]/', '', $number),
                 'text' => $text
             ],
         ]);

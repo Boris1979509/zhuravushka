@@ -91,7 +91,7 @@ Breadcrumbs::for('login', static function (Generator $trail) {
 // Register
 Breadcrumbs::for('register', static function (Generator $trail) {
     $trail->parent('home');
-    $trail->push(__('Register'), route('register'));
+    $trail->push(__('Registration'), route('register'));
 });
 // Reset Password
 Breadcrumbs::for('password.request', static function (Generator $trail) {

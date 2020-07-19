@@ -11,5 +11,7 @@ window.exports = validator = (form, data = null) => {
                 el.insertAdjacentHTML('afterend', `<div class="invalid-feedback">${errorItem}</div>`);
             }
         });
+        return false;
     }
+    return true;
 }

@@ -17,7 +17,8 @@
                             @endif
                         @endforeach
                         <li class="top-bar__nav-item">
-                            <a href="{{ route('blog') }}" class="link top-bar__nav-link" title="{{ __('Sovety') }}">{{ __('Sovety') }}</a>
+                            <a href="{{ route('blog') }}" class="link top-bar__nav-link"
+                               title="{{ __('Sovety') }}">{{ __('Sovety') }}</a>
                         </li>
                     </ul>
                 </nav>
@@ -28,12 +29,23 @@
                 <div class="top-bar__right">
                     <div class="top-bar__user-login">
                         <ul>
-                            <li>
-                                <a class="link" id="login" href="javascript:void(0)">{{ __('Login') }}</a>
-                            </li>
-                            <li>
-                                <a class="link" href="{{ route('register') }}">{{ __('Registration') }}</a>
-                            </li>
+                            @guest
+                                <li>
+                                    <a class="link" id="login" href="javascript:void(0)">{{ __('Login') }}</a>
+                                </li>
+                                <li>
+                                    <a class="link" href="{{ route('register') }}">{{ __('Registration') }}</a>
+                                </li>
+                            @endguest
+                            @auth
+                                <li>
+                                    <a class="link logout" href="{{ route('logout') }}" onclick="event.preventDefault();
+                                       document.getElementById('logout-form').submit();">{{ __('LogOut') }}</a>
+                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
+                                        @csrf
+                                    </form>
+                                </li>
+                            @endauth
                         </ul>
                     </div>
                 </div>

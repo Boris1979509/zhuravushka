@@ -41,8 +41,8 @@ header {
                     font-weight: bold;
                     font-size: inherit;
 
-                    &:first-child {
-                        margin-right: 35px;
+                    &:last-child {
+                        margin-left: 35px;
                     }
                 }
             }

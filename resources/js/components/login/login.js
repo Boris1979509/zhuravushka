@@ -29,10 +29,7 @@ module.exports = ((login) => {
             _token: loginForm._token.value
         }
         xmlHttpRequest(loginForm.action, data, (data) => {
-            const errorMessage = document.querySelectorAll('.invalid-feedback');
-            if (data.errors) {
-                validator(loginForm, data.errors);
-            }
+            validator(loginForm, data);
         });
     });
 })(document.querySelector('#login'));

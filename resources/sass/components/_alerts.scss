@@ -7,33 +7,74 @@
     margin-bottom: 15px;
     width: 100%;
 
+    %message {
+        align-self: center;
+        flex: auto;
+        padding: 15px;
+        letter-spacing: $letter-spacing-6;
+    }
+
+    %icon {
+        border-right: 1px solid #E1E1E1;
+        padding: 25px;
+    }
+
+    %icon-close {
+        background: url('../../images/icons/alerts/close.svg') no-repeat center;
+        height: 16px;
+        width: 16px;
+        display: block;
+        transition: all .3s;
+        cursor: pointer;
+        align-self: center;
+        padding: 15px;
+
+        &:hover {
+            background: url('../../images/icons/alerts/close-hover.svg') no-repeat center;
+        }
+    }
+
     .alert-info {
         &__icon {
-            border-right: 1px solid #E1E1E1;
-            padding: 25px;
+            @extend %icon;
         }
 
         &__message {
-            align-self: center;
-            flex: auto;
-            padding: 15px;
+            @extend %message;
             color: #0075d2;
-            letter-spacing: $letter-spacing-6;
         }
 
         &__icon-close, path {
-            background: url('../../images/icons/alerts/close.svg') no-repeat center;
-            height: 16px;
-            width: 16px;
-            display: block;
-            transition: all .3s;
-            cursor: pointer;
-            align-self: center;
-            padding: 15px;
+            @extend %icon-close;
+        }
+    }
 
-            &:hover {
-                background: url('../../images/icons/alerts/close-hover.svg') no-repeat center;
-            }
+    .alert-error {
+        &__icon {
+            @extend %icon;
+        }
+
+        &__message {
+            @extend %message;
+            color: red;
+        }
+
+        &__icon-close, path {
+            @extend %icon-close;
+        }
+    }
+    .alert-success {
+        &__icon {
+            @extend %icon;
+        }
+
+        &__message {
+            @extend %message;
+            color: green;
+        }
+
+        &__icon-close, path {
+            @extend %icon-close;
         }
     }
 

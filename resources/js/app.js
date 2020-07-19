@@ -12,6 +12,7 @@ import getQuantity from './components/card/functions/qty';
 import cartRemove from './components/cart/remove';
 import flash from './components/alerts/flash';
 import validator from './components/validate-errors/validator';
+import close from './components/alerts/close';
 
 require('./components/sticky-header/sticky');
 require('./components/homepage-slider/slider');
@@ -25,11 +26,12 @@ require('./components/form/label/label-input-focus');
 require('./components/form/radio/order-radio-input');
 require('./components/mode-tile/tile');
 require('./components/catalog-filter/brands');
-require('./components/alerts/close');
+//require('./components/alerts/close');
 require('./components/alerts/flash');
 require('./components/login/login');
 require('./components/modals/webDevModal');
 require('./components/verify-phone/phone');
+require('./components/register/register');
 
 
 import btnAdd from './components/card/btnAdd';

@@ -2,14 +2,16 @@
 
 namespace App\Http\Controllers\Auth;
 
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\Core;
+use App\Http\Requests\Auth\RegisterRequest;
 use App\Providers\RouteServiceProvider;
 use App\Models\User;
+use App\UseCases\Auth\PhoneService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\RegistersUsers;
+use Illuminate\Http\JsonResponse;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
-use Illuminate\Support\Facades\Validator;
 use Illuminate\View\View;
 
 class RegisterController extends Core
@@ -26,49 +28,48 @@ class RegisterController extends Core
      * @var string
      */
     protected $redirectTo = RouteServiceProvider::HOME;
-
     /**
-     * Create a new controller instance.
-     *
-     * @return void
+     * @var PhoneService $service
      */
-    public function __construct()
+    private $service;
+
+    public function __construct(PhoneService $service)
     {
         parent::__construct();
         $this->middleware('guest');
+        $this->service = $service;
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
     }
 
     /**
-     * Get a validator for an incoming registration request.
-     *
-     * @param array $data
-     * @return \Illuminate\Contracts\Validation\Validator
+     * @param RegisterRequest $request
+     * @return JsonResponse
+     * @throws \Throwable
      */
-    protected function validator(array $data)
+    public function register(RegisterRequest $request): JsonResponse
     {
-        return Validator::make($data, [
-            'name' => ['required', 'string', 'max:255'],
-            'email' => ['required', 'string', 'email', 'max:255', 'unique:users'],
-            'phone' => ['required', 'string', 'unique:users'],
-            'password' => ['required', 'string', 'min:8', 'confirmed'],
-        ]);
-    }
-
-    /**
-     * Create a new user instance after a valid registration.
-     *
-     * @param array $data
-     * @return User
-     */
-    protected function create(array $data)
-    {
-        return User::create([
-            'name' => $data['name'],
-            'email' => $data['email'],
-            'password' => Hash::make($data['password']),
-        ]);
+        if (session('verified') && session('phone')) {
+            $user = User::create([
+                'name'               => $request['name'],
+                'last_name'          => $request['last_name'],
+                'middle_name'        => $request['middle_name'],
+                'email'              => $request['email'],
+                //'phone'              => $this->service->filterPhone(session('phone')),
+                'phone'              => session('phone'),
+                'phone_verified'     => true,
+                'phone_verify_token' => session('token'),
+                'password'           => Hash::make($request['password']),
+                'delivery_place'     => $request['address'],
+            ]);
+            $this->service->forget();// Session destroy
+            $message = ['success' => __('SuccessfulRegistrationInfo')];
+            $this->data = ['success' => view('flash.index', $message)->render()];
+        } else {
+            $message = ['error' => __('The phone number was not confirmed')];
+            $this->data = ['error' => view('flash.index', $message)->render()];
+        }
+        return response()->json($this->data);
     }
 
     /**
@@ -80,7 +81,7 @@ class RegisterController extends Core
         return view('auth.register', $this->data);
     }
 
-    private function getCart()
+    private function getCart(): void
     {
         $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
         $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;

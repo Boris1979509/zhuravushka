@@ -32,9 +32,9 @@ class PhoneController extends Controller
         //}
 
         $this->data['resultVerify'] = $this->service->request($phone);
-//        if ($this->data['resultVerify']['status']) {
-//            $this->data['view'] = view('auth.phoneVerify', [])->render();
-//        }
+        if ($this->data['resultVerify']['status']) {
+            $this->data['view'] = view('auth.phoneVerify', [])->render();
+        }
         return response()->json($this->data);
 
     }

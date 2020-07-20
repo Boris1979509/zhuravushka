@@ -1,14 +1,15 @@
-module.exports = ((formRequest) => {
-    if (!formRequest) return;
+module.exports = ((mainBlock) => {
+    if (!mainBlock) return;
     /***************************************************/
-    const verifyBlock = formRequest.closest('.phone-verify').querySelector('.verify-block-form'); // Block
-    const requestBlock = formRequest.querySelector('.request-block'); // Block
-    const btnRequest = formRequest.querySelector("button#number-btn");
-    const inputRequestPhone = formRequest.querySelector("input[name=phone]");
-    const actionRequest = '/phone';
-    const actionVerify = '/verify';
+    const requestBlock = mainBlock.querySelector('.request-block');
+    const requestBlockBtn = requestBlock.querySelector("button#request-btn"); // btn request
+    const requestPhoneInput = requestBlock.querySelector("input[name=phone]"); // input phone
+    const verifyBlock = mainBlock.querySelector(".verify-block");
+
+    const requestAction = '/phone';
+    const verifyAction = '/verify';
     /**/
-    let time = 60000;
+    let time = 60;
     let timer = null;
     const tokenLength = 4;
     /*********************************/
@@ -17,31 +18,26 @@ module.exports = ((formRequest) => {
      * @param message
      */
     const message = (message) => {
-        const error = document.createElement('div');
-        error.classList.add('invalid-feedback');
-        error.innerText = message;
-        formRequest.after(error);
+        verifyBlock.innerHTML = `<div class="invalid-feedback my">${message}</div>`;
     }
     /**
      * Clear timer
      */
-    const clearTimer = (timerShow) => {
+    const clearTimer = () => {
         clearInterval(timer);
-        verifyBlock.innerHTML = "";
-        //timerShow.innerHTML = `<button type="submit" class="code-confirm">Отправить еще раз</button>`;
-        btnRequest.removeAttribute('hidden');
-        inputRequestPhone.removeAttribute('readonly');
+        requestBlockBtn.removeAttribute('hidden');
+        requestPhoneInput.removeAttribute('readonly');
     }
     /**
      * Start timer
      * @param t
      */
     const startTimer = (t) => {
-
+        const timerShow = verifyBlock.querySelector('.verify-block-timer');
         timer = setInterval(() => {
-            const timerShow = document.querySelector('.verify-block-timer');
             if (t <= 0) {
-                clearTimer(timerShow);
+                verifyBlock.innerHTML = '';
+                clearTimer();
             } else {
                 timerShow.innerHTML = `<span class="confirm-timer">Повторная отправка будет доступна через ${t} сек.</span>`;
             }
@@ -53,25 +49,23 @@ module.exports = ((formRequest) => {
      * @param tokenClient
      */
     const verify = (tokenClient) => {
-        const formVerify = verifyBlock.querySelector('.form-verify-phone');
-        const timerShow = formVerify.querySelector('.verify-block-timer');
         const data = {
             tokenClient: tokenClient,
         }
-        xmlHttpRequest(actionVerify, data, (data) => {
-            formVerify.remove();
-            /* If is verify code false */
+        xmlHttpRequest(verifyAction, data, (data) => {
+            /* VERIFY FALSE */
             if (!data.verified) {
                 message(data.message);
             } else {
-                /* If is verify code true */
-                const nextForm = formRequest.closest('.phone-verify').nextElementSibling;
+                verifyBlock.innerHTML = '';
+                /* VERIFY TRUE */
+                const nextForm = mainBlock.closest('.phone-verify').nextElementSibling;
                 nextForm.scrollIntoView({behavior: 'smooth'});
                 nextForm.querySelector('button[type=submit]')
                     .closest('.form-input')
                     .removeAttribute('hidden');
             }
-            clearTimer(timerShow);
+            clearTimer();
         });
     }
 
@@ -79,10 +73,11 @@ module.exports = ((formRequest) => {
      * Input confirm token
      */
     const getVerifyInput = () => {
-        const input = verifyBlock.querySelector('input[name="verifyToken"]');
-        if (input) {
+        const verifyBlockInput = verifyBlock.querySelector('input[name=verifyToken]');
+        verifyBlockInput.focus();
+        if (verifyBlockInput) {
             const array = [];
-            input.addEventListener('input', (e) => {
+            verifyBlockInput.addEventListener('input', (e) => {
                 if (e.data) {
                     array.push(e.data);
                 }
@@ -91,7 +86,7 @@ module.exports = ((formRequest) => {
                     verify(tokenClient);
                 }
             });
-            input.addEventListener('paste', (event) => {
+            verifyBlockInput.addEventListener('paste', (event) => {
                 const tokenClient = (event.clipboardData || window.clipboardData).getData('text');
                 verify(tokenClient);
             });
@@ -102,21 +97,20 @@ module.exports = ((formRequest) => {
      */
     const dataSend = (data) => {
         if (!data) return;
-        xmlHttpRequest(actionRequest, data, (data) => {
-            validator(formRequest, data);
+        xmlHttpRequest(requestAction, data, (data) => {
+            validator(requestBlock, data);
             if (data.hasOwnProperty('resultVerify')) {
                 const attempts = data.resultVerify.attempts;
-                if (attempts) {
+                if (attempts || !data.resultVerify.status) {
                     message(data.resultVerify.message);
-                    verifyBlock.setAttribute('hidden', 'hidden');
                 }
             }
-            if (data.resultVerify.status && !data.resultVerify.attempts) {
-                verifyBlock.removeAttribute('hidden');
+            if (data.view && !data.resultVerify.attempts) {
+                verifyBlock.innerHTML = data.view;
                 startTimer(time);
                 getVerifyInput();
-                btnRequest.setAttribute('hidden', 'hidden');
-                inputRequestPhone.setAttribute('readonly', 'readonly');
+                requestBlockBtn.setAttribute('hidden', 'hidden');
+                requestPhoneInput.setAttribute('readonly', 'readonly');
             }
         });
 
@@ -125,13 +119,13 @@ module.exports = ((formRequest) => {
     /**
      * Send
      */
-    btnRequest.addEventListener('click', (e) => {
+    requestBlockBtn.addEventListener('click', (e) => {
         e.preventDefault();
         const data = {
-            phone: inputRequestPhone.value,
+            phone: requestPhoneInput.value,
         }
         dataSend(data);
     });
 
 
-})(document.querySelector('.form-request-phone'));
+})(document.querySelector('.phone-verify'));

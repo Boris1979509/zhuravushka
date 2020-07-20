@@ -1,7 +1,7 @@
 .phone-verify {
     %templateFormInput {
         .form-input {
-            margin-bottom: 0;
+            margin-bottom: 10px;
             &:first-child {
                 flex-basis: 48%;
 
@@ -17,7 +17,7 @@
         }
     }
 
-    .form-request-phone, .form-verify-phone {
+    .request-block, .verify-block {
         .input {
             border-radius: 0 !important;
             height: 53px;

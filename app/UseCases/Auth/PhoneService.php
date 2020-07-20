@@ -88,7 +88,6 @@ class PhoneService
             'token',
             'verified',
             'phone',
-            'attempts',
         ]);
     }
 

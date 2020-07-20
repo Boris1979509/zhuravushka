@@ -20,13 +20,21 @@
         margin-bottom: 30px;
     }
 
+    .invalid-feedback {
+        margin-bottom: -10px;
+    }
+
+    .verify-block {
+        .invalid-feedback {
+            margin-top: -10px;
+            margin-bottom: 10px;
+        }
+    }
+
+
     &__contact-form {
         .form-input {
             width: 50%;
-
-            .invalid-feedback {
-                margin-bottom: -10px;
-            }
         }
 
         input, textarea {

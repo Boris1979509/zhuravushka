@@ -6,7 +6,15 @@
         width: 50%;
 
         .invalid-feedback {
+            margin-top: 5px;
             margin-bottom: -10px;
+        }
+
+        .verify-block {
+            .invalid-feedback {
+                margin-top: 0;
+                margin-bottom: 0;
+            }
         }
 
         %templateFormInput {
@@ -40,6 +48,11 @@
         &__userData {
             margin-top: 60px;
         }
-    }
 
+        .verify-block {
+            .verify-block-timer {
+                margin-top: 0 !important;
+            }
+        }
+    }
 }

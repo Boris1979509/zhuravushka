@@ -80,7 +80,7 @@ Route::group([
     Route::get('/order', 'OrderController@index')->name('order');
 });
 // Phone register verify
-Route::group(['namespace' => 'auth',], static function () {
+Route::group(['namespace' => 'Auth',], static function () {
     Route::post('/phone', 'PhoneController@request')->name('phone.request');
     Route::post('/verify', 'PhoneController@verify')->name('phone.verify');
 });

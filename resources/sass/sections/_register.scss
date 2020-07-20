@@ -5,6 +5,10 @@
     .register {
         width: 50%;
 
+        .invalid-feedback {
+            margin-bottom: -10px;
+        }
+
         %templateFormInput {
             .form-input {
                 &:first-child {
@@ -26,7 +30,8 @@
             .input {
                 border-radius: 0 !important;
                 height: 53px;
-                &:focus{
+
+                &:focus {
                     border: 2px solid #FC8507;
                 }
             }

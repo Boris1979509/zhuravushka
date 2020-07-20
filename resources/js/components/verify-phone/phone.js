@@ -3,9 +3,12 @@ module.exports = ((formRequest) => {
     /***************************************************/
     const verifyBlock = formRequest.closest('.phone-verify').querySelector('.verify-block-form'); // Block
     const requestBlock = formRequest.querySelector('.request-block'); // Block
-    const btnRequest = formRequest.elements["number-btn"];
-    const inputRequestPhone = formRequest.phone;
-    let time = 60;
+    const btnRequest = formRequest.querySelector("button#number-btn");
+    const inputRequestPhone = formRequest.querySelector("input[name=phone]");
+    const actionRequest = '/phone';
+    const actionVerify = '/verify';
+    /**/
+    let time = 60000;
     let timer = null;
     const tokenLength = 4;
     /*********************************/
@@ -14,7 +17,10 @@ module.exports = ((formRequest) => {
      * @param message
      */
     const message = (message) => {
-        requestBlock.insertAdjacentHTML("afterend", `<div class="invalid-feedback">${message}</div>`);
+        const error = document.createElement('div');
+        error.classList.add('invalid-feedback');
+        error.innerText = message;
+        formRequest.after(error);
     }
     /**
      * Clear timer
@@ -51,9 +57,8 @@ module.exports = ((formRequest) => {
         const timerShow = formVerify.querySelector('.verify-block-timer');
         const data = {
             tokenClient: tokenClient,
-            _token: formVerify._token.value
         }
-        xmlHttpRequest(formVerify.action, data, (data) => {
+        xmlHttpRequest(actionVerify, data, (data) => {
             formVerify.remove();
             /* If is verify code false */
             if (!data.verified) {
@@ -95,35 +100,37 @@ module.exports = ((formRequest) => {
     /**
      * Send data
      */
-    const dataSend = () => {
-        const data = {
-            phone: formRequest.phone.value,
-            _token: formRequest._token.value
-        }
-        xmlHttpRequest(formRequest.action, data, (data) => {
+    const dataSend = (data) => {
+        if (!data) return;
+        xmlHttpRequest(actionRequest, data, (data) => {
             validator(formRequest, data);
             if (data.hasOwnProperty('resultVerify')) {
                 const attempts = data.resultVerify.attempts;
                 if (attempts) {
                     message(data.resultVerify.message);
-                    verifyBlock.remove();
+                    verifyBlock.setAttribute('hidden', 'hidden');
                 }
             }
-            if (data.view && !data.resultVerify.attempts) {
-                verifyBlock.innerHTML = data.view;
+            if (data.resultVerify.status && !data.resultVerify.attempts) {
+                verifyBlock.removeAttribute('hidden');
                 startTimer(time);
                 getVerifyInput();
                 btnRequest.setAttribute('hidden', 'hidden');
                 inputRequestPhone.setAttribute('readonly', 'readonly');
             }
-
         });
 
     }
 
-    formRequest.addEventListener('submit', (e) => {
+    /**
+     * Send
+     */
+    btnRequest.addEventListener('click', (e) => {
         e.preventDefault();
-        dataSend();
+        const data = {
+            phone: inputRequestPhone.value,
+        }
+        dataSend(data);
     });
 
 

@@ -5,10 +5,14 @@ window.exports = validator = (form, data = null) => {
         element.remove();
     });
     if (data.errors) {
-        Array.from(form.elements, (el) => {
+        const elements = (form.tagName === 'FORM') ? form.elements : form.querySelectorAll('input');
+        Array.from(elements, (el) => {
+            const error = document.createElement('div');
+            error.className = 'invalid-feedback';
             if (data.errors[el['name']]) {
-                const errorItem = data.errors[el['name']][0];
-                el.insertAdjacentHTML('afterend', `<div class="invalid-feedback">${errorItem}</div>`);
+                error.innerText = data.errors[el['name']][0];
+                //el.insertAdjacentHTML('afterend', `<div class="invalid-feedback">${errorItem}</div>`);
+                el.closest('.form-input').appendChild(error);
             }
         });
         return false;

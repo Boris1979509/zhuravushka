@@ -4,7 +4,8 @@
         font-size: 0.875rem;
         line-height: 1.2;
         left: 16px;
-        top: calc((100% - 1.2rem) / 2);
+        //top: calc((100% - 1.2rem) / 2);
+        top: 18px;
         letter-spacing: $letter-spacing-6;
         transform: translate3d(0, 0, 0);
         transition: all 0.2s ease-in-out;
@@ -12,6 +13,7 @@
 
     input[type="text"],
     input[type="email"],
+    input[type="tel"],
     input[type="number"],
     input[type="password"] {
         height: 53px;

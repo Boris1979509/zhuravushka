@@ -4,4 +4,9 @@
     font-size: .8rem;
     line-height: 1.2;
     letter-spacing: $letter-spacing-6;
+
+    &.mx-1 {
+        margin-top: -10px !important;
+        margin-bottom: 10px !important;
+    }
 }

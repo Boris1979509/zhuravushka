@@ -5,6 +5,7 @@
 }
 
 .order-registration {
+
     display: grid;
     grid-template-columns: repeat(12, 1fr);
     grid-template-areas: "Delivery Info" "Address Info" "Payment Info" "Contact Info";
@@ -22,14 +23,36 @@
     &__contact-form {
         .form-input {
             width: 50%;
+
+            .invalid-feedback {
+                margin-bottom: -10px;
+            }
         }
 
-        .number-send-block {
-            display: flex;
+        input, textarea {
+            border-radius: 0 !important;
+        }
+
+        .request-block, .verify-block {
+            flex-wrap: nowrap !important;
 
             #number-btn {
                 width: auto;
-                margin: 0 20px;
+                margin: 0 !important;
+            }
+
+            .form-input:first-child {
+                flex-basis: unset !important;
+                margin-bottom: 20px;
+            }
+
+            .form-input:last-child {
+                flex-basis: 47% !important;
+                margin-top: 0 !important;
+            }
+
+            input {
+                width: 100% !important;
             }
         }
     }

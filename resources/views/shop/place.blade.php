@@ -3,7 +3,7 @@
 @section('title', __('Order Place'))
 @section('content')
     <div class="container">
-        <form action="{{ route('cart.confirm') }}" method="POST" class="form-label">
+        <form action="{{ route('cart.confirm') }}" method="POST" class="form-label" id="order-form">
             @csrf
             <div class="order-registration">
                 <div class="order-registration__select-delivery">
@@ -38,7 +38,9 @@
                                     <span>{{ __('DayAfterTomorrow') . limitMonth(parseDate(carbon())->addDays(2)->format('j F')) }}</span>
                                 </div>
                                 <div class="delivery-date-other-block">
-                                    <input type="text" id="other-date" name="datePicker" autocomplete="off" placeholder=" {{ __('SelectDateDelivery') }}" class="delivery-date-other"> <img
+                                    <input type="text" id="other-date" name="datePicker" autocomplete="off"
+                                           placeholder=" {{ __('SelectDateDelivery') }}" class="delivery-date-other">
+                                    <img
                                         src="{{ asset('images/icons/order-registration/order-arrow.svg') }}" alt="">
                                 </div>
                             </div>
@@ -103,37 +105,24 @@
                 <div class="order-registration__contact-form">
                     <div class="title">{{ __('EnterContactInfo') }}</div>
                     <div class="form-input">
-                        <input type="text" name="lastName" id="lastName" class="input"
+                        <input type="text" name="last_name" id="lastName" class="input"
                                placeholder="">
                         <label for="lastName">{{ __('LastName') }}</label>
                     </div>
                     <div class="form-input">
-                        <input type="text" name="firstName" id="firstName" class="input"
+                        <input type="text" name="name" id="name" class="input"
                                placeholder="">
-                        <label for="firstName">{{ __('FirstName') }}</label>
+                        <label for="name">{{ __('Name') }}</label>
                     </div>
                     <div class="form-input">
-                        <input type="text" name="middleName" id="middleName" class="input"
+                        <input type="text" name="middle_name" id="middleName" class="input"
                                placeholder="">
                         <label for="middleName">{{ __('MiddleName') }}</label>
                     </div>
-                    <div class="number-send-block">
-                        <div class="form-input">
-                            <input type="text" name="phone" id="phone" class="input mask-input" placeholder=""
-                                   pattern="(\+7[-_()\s]+|\+7\s?[(]{0,1}[0-9]{3}[)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2})"
-                                   required autocomplete="off">
-                            <label for="phone">{{ __('Phone') }}</label>
-                        </div>
-                        <button class="btn btn-active" id="number-btn">{{ __('ButtonTitleSendSms') }}</button>
-                        <div class="number-input-send-block" style="display: none;">
-                            <div></div>
-                            <input type="text" placeholder="Код подтверждения"> <span style="display: none;">Повторная отправка будет доступна через 0 сек.</span>
-                            <a href="#">Отправить еще раз</a>
-                        </div>
-                    </div>
+                    @include('auth.phoneRequest')
                     <div class="form-input">
                         <input type="email" name="email" id="email" class="input" placeholder="">
-                        <label for="email">{{ __('Email') }}</label>
+                        <label for="email">{{ __('E-Mail Address') }}</label>
                     </div>
                     <div class="form-input">
                     <textarea name="orderMessage" id="orderMessage" cols="30" rows="4"

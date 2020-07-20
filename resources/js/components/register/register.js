@@ -2,7 +2,7 @@ module.exports = ((register) => {
     if (!register) return;
     const message = document.querySelector('.message');
 
-    function clearAllFormInputs() {
+    const clearAllFormInputs = () => {
         const form = document.querySelectorAll('form');
         form.forEach((item) => {
             item.reset();
@@ -29,9 +29,7 @@ module.exports = ((register) => {
                     const loginContainer = document.querySelector('.sub-header__login');
                     loginContainer.removeAttribute('hidden');
                     clearAllFormInputs();
-
                 }
-                close();
             }
         });
     });

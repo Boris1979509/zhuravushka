@@ -39,11 +39,10 @@
                             @endguest
                             @auth
                                 <li>
-                                    <a class="link logout" href="{{ route('logout') }}" onclick="event.preventDefault();
-                                       document.getElementById('logout-form').submit();">{{ __('LogOut') }}</a>
-                                    <form id="logout-form" action="{{ route('logout') }}" method="POST" hidden>
-                                        @csrf
-                                    </form>
+                                    <a class="link" href="{{ route('cabinet.home') }}">{{ auth()->user()->name }}</a>
+                                </li>
+                                <li>
+                                    @include('cabinet.logout.logout')
                                 </li>
                             @endauth
                         </ul>

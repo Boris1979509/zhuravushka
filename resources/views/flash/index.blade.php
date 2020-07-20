@@ -33,3 +33,14 @@
         <span class="close alert-success__icon-close" title="{{ __('Close') }}"></span>
     </div>
 @endif
+
+@section('script')
+    <script>
+        ((close) => {
+            if (!close) return;
+            close.addEventListener('click', () => {
+                close.closest('.alert').remove();
+            });
+        })(document.querySelector('.alert .close'));
+    </script>
+@endsection

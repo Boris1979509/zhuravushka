@@ -51,7 +51,7 @@ class RegisterController extends Core
     {
         if (session('verified') && session('phone')) {
             $user = User::create([
-                'name'               => $request['name'],
+                'name'               => ucfirst($request['name']),
                 'last_name'          => $request['last_name'],
                 'middle_name'        => $request['middle_name'],
                 'email'              => $request['email'],

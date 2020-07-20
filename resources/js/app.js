@@ -12,7 +12,7 @@ import getQuantity from './components/card/functions/qty';
 import cartRemove from './components/cart/remove';
 import flash from './components/alerts/flash';
 import validator from './components/validate-errors/validator';
-import close from './components/alerts/close';
+//import close from './components/alerts/close';
 
 require('./components/sticky-header/sticky');
 require('./components/homepage-slider/slider');

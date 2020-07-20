@@ -5,6 +5,14 @@
                 <p class="requisites__title">Магазин «Журавушка»</p>
                 <div class="requisites__props">
                     <p class="requisites__props-name">
+                        ИП
+                    </p>
+                    <p class="requisites__props-value">
+                        Шепелев Геннадий Петрович
+                    </p>
+                </div>
+                <div class="requisites__props">
+                    <p class="requisites__props-name">
                         ИНН
                     </p>
                     <p class="requisites__props-value">

@@ -29,7 +29,9 @@ module.exports = ((login) => {
             _token: loginForm._token.value
         }
         xmlHttpRequest(loginForm.action, data, (data) => {
-            validator(loginForm, data);
+            if (validator(loginForm, data)) {
+                window.location.href = '/cabinet';
+            }
         });
     });
 })(document.querySelector('#login'));

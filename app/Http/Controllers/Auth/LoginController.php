@@ -15,7 +15,10 @@ use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 class LoginController extends Controller
 {
     use ThrottlesLogins;
-
+    /**
+     * @var array
+     */
+    private $data = [];
 
     public function __construct()
     {
@@ -24,10 +27,10 @@ class LoginController extends Controller
 
     /**
      * @param LoginRequest $request
-     * @return RedirectResponse
+     * @return bool
      * @throws ValidationException
      */
-    public function login(LoginRequest $request): RedirectResponse
+    public function login(LoginRequest $request)
     {
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
@@ -42,7 +45,9 @@ class LoginController extends Controller
         if ($authenticate) {
             $request->session()->regenerate();
             $this->clearLoginAttempts($request);
-            return redirect()->intended(route('cabinet.home'));
+            //return redirect()->intended(route('cabinet.home'));
+            session()->flash('success', __('Welcome') . auth()->user()->name);
+            return true;
         }
 
         $this->incrementLoginAttempts($request);

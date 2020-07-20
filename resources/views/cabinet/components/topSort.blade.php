@@ -15,6 +15,6 @@
     </div>
 
     <div class="cabinet__sorting-logout">
-        <a class="link" href="{{ route('logout') }}" title="{{ __('LogOut') }}">{{ __('LogOut') }}</a>
+        @include('cabinet.logout.logout')
     </div>
 </div>

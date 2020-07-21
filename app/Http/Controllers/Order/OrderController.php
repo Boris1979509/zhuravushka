@@ -52,7 +52,7 @@ class OrderController extends Core
      * @param OrderRequest $request
      * @return void
      */
-    public function confirm(OrderRequest $request)
+    public function confirm(OrderRequest $request): void
     {
         if ($this->service->order($request)) {
 

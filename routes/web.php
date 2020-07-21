@@ -32,7 +32,7 @@ Route::group([
     Route::get('blog', 'BlogController@index')->name('blog');
     Route::group([
         'prefix' => 'blog',
-        'as' => 'blog.',
+        'as'     => 'blog.',
     ], static function () {
         Route::get('post/{postSlug}', 'PostController@index')->name('post');
         Route::get('category/{CategorySlug}', 'BlogController@getByCategory')->name('category');
@@ -49,7 +49,7 @@ Route::group([
     Route::get('favorite', 'ProductController@favorite')->name('favorite');
     Route::get('compare', 'ProductController@compare')->name('compare');
     Route::group([
-        'as' => 'cart.',
+        'as'     => 'cart.',
         'prefix' => 'cart',
     ], static function () {
         Route::post('add/{id}', 'CartController@add')->name('add');
@@ -59,20 +59,20 @@ Route::group([
 // Order
 Route::group([
     'namespace' => 'Order',
-    'prefix' => 'order',
-    'as' => 'order.',
+    'prefix'    => 'order',
+    'as'        => 'order.',
 ], static function () {
     Route::get('place', 'OrderController@place')->name('place');
     Route::post('confirm', 'OrderController@confirm')->name('confirm');
 });
 
-Auth::routes();
+Auth::routes(['login' => false]); // except route
 
 // User Cabinet
 Route::group([
-    'namespace' => 'Cabinet',
-    'prefix' => 'cabinet',
-    'as' => 'cabinet.',
+    'namespace'  => 'Cabinet',
+    'prefix'     => 'cabinet',
+    'as'         => 'cabinet.',
     'middleware' => 'auth',
 ], static function () {
     Route::get('/', 'HomeController@index')->name('home');
@@ -90,6 +90,7 @@ Route::group([
 Route::group(['namespace' => 'Auth',], static function () {
     Route::post('/phone', 'PhoneController@request')->name('phone.request');
     Route::post('/verify', 'PhoneController@verify')->name('phone.verify');
+    Route::post('/login', 'LoginController@login')->name('login');
 });
 
 

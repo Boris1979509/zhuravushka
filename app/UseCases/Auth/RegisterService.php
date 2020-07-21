@@ -37,16 +37,16 @@ class RegisterService
     public function register(RegisterRequest $request): void
     {
         $user = User::register([
-            'name' => Str::ucfirst($request['name']),
-            'last_name' => $request['last_name'],
-            'middle_name' => $request['middle_name'],
-            'email' => $request['email'],
+            'name'               => Str::ucfirst($request['name']),
+            'last_name'          => $request['last_name'],
+            'middle_name'        => $request['middle_name'],
+            'email'              => $request['email'],
             //'phone'              => $this->service->filterPhone(session('phone')),
-            'phone' => session('phone'),
-            'phone_verified' => true,
+            'phone'              => session('phone'),
+            'phone_verified'     => true,
             'phone_verify_token' => session('token'),
-            'password' => Hash::make($request['password']),
-            'delivery_place' => $request['address'],
+            'password'           => Hash::make($request['password']),
+            'delivery_place'     => $request['address'],
         ]);
 
         //$this->mailer->to($user->email)->send(new SuccessfulRegistration($user));

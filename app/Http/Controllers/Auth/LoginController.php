@@ -30,7 +30,7 @@ class LoginController extends Controller
      * @return bool
      * @throws ValidationException
      */
-    public function login(LoginRequest $request)
+    public function login(LoginRequest $request): bool
     {
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);

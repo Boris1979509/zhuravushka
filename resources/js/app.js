@@ -3,6 +3,7 @@ import ru from '../../node_modules/vanillajs-datepicker/js/i18n/locales/ru.js';
 
 Object.assign(Datepicker.locales, ru);
 
+window.Datepicker = Datepicker;
 window.Axios = require('axios');
 
 import xmlHttpRequest from './xmlHttpRequest/xmlHttpRequest';
@@ -32,17 +33,10 @@ require('./components/login/login');
 require('./components/modals/webDevModal');
 require('./components/verify-phone/phone');
 require('./components/register/register');
+require('./components/order-register/orderRegister');
 
 
 import btnAdd from './components/card/btnAdd';
 import btnQty from './components/card/btnQty';
-
-// Datepicker
-((elem) => {
-    if (!elem) return;
-    const datepicker = new Datepicker(elem, {
-        language: 'ru'
-    });
-})(document.querySelector('input[name="datePicker"]'));
 
 

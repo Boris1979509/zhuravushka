@@ -72,7 +72,7 @@
                         </div>
                         <div class="cart-checkout">
                             <a class="btn btn-active cart-checkout__btn"
-                               href="{{ route('cart.place') }}">{{ __('OrderLinkTitle') }}</a>
+                               href="{{ route('order.place') }}">{{ __('OrderLinkTitle') }}</a>
                         </div>
                     </div>
                     <div class="primary-info">

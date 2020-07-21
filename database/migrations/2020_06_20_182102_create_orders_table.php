@@ -16,8 +16,6 @@ class CreateOrdersTable extends Migration
         Schema::create('orders', static function (Blueprint $table) {
             $table->id();
             $table->tinyInteger('order_status')->default(0);
-            $table->string('name')->nullable();
-            $table->string('phone')->nullable();
             $table->json('user_data')->nullable();
             $table->text('comment')->nullable();
             $table->unsignedBigInteger('user_id')->nullable()->references('id')->on('user')->onDelete('CASCADE')->onUpdate('CASCADE');

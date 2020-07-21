@@ -2,10 +2,11 @@
     background: #FFFFFF;
     box-shadow: 0 2px 12px rgba(201, 201, 201, 0.82);
     display: flex;
-    flex-wrap: wrap;
+    flex-wrap: nowrap;
     justify-content: space-between;
     margin-bottom: 15px;
     width: 100%;
+    align-items: center;
 
     %message {
         align-self: center;

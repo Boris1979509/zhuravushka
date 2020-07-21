@@ -14,19 +14,31 @@ module.exports = ((mainBlock) => {
     const tokenLength = 4;
     /*********************************/
     /**
+     * Attr set disabled readonly
+     */
+    const setAttributeRequest = () => {
+        requestBlockBtn.setAttribute('disabled', 'disabled');
+        requestPhoneInput.setAttribute('readonly', 'readonly');
+    }
+    /**
+     * Attr remove disabled readonly
+     */
+    const removeAttributeRequest = () => {
+        requestBlockBtn.removeAttribute('disabled');
+        requestPhoneInput.removeAttribute('readonly');
+    }
+    /**
      * Message
      * @param message
      */
     const message = (message) => {
-        verifyBlock.innerHTML = `<div class="invalid-feedback my">${message}</div>`;
+        verifyBlock.innerHTML = `<div class="invalid-feedback">${message}</div>`;
     }
     /**
      * Clear timer
      */
     const clearTimer = () => {
         clearInterval(timer);
-        requestBlockBtn.removeAttribute('hidden');
-        requestPhoneInput.removeAttribute('readonly');
     }
     /**
      * Start timer
@@ -56,6 +68,7 @@ module.exports = ((mainBlock) => {
             /* VERIFY FALSE */
             if (!data.verified) {
                 message(data.message);
+                removeAttributeRequest();
             } else {
                 verifyBlock.innerHTML = '';
                 /* VERIFY TRUE */
@@ -64,6 +77,7 @@ module.exports = ((mainBlock) => {
                 nextForm.querySelector('button[type=submit]')
                     .closest('.form-input')
                     .removeAttribute('hidden');
+                // setAttributeRequest();
             }
             clearTimer();
         });
@@ -93,12 +107,13 @@ module.exports = ((mainBlock) => {
         }
     }
     /**
-     * Send data
+     * Send request phone
+     * @param data
      */
     const dataSend = (data) => {
         if (!data) return;
         xmlHttpRequest(requestAction, data, (data) => {
-            validator(requestBlock, data);
+            validator(mainBlock, data);
             if (data.hasOwnProperty('resultVerify')) {
                 const attempts = data.resultVerify.attempts;
                 if (attempts || !data.resultVerify.status) {
@@ -109,8 +124,7 @@ module.exports = ((mainBlock) => {
                 verifyBlock.innerHTML = data.view;
                 startTimer(time);
                 getVerifyInput();
-                requestBlockBtn.setAttribute('hidden', 'hidden');
-                requestPhoneInput.setAttribute('readonly', 'readonly');
+                setAttributeRequest();
             }
         });
 
@@ -126,6 +140,4 @@ module.exports = ((mainBlock) => {
         }
         dataSend(data);
     });
-
-
 })(document.querySelector('.phone-verify'));

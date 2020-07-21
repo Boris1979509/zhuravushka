@@ -3,8 +3,6 @@
 namespace App\Models;
 
 use Carbon\Carbon;
-use Illuminate\Contracts\Auth\MustVerifyEmail;
-use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -37,7 +35,7 @@ class User extends Authenticatable
         'middle_name',
         'phone_verify_token',
         'phone_verified',
-        'delivery_place'
+        'delivery_place',
     ];
 
     /**
@@ -56,9 +54,18 @@ class User extends Authenticatable
      */
     protected $casts = [
         //'email_verified_at'         => 'datetime',
-        'phone_verified'            => 'boolean',
+        'phone_verified' => 'boolean',
         'phone_verify_token_expire' => 'datetime',
     ];
+
+    /**
+     * @param array $data
+     * @return User
+     */
+    public static function register($data): self
+    {
+        return static::create($data);
+    }
 
 
 }

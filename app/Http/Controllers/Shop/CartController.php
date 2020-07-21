@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Core;
+use App\Http\Requests\Order\OrderRequest;
+use App\UseCases\Order\OrderService;
 use App\Models\Shop\Order;
 use App\Models\Shop\Product;
 use App\Repositories\ProductRepository;
@@ -10,6 +12,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Throwable;
 
@@ -19,12 +22,17 @@ class CartController extends Core
      * @var array $data
      */
     protected $data = [];
+    /**
+     * @var OrderService $service
+     */
+    private $service;
 
-    public function __construct()
+    public function __construct(OrderService $service)
     {
         parent::__construct();
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
+        $this->service = $service;
 
     }
 
@@ -104,27 +112,8 @@ class CartController extends Core
     }
 
     /**
-     * order registration
-     * @return Factory|View
+     * Get Cart
      */
-    public function place()
-    {
-        if (!$this->getOrder()) {
-            return redirect()->route('cart');
-        }
-        $this->getCart();
-        return view('shop.place', $this->data);
-    }
-
-    /**
-     * @param Request $request
-     * @return void
-     */
-    public function confirm(Request $request): void
-    {
-
-    }
-
     private function getCart(): void
     {
         if ($order = $this->getOrder()) {

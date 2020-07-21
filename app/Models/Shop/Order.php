@@ -12,8 +12,6 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @package App\Models\Shop
  * @property  integer $id
  * @property integer $order_status
- * @property string $name
- * @property string $phone
  * @property string $user_data
  * @property string $comment
  * @property integer $user_id
@@ -21,6 +19,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  */
 class Order extends Model
 {
+
+    /**
+     * @param array $data
+     * @param int $id
+     * @return bool
+     */
+    public static function updateOrder(array $data, int $id): bool
+    {
+        return static::where('id', $id)->update($data);
+    }
 
     /**
      * @return belongsToMany

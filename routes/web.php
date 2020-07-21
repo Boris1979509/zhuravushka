@@ -54,9 +54,16 @@ Route::group([
     ], static function () {
         Route::post('add/{id}', 'CartController@add')->name('add');
         Route::post('remove/{id}', 'CartController@remove')->name('remove');
-        Route::get('place', 'CartController@place')->name('place');
-        Route::post('confirm', 'CartController@confirm')->name('confirm');
     });
+});
+// Order
+Route::group([
+    'namespace' => 'Order',
+    'prefix' => 'order',
+    'as' => 'order.',
+], static function () {
+    Route::get('place', 'OrderController@place')->name('place');
+    Route::post('confirm', 'OrderController@confirm')->name('confirm');
 });
 
 Auth::routes();

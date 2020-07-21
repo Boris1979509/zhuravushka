@@ -107,7 +107,7 @@ button, span, a {
         background: $bg-color-btn-active;
         color: $color-btn-active;
 
-        &:hover {
+        &:hover:not([disabled]) {
             background: $bg-color-btn-active-hover;
             box-shadow: 0 4px 8px rgba(255, 163, 65, 0.4);
             cursor: pointer;
@@ -128,6 +128,11 @@ button, span, a {
             color: $color-btn-outline-hover;
             cursor: pointer;
         }
+    }
+
+    &[disabled] {
+        background: #FFA341;
+        box-shadow: none !important;
     }
 
 }

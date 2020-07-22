@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 use App\Models\Shop\Order as Model;
+use Illuminate\Database\Eloquent\Collection;
 
 class OrderRepository extends CoreRepository
 {
@@ -66,6 +67,20 @@ class OrderRepository extends CoreRepository
             $pivot->update();
             return $message;
         }
+    }
+
+    /**
+     * @param integer $id
+     * @return Collection
+     */
+    public function getUserOrder($id): Collection
+    {
+        return $this->startConditions()
+            ->select('id', 'user_data', 'user_id')
+            ->where('order_status', true)
+            ->where('id', $id)
+            ->with('products')
+            ->get();
     }
 
 }

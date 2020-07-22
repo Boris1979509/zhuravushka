@@ -3,6 +3,7 @@
 @section('title', __('Order Place'))
 @section('content')
     <div class="container">
+        <div class="message"></div>
         <form action="{{ route('order.confirm') }}" method="POST" class="form-label" id="order-form">
             @csrf
             <div class="order-registration">
@@ -73,10 +74,10 @@
                                 <input type="text" class="input" name="house_number" id="houseNumber">
                                 <label for="houseNumber">{{ __('HouseNumber') }}</label>
                             </div>
-                            <!--<button type="submit"
+                        <!--<button type="submit"
                                     class="btn btn-active btn-find-place-map">{{-- __('FindAddressOnMapTitle') --}}</button>-->
                         </div>
-                        <!--<div class="delivery-address-block__map">
+                    <!--<div class="delivery-address-block__map">
                             <img src="{{-- asset('images/delivery-map.jpg') --}}" alt="">
                         </div>-->
                     </div>
@@ -118,7 +119,9 @@
                                placeholder="">
                         <label for="middleName">{{ __('MiddleName') }}</label>
                     </div>
-                    @include('auth.phoneRequest')
+                    @guest
+                        @include('auth.phoneRequest')
+                    @endguest
                     <div class="form-input">
                         <input type="email" name="email" id="email" class="input" placeholder="">
                         <label for="email">{{ __('E-Mail Address') }}</label>

@@ -49,8 +49,7 @@ class RegisterController extends Core
      */
     public function register(RegisterRequest $request): JsonResponse
     {
-
-        if (session('verified') && session('phone')) {
+        if ($this->phoneVerified()) {
             $this->service->register($request);
             $this->service->forget();// Session destroy
             $message = ['success' => __('SuccessfulRegistrationInfo')];
@@ -75,5 +74,17 @@ class RegisterController extends Core
     {
         $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
         $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
+    }
+
+    /**
+     * Guest users
+     * @return bool
+     */
+    private function phoneVerified()
+    {
+        if (session('verified') && session('phone')) {
+            return true;
+        }
+        return false;
     }
 }

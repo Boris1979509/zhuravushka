@@ -149,5 +149,12 @@
     "The phone number was not confirmed": "Телефон не был подтвержден.",
     "Phone verification token: ": "Код для проверки телефона: ",
     "SuccessfulRegistrationInfo": "Регистрация прошла успешно.",
-    "Welcome": "Добро пожаловать, "
+    "Welcome": "Добро пожаловать, ",
+    "OrderInfo": "Информация о заказе",
+    "OrderInfoDelivery": "Информация о доставке",
+    "OrderInfoPayment": "Способ оплаты",
+    "ConfirmYourPhoneNumberUseProfile": "Подтвердите свой номер телефона, чтобы с помощью него входить в личный кабинет",
+    "ConfirmedPhone": "Подтвердить телефон",
+    "ThanksForOrderTitle": "Спасибо за заказ",
+    "Customer": "Покупатель"
 }

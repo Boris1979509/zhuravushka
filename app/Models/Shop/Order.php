@@ -27,7 +27,9 @@ class Order extends Model
      */
     public static function updateOrder(array $data, int $id): bool
     {
-        return static::where('id', $id)->update($data);
+        return static::where('id', $id)
+            ->where('order_status', 0)
+            ->update($data);
     }
 
     /**
@@ -66,5 +68,14 @@ class Order extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
+    }
+
+    /**
+     * Create number order
+     * @return string
+     */
+    public function getOrderNumber()
+    {
+        return '№' . str_pad($this->id, 8, "0", STR_PAD_LEFT);
     }
 }

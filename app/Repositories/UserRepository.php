@@ -16,4 +16,13 @@ class UserRepository extends CoreRepository
     {
         return Model::class;
     }
+
+    /**
+     * @param string $phone
+     */
+    public function phoneVerified($phone){
+        $this->startConditions()
+            ->select('phone_verified')
+            ->where('phone', $phone);
+    }
 }

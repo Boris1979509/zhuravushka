@@ -39,12 +39,12 @@ class OrderService
 
     /**
      * @param OrderRequest $request
+     * @param $orderId
      * @return bool
      */
-    public function order(OrderRequest $request): bool
+    public function order(OrderRequest $request, $orderId): bool
     {
-        $orderId = session('orderId');
-        return Order::updateOrder([
+        $data = [
             'user_id' => Auth::id(),
             'order_status' => true,
             'user_data' => [
@@ -66,7 +66,8 @@ class OrderService
                 ],
             ],
             'comment' => $request['message'],
-        ], $orderId);
+        ];
+        return Order::updateOrder($data, $orderId);
 
         //$this->mailer->to($user->email)->send(new SuccessfulRegistration($user));
     }

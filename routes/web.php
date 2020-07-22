@@ -64,6 +64,7 @@ Route::group([
 ], static function () {
     Route::get('place', 'OrderController@place')->name('place');
     Route::post('confirm', 'OrderController@confirm')->name('confirm');
+    Route::get('info', 'OrderController@info')->name('info');
 });
 
 Auth::routes(['login' => false]); // except route

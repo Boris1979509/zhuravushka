@@ -11,7 +11,7 @@
                          src="{{ asset('images/icons/thumb/elektrika-i-osveshhenie.svg') }}"
                          alt="{{ $categoryItem->title }}">
                     {{ $categoryItem->title  }}</a>
-                @if($categoryItem->children)
+                @if(($categoryItem->children)->count())
                     <div class="catalog__sub-catalog">
                         @foreach($categoryItem->children as $childrenItem)
                             <a href="{{ route('category', $childrenItem->slug) }}"

@@ -6,10 +6,26 @@
     border-radius: .25rem;
 
     .breadcrumb-item {
+        .link {
+            color: inherit;
+            transition: color .3s;
+
+            &:hover {
+                color: #0075d2;
+            }
+        }
+
         + .breadcrumb-item::before {
             padding: 0 .5rem;
             color: #6c757d;
             content: "/";
+        }
+
+        &.active {
+            font-size: 0.875rem;
+            line-height: 1rem;
+            letter-spacing: 0.02em;
+            color: #6c757d;
         }
     }
 }

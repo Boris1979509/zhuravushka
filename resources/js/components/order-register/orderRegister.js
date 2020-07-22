@@ -1,7 +1,9 @@
 window.exports = (() => {
+    const formOrder = document.querySelector('#order-form');
+    if (!formOrder) return;
     const dateDeliveryOptionItem = document.querySelectorAll('.date-delivery__options > .date-delivery__options-item');
     const datepickerInput = document.querySelector('input[name=delivery_date]');
-    const formOrder = document.querySelector('#order-form');
+
     const message = document.querySelector('.message');
     const datepicker = new Datepicker(datepickerInput, {
         language: 'ru'
@@ -42,11 +44,13 @@ window.exports = (() => {
         });
         // console.log(data);
         xmlHttpRequest(formOrder.action, data, (data) => {
-            validator(formOrder, data);
-            if (data.error) {
-                message.innerHTML = data.error;
+            if (validator(formOrder, data)) {
+                if (data.error) {
+                    message.innerHTML = data.error;
+                } else {
+                    window.location = data.route;
+                }
             }
-            window.location = data.route;
         });
     });
 })();

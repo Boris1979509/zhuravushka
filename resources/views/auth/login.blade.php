@@ -2,8 +2,8 @@
     <form method="POST" action="{{ route('login') }}" id="login-form">
         @csrf
         <div class="form-input">
-            <label for="phone-login" class="form-input-label">{{ __('Phone') }}</label>
-            <input id="phone-login" type="text" class="input mask-input" placeholder="+7 (999) 999-99-99"
+            <label for="phone-login" class="form-input-label">{{ __('Phone') }}<span class="require">*</span></label>
+            <input id="phone-login" type="text" class="input mask-input" placeholder="+7 (961) 199-92-92"
 {{--                   pattern="(\+7[-_()\s]+|\+7\s?[(]{0,1}[0-9]{3}[)]{0,1}\s?\d{3}[-]{0,1}\d{2}[-]{0,1}\d{2})"--}}
                    name="phone" value="{{ old('phone') }}"
                    autocomplete="phone" autofocus>
@@ -12,7 +12,7 @@
             @enderror
         </div>
         <div class="form-input">
-            <label for="password-login" class="form-input-label">{{ __('Password') }}</label>
+            <label for="password-login" class="form-input-label">{{ __('Password') }}<span class="require">*</span></label>
             <input id="password-login" type="password" class="input" name="password"
                    autocomplete="current-password">
             @error('password')

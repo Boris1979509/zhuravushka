@@ -24,7 +24,7 @@
                 </nav>
                 <!---->
                 <div class="top-bar__phone">
-                    <span class="top-bar__icon-phone">8 961 199 92-92 (Пн - Сб: 8:30 - 17:30)</span>
+                    <span class="top-bar__icon-phone">+7 (961) 199-92-92 (Пн - Сб: 8:30 - 17:30)</span>
                 </div>
                 <div class="top-bar__right">
                     <div class="top-bar__user-login">

@@ -31,7 +31,7 @@ class OrderRequest extends FormRequest
             'city'               => 'required|string',
             'street'             => 'required|string',
             'house_number'       => 'required|string',
-            'last_name'          => 'string|max:255|nullable',
+            'last_name'          => 'required|string|max:255|nullable',
             'name'               => 'required|string|max:255',
             'middle_name'        => 'string|max:255|nullable',
             'phone'              => 'required|string',

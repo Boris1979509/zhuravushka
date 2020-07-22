@@ -20,6 +20,7 @@ class RegisterRequest extends FormRequest
             'email'       => 'required|string|email|max:255|unique:users',
             'password'    => 'required|string|min:8|confirmed',
             'address'     => 'nullable|string',
+            'phone'       => 'required|string|unique:users|regex:/^\+7 \([0-9]{3}\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/',
         ];
     }
 }

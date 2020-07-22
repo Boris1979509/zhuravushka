@@ -115,7 +115,7 @@ class OrderController extends Core
      * Guest users
      * @return bool
      */
-    private function phoneVerified()
+    private function phoneVerified(): bool
     {
         if (session('verified') && session('phone')) {
             return true;
@@ -127,9 +127,9 @@ class OrderController extends Core
      * @param integer $id
      * @return string
      */
-    public function getOrderNumber($id)
+    public function getOrderNumber($id): string
     {
-        return '№' . str_pad($id, 8, "0", STR_PAD_LEFT);
+        return '№' . str_pad($id, 8, '0', STR_PAD_LEFT);
     }
 
     /**
@@ -138,7 +138,7 @@ class OrderController extends Core
      */
     private function toArray($string)
     {
-        return json_decode(preg_replace("/[\r\n]+/", " ", $string));
+        return json_decode(preg_replace("/[\r\n]+/", ' ', $string), false);
     }
 
 }

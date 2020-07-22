@@ -74,8 +74,8 @@ class Order extends Model
      * Create number order
      * @return string
      */
-    public function getOrderNumber()
+    public function getOrderNumber(): string
     {
-        return '№' . str_pad($this->id, 8, "0", STR_PAD_LEFT);
+        return '№' . str_pad($this->id, 8, '0', STR_PAD_LEFT);
     }
 }

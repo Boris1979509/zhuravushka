@@ -1,5 +1,8 @@
 @extends('layouts.app')
 
+@section('description', '')
+@section('title',  __('Registration'))
+
 @section('content')
     <section id="register">
         <div class="container">
@@ -7,9 +10,9 @@
             <div class="message"></div>
             <div class="row">
                 <div class="register">
-                    @include('auth.phoneRequest')
                     <form method="POST" action="{{ route('register') }}" class="register__form" id="register-form">
                         @csrf
+                        @include('auth.phoneRequest')
                         <div class="register__userData">
                             <h2>{{ __('UserDataTitle') }}</h2>
                             <div class="form-input">
@@ -21,7 +24,8 @@
                                 @enderror
                             </div>
                             <div class="form-input">
-                                <label for="name" class="form-input-label">{{ __('Name') }}</label>
+                                <label for="name" class="form-input-label">{{ __('Name') }}<span
+                                        class="require">*</span></label>
                                 <input type="text" name="name" id="name" class="input"
                                        placeholder="{{ __('Name') }}" autocomplete="name" value="{{ old('name') }}">
                                 @error('name')
@@ -38,7 +42,8 @@
                                 @enderror
                             </div>
                             <div class="form-input">
-                                <label for="email" class="form-input-label">{{ __('E-Mail Address') }}</label>
+                                <label for="email" class="form-input-label">{{ __('E-Mail Address') }}<span
+                                        class="require">*</span></label>
                                 <input type="email" name="email" id="email" class="input"
                                        placeholder="{{ __('E-Mail Address') }}" autocomplete="email"
                                        value="{{ old('email') }}">
@@ -47,7 +52,8 @@
                                 @enderror
                             </div>
                             <div class="form-input">
-                                <label for="password" class="form-input-label">{{ __('Password') }}</label>
+                                <label for="password" class="form-input-label">{{ __('Password') }}<span
+                                        class="require">*</span></label>
                                 <input type="password" name="password" id="password" class="input"
                                        autocomplete="new-password" placeholder="{{ __('Password') }}">
                                 @error('password')
@@ -56,7 +62,8 @@
                             </div>
                             <div class="form-input">
                                 <label for="passwordConfirm"
-                                       class="form-input-label">{{ __('PasswordConfirm') }}</label>
+                                       class="form-input-label">{{ __('PasswordConfirm') }}<span
+                                        class="require">*</span></label>
                                 <input type="password" name="password_confirmation" id="passwordConfirm" class="input"
                                        autocomplete="new-password" placeholder="{{ __('PasswordConfirm') }}">
                                 @error('password_confirmation')

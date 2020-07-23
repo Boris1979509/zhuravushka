@@ -65,6 +65,7 @@ const tab = {
                 next: tab.next,
             }
         });
+        addCardTitleHeight();
     }
 };
 

@@ -156,5 +156,7 @@
     "ConfirmYourPhoneNumberUseProfile": "Подтвердите свой номер телефона, чтобы с помощью него входить в личный кабинет",
     "ConfirmedPhone": "Подтвердить телефон",
     "ThanksForOrderTitle": "Спасибо за заказ",
-    "Customer": "Покупатель"
+    "Customer": "Покупатель",
+    "Successful confirmation code": "Телефон успешно подтвержден",
+    "PropertiesOrderTitle": "Состав заказа"
 }

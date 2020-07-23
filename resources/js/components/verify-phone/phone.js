@@ -30,9 +30,10 @@ module.exports = ((mainBlock) => {
     /**
      * Message
      * @param message
+     * @param status
      */
-    const message = (message) => {
-        verifyBlock.innerHTML = `<div class="invalid-feedback">${message}</div>`;
+    const message = (message, status = 'invalid-feedback') => {
+        verifyBlock.innerHTML = `<div class="${status}">${message}</div>`;
     }
     /**
      * Clear timer
@@ -50,8 +51,10 @@ module.exports = ((mainBlock) => {
             if (t <= 0) {
                 verifyBlock.innerHTML = '';
                 clearTimer();
+                removeAttributeRequest();
             } else {
                 timerShow.innerHTML = `<span class="confirm-timer">Повторная отправка будет доступна через ${t} сек.</span>`;
+                setAttributeRequest();
             }
             --t;
         }, 1000)
@@ -70,14 +73,10 @@ module.exports = ((mainBlock) => {
                 message(data.message);
                 removeAttributeRequest();
             } else {
-                verifyBlock.innerHTML = '';
                 /* VERIFY TRUE */
-                const nextForm = mainBlock.closest('.phone-verify').nextElementSibling;
-                nextForm.scrollIntoView({behavior: 'smooth'});
-                nextForm.querySelector('button[type=submit]')
-                    .closest('.form-input')
-                    .removeAttribute('hidden');
-                // setAttributeRequest();
+                verifyBlock.innerHTML = '';
+                message(data.message, 'success-feedback');
+                setAttributeRequest();
             }
             clearTimer();
         });
@@ -124,7 +123,6 @@ module.exports = ((mainBlock) => {
                 verifyBlock.innerHTML = data.view;
                 startTimer(time);
                 getVerifyInput();
-                setAttributeRequest();
             }
         });
 

@@ -25,7 +25,7 @@
     }
 
     .verify-block {
-        .invalid-feedback {
+        .invalid-feedback, .success-feedback {
             margin-top: -10px;
             margin-bottom: 10px;
         }
@@ -33,6 +33,10 @@
 
 
     &__contact-form {
+        #request-btn {
+            height: 51px;
+        }
+
         .form-input {
             width: 50%;
         }
@@ -153,6 +157,10 @@
 
     .delivery-address-block {
         display: flex;
+
+        input, textarea {
+            border-radius: 0 !important;
+        }
     }
 
     .btn-find-place-map {

@@ -46,17 +46,17 @@ class PhoneService
                 $i = session('attempts'); // number of attempts
                 session([
                     'expireToken' => $expire_token,
-                    'token'       => $phone_verify_token,
-                    'phone'       => $phone,
-                    'attempts'    => ++$i,
+                    'token' => $phone_verify_token,
+                    'phone' => $phone,
+                    'attempts' => ++$i,
                 ]);
                 return ['status' => true, 'token' => $phone_verify_token];
             }
         }
         return [
-            'status'   => false,
+            'status' => false,
             'attempts' => true,
-            'message'  => __('The maximum number of attempts has been reached'),
+            'message' => __('The maximum number of attempts has been reached'),
         ];
     }
 
@@ -67,14 +67,17 @@ class PhoneService
     public function verify($tokenClient)
     {
         if (session('token') === $tokenClient) {
-            $data = ['verified' => true];
+            $data = [
+                'verified' => true,
+                'message' => __('Successful confirmation code')
+            ];
             session($data);
             return $data;
         }
         $this->forget();
         return [
             'verified' => false,
-            'message'  => __('Invalid confirmation code'),
+            'message' => __('Invalid confirmation code'),
         ];
     }
 

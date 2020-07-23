@@ -38,16 +38,6 @@ class ProductController extends Core
     }
 
     /**
-     * Favorite
-     * @return Factory|View
-     */
-    public function favorite()
-    {
-        $this->getCart();
-        return view('shop.favorite', $this->data)->with('info', __('IsEmptyFavoriteMessage'));
-    }
-
-    /**
      * Compare
      * @return Factory|View
      */

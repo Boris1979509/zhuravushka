@@ -46,7 +46,9 @@ Route::group([
     Route::get('category', 'ProductCategoryController@index')->name('catalog');
     Route::get('category/{categorySlug}', 'ProductCategoryController@category')->name('category');
     Route::get('product/{slug}', 'ProductController@index')->name('product');
-    Route::get('favorite', 'ProductController@favorite')->name('favorite');
+    Route::get('favorites', 'FavoriteController@index')->name('favorite.index');
+    Route::post('favorite/{product}', 'FavoriteController@add')->name('favorite.add');
+    Route::delete('favorite/{product}', 'FavoriteController@remove')->name('favorite.remove');
     Route::get('compare', 'ProductController@compare')->name('compare');
     Route::group([
         'as'     => 'cart.',

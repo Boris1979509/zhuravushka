@@ -91,7 +91,7 @@
                         </div>
                         <span class="sub-header__label">{{ __('Compare') }}</span>
                     </a>
-                    <a href="{{ route('favorite') }}" rel="nofollow" class="link favorite">
+                    <a href="{{ route('favorite.index') }}" rel="nofollow" class="link favorite">
                         <div class="icon favorite__icon">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">

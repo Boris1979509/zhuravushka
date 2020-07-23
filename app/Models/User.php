@@ -2,7 +2,9 @@
 
 namespace App\Models;
 
+use App\Models\Shop\Product;
 use Carbon\Carbon;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
 
@@ -65,6 +67,42 @@ class User extends Authenticatable
     public static function register($data): self
     {
         return static::create($data);
+    }
+
+    /**
+     * @param int $id
+     */
+    public function addToFavorites(int $id): void
+    {
+        if ($this->hasInFavorites($id)) {
+            throw new \DomainException('This product is already added to favorites.');
+        }
+        $this->favorites()->attach($id);
+    }
+
+    /**
+     * @param int $id
+     */
+    public function removeFromFavorites($id): void
+    {
+        $this->favorites()->detach($id);
+    }
+
+    /**
+     * @param int $id
+     * @return bool
+     */
+    public function hasInFavorites(int $id): bool
+    {
+        return $this->favorites()->where('id', $id)->exists();
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function favorites(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'product_favorites', 'user_id', 'product_id');
     }
 
 }

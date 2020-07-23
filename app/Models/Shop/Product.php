@@ -2,6 +2,8 @@
 
 namespace App\Models\Shop;
 
+use App\Models\User;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
@@ -50,6 +52,14 @@ class Product extends Model
     }
 
     /**
+     * @return BelongsToMany
+     */
+    public function favorites(): BelongsToMany
+    {
+        return $this->belongsToMany(User::class, 'product_favorites', 'product_id', 'user_id');
+    }
+
+    /**
      * @return float
      */
     public function getItemTotalSum(): float
@@ -57,5 +67,17 @@ class Product extends Model
         if (!is_null($this->pivot)) {
             return $this->pivot->count * $this->price;
         }
+    }
+
+    /**
+     * @param Builder $query
+     * @param User $user
+     * @return Builder
+     */
+    public function scopeFavoredByUser(Builder $query, User $user): Builder
+    {
+        return $query->whereHas('favorites', static function (Builder $query) use ($user) {
+            $query->where('user_id', $user->id);
+        });
     }
 }

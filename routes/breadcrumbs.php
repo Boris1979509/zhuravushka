@@ -78,9 +78,9 @@ Breadcrumbs::for('product', static function (Generator $trail, $slug) {
     $trail->push($product->title, route('product', $product->title));
 });
 // Favorite
-Breadcrumbs::for('favorite', static function (Generator $trail) {
+Breadcrumbs::for('favorite.index', static function (Generator $trail) {
     $trail->parent('home');
-    $trail->push(__('Favorite'), route('favorite'));
+    $trail->push(__('Favorite'), route('favorite.index'));
 });
 // Compare
 Breadcrumbs::for('compare', static function (Generator $trail) {

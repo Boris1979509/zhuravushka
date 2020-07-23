@@ -4,15 +4,12 @@
     border: 1px solid #CCCCCC;
     margin-right: -1px;
 
-    .card__title {
-        $self: &;
+    &__title {
         text-align: center;
-        height: 100%;
         padding: 0 10px 0 10px;
         box-sizing: border-box;
         margin-bottom: 10px;
         min-height: 40px;
-
 
         .card__link {
             text-align: center;
@@ -23,10 +20,6 @@
             color: $color-card;
 
             &.active {
-                #{$self} {
-                    height: 50px;
-                }
-
                 transition: all .3s;
                 display: block;
                 max-height: 100%;

@@ -15,8 +15,7 @@
                            class="link card__link">{{ $productItem->title }}</a>
                     </div>
                     <div class="card__footer">
-                        <p class="card__price bold">от {{ numberFormat($productItem->price) }} <span
-                                    class="rub">₽</span></p>
+                        @include('shop.priceBlock', ['product' => $productItem])
                     </div>
                 </div>
             </div>

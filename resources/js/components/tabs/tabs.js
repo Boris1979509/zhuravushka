@@ -51,6 +51,7 @@ const tab = {
         tab.nav[this.dataset.pos].classList.add("active");
         tab.txt[this.dataset.pos].classList.add("active");
         tab.initGlider();
+        addCardTitleHeight();
     },
     glider: function () {
         if (!tab.gl) return;
@@ -65,7 +66,6 @@ const tab = {
                 next: tab.next,
             }
         });
-        addCardTitleHeight();
     }
 };
 

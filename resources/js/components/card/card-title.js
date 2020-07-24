@@ -1,10 +1,21 @@
 window.exports = addCardTitleHeight = () => {
     const title = document.querySelectorAll('.card__title');
+    console.log(title)
     if (!title) return;
-    const maxHeight = 50;
+    /**
+     *
+     * @param elem
+     * @returns {number}
+     */
+    const getHeight = (elem) => {
+        return parseInt(window.getComputedStyle(elem).minHeight);
+    }
+
     title.forEach((item) => {
-        if (item.clientHeight > maxHeight) {
-            item.style = `height: 40px`;
+        const height = getHeight(item);
+        console.log(height);
+        if (item.clientHeight > height) {
+            item.style = `height: ${height}px`;
             item.firstElementChild.classList.add('active');
         }
     });

@@ -28,6 +28,7 @@
     "PaymentOnlineDescription": "Вы можете оплатить товар на нашем сайте при помощи банковской карты",
     "Phone": "Телефон",
     "Cart": "Корзина",
+    "CartButtonAdd": "В корзину",
     "CartEmptyMessage": "Ваша корзина пуста.",
     "ButtonCartRemove": "Убрать из корзины",
     "E-Mail Address": "Ваш Email",
@@ -158,5 +159,7 @@
     "ThanksForOrderTitle": "Спасибо за заказ",
     "Customer": "Покупатель",
     "Successful confirmation code": "Телефон успешно подтвержден",
-    "PropertiesOrderTitle": "Состав заказа"
+    "PropertiesOrderTitle": "Состав заказа",
+    "NewPrice": "Новая цена",
+    "OldPrice": "Старая цена"
 }

@@ -26,6 +26,9 @@
             &__price {
                 margin-top: 20px;
             }
+            &__footer{
+                padding-bottom: 20px;
+            }
         }
 
         .glider-contain {
@@ -128,7 +131,7 @@
         color: $color-homepage-top-grid-menu;
         font-size: 1rem;
         line-height: 1.5;
-        padding: 20px;
+        padding: 18px;
         align-items: center;
         display: flex;
 

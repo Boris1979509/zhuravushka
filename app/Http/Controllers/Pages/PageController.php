@@ -6,6 +6,7 @@ use App\Http\Controllers\Core;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
+use App\UseCases\products\PriceService;
 
 class PageController extends Core
 {
@@ -17,13 +18,18 @@ class PageController extends Core
      * Home page
      */
     public const HOME_PAGE_NAME = 'home';
+    /**
+     * @var PriceService $service
+     */
+    private $service;
 
-    public function __construct()
+    public function __construct(PriceService $service)
     {
         parent::__construct();
+        $this->service = $service;
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
-        $this->data['products'] = $this->productRepository->getAllProducts();
+        $this->data['products'] = $this->service->subtractPercent($this->productRepository->getAllProducts());
         $this->data['homePageTop'] = $this->productCategoryRepository->getHomePageTop();
     }
 

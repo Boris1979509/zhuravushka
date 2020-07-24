@@ -42,6 +42,9 @@ class Product extends Model
         'description',
         'category_id',
     ];
+    protected $casts = [
+        'price' => 'integer'
+    ];
 
     /**
      * @return BelongsTo

@@ -35,18 +35,7 @@
                    class="link card__link">{{ $productItem->title }}</a>
             </div>
             <div class="card__footer">
-                <div class="price">
-                    <div class="price__item">
-                        <p class="price__title-old">Старая цена</p>
-                        <span class="price__old">282</span>
-                        <span class="rub">₽</span>
-                    </div>
-                    <div class="price__item">
-                        <p class="price__title-new">Новая цена</p>
-                        <span class="bold price__new">{{ numberFormat($productItem->price) }}&nbsp;₽</span>
-                        <span class="last-text-new">за шт.</span>
-                    </div>
-                </div>
+                @include('shop.priceBlock', ['product' => $productItem])
                 <form action="{{ route('cart.add', $productItem) }}" method="POST" class="addCart">
                     @csrf
                     <div class="product-qty">
@@ -55,7 +44,7 @@
                             <input type="text" class="product-qty__input" value="1" name="qty">
                             <span class="product-qty__plus"></span>
                         </div>
-                        <button class="btn btn-active btn-add">В корзину</button>
+                        <button class="btn btn-active btn-add">{{ __('CartButtonAdd') }}</button>
                     </div>
                 </form>
             </div>

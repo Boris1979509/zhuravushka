@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Shop;
 use App\UseCases\products\FavoriteService;
 use App\Http\Controllers\Core;
 use App\Models\Shop\Product;
+use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 
@@ -34,25 +35,40 @@ class FavoriteController extends Core
         return view('shop.favorite', $this->data)->with('info', __('IsEmptyFavoriteMessage'));
     }
 
+    /**
+     * @param Product $product
+     * @return JsonResponse
+     */
     public function add(Product $product)
     {
         try {
             $this->service->add(Auth::id(), $product->id);
+            return response()->json([
+                'status' => 'success',
+                'message' => $product->title . ' ' . __('Product added to your favorite.')
+            ]);
         } catch (\DomainException $e) {
-            return back()->with('error', $e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
         }
-
-        //return redirect()->route('adverts.show', $product)->with('success', __('Product is added to your favorites.'));
     }
 
     public function remove(Product $product)
     {
         try {
             $this->service->remove(Auth::id(), $product->id);
+            return response()->json([
+                'status' => 'success',
+                'message' => $product->title . ' ' . __('Product deleted to your favorite.')
+            ]);
         } catch (\DomainException $e) {
-            return back()->with('error', $e->getMessage());
+            return response()->json([
+                'status' => 'error',
+                'message' => $e->getMessage()
+            ]);
         }
-
     }
 
     /**

@@ -19,10 +19,22 @@ class UserRepository extends CoreRepository
 
     /**
      * @param string $phone
+     * @return bool;
      */
-    public function phoneVerified($phone){
-        $this->startConditions()
+    public function phoneVerified($phone)
+    {
+        return $this->startConditions()
             ->select('phone_verified')
             ->where('phone', $phone);
+    }
+
+    /**
+     * @param int $user_id
+     * @return mixed
+     */
+    public function find($user_id)
+    {
+        return $this->startConditions()
+            ->where('id', $user_id)->first();
     }
 }

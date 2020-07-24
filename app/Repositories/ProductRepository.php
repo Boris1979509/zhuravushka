@@ -29,7 +29,7 @@ class ProductRepository extends CoreRepository
     {
         return $this->startConditions()
             ->select($columns)
-            ->with('category')
+            ->with('category', 'favorites')
             ->take(20)->get();
     }
 
@@ -159,5 +159,15 @@ class ProductRepository extends CoreRepository
             })
             ->orderBy('price')
             ->paginate($perPage);
+    }
+
+    /**
+     * @param int $product_id
+     * @return mixed
+     */
+    public function find($product_id)
+    {
+        return $this->startConditions()
+            ->where('id', $product_id)->first();
     }
 }

@@ -161,5 +161,7 @@
     "Successful confirmation code": "Телефон успешно подтвержден",
     "PropertiesOrderTitle": "Состав заказа",
     "NewPrice": "Новая цена",
-    "OldPrice": "Старая цена"
+    "OldPrice": "Старая цена",
+    "Product added to your favorite.": "добавлено в избранное.",
+    "Product deleted to your favorite.": "удалено из избранного."
 }

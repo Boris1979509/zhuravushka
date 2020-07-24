@@ -2,6 +2,8 @@ const cardIcons = {
     favorite: null,
     compare: null,
     card: null,
+    data: {},
+    id: null,
     init: () => {
         cardIcons.card = document.querySelectorAll(".card__icons");
         if (!cardIcons.card)
@@ -10,6 +12,7 @@ const cardIcons = {
         Array.from(cardIcons.card, (item) => {
             cardIcons.favorite = item.querySelectorAll(".favorite");
             cardIcons.compare = item.querySelectorAll(".compare");
+
             Array.from(cardIcons.favorite, (item) => {
                 if (item.classList.contains('favorite__active')) {
                     item.setAttribute('title', 'Убрать из избранного');
@@ -33,8 +36,34 @@ const cardIcons = {
         });
     },
     switch: (elem) => {
+        cardIcons.id = elem.getAttribute('data-id');
+
         elem.classList.toggle(`${elem.classList[0]}__active`);
+
+        if (elem.classList.contains(`${elem.classList[0]}__active`)) {
+            cardIcons.data = {
+                controller: elem.classList[0],
+                action: 'add',
+                id: cardIcons.id
+            };
+        } else {
+            cardIcons.data = {
+                controller: elem.classList[0],
+                action: 'remove',
+                id: cardIcons.id
+            };
+        }
+        cardIcons.send(cardIcons.data);
         cardIcons.init();
+
+    },
+    send: (data) => {
+        const url = `${data.controller}/${data.id}/${data.action}`;
+        xmlHttpRequest(url, {}, (data) => {
+            if (data.status) {
+                flash(data.message, data.status);
+            }
+        });
     }
 }
 window.addEventListener('load', cardIcons.init);

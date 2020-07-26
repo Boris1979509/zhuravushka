@@ -34,7 +34,7 @@ class ProductCategoryRepository extends CoreRepository
             ->select($columns)
             ->where('parent_id', 0)
             ->with(['children' => static function ($query) {
-                $query->withCount('products as productsCount');
+                $query->withCount('Products as productsCount');
             }])->get();
     }
 
@@ -54,7 +54,7 @@ class ProductCategoryRepository extends CoreRepository
             ->where('parent_id', 0)
             ->orderBy('title', 'DESC')
             ->with(['children' => static function ($query) {
-                $query->with('products');
+                $query->with('Products');
             }])->offset(15)->limit(4)->get();
     }
 
@@ -69,7 +69,7 @@ class ProductCategoryRepository extends CoreRepository
             ->select($columns)
             ->where('slug', $slug)
             ->with(['parent', 'children' => static function ($query) {
-                $query->withCount('products as productCount');
+                $query->withCount('Products as productCount');
             }])
             ->first();
     }

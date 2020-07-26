@@ -58,7 +58,7 @@
                     </div>
                 </div>
             </div>
-            @include('order.info-products')
+            @include('order.info-Products')
         </div>
     </section>
 @endsection

@@ -20,6 +20,7 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property string $photo_thumb
  * @property integer $category_id
  * @property string $description
+ * @property integer $quantity
  * @property BelongsToMany $pivot
  * @property string $unit_pricing_base_measure
  */
@@ -43,7 +44,8 @@ class Product extends Model
         'category_id',
     ];
     protected $casts = [
-        'price' => 'integer'
+        'price' => 'integer',
+        'quantity' => 'integer'
     ];
 
     /**

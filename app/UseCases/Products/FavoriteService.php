@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCases\products;
+namespace App\UseCases\Products;
 
 use App\Models\Shop\Product;
 use App\Models\User;
@@ -33,9 +33,8 @@ class FavoriteService
     /**
      * @param int $userId
      * @param int $productId
-     * @return void
      */
-    public function add($userId, $productId)
+    public function add($userId, $productId): void
     {
         if ($product = $this->getProduct($productId)) {
             if ($user = $this->getUser($userId)) {
@@ -60,10 +59,10 @@ class FavoriteService
     /**
      * @param Product $product
      */
-    private function notUserAuthFavorite($product)
+    private function notUserAuthFavorite($product): void
     {
         $favorites = session('favorites', []);
-        $index = array_search($product->id, $favorites);
+        $index = array_search($product->id, $favorites, true);
 
         if ($index !== false) {
             unset($favorites[$index]);

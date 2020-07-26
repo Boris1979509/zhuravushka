@@ -7,6 +7,7 @@ use App\Models\Shop\Order;
 use App\Models\User;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Mail\SuccessfulRegistration;
+use App\Repositories\OrderRepository;
 use App\UseCases\Auth\PhoneService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Events\Dispatcher;
@@ -26,7 +27,7 @@ class OrderService
      */
     private $dispatcher;
     /**
-     * @var PhoneService $service
+     * @var PhoneService $phoneService
      */
     private $service;
 
@@ -39,10 +40,10 @@ class OrderService
 
     /**
      * @param OrderRequest $request
-     * @param $orderId
+     * @param int $id
      * @return bool
      */
-    public function order(OrderRequest $request, $orderId): bool
+    public function order(OrderRequest $request, $id): bool
     {
         $data = [
             'user_id' => Auth::id(),
@@ -67,7 +68,7 @@ class OrderService
             ],
             'comment' => $request['message'],
         ];
-        return Order::updateOrder($data, $orderId);
+        return Order::updateOrder($data, $id);
 
         //$this->mailer->to($user->email)->send(new SuccessfulRegistration($user));
     }

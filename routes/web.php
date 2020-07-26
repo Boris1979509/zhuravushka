@@ -54,8 +54,8 @@ Route::group([
         'as'     => 'cart.',
         'prefix' => 'cart',
     ], static function () {
-        Route::post('add/{id}', 'CartController@add')->name('add');
-        Route::post('remove/{id}', 'CartController@remove')->name('remove');
+        Route::post('add/{product}', 'CartController@add')->name('add');
+        Route::post('remove/{product}', 'CartController@remove')->name('remove');
     });
 });
 // Order

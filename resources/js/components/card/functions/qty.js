@@ -1,5 +1,5 @@
 window.exports = getQuantity = (e, input) => {
-    // Quantity items products
+    // Quantity items Products
     const isNumber = (val) => {
         val = parseInt(val);
         return ((typeof val === "number") && (!isNaN(val)) && (val !== 0)) ? val : 1;
@@ -19,9 +19,8 @@ window.exports = getQuantity = (e, input) => {
             xmlHttpRequest(form.action, {inc: "++"}, (data) => {
                 refreshCart(data.cartItemTotalSum, data.cartTotalSum, data.cartCount, cart);
                 preload.remove();
-                if (data.dataMsg.status === 'success') {
-                    flash(data.dataMsg.message, data.dataMsg.status);
-                }
+                flash(data.dataMsg.message, data.dataMsg.status);
+
             });
         } else if (e.classList.contains("product-qty__minus")) {
 
@@ -34,9 +33,8 @@ window.exports = getQuantity = (e, input) => {
                 xmlHttpRequest(form.action, {inc: "--"}, (data) => {
                     refreshCart(data.cartItemTotalSum, data.cartTotalSum, data.cartCount, cart);
                     preload.remove();
-                    if (data.dataMsg.status === 'success') {
-                        flash(data.dataMsg.message, data.dataMsg.status);
-                    }
+                    flash(data.dataMsg.message, data.dataMsg.status);
+
                 });
             } else {
                 if (!btn)

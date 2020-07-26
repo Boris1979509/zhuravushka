@@ -2,7 +2,7 @@
 
 namespace App\Http\Controllers\Shop;
 
-use App\UseCases\products\FavoriteService;
+use App\UseCases\Products\FavoriteService;
 use App\Http\Controllers\Core;
 use App\Models\Shop\Product;
 use Illuminate\Http\JsonResponse;
@@ -39,7 +39,7 @@ class FavoriteController extends Core
      * @param Product $product
      * @return JsonResponse
      */
-    public function add(Product $product)
+    public function add(Product $product): ?JsonResponse
     {
         try {
             $this->service->add(Auth::id(), $product->id);
@@ -55,7 +55,11 @@ class FavoriteController extends Core
         }
     }
 
-    public function remove(Product $product)
+    /**
+     * @param Product $product
+     * @return JsonResponse
+     */
+    public function remove(Product $product): ?JsonResponse
     {
         try {
             $this->service->remove(Auth::id(), $product->id);

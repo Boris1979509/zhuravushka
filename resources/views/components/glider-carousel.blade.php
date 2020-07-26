@@ -1,11 +1,11 @@
 @if(isset($children))
     @foreach($children->take(1) as $childrenItem)
-        @foreach($childrenItem->products->take(8) as $productItem)
+        @foreach($childrenItem->Products->take(8) as $productItem)
             <div>
                 <div class="card">
                     <div class="card__body">
                         <a href="{{ route('product', $productItem->slug) }}" title="{{ $productItem->title }}">
-                            <img src="{{ fileExist("images/products/{$productItem->photo}.jpg") }}"
+                            <img src="{{ fileExist("ProductProductsctItem->photo}.jpg") }}"
                                  class="card__img-top"
                                  alt="{{ $productItem->title }}">
                         </a>

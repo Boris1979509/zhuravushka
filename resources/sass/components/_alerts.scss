@@ -106,6 +106,10 @@
             color: green;
             @include cabinet-status('check-ok.svg', #3DBA29);
         }
+        &.info {
+            color: #0075d2;
+            @include cabinet-status('info.svg', #0075d2);
+        }
 
         p {
             flex-basis: 80%;

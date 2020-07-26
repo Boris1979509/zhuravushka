@@ -6,7 +6,7 @@ use App\Http\Controllers\Core;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
-use App\UseCases\products\PriceService;
+use App\UseCases\Products\PriceService;
 
 class PageController extends Core
 {

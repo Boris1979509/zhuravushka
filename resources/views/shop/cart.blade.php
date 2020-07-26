@@ -9,11 +9,11 @@
         @else
             <div class="cart-wrap">
                 <div class="cart">
-                    @foreach ($order->products as $product)
+                    @foreach ($order->Products as $product)
                         <div class="cart__product">
                             <div class="cart__img">
                                 <a href="{{ route('product', $product->slug) }}" target="_blank">
-                                    <img src="{{ fileExist("images/products/{$product->photo}.jpg") }}"
+                                    <img src="{{ fileExist("ProductProductsct->photo}.jpg") }}"
                                          alt="{{ $product->title }}"
                                          class="cart__image">
                                 </a>

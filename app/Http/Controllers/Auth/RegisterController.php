@@ -80,7 +80,7 @@ class RegisterController extends Core
      * Guest users
      * @return bool
      */
-    private function phoneVerified()
+    private function phoneVerified(): bool
     {
         if (session('verified') && session('phone')) {
             return true;

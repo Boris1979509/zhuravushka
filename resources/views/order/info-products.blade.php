@@ -2,7 +2,7 @@
     <div class="order-registration__info-container">
         <div class="title">{{ __('PropertiesOrderTitle') }}</div>
         @php /** @var $product Product */use App\Models\Shop\Product;@endphp
-        @foreach($orderInfo->products as $product)
+        @foreach($orderInfo->Products as $product)
             <div class="cart">
                 <div class="cart__product-title">{{ $product->title }}</div>
                 <div class="cart__product-item-total-sum">{{ numberFormat($product->getItemTotalSum()) }}

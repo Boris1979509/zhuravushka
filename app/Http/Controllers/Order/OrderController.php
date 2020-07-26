@@ -43,7 +43,7 @@ class OrderController extends Core
      */
     public function place()
     {
-        if (!$this->getOrder()) {
+        if (!$this->service->getOrder()) {
             return redirect()->route('cart');
         }
         $this->getCart();
@@ -57,9 +57,9 @@ class OrderController extends Core
      */
     public function confirm(OrderRequest $request)
     {
-        $orderId = session('orderId');
+        $orderId = $this->service->getOrder()->id;
         if ($this->phoneVerified()) {
-            $this->service->order($request, $orderId);
+            $this->service->order($request);
             session()->put(['orderInfo' => $orderId]);
             session()->forget('orderId');
             $this->data = ['route' => route('order.info')];
@@ -67,7 +67,7 @@ class OrderController extends Core
             $this->data = [
                 'error' => view('flash.index')
                     ->with('error', __('The phone number was not confirmed'))
-                    ->render()
+                    ->render(),
             ];
         }
         return response()->json($this->data);
@@ -96,19 +96,11 @@ class OrderController extends Core
      */
     private function getCart(): void
     {
-        if ($order = $this->getOrder()) {
+        if ($order = $this->service->getOrder()) {
             $this->data['order'] = $order;
             $this->data['cartCount'] = $order->cartCount();
             $this->data['cartTotalSum'] = $order->getTotalSum();
         }
-    }
-
-    /**
-     * @return Order|null
-     */
-    private function getOrder(): ?Order
-    {
-        return $this->orderRepository->findByOrderId(session('orderId'));
     }
 
     /**

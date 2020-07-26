@@ -1,6 +1,6 @@
 <?php
 
-namespace App\UseCases\products;
+namespace App\UseCases\Products;
 
 use Illuminate\Database\Eloquent\Collection;
 

@@ -52,11 +52,25 @@ class OrderRepository extends CoreRepository
             switch ($inc) {
                 case '++':
                     $pivot->count++;
-                    $message = 'Товар ' . $product->title . ' упешно добавлен в корзину.';
+                    if ($pivot->count > $product->quantity) {
+                        $underOrder = $pivot->count - $product->quantity;
+                        $message = [
+                            'status'  => 'info',
+                            'message' => 'Доступно ' . $product->quantity . 'шт. в наличии + ' . $underOrder . ' под заказ.',
+                        ];
+                    } else {
+                        $message = [
+                            'status'  => 'success',
+                            'message' => 'Товар ' . $product->title . ' упешно добавлен в корзину.',
+                        ];
+                    }
                     break;
                 case '--':
                     $pivot->count--;
-                    $message = 'Товар ' . $product->title . ' упешно удален из корзины.';
+                    $message = [
+                        'status'  => 'success',
+                        'message' => 'Товар ' . $product->title . ' упешно удален из корзины.',
+                    ];
                     break;
                 case 'input':
                     break;
@@ -79,7 +93,7 @@ class OrderRepository extends CoreRepository
             ->select('id', 'user_data', 'user_id')
             ->where('order_status', true)
             ->where('id', $id)
-            ->with('products')
+            ->with('Products')
             ->get();
     }
 

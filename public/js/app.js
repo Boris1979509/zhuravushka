@@ -5406,7 +5406,7 @@ window.exports = GetPreload = function GetPreload(setting) {
 /***/ (function(module, exports) {
 
 window.exports = getQuantity = function getQuantity(e, input) {
-  // Quantity items products
+  // Quantity items Products
   var isNumber = function isNumber(val) {
     val = parseInt(val);
     return typeof val === "number" && !isNaN(val) && val !== 0 ? val : 1;

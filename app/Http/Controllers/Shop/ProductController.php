@@ -7,7 +7,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Models\Shop\Product;
 use Illuminate\View\View;
-use App\UseCases\products\PriceService;
+use App\UseCases\Products\PriceService;
 
 class ProductController extends Core
 {

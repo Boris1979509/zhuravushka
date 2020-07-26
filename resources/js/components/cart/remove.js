@@ -7,12 +7,11 @@ window.exports = (cartRemove = () => {
             xmlHttpRequest(item.action, {}, (data) => {
                 item.closest('.cart__product').remove();
                 refreshCart(data.cartItemTotalSum, data.cartTotalSum, data.cartCount);
-                if (data.view) {
-                    document.querySelector('.flex-center').innerHTML = data.view;
-                } else {
-                    if (data.dataMsg.status === 'success') {
-                        flash(data.dataMsg.message, data.dataMsg.status);
+                if (data.dataMsg.status === 'success') {
+                    if (data.view) {
+                        document.querySelector('.flex-center').innerHTML = data.view;
                     }
+                    flash(data.dataMsg.message, data.dataMsg.status);
                 }
             });
         })

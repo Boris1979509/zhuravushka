@@ -15,9 +15,7 @@ window.exports = (btnAdd = () => {
                     xmlHttpRequest(item.action, {inc: "++"}, (data) => {
                         refreshCart(data.cartItemTotalSum, data.cartTotalSum, data.cartCount);
                         preload.remove();
-                        if (data.dataMsg.status === 'success') {
-                            flash(data.dataMsg.message, data.dataMsg.status);
-                        }
+                        flash(data.dataMsg.message, data.dataMsg.status);
                     });
 
                 })

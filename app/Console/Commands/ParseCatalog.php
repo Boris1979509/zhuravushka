@@ -66,7 +66,7 @@ class ParseCatalog extends Command
                 foreach ($catalog as $key => $catalogItem) {
                     foreach ($categories as $categoryItem) {
                         if ($categoryItem->title === $catalogItem[self::FIELDS_MAP[1]['name']]) {
-                            DB::table('products')->insert([
+                            DB::table('Products')->insert([
                                 'title'                     => $name = $catalogItem['Товар'],
                                 'slug'                      => Str::slug($name),
                                 'code'                      => $code = trim($catalogItem['Код']),

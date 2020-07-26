@@ -132,7 +132,7 @@
                     </div>
 
                 </div>
-                @include('order.products')
+                @include('order.Products')
             </div>
         </form>
     </div>

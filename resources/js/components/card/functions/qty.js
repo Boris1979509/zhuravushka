@@ -19,6 +19,9 @@ window.exports = getQuantity = (e, input) => {
             xmlHttpRequest(form.action, {inc: "++"}, (data) => {
                 refreshCart(data.cartItemTotalSum, data.cartTotalSum, data.cartCount, cart);
                 preload.remove();
+                if (data.dataMsg.status === 'info') {
+                    underOrder(data.dataMsg.underOrder, form);
+                }
                 flash(data.dataMsg.message, data.dataMsg.status);
 
             });
@@ -33,6 +36,11 @@ window.exports = getQuantity = (e, input) => {
                 xmlHttpRequest(form.action, {inc: "--"}, (data) => {
                     refreshCart(data.cartItemTotalSum, data.cartTotalSum, data.cartCount, cart);
                     preload.remove();
+                    if (data.dataMsg.status === 'info') {
+                        underOrder(data.dataMsg.underOrder, form);
+                    } else {
+                        underOrder(null, form);
+                    }
                     flash(data.dataMsg.message, data.dataMsg.status);
 
                 });

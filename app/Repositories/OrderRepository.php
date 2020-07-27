@@ -35,55 +35,6 @@ class OrderRepository extends CoreRepository
     }
 
     /**
-     * @param $product
-     * @param $inc
-     * @param $order
-     * @return mixed
-     */
-    public function pivotCount($product, $inc, $order)
-    {
-        if (!is_null($order)) {
-            $message = '';
-            $pivot = $order->products()
-                ->where('product_id', $product->id)
-                ->first()
-                ->pivot;
-
-            switch ($inc) {
-                case '++':
-                    $pivot->count++;
-                    if ($pivot->count > $product->quantity) {
-                        $underOrder = $pivot->count - $product->quantity;
-                        $message = [
-                            'status'  => 'info',
-                            'message' => 'Доступно ' . $product->quantity . 'шт. в наличии + ' . $underOrder . ' под заказ.',
-                        ];
-                    } else {
-                        $message = [
-                            'status'  => 'success',
-                            'message' => 'Товар ' . $product->title . ' упешно добавлен в корзину.',
-                        ];
-                    }
-                    break;
-                case '--':
-                    $pivot->count--;
-                    $message = [
-                        'status'  => 'success',
-                        'message' => 'Товар ' . $product->title . ' упешно удален из корзины.',
-                    ];
-                    break;
-                case 'input':
-                    break;
-            }
-            if ($pivot->count < 1) {
-                $order->products()->detach($product);
-            }
-            $pivot->update();
-            return $message;
-        }
-    }
-
-    /**
      * @param integer $id
      * @return Collection
      */

@@ -1,4 +1,5 @@
 @php /** @var Product $product*/use App\Models\Shop\Product;@endphp
+@php /** @var CartService $cartService*/use App\UseCases\Cart\CartService;@endphp
 <section id="cart">
     <div class="container">
         <h1 class="title">{{ __('Cart') }}</h1>
@@ -9,11 +10,11 @@
         @else
             <div class="cart-wrap">
                 <div class="cart">
-                    @foreach ($order->Products as $product)
+                    @foreach ($order->products as $product)
                         <div class="cart__product">
                             <div class="cart__img">
                                 <a href="{{ route('product', $product->slug) }}" target="_blank">
-                                    <img src="{{ fileExist("ProductProductsct->photo}.jpg") }}"
+                                    <img src="{{ fileExist("images/products/{$product->photo}.jpg") }}"
                                          alt="{{ $product->title }}"
                                          class="cart__image">
                                 </a>
@@ -42,15 +43,23 @@
                                     </form>
                                 </div>
                                 <div class="qty-goods">
-                                    <p class="qty-goods__balance">1 шт. в наличии</p>
-                                    <p class="qty-goods__order">+25 шт. под заказ</p>
+                                    @if($underOrder = $cartService->underOrder($product->pivot, $product))
+                                        <p class="qty-goods__balance">{{ $underOrder['unit_pricing_base_measure'] }} в
+                                            наличии</p>
+                                        <p class="qty-goods__order">+ {{ $underOrder['under_order'] }} под заказ</p>
+                                    @endif
                                 </div>
-
                             </div>
                             <div class="cart__sum">
                                 <p class="cart__sum-price">{{  numberFormat($product->getItemTotalSum()) }} <span
                                         class="rub">₽</span></p>
-                                <p class="order">+25 шт. x 35 ₽</p>
+                                <div class="under-order">
+                                    @if(isset($underOrder))
+                                        <p class="order">+ {{ $underOrder['under_order'] }}
+                                            x {{ numberFormat($product->price) }}&nbsp;<span
+                                                class="rub">₽</span></p>
+                                    @endif
+                                </div>
                             </div>
                             <form action="{{ route('cart.remove', $product) }}" class="del-form" method="POST">
                                 @csrf
@@ -61,10 +70,10 @@
                 </div>
                 <div class="cart-total-wrap">
                     <div class="checkout-wrap">
-                        <div class="cart-sale">
-                            <p class="cart-total-wrap__title">{{ __('Sale') }}</p>
+                    <!--<div class="cart-sale">
+                            <p class="cart-total-wrap__title">{{-- __('Sale') --}}</p>
                             <p class="cart-total-wrap__total-price-sale">0 <span class="rub">₽</span></p>
-                        </div>
+                        </div>-->
                         <div class="cart-total">
                             <p class="cart-total-wrap__title bold">{{ __('Total') }}</p>
                             <p class="cart-total-wrap__total-price bold">{{ numberFormat($order->getTotalSum()) }} <span
@@ -75,9 +84,8 @@
                                href="{{ route('order.place') }}">{{ __('OrderLinkTitle') }}</a>
                         </div>
                     </div>
-                    <div class="primary-info">
-                        <p>В Вашей корзине есть товар с пометкой "Под заказ", в связи с этим срок доставки может
-                            измениться.</p>
+                    <div class="primary-info" @if(!$cartService->isUnderOrder) hidden @endif>
+                        <p>{{ __('UnderOrderInfo') }}</p>
                     </div>
                 </div>
             </div>

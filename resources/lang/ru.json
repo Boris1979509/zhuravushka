@@ -163,5 +163,6 @@
     "NewPrice": "Новая цена",
     "OldPrice": "Старая цена",
     "Product added to your favorite.": "добавлено в избранное.",
-    "Product deleted to your favorite.": "удалено из избранного."
+    "Product deleted to your favorite.": "удалено из избранного.",
+    "UnderOrderInfo": "В Вашей корзине есть товар с пометкой \"Под заказ\", в связи с этим срок доставки может измениться."
 }

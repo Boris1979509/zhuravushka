@@ -31,7 +31,7 @@ class CartController extends Core
      */
     public function index(CartService $service)
     {
-        return view('shop.userCart', array_merge($this->data, $service->getCart()));
+        return view('shop.userCart', array_merge($this->data, $service->getCart()), ['cartService' => $service]);
     }
 
     /**

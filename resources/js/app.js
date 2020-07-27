@@ -39,6 +39,7 @@ require('./components/order-register/orderRegister');
 import btnAdd from './components/card/btnAdd';
 import btnQty from './components/card/btnQty';
 import addCardTitleHeight from './components/card/card-title';
+import underOrder from './components/cart/underOrder';
 
 require('./events/_load');
 

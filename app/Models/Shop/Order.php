@@ -38,7 +38,7 @@ class Order extends Model
     public function products(): belongsToMany
     {
         return $this->belongsToMany(Product::class)
-            ->withPivot('count')->withTimestamps();
+            ->withPivot(['count', 'under_order'])->withTimestamps();
     }
 
     /**
@@ -52,6 +52,18 @@ class Order extends Model
             $total += $item->getItemTotalSum();
         }
         return $total;
+    }
+
+    /**
+     * @param $product
+     * @return mixed
+     */
+    public function pivot($product)
+    {
+        return $this->products()
+            ->where('product_id', $product->id)
+            ->first()
+            ->pivot;
     }
 
     /**

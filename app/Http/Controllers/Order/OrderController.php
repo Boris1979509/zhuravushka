@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Core;
 use App\Http\Requests\Order\OrderRequest;
 use App\Models\Shop\Order;
+use App\UseCases\Cart\CartService;
 use App\UseCases\Order\OrderService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
@@ -39,15 +40,12 @@ class OrderController extends Core
 
     /**
      * Order registration
+     * @param CartService $cartService
      * @return Factory|View
      */
-    public function place()
+    public function place(CartService $cartService)
     {
-        if (!$this->service->getOrder()) {
-            return redirect()->route('cart');
-        }
-        $this->getCart();
-        return view('order.place', $this->data);
+        return view('order.place', $this->data, $cartService->getCart());
     }
 
     /**
@@ -59,7 +57,7 @@ class OrderController extends Core
     {
         $orderId = $this->service->getOrder()->id;
         if ($this->phoneVerified()) {
-            $this->service->order($request);
+            $this->service->order($request, $orderId);
             session()->put(['orderInfo' => $orderId]);
             session()->forget('orderId');
             $this->data = ['route' => route('order.info')];
@@ -74,10 +72,10 @@ class OrderController extends Core
     }
 
     /**
-     * Information by order
+     * @param CartService $cartService
      * @return Factory|View
      */
-    public function info()
+    public function info(CartService $cartService)
     {
         $id = session('orderInfo');
         $this->data['orderInfo'] = $this->orderRepository
@@ -86,21 +84,7 @@ class OrderController extends Core
                 $item->number = $this->getOrderNumber($item->id);
                 $item->user_data = $this->toArray($item->user_data);
             })->first();
-
-        $this->getCart();
-        return view('order.info', $this->data);
-    }
-
-    /**
-     * Get Cart
-     */
-    private function getCart(): void
-    {
-        if ($order = $this->service->getOrder()) {
-            $this->data['order'] = $order;
-            $this->data['cartCount'] = $order->cartCount();
-            $this->data['cartTotalSum'] = $order->getTotalSum();
-        }
+        return view('order.info', $this->data, $cartService->getCart());
     }
 
     /**

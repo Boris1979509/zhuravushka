@@ -1,1 +1,1 @@
-window.exports = window.addEventListener('load', addCardTitleHeight);
+window.exports = window.addEventListener('load', addCardTitleHeight, loadUnderOrder);

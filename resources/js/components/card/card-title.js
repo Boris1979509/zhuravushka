@@ -1,6 +1,5 @@
 window.exports = addCardTitleHeight = () => {
     const title = document.querySelectorAll('.card__title');
-    console.log(title)
     if (!title) return;
     /**
      *

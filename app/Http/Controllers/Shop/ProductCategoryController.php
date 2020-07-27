@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Core;
 use App\Http\Requests\ProductsFilterRequest;
+use App\UseCases\Cart\CartService;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\View\View;
 
@@ -27,20 +29,21 @@ class ProductCategoryController extends Core
 
     /**
      * Show all catalog
+     * @param CartService $cartService
      * @return View
      */
-    public function index(): View
+    public function index(CartService $cartService): View
     {
-        $this->getCart();
-        return view('shop.catalog', $this->data);
+        return view('shop.catalog', $this->data, $cartService->getCart());
     }
 
     /**
      * @param ProductsFilterRequest $request
      * @param $slug
-     * @return View|RedirectResponse
+     * @param CartService $cartService
+     * @return Factory|RedirectResponse|View
      */
-    public function category(ProductsFilterRequest $request, $slug)
+    public function category(ProductsFilterRequest $request, $slug, CartService $cartService)
     {
         $category = $this->productCategoryRepository->getBySlug($slug);
         $categoryIds = $this->getAllCategoryIds($category);
@@ -69,14 +72,8 @@ class ProductCategoryController extends Core
         if (!$this->data['products']->total()) {
             return redirect()->route('category', $slug)->with('info', __('NotFound'));
         }
-        $this->getCart();
-        return view('shop.category', $this->data);
-    }
 
-    private function getCart(): void
-    {
-        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
-        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
+        return view('shop.category', $this->data, $cartService->getCart());
     }
 
     /**
@@ -167,10 +164,10 @@ class ProductCategoryController extends Core
      * @param $request
      * @param $id
      */
-    private function sortByBrands($request, $id)
+    private function sortByBrands($request, $id): void
     {
         if ($request->has('brand')) {
-            dump($request->input('brand'));
+            $request->input('brand');
         }
     }
 }

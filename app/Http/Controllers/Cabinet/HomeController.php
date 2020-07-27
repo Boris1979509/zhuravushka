@@ -4,8 +4,11 @@ namespace App\Http\Controllers\Cabinet;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Core;
+use App\UseCases\Cart\CartService;
 use Illuminate\Contracts\Support\Renderable;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\View\View;
 
 class HomeController extends Core
 {
@@ -23,21 +26,11 @@ class HomeController extends Core
     }
 
     /**
-     * Show the application dashboard.
-     *
-     * @return Renderable
+     * @param CartService $cartService
+     * @return Factory|View
      */
-    public function index(): Renderable
+    public function index(CartService $cartService)
     {
-        $this->getCart();
-        return view('cabinet.home', $this->data);
-    }
-    /**
-     * Cart
-     */
-    private function getCart(): void
-    {
-        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
-        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
+        return view('cabinet.home', $this->data, $cartService->getCart());
     }
 }

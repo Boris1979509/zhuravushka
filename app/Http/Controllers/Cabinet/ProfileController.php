@@ -6,8 +6,12 @@ use App\Http\Controllers\Controller;
 use App\Http\Controllers\Core;
 use App\Http\Requests\Cabinet\ProfileUpdateRequest;
 //use App\UseCases\Profile\ProfileService;
+use App\UseCases\Cart\CartService;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class ProfileController extends Core
 {
@@ -40,14 +44,21 @@ class ProfileController extends Core
         return view('cabinet.profile.home', $this->data);
     }
 
-    public function edit()
+    /**
+     * @param CartService $cartService
+     * @return Factory|View
+     */
+    public function edit(CartService $cartService)
     {
         //$user = Auth::user();
-        $this->getCart();
-        return view('cabinet.profile.edit', $this->data);
+        return view('cabinet.profile.edit', $this->data, $cartService->getCart());
     }
 
-    public function update(ProfileUpdateRequest $request)
+    /**
+     * @param ProfileUpdateRequest $request
+     * @return RedirectResponse
+     */
+    public function update(ProfileUpdateRequest $request): RedirectResponse
     {
         try {
             $this->service->edit(Auth::id(), $request);
@@ -55,15 +66,5 @@ class ProfileController extends Core
             return redirect()->back()->with('error', $e->getMessage());
         }
         return redirect()->route('cabinet.profile.home');
-    }
-
-    /**
-     * Cart
-     * @return void
-     */
-    private function getCart(): void
-    {
-        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
-        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
     }
 }

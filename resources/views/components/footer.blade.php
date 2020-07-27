@@ -25,7 +25,8 @@
                             @php /** @var ProductCategory $categoryItem */use App\Models\Shop\ProductCategory;@endphp
                             @foreach($productCategories->take(10)  as $categoryItem)
                                 <li class="footer__nav-item">
-                                    <a class="link footer__link" href="" title="">{{ $categoryItem->title }}</a>
+                                    <a class="link footer__link" href="{{ route('category', $categoryItem->slug) }}"
+                                       title="{{ $categoryItem->title }}">{{ $categoryItem->title }}</a>
                                 </li>
                             @endforeach
                         </ul>

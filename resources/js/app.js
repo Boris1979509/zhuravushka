@@ -10,6 +10,7 @@ import xmlHttpRequest from './xmlHttpRequest/xmlHttpRequest';
 import refreshCart from './components/cart/refreshCart';
 import getPreload from './components/card/functions/getPreload';
 import getQuantity from './components/card/functions/qty';
+import loadUnderOrder from './components/cart/loadUnderOrder';
 import cartRemove from './components/cart/remove';
 import flash from './components/alerts/flash';
 import validator from './components/validate-errors/validator';

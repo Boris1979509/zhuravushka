@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Blog;
 
 use App\Http\Controllers\Core;
+use App\UseCases\Cart\CartService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
@@ -23,21 +24,12 @@ class PostController extends Core
 
     /**
      * @param string $slug
+     * @param CartService $cartService
      * @return Factory|View
      */
-    public function index(string $slug)
+    public function index(string $slug, CartService $cartService)
     {
-        $this->getCart();
         $this->data['post'] = $this->blogPostRepository->getPostBySlug($slug);
-        return view('blog.post', $this->data);
-    }
-
-    /**
-     * load cart
-     */
-    private function getCart(): void
-    {
-        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
-        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
+        return view('blog.post', $this->data, $cartService->getCart());
     }
 }

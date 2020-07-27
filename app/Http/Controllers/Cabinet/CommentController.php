@@ -5,6 +5,7 @@ namespace App\Http\Controllers\Cabinet;
 
 
 use App\Http\Controllers\Core;
+use App\UseCases\Cart\CartService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\View\View;
 
@@ -24,21 +25,11 @@ class CommentController extends Core
     }
 
     /**
+     * @param CartService $cartService
      * @return Factory|View
      */
-    public function index()
+    public function index(CartService $cartService)
     {
-        $this->getCart();
-        return view('cabinet.comment.index', $this->data);
-    }
-
-    /**
-     * Cart
-     * @return void
-     */
-    private function getCart(): void
-    {
-        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
-        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
+        return view('cabinet.comment.index', $this->data, $cartService->getCart());
     }
 }

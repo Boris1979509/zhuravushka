@@ -2,12 +2,15 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\UseCases\Cart\CartService;
 use App\UseCases\Products\FavoriteService;
 use App\Http\Controllers\Core;
 use App\Models\Shop\Product;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\View\View;
 
 class FavoriteController extends Core
 {
@@ -27,12 +30,15 @@ class FavoriteController extends Core
         $this->service = $service;
     }
 
-    public function index()
+    /**
+     * @param CartService $cartService
+     * @return Factory|View
+     */
+    public function index(CartService $cartService)
     {
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
-        $this->getCart();
-        return view('shop.favorite', $this->data)->with('info', __('IsEmptyFavoriteMessage'));
+        return view('shop.favorite', $this->data, $cartService->getCart())->with('info', __('IsEmptyFavoriteMessage'));
     }
 
     /**
@@ -73,14 +79,5 @@ class FavoriteController extends Core
                 'message' => $e->getMessage()
             ]);
         }
-    }
-
-    /**
-     * Cart
-     */
-    private function getCart(): void
-    {
-        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
-        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
     }
 }

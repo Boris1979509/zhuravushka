@@ -53,8 +53,9 @@ class CartService
      * @param Product $product
      * @param Request $request
      * @return array
+     * @throws Throwable
      */
-    public function add(Product $product, Request $request)
+    public function add(Product $product, Request $request): array
     {
         if ($this->order->products->contains($product)) {
             $inc = $request->input('inc'); // increments ++ --
@@ -66,7 +67,7 @@ class CartService
 
         return [
                 'cartItemTotalSum' => $this->numberFormat($this->order->products()->find($product)->getItemTotalSum()),
-                'dataMsg' => $result,
+                'dataMsg'          => $result,
             ] + $this->getCart();
     }
 
@@ -75,6 +76,7 @@ class CartService
      * @param Product $product
      * @param $inc
      * @return array|string
+     * @throws Throwable
      */
     public function pivotCount($pivot, $product, $inc)
     {
@@ -85,17 +87,17 @@ class CartService
                     $pivot->count++;
                     if ($underOrder = $this->underOrder($pivot, $product)) {
                         $message = [
-                            'status' => 'info',
-                            'message' => 'Доступно '
-                                . $underOrder['unit_pricing_base_measure']
-                                . ' в наличии + ' . $underOrder['under_order']
+                            'status'          => 'info',
+                            'message'         => 'Доступно '
+                                . $underOrder['string_quantity']
+                                . ' в наличии + ' . $underOrder['string_under_order']
                                 . ' под заказ.',
-                            'underOrder' => $underOrder
+                            'underOrder'      => view('shop.underOrder.underOrder', compact('underOrder'))->render(),
+                            'underOrderTotal' => view('shop.underOrder.underOrderTotal', compact('underOrder'))->render(),
                         ];
-                        $pivot->update(['under_order' => intval($underOrder['under_order'])]);
                     } else {
                         $message = [
-                            'status' => 'success',
+                            'status'  => 'success',
                             'message' => 'Товар ' . $product->title . ' упешно добавлен в корзину.',
                         ];
                     }
@@ -104,17 +106,17 @@ class CartService
                     $pivot->count--;
                     if ($underOrder = $this->underOrder($pivot, $product)) {
                         $message = [
-                            'status' => 'info',
-                            'message' => 'Доступно '
-                                . $underOrder['unit_pricing_base_measure']
-                                . ' в наличии + ' . $underOrder['under_order']
+                            'status'          => 'info',
+                            'message'         => 'Доступно '
+                                . $underOrder['string_quantity']
+                                . ' в наличии + ' . $underOrder['string_under_order']
                                 . ' под заказ.',
-                            'underOrder' => $underOrder
+                            'underOrder'      => view('shop.underOrder.underOrder', compact('underOrder'))->render(),
+                            'underOrderTotal' => view('shop.underOrder.underOrderTotal', compact('underOrder'))->render(),
                         ];
-                        $pivot->update(['under_order' => intval($underOrder['under_order'])]);
                     } else {
                         $message = [
-                            'status' => 'success',
+                            'status'  => 'success',
                             'message' => 'Товар ' . $product->title . ' упешно удален из корзины.',
                         ];
                     }
@@ -144,17 +146,16 @@ class CartService
             session()->forget('orderId');
             return [
                 'dataMsg' => [
-                    'status' => 'success',
+                    'status'  => 'success',
                     'message' => __('CartEmptyMessage'),
                 ],
-                'view' => view('shop.cart', [])->render(),
+                'view'    => view('shop.cart', [])->render(),
             ];
         }
         return [
                 'dataMsg' => [
-                    'status' => 'success',
+                    'status'  => 'success',
                     'message' => 'Товар ' . $product->title . ' упешно удален из корзины.',
-                    'underOrder' => $this->underOrderCount(),
                 ],
             ] + $this->getCart();
     }
@@ -168,8 +169,8 @@ class CartService
             return [];
         }
         return [
-            'order' => $this->order,
-            'cartCount' => $this->order->cartCount(),
+            'order'        => $this->order,
+            'cartCount'    => $this->order->cartCount(),
             'cartTotalSum' => $this->numberFormat($this->getTotalSum()),
         ];
     }
@@ -194,34 +195,22 @@ class CartService
     }
 
     /**
-     * Under Order
      * @param $pivot
-     * @param Product $product
-     * @return array|null
+     * @param $product
+     * @return array|bool
+     * @throws Throwable
      */
-    public function underOrder($pivot, $product): ?array
+    public function underOrder($pivot, $product)
     {
         if ($pivot->count > $product->quantity) {
-            $this->isUnderOrder = true;
-            $underOrder = $pivot->count - $product->quantity;
+            $count = $pivot->count - $product->quantity;
             return [
-                'unit_pricing_base_measure' => $product->quantity . $product->unit_pricing_base_measure . '.',
-                'under_order' => $underOrder . $product->unit_pricing_base_measure . '.',
-                'price' => $product->price
+                'price'              => $product->price,
+                'string_quantity'    => $product->quantity . $product->unit_pricing_base_measure . '.',
+                'string_under_order' => $count . $product->unit_pricing_base_measure . '.',
             ];
         }
-        return null;
-    }
-
-    /**
-     * if empty under order
-     * @return int
-     */
-    public function underOrderCount()
-    {
-        foreach ($this->order->products as $item) {
-            return $item->pivot->under_order;
-        }
+        return false;
     }
 
 }

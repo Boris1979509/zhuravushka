@@ -19,11 +19,12 @@ window.exports = getQuantity = (e, input) => {
             xmlHttpRequest(form.action, {inc: "++"}, (data) => {
                 refreshCart(data.cartItemTotalSum, data.cartTotalSum, data.cartCount, cart);
                 preload.remove();
-                if (data.dataMsg.status === 'info') {
-                    underOrder(data.dataMsg.underOrder, form);
-                }
                 flash(data.dataMsg.message, data.dataMsg.status);
-
+                if (data.dataMsg.status === 'info') {
+                    underOrder(data.dataMsg, form);
+                } else {
+                    underOrder(null, form);
+                }
             });
         } else if (e.classList.contains("product-qty__minus")) {
 
@@ -36,13 +37,12 @@ window.exports = getQuantity = (e, input) => {
                 xmlHttpRequest(form.action, {inc: "--"}, (data) => {
                     refreshCart(data.cartItemTotalSum, data.cartTotalSum, data.cartCount, cart);
                     preload.remove();
+                    flash(data.dataMsg.message, data.dataMsg.status);
                     if (data.dataMsg.status === 'info') {
-                        underOrder(data.dataMsg.underOrder, form);
+                        underOrder(data.dataMsg, form);
                     } else {
                         underOrder(null, form);
                     }
-                    flash(data.dataMsg.message, data.dataMsg.status);
-
                 });
             } else {
                 if (!btn)

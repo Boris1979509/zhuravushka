@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Core;
+use App\UseCases\Cart\CartService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
 use App\Models\Shop\Product;
@@ -32,11 +33,11 @@ class ProductController extends Core
 
     /**
      * @param $slug
+     * @param CartService $cartService
      * @return Factory|View
      */
-    public function index($slug)
+    public function index($slug, CartService $cartService)
     {
-        $this->getCart();
         /**
          * @var Product $product
          */
@@ -45,25 +46,16 @@ class ProductController extends Core
         }
         $this->data['product'] = $product;
         $this->data['product']['old_price'] = $this->service->subtractPercent($product->price);
-        return view('shop.product', $this->data);
+        return view('shop.product', $this->data, $cartService->getCart());
     }
 
     /**
      * Compare
+     * @param CartService $cartService
      * @return Factory|View
      */
-    public function compare()
+    public function compare(CartService $cartService)
     {
-        $this->getCart();
-        return view('shop.compare', $this->data)->with('info', __('IsEmptyCompareMessage'));
-    }
-
-    /**
-     * Cart
-     */
-    private function getCart(): void
-    {
-        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
-        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
+        return view('shop.compare', $this->data, $cartService->getCart())->with('info', __('IsEmptyCompareMessage'));
     }
 }

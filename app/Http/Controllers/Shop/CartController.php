@@ -26,18 +26,19 @@ class CartController extends Core
     }
 
     /**
-     * @param CartService $service
+     * @param CartService $cartService
      * @return Factory|View
      */
-    public function index(CartService $service)
+    public function index(CartService $cartService)
     {
-        return view('shop.userCart', array_merge($this->data, $service->getCart()), ['cartService' => $service]);
+        return view('shop.userCart', array_merge($this->data, $cartService->getCart()), compact('cartService'));
     }
 
     /**
      * @param Product $product
      * @param Request $request
      * @return JsonResponse
+     * @throws Throwable
      */
     public function add(Product $product, Request $request): JsonResponse
     {

@@ -8,12 +8,14 @@ use App\Providers\RouteServiceProvider;
 use App\Models\User;
 use App\UseCases\Auth\PhoneService;
 use App\UseCases\Auth\RegisterService;
+use App\UseCases\Cart\CartService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
+use Throwable;
 
 class RegisterController extends Core
 {
@@ -45,7 +47,7 @@ class RegisterController extends Core
     /**
      * @param RegisterRequest $request
      * @return JsonResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function register(RegisterRequest $request): JsonResponse
     {
@@ -62,18 +64,12 @@ class RegisterController extends Core
     }
 
     /**
-     * @return Factory|View
+     * @param CartService $cartService
+     * @return View
      */
-    public function showRegistrationForm(): View
+    public function showRegistrationForm(CartService $cartService): View
     {
-        $this->getCart();
-        return view('auth.register', $this->data);
-    }
-
-    private function getCart(): void
-    {
-        $this->data['order'] = $this->orderRepository->findByOrderId(session('orderId'));
-        $this->data['cartCount'] = ($this->data['order']) ? $this->data['order']->cartCount() : null;
+        return view('auth.register', $this->data, $cartService->getCart());
     }
 
     /**

@@ -44,9 +44,7 @@
                                 </div>
                                 <div class="qty-goods">
                                     @if($underOrder = $cartService->underOrder($product->pivot, $product))
-                                        <p class="qty-goods__balance">{{ $underOrder['unit_pricing_base_measure'] }} в
-                                            наличии</p>
-                                        <p class="qty-goods__order">+ {{ $underOrder['under_order'] }} под заказ</p>
+                                        @include('shop.underOrder.underOrder')
                                     @endif
                                 </div>
                             </div>
@@ -54,10 +52,8 @@
                                 <p class="cart__sum-price">{{  numberFormat($product->getItemTotalSum()) }} <span
                                         class="rub">₽</span></p>
                                 <div class="under-order">
-                                    @if(isset($underOrder))
-                                        <p class="order">+ {{ $underOrder['under_order'] }}
-                                            x {{ numberFormat($product->price) }}&nbsp;<span
-                                                class="rub">₽</span></p>
+                                    @if($underOrder = $cartService->underOrder($product->pivot, $product))
+                                        @include('shop.underOrder.underOrderTotal')
                                     @endif
                                 </div>
                             </div>
@@ -84,7 +80,7 @@
                                href="{{ route('order.place') }}">{{ __('OrderLinkTitle') }}</a>
                         </div>
                     </div>
-                    <div class="primary-info" @if(!$cartService->isUnderOrder) hidden @endif>
+                    <div class="primary-info" hidden>
                         <p>{{ __('UnderOrderInfo') }}</p>
                     </div>
                 </div>

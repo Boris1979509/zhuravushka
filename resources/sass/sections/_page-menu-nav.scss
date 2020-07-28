@@ -1,8 +1,9 @@
 .page-nav-menu {
     display: flex;
     align-items: flex-start;
-    height: 100%;
     margin: 30px 0;
+    row-gap: 20px;
+    flex-wrap: wrap;
 
     &__item {
         background: $bg-page-nav-button;
@@ -12,6 +13,7 @@
 
         .link {
             color: $color-page-nav-button;
+            box-sizing: border-box;
             line-height: 2.9;
             font-size: 1rem;
             padding: 12px 26px;

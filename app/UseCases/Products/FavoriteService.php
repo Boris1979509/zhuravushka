@@ -100,7 +100,7 @@ class FavoriteService
     /**
      * @return Collection|null
      */
-    public function getFavoriteSession()
+    public function getFavoriteSession(): ?Collection
     {
         if (!is_null($favorites = session('favorites'))) {
             return $this->productRepository->whereInProducts($favorites);
@@ -111,7 +111,7 @@ class FavoriteService
     /**
      * @return BelongsToMany|null
      */
-    public function getUserFavoriteList()
+    public function getUserFavoriteList(): ?BelongsToMany
     {
         if (Auth::check()) {
             return $this->userRepository->find(Auth::id())->favorites;

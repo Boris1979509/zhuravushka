@@ -116,5 +116,4 @@ class OrderController extends Core
     {
         return json_decode(preg_replace("/[\r\n]+/", ' ', $string), false);
     }
-
 }

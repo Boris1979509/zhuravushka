@@ -41,7 +41,7 @@ class FavoriteController extends Core
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
 
-        $this->data['products'] = $this->service->getUserFavoriteList() ?? $this->service->getFavoriteSession();
+        $this->data['products'] = $this->service->getUserFavoriteList() ?: $this->service->getFavoriteSession();
         return view('shop.favorite', $this->data, $cartService->getCart())->with('info', __('IsEmptyFavoriteMessage'));
     }
 
@@ -54,13 +54,13 @@ class FavoriteController extends Core
         try {
             $this->service->add(Auth::id(), $product->id);
             return response()->json([
-                'status' => 'success',
-                'message' => $product->title . ' ' . __('Product added to your favorite.')
+                'status'  => 'success',
+                'message' => $product->title . ' ' . __('Product added to your favorite.'),
             ]);
         } catch (\DomainException $e) {
             return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
+                'status'  => 'error',
+                'message' => $e->getMessage(),
             ]);
         }
     }
@@ -74,13 +74,13 @@ class FavoriteController extends Core
         try {
             $this->service->remove(Auth::id(), $product->id);
             return response()->json([
-                'status' => 'success',
-                'message' => $product->title . ' ' . __('Product deleted to your favorite.')
+                'status'  => 'success',
+                'message' => $product->title . ' ' . __('Product deleted to your favorite.'),
             ]);
         } catch (\DomainException $e) {
             return response()->json([
-                'status' => 'error',
-                'message' => $e->getMessage()
+                'status'  => 'error',
+                'message' => $e->getMessage(),
             ]);
         }
     }

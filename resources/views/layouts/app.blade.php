@@ -7,6 +7,7 @@
     <title>@yield('title')</title>
     <meta name="description" content="@yield('description')"/>
     <meta name="keywords" content=""/>
+    <meta name="csrf-token" content="{{ csrf_token() }}" />
     <!-- Style -->
     <link rel="stylesheet" href="{{ mix('css/app.css', 'build') }}">
 </head>

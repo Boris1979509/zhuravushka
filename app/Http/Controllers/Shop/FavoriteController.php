@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers\Shop;
 
+use App\Repositories\ProductRepository;
+use App\Repositories\UserRepository;
 use App\UseCases\Cart\CartService;
 use App\UseCases\Products\FavoriteService;
 use App\Http\Controllers\Core;
@@ -38,6 +40,8 @@ class FavoriteController extends Core
     {
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
+
+        $this->data['products'] = app(UserRepository::class)->find(Auth::id())->favorites ?? $this->getFavSession();
         return view('shop.favorite', $this->data, $cartService->getCart())->with('info', __('IsEmptyFavoriteMessage'));
     }
 
@@ -78,6 +82,13 @@ class FavoriteController extends Core
                 'status' => 'error',
                 'message' => $e->getMessage()
             ]);
+        }
+    }
+
+    private function getFavSession()
+    {
+        if (!is_null($favorites = session('favorites'))) {
+            return app(ProductRepository::class)->whereInProducts($favorites);
         }
     }
 }

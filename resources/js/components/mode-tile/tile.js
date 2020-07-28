@@ -6,7 +6,7 @@ module.exports = (() => {
         e.currentTarget.classList.add('active');
     }
     const cartContainer = document.querySelector('.card-container');
-    const icons = document.querySelectorAll('.catalog__sorting-icons > div');
+    const icons = document.querySelectorAll('.sorting-icons > div');
     if (!icons) return;
     icons.forEach((item) => {
         item.addEventListener('click', (e) => {

@@ -1,3 +1,79 @@
-#favorite{
+#favorite {
     margin-bottom: 40px;
+
+    .favorite {
+        &__title {
+            display: flex;
+            align-items: baseline;
+            justify-content: space-between;
+        }
+
+        .card-container {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+
+            .card {
+                margin-bottom: -1px;
+            }
+
+            &.simple-card-mode {
+                grid-template-columns: repeat(auto-fill, minmax(100%, 1fr));
+
+                .card {
+                    display: flex;
+                    justify-content: space-between;
+
+                    &__icons {
+                        order: 1;
+                    }
+
+                    &__footer {
+                        border: 0 !important;
+                        align-self: flex-end;
+                        flex-basis: 200px;
+                        min-width: 200px;
+                        margin-left: auto;
+                    }
+
+                    &__title {
+                        height: auto !important;
+                        text-align: left;
+                        padding-bottom: 0;
+                        align-self: center;
+                        flex-basis: 350px;
+                    }
+
+                    &__link {
+                        position: inherit;
+                        background: none;
+
+                        &:hover {
+                            padding-bottom: 0;
+                            box-shadow: none !important;
+                        }
+                    }
+                }
+            }
+        }
+
+        .sorting-icons {
+            @extend %templateFlex;
+            display: flex;
+
+            .mode-tile {
+                margin-right: 20px;
+            }
+
+            .mode-simple, .mode-tile {
+                cursor: pointer;
+                transition: all 6s;
+
+                &:hover, &.active {
+                    path {
+                        fill: #FC8507;
+                    }
+                }
+            }
+        }
+    }
 }

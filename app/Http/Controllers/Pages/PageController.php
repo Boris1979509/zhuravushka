@@ -3,8 +3,10 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Core;
+use App\Repositories\UserRepository;
 use App\UseCases\Cart\CartService;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\View\View;
 use App\UseCases\Products\PriceService;

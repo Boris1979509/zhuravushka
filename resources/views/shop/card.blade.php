@@ -4,7 +4,7 @@
         @foreach($products as $productItem)
             <div class="card">
                 <div>
-                    @include('shop.cardIcons', ['product' => $productItem])
+                    @include('shop.cardIcons')
                     <div class="card__body">
                         <a href="{{ route('product', $productItem->slug) }}" title="{{ $productItem->title }}">
                             <img src="{{ fileExist("images/products/{$productItem->photo}.jpg") }}"

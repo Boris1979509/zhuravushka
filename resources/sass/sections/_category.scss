@@ -68,7 +68,7 @@
             }
         }
 
-        &__sorting-icons {
+        .sorting-icons {
             @extend %templateFlex;
             align-self: flex-end;
 

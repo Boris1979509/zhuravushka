@@ -1,0 +1,19 @@
+%customFontsStyle {
+    font-size: 1rem;
+    line-height: 1.5;
+    letter-spacing: $letter-spacing-4;
+    color: $color-providers;
+}
+
+.return-money {
+    @extend %templateFontStyle;
+    background: $bg-requisites;
+    box-shadow: 0 2px 12px rgba(0, 0, 0, 0.08);
+    border-radius: 4px;
+    margin-bottom: 60px;
+    padding: 30px;
+
+    h2 {
+        margin-top: 30px;
+    }
+}

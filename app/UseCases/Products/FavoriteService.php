@@ -74,9 +74,9 @@ class FavoriteService
 
     /**
      * @param int $userId
-     * @return User
+     * @return User|null
      */
-    private function getUser($userId): User
+    private function getUser($userId): ?User
     {
         return $this->userRepository->find($userId);
     }

@@ -81,6 +81,16 @@ class ProductRepository extends CoreRepository
     }
 
     /**
+     * @param $array
+     * @return Collection
+     */
+    public function whereInProducts($array): Collection
+    {
+        return $this->startConditions()
+            ->whereIn('id', $array)->get();
+    }
+
+    /**
      * @param $sort
      * @param $id
      * @param null $perPage

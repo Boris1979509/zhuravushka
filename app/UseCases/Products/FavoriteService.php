@@ -6,7 +6,10 @@ use App\Models\Shop\Product;
 use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Repositories\ProductRepository;
+use Illuminate\Database\Eloquent\Collection;
+use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Http\JsonResponse;
+use Illuminate\Support\Facades\Auth;
 
 class FavoriteService
 {
@@ -69,7 +72,11 @@ class FavoriteService
         } else {
             $favorites[] = $product->id;
         }
-        session(compact('favorites'));
+        if (!empty($favorites)) {
+            session(compact('favorites'));
+        } else {
+            session()->forget('favorites');
+        }
     }
 
     /**
@@ -88,5 +95,27 @@ class FavoriteService
     private function getProduct($productId): Product
     {
         return $this->productRepository->find($productId);
+    }
+
+    /**
+     * @return Collection|null
+     */
+    public function getFavoriteSession()
+    {
+        if (!is_null($favorites = session('favorites'))) {
+            return $this->productRepository->whereInProducts($favorites);
+        }
+        return null;
+    }
+
+    /**
+     * @return BelongsToMany|null
+     */
+    public function getUserFavoriteList()
+    {
+        if (Auth::check()) {
+            return $this->userRepository->find(Auth::id())->favorites;
+        }
+        return null;
     }
 }

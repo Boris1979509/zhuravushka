@@ -57,11 +57,20 @@ const cardIcons = {
         cardIcons.init();
 
     },
+    refresh: () => {
+        const url = location.href;
+        if (url.indexOf('favorites') !== -1) {
+            setTimeout(() => {
+                location.reload();
+            }, 3000);
+        }
+    },
     send: (data) => {
-        const url = `${data.controller}/${data.id}/${data.action}`;
+        const url = `${location.origin}/${data.controller}/${data.id}/${data.action}`;
         xmlHttpRequest(url, {}, (data) => {
             if (data.status) {
                 flash(data.message, data.status);
+                cardIcons.refresh();
             }
         });
     }

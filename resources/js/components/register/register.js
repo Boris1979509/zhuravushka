@@ -11,16 +11,10 @@ module.exports = ((register) => {
 
     register.addEventListener('submit', function (e) {
         e.preventDefault();
-        const data = {
-            name: register.name.value,
-            last_name: register.last_name.value,
-            middle_name: register.middle_name.value,
-            email: register.email.value,
-            password: register.password.value,
-            password_confirmation: register.password_confirmation.value,
-            delivery_place: register.address.value,
-            _token: register._token.value
-        }
+        const data = {};
+        Array.from(register.elements, item => {
+            data[item.name] = item.value;
+        });
         xmlHttpRequest(register.action, data, (data) => {
             if (validator(register, data)) {
                 message.innerHTML = data.success || data.error;

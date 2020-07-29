@@ -16,8 +16,6 @@ class CartService
      */
     protected $order;
 
-    public $isUnderOrder = false;
-
     /**
      * CartService constructor.
      * @param bool $orderCreated

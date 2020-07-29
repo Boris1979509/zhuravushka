@@ -14,6 +14,7 @@ import loadUnderOrder from './components/cart/loadUnderOrder';
 import cartRemove from './components/cart/remove';
 import flash from './components/alerts/flash';
 import validator from './components/validate-errors/validator';
+import countIcons from './components/card/countIcons';
 //import close from './components/alerts/close';
 
 require('./components/sticky-header/sticky');

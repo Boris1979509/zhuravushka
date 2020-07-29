@@ -56,7 +56,7 @@ class User extends Authenticatable
      */
     protected $casts = [
         //'email_verified_at'       => 'datetime',
-        'phone_verified'            => 'boolean',
+        'phone_verified' => 'boolean',
         'phone_verify_token_expire' => 'datetime',
     ];
 
@@ -83,9 +83,28 @@ class User extends Authenticatable
     /**
      * @param int $id
      */
+    public function addToCompares(int $id): void
+    {
+        if ($this->hasInCompares($id)) {
+            throw new \DomainException('This product is already added to compares.');
+        }
+        $this->compares()->attach($id);
+    }
+
+    /**
+     * @param int $id
+     */
     public function removeFromFavorites($id): void
     {
         $this->favorites()->detach($id);
+    }
+
+    /**
+     * @param int $id
+     */
+    public function removeFromCompares($id): void
+    {
+        $this->compares()->detach($id);
     }
 
     /**
@@ -98,11 +117,28 @@ class User extends Authenticatable
     }
 
     /**
+     * @param int $id
+     * @return bool
+     */
+    public function hasInCompares(int $id): bool
+    {
+        return $this->compares()->where('id', $id)->exists();
+    }
+
+    /**
      * @return BelongsToMany
      */
     public function favorites(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'product_favorites', 'user_id', 'product_id');
+    }
+
+    /**
+     * @return BelongsToMany
+     */
+    public function compares(): BelongsToMany
+    {
+        return $this->belongsToMany(Product::class, 'product_compares', 'user_id', 'product_id');
     }
 
 }

@@ -42,6 +42,7 @@ class PageController extends Core
      */
     public function index(CartService $cartService)
     {
+        //dd(auth()->user()->favorites->count() ?: session('favorites'));
         $page = $this->pageRepository->getFirstPage(self::HOME_PAGE_NAME);
         if (!$page) {
             return abort(404);

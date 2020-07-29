@@ -2,19 +2,18 @@
 
 namespace App\Http\Controllers\Shop;
 
-use App\Repositories\ProductRepository;
-use App\Repositories\UserRepository;
-use App\UseCases\Cart\CartService;
-use App\UseCases\Products\FavoriteService;
+use App\Http\Controllers\Controller;
 use App\Http\Controllers\Core;
 use App\Models\Shop\Product;
+use App\UseCases\Cart\CartService;
+use App\UseCases\Products\CompareService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
-class FavoriteController extends Core
+class CompareController extends Core
 {
     /**
      * @var FavoriteService $service
@@ -25,14 +24,20 @@ class FavoriteController extends Core
      */
     private $data = [];
 
-    public function __construct(FavoriteService $service)
+    /**
+     * CompareController constructor.
+     * @param CompareService $service
+     */
+    public function __construct(CompareService $service)
     {
         parent::__construct();
         //$this->middleware('auth');
         $this->service = $service;
     }
 
+
     /**
+     * Compare
      * @param CartService $cartService
      * @return Factory|View
      */
@@ -41,8 +46,8 @@ class FavoriteController extends Core
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
 
-        $this->data['products'] = $this->service->getUserFavoriteList();
-        return view('shop.favorite', $this->data, $cartService->getCart())->with('info', __('IsEmptyFavoriteMessage'));
+        $this->data['products'] = $this->service->getUserCompareList();
+        return view('shop.compare', $this->data, $cartService->getCart())->with('info', __('IsEmptyCompareMessage'));
     }
 
     /**
@@ -54,13 +59,13 @@ class FavoriteController extends Core
         try {
             $this->service->add(Auth::id(), $product->id);
             return response()->json([
-                'status'  => 'success',
-                'count'  => $this->service->count(),
-                'message' => $product->title . ' ' . __('Product added to your favorite.'),
+                'status' => 'success',
+                'count' => $this->service->count(),
+                'message' => $product->title . ' ' . __('Product added to your compare.'),
             ]);
         } catch (\DomainException $e) {
             return response()->json([
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => $e->getMessage(),
             ]);
         }
@@ -75,13 +80,13 @@ class FavoriteController extends Core
         try {
             $this->service->remove(Auth::id(), $product->id);
             return response()->json([
-                'status'  => 'success',
-                'count'  => $this->service->count(),
-                'message' => $product->title . ' ' . __('Product deleted to your favorite.'),
+                'status' => 'success',
+                'count' => $this->service->count(),
+                'message' => $product->title . ' ' . __('Product deleted to your compare.'),
             ]);
         } catch (\DomainException $e) {
             return response()->json([
-                'status'  => 'error',
+                'status' => 'error',
                 'message' => $e->getMessage(),
             ]);
         }

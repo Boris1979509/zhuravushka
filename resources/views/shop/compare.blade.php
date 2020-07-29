@@ -4,9 +4,18 @@
 @section('content')
     <section id="compare">
         <div class="container">
-            <h1>{{ __('Compare') }}</h1>
-            <div class="row">
-                @include('flash.index')
+            <div class="compare">
+                <div class="compare__title"><h1>{{ __('Compare') }} <span class="compare__count">({{ $compareCount }})</span>
+                    </h1>
+                    @if($compareCount)
+                        @include('shop.inc.cardRender')
+                    @endif
+                </div>
+                @if($compareCount)
+                    @include('shop.inc.favoriteCards')
+                @else
+                    @include('flash.index')
+                @endif
             </div>
         </div>
     </section>

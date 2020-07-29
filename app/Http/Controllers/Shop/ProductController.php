@@ -48,14 +48,4 @@ class ProductController extends Core
         $this->data['product']['old_price'] = $this->service->subtractPercent($product->price);
         return view('shop.product', $this->data, $cartService->getCart());
     }
-
-    /**
-     * Compare
-     * @param CartService $cartService
-     * @return Factory|View
-     */
-    public function compare(CartService $cartService)
-    {
-        return view('shop.compare', $this->data, $cartService->getCart())->with('info', __('IsEmptyCompareMessage'));
-    }
 }

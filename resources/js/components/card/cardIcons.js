@@ -62,7 +62,7 @@ const cardIcons = {
         if (url.indexOf('favorites') !== -1) {
             setTimeout(() => {
                 location.reload();
-            }, 3000);
+            }, 1500);
         }
     },
     send: (data) => {
@@ -71,6 +71,7 @@ const cardIcons = {
             if (data.status) {
                 flash(data.message, data.status);
                 cardIcons.refresh();
+                countIcons(data.count, cardIcons.data.controller);
             }
         });
     }

@@ -88,4 +88,11 @@ class Product extends Model
             $query->where('user_id', $user->id);
         });
     }
+    /**
+     * @return int
+     */
+    public function favoriteCount(): int
+    {
+        return $this->favorites()->count();
+    }
 }

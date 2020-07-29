@@ -1,5 +1,5 @@
 <div class="card__icons">
-    @if(auth()->user() && $productItem->favorites->count())
+    @if(auth()->user() && auth()->user()->favorites->count() && $productItem->favorites->count())
         @foreach($productItem->favorites as $pivot)
             <div class="favorite @if($pivot->pivot->product_id) favorite__active @endif"
                  data-id="{{ $productItem->id }}">

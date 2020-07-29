@@ -74,7 +74,7 @@
                 </div>
                 <div class="sub-header__right">
                     <a href="{{ route('compare') }}" rel="nofollow" class="link compare">
-                        <div class="icon compare__icon">
+                        <div class="icon compare__icon @if($compareCount) active @endif">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <path
@@ -87,12 +87,12 @@
                                     d="M23.5 24C23.7761 24 24 23.7761 24 23.5V0.5C24 0.223877 23.7761 0 23.5 0H18.5C18.2239 0 18 0.223877 18 0.5V23.5C18 23.7761 18.2239 24 18.5 24H23.5ZM19 1H23V23H19V1Z"
                                     fill="white"/>
                             </svg>
-                            <span id="compare-qty" class="badge compare__qty">0</span>
+                            <span id="compare-qty" class="badge compare__qty">{{ $compareCount }}</span>
                         </div>
                         <span class="sub-header__label">{{ __('Compare') }}</span>
                     </a>
-                    <a href="{{ route('favorite.index') }}" rel="nofollow" class="link favorite">
-                        <div class="icon favorite__icon">
+                    <a href="{{ route('favorite') }}" rel="nofollow" class="link favorite">
+                        <div class="icon favorite__icon @if($favoriteCount) active @endif">
                             <svg width="24" height="24" viewBox="0 0 24 24" fill="none"
                                  xmlns="http://www.w3.org/2000/svg">
                                 <g clip-path="url(#clip0)">
@@ -106,7 +106,7 @@
                                     </clipPath>
                                 </defs>
                             </svg>
-                            <span id="favorite-qty" class="badge favorite__qty">0</span>
+                            <span id="favorite-qty" class="badge favorite__qty">{{ $favoriteCount }}</span>
                         </div>
                         <span class="sub-header__label">{{ __('Favorite') }}</span>
                     </a>
@@ -129,7 +129,6 @@
                         </span>
                     </a>
                 </div>
-
             </div>
             @include('auth.login')
             <div id="catalogMenu" hidden>
@@ -137,6 +136,5 @@
             </div>
         </div>
     </div>
-
     <!-- End sub-header -->
 </header>

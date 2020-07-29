@@ -2,7 +2,7 @@
     <div class="order-registration__info-container">
         <div class="title">{{ __('YourOrderTitle') }}</div>
         @php /** @var $product Product */use App\Models\Shop\Product;@endphp
-        @foreach($order->Products as $product)
+        @foreach($order->products as $product)
             <div class="cart">
                 <div class="cart__product-title">{{ $product->title }}</div>
                 <div

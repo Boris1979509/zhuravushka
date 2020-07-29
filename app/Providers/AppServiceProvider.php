@@ -19,13 +19,18 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        View::composer(['components.header', 'components.footer', 'components.barMenu', 'components.pageNavMenu'], static function ($view) {
-
-//            $pages = (new PageRepository)->getAllPagesNav();
-//            $productCategories = app(ProductCategoryRepository::class)->getAllProductCategories();
-//            $order = app(OrderRepository::class)->findByOrderId(session('orderId'));
-//            $cartCount = ($order) ? $order->cartCount() : null;
-//            $view->with(compact('pages', 'productCategories', 'order', 'cartCount'));
+        View::composer(['components.header', 'shop.favorite', 'shop.compare'], static function ($view) {
+            /**
+             * Favorite count
+             */
+            $favoriteCount = app(\App\UseCases\Products\FavoriteService::class)
+                ->count();
+            /**
+             * Compare count
+             */
+            $compareCount = app(\App\UseCases\Products\CompareService::class)
+                ->count();
+            $view->with(compact('favoriteCount', 'compareCount'));
         });
     }
 

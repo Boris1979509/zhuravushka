@@ -7,11 +7,9 @@ use App\Models\User;
 use App\Repositories\UserRepository;
 use App\Repositories\ProductRepository;
 use Illuminate\Database\Eloquent\Collection;
-use Illuminate\Database\Eloquent\Relations\BelongsToMany;
-use Illuminate\Http\JsonResponse;
 use Illuminate\Support\Facades\Auth;
 
-class FavoriteService
+class CompareService
 {
     /**
      * @var UserRepository $userRepository
@@ -23,7 +21,7 @@ class FavoriteService
     private $productRepository;
 
     /**
-     * FavoriteService constructor.
+     * CompareService constructor.
      * @param UserRepository $userRepository
      * @param ProductRepository $productRepository
      */
@@ -41,9 +39,9 @@ class FavoriteService
     {
         if ($product = $this->getProduct($productId)) {
             if ($user = $this->getUser($userId)) {
-                $user->addToFavorites($product->id);
+                $user->addToCompares($product->id);
             } else {
-                $this->notUserAuthFavorite($product);
+                $this->notUserAuthCompare($product);
             }
         }
     }
@@ -52,9 +50,9 @@ class FavoriteService
     {
         if ($product = $this->getProduct($productId)) {
             if ($user = $this->getUser($userId)) {
-                $user->removeFromFavorites($product->id);
+                $user->removeFromCompares($product->id);
             } else {
-                $this->notUserAuthFavorite($product);
+                $this->notUserAuthCompare($product);
             }
         }
     }
@@ -62,20 +60,20 @@ class FavoriteService
     /**
      * @param Product $product
      */
-    private function notUserAuthFavorite($product): void
+    private function notUserAuthCompare($product): void
     {
-        $favorites = session('favorites', []);
-        $index = array_search($product->id, $favorites, true);
+        $compares = session('compares', []);
+        $index = array_search($product->id, $compares, true);
 
         if ($index !== false) {
-            unset($favorites[$index]);
+            unset($compares[$index]);
         } else {
-            $favorites[] = $product->id;
+            $compares[] = $product->id;
         }
-        if (!empty($favorites)) {
-            session(compact('favorites'));
+        if (!empty($compares)) {
+            session(compact('compares'));
         } else {
-            session()->forget('favorites');
+            session()->forget('compares');
         }
     }
 
@@ -100,25 +98,26 @@ class FavoriteService
     /**
      * @return bool|Collection
      */
-    public function getUserFavoriteList()
+    public function getUserCompareList()
     {
         if (Auth::check()) {
-            return Auth::user()->favorites;
+            return Auth::user()->compares;
         }
-        if (!is_null($favorites = session('favorites'))) {
-            return $this->productRepository->whereInProducts($favorites);
+        $compares = session('compares');
+        if (!is_null($compares) && $compares > 0) {
+            return $this->productRepository->whereInProducts($compares);
         }
         return false;
     }
 
     /**
-     * Favorite count
+     * Compare count
      * @return int
      */
     public function count(): int
     {
-        if ($this->getUserFavoriteList()) {
-            return $this->getUserFavoriteList()->count();
+        if ($this->getUserCompareList()) {
+            return $this->getUserCompareList()->count();
         }
         return 0;
     }

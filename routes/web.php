@@ -63,6 +63,7 @@ Route::group([
     'namespace' => 'Order',
     'prefix'    => 'order',
     'as'        => 'order.',
+    'middleware' => 'check_is_not_empty_cart'
 ], static function () {
     Route::get('place', 'OrderController@place')->name('place');
     Route::post('confirm', 'OrderController@confirm')->name('confirm');

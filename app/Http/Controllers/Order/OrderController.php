@@ -13,6 +13,7 @@ use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use Illuminate\View\View;
+use Throwable;
 
 class OrderController extends Core
 {
@@ -51,7 +52,7 @@ class OrderController extends Core
     /**
      * @param OrderRequest $request
      * @return JsonResponse|RedirectResponse
-     * @throws \Throwable
+     * @throws Throwable
      */
     public function confirm(OrderRequest $request)
     {

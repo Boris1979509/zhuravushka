@@ -29,6 +29,7 @@ class ProductRepository extends CoreRepository
     {
         return $this->startConditions()
             ->select($columns)
+            ->where('price', '<>', 0)
             ->with('category', 'favorites')
             ->take(20)->get();
     }
@@ -66,6 +67,7 @@ class ProductRepository extends CoreRepository
     public function whereIn($array, $perPage = null, $columns = ['*'])
     {
         return $this->startConditions()
+            ->where('price', '<>', 0)
             ->whereIn('category_id', $array)
             ->orderBy('price')
             ->paginate($perPage);
@@ -87,6 +89,7 @@ class ProductRepository extends CoreRepository
     public function whereInProducts($array): Collection
     {
         return $this->startConditions()
+            ->where('price', '<>', 0)
             ->whereIn('id', $array)->get();
     }
 
@@ -100,23 +103,19 @@ class ProductRepository extends CoreRepository
     {
         $columns = ['*'];
         switch ($sort) {
+            case 'popular':
             case 'price':
                 return $this->query()
                     ->select($columns)
+                    ->where('price', '<>', 0)
                     ->whereIn('category_id', $id)
                     ->orderBy('price')
-                    ->paginate($perPage);
-                break;
-            case 'popular':
-                return $this->query()
-                    ->select($columns)
-                    ->whereIn('category_id', $id)
-                    ->orderBy('id', 'DESC')
                     ->paginate($perPage);
                 break;
             case 'name':
                 return $this->query()
                     ->select($columns)
+                    ->where('price', '<>', 0)
                     ->whereIn('category_id', $id)
                     ->orderBy('title')
                     ->paginate($perPage);
@@ -134,8 +133,9 @@ class ProductRepository extends CoreRepository
         $columns = ['*'];
         return $this->query()
             ->select($columns)
-            ->whereIn('category_id', $id)
             ->where('price', '<>', 0)
+            ->where('quantity', '<>', 0)
+            ->whereIn('category_id', $id)
             ->orderBy('price')
             ->paginate($perPage);
 

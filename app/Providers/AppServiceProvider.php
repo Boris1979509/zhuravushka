@@ -21,16 +21,26 @@ class AppServiceProvider extends ServiceProvider
     {
         View::composer(['components.header', 'shop.favorite', 'shop.compare'], static function ($view) {
             /**
-             * Favorite count
+             * Favorite
              */
-            $favoriteCount = app(\App\UseCases\Products\FavoriteService::class)
-                ->count();
+            $favorite = app(\App\UseCases\Products\FavoriteService::class)
+                ->getUserFavoriteList();
+            if ($favoriteCount = $favorite) {
+                $favoriteCount = $favorite->count();
+            } else {
+                $favoriteCount = 0;
+            }
             /**
-             * Compare count
+             * Compare
              */
-            $compareCount = app(\App\UseCases\Products\CompareService::class)
-                ->count();
-            $view->with(compact('favoriteCount', 'compareCount'));
+            $compare = app(\App\UseCases\Products\CompareService::class)
+                ->getUserCompareList();
+            if ($compareCount = $compare) {
+                $compareCount = $compare->count();
+            } else {
+                $compareCount = 0;
+            }
+            $view->with(compact('favorite', 'favoriteCount', 'compare', 'compareCount'));
         });
     }
 

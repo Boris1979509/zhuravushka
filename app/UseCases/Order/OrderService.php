@@ -51,8 +51,8 @@ class OrderService
             'user_data' => [
                 'contacts' => [
                     'name' => Str::ucfirst($request['name']),
-                    'last_name' => $request['last_name'],
-                    'middle_name' => $request['middle_name'],
+                    'last_name' => Str::ucfirst($request['last_name']),
+                    'middle_name' => Str::ucfirst($request['middle_name']),
                     'email' => $request['email'],
                     'phone' => $request['phone'],
                 ],
@@ -70,7 +70,7 @@ class OrderService
         ];
         return Order::updateOrder($data, $id);
 
-        //$this->mailer->to($user->email)->send(new SuccessfulRegistration($user));
+        //$this->mailer->to($user->email)->send(new SuccessfulOrderRegistration($user));
     }
 
     /**

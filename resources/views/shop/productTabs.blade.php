@@ -12,7 +12,7 @@
             <p class="description">{{ $product->description }}</p>
             <div class="characteristics">
                 <h2>Характеристики</h2>
-                <div class="characteristics__props">
+                <!--<div class="characteristics__props">
                     <p class="characteristics__props-name">Расположение</p>
                     <p class="characteristics__props-value">вертикальное</p>
                 </div>
@@ -43,7 +43,7 @@
                 <div class="characteristics__props">
                     <p class="characteristics__props-name">Форма бака</p>
                     <p class="characteristics__props-value">прямоугольный</p>
-                </div>
+                </div>-->
             </div>
         </div>
         <div class="tabs-content__item">

@@ -12,7 +12,9 @@
                     @endif
                 </div>
                 @if($favoriteCount)
-                    @include('shop.inc.favoriteCards')
+                    <div class="card-container">
+                        @include('shop.card')
+                    </div>
                 @else
                     @include('flash.index')
                 @endif

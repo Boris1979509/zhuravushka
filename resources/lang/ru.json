@@ -162,7 +162,10 @@
     "PropertiesOrderTitle": "Состав заказа",
     "NewPrice": "Новая цена",
     "OldPrice": "Старая цена",
+    "DontForgetToBuy": "Не забудьте купить",
     "Product added to your favorite.": "добавлено в избранное.",
     "Product deleted to your favorite.": "удалено из избранного.",
+    "Product added to your compare.": "добавлено в сравнение.",
+    "Product deleted to your compare.": "удалено из сравнения.",
     "UnderOrderInfo": "В Вашей корзине есть товар с пометкой \"Под заказ\", в связи с этим срок доставки может измениться."
 }

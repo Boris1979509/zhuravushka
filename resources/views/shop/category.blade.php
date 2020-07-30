@@ -2,7 +2,6 @@
 @php /** @var ProductCategory $category */use App\Models\Shop\ProductCategory;@endphp
 @section('title', $category->title)
 @section('description', $category->description)
-
 @section('content')
     <section id="catalog">
         <div class="container">
@@ -27,7 +26,9 @@
                         @include('shop.sort.leftSort')
                     </div>
                     <div class="catalog__items-section">
-                        @include('shop.categoryProducts')
+                        <div class="card-container">
+                            @include('shop.card')
+                        </div>
                         @if($products->total() > $products->count())
                             <div class="paginator-wrap">{{ $products->links() }}</div>
                         @endif

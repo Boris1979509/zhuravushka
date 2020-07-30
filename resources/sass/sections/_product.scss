@@ -90,15 +90,22 @@
                     }
                 }
 
+                &__icons-container {
+                    display: flex;
+                    align-items: center;
+                    margin-bottom: 15px;
+                    flex-wrap: wrap;
+                }
+
                 &__icons {
                     margin-top: 20px;
 
                     .favorite, .compare, .informer {
-                        width: 100%;
+                        top: 0;
+                        right: 0;
                         height: 100%;
                         position: unset;
                         display: flex;
-                        margin-bottom: 15px;
 
                         &__title {
                             align-self: center;

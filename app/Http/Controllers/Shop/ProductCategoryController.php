@@ -72,7 +72,7 @@ class ProductCategoryController extends Core
         if (!$this->data['products']->total()) {
             return redirect()->route('category', $slug)->with('info', __('NotFound'));
         }
-
+        //dd($this->data['products']);
         return view('shop.category', $this->data, $cartService->getCart());
     }
 
@@ -100,7 +100,7 @@ class ProductCategoryController extends Core
     private function sort($request, $id): void
     {
         if ($sort = $request->input('sort')) {
-            $this->data['Products'] = $this->productRepository
+            $this->data['products'] = $this->productRepository
                 ->sortBy($sort, $id, self::PAGE_LIMIT)
                 ->withPath('?' . $request->getQueryString());
         }
@@ -116,7 +116,8 @@ class ProductCategoryController extends Core
          * Stocks
          */
         if ($request->has('sortInStock')) {
-            $this->data['Products'] = $this->productRepository
+
+            $this->data['products'] = $this->productRepository
                 ->sortByStock($id, self::PAGE_LIMIT)
                 ->withPath('?' . $request->getQueryString());
         }
@@ -134,7 +135,7 @@ class ProductCategoryController extends Core
          */
         if ($request->anyFilled('priceFrom')) {
             $num = $request->input('priceFrom');
-            $this->data['Products'] = $this->productRepository
+            $this->data['products'] = $this->productRepository
                 ->getPriceSort($id, $num, $opr = '>=', self::PAGE_LIMIT)
                 ->withPath('?' . $request->getQueryString());
         }
@@ -143,7 +144,7 @@ class ProductCategoryController extends Core
          */
         if ($request->anyFilled('priceTo')) {
             $num = $request->input('priceTo');
-            $this->data['Products'] = $this->productRepository
+            $this->data['products'] = $this->productRepository
                 ->getPriceSort($id, $num, $opr = '<=', self::PAGE_LIMIT)
                 ->withPath('?' . $request->getQueryString());
         }
@@ -153,7 +154,7 @@ class ProductCategoryController extends Core
         if ($request->anyFilled('priceTo') && $request->anyFilled('priceFrom')) {
             $priceFrom = $request->input('priceFrom');
             $priceTo = $request->input('priceTo');
-            $this->data['Products'] = $this->productRepository
+            $this->data['products'] = $this->productRepository
                 ->getPriceSort($id, [$priceFrom, $priceTo], null, self::PAGE_LIMIT)
                 ->withPath('?' . $request->getQueryString());
         }

@@ -3,6 +3,7 @@
 @section('title', __('Order Place'))
 @section('content')
     <div class="container">
+        @include('flash.index')
         <div class="message"></div>
         <form action="{{ route('order.confirm') }}" method="POST" class="form-label" id="order-form">
             @csrf
@@ -94,7 +95,7 @@
                             <div class="question-block"><span class="question">?</span></div>
                         </div>
                         <div class="payment-type__online">
-                            <input type="radio" id="payment-online" name="payment_type" value="online">
+                            <input type="radio" id="payment-online" name="payment_type" value="bank_card">
                             <p class="title">{{ __('PaymentOnline') }}</p>
                             <div class="description">{{ __('PaymentOnlineDescription') }}
                             </div>
@@ -119,9 +120,9 @@
                                placeholder="">
                         <label for="middleName">{{ __('MiddleName') }}</label>
                     </div>
-                    @guest
-                        @include('auth.phoneRequest')
-                    @endguest
+{{--                    @guest--}}
+{{--                        @include('auth.phoneRequest')--}}
+{{--                    @endguest--}}
                     <div class="form-input">
                         <input type="email" name="email" id="email" class="input" placeholder="">
                         <label for="email">{{ __('E-Mail Address') }}<span class="require">*</span></label>

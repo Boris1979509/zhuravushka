@@ -17,7 +17,7 @@
             </div>
             <div class="cart-total">
                 <p class="cart-total__title">{{ __('TotalOrder') }}</p>
-                <p class="cart-total__total-sum">{{ numberFormat($orderInfo->getTotalSum()) }} <span
+                <p class="cart-total__total-sum">{{ numberFormat($orderInfo->total_cost) }} <span
                         class="rub">₽</span></p>
             </div>
         </div>

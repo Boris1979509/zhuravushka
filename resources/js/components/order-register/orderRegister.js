@@ -1,5 +1,5 @@
 window.exports = (() => {
-    const formOrder = document.querySelector('#order-form');
+    const formOrder = document.querySelector('#order-form1');
     if (!formOrder) return;
     const dateDeliveryOptionItem = document.querySelectorAll('.date-delivery__options > .date-delivery__options-item');
     const datepickerInput = document.querySelector('input[name=delivery_date]');

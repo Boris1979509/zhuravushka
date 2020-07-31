@@ -14,11 +14,16 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * @property integer $order_status
  * @property string $user_data
  * @property string $comment
+ * @property double $total_cost
  * @property integer $user_id
+ * @property string $acquiring_order_id
  * @property BelongsToMany $products
  */
 class Order extends Model
 {
+    protected $casts = [
+        'user_data' => 'array'
+    ];
 
     /**
      * @param array $data
@@ -28,7 +33,6 @@ class Order extends Model
     public static function updateOrder(array $data, int $id): bool
     {
         return static::where('id', $id)
-            ->where('order_status', 0)
             ->update($data);
     }
 
@@ -80,14 +84,5 @@ class Order extends Model
     public function user(): BelongsTo
     {
         return $this->belongsTo(User::class);
-    }
-
-    /**
-     * Create number order
-     * @return string
-     */
-    public function getOrderNumber(): string
-    {
-        return '№' . str_pad($this->id, 8, '0', STR_PAD_LEFT);
     }
 }

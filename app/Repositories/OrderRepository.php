@@ -41,9 +41,21 @@ class OrderRepository extends CoreRepository
     public function getUserOrder($id): Collection
     {
         return $this->startConditions()
-            ->select('id', 'user_data', 'user_id')
-            ->where('order_status', true)
+            ->select('id', 'user_data', 'user_id', 'total_cost')
             ->where('id', $id)
+            ->with('Products')
+            ->get();
+    }
+
+    /**
+     * @param string $acquiring_order_id
+     * @return Collection
+     */
+    public function getUserOrderAcquiring($acquiring_order_id): Collection
+    {
+        return $this->startConditions()
+            ->select('id', 'user_data', 'user_id', 'total_cost', 'acquiring_order_id')
+            ->where('acquiring_order_id', $acquiring_order_id)
             ->with('Products')
             ->get();
     }

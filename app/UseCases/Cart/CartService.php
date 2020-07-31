@@ -210,5 +210,13 @@ class CartService
         }
         return false;
     }
+    /**
+     * Create number order
+     * @return string
+     */
+    public function getOrderNumber(): string
+    {
+        return str_pad($this->order->id, 8, '0', STR_PAD_LEFT);
+    }
 
 }

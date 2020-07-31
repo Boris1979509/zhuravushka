@@ -50,9 +50,9 @@ Breadcrumbs::for('order.place', static function (Generator $trail) {
     $trail->parent('cart');
     $trail->push(__('Order Place'), route('order.place'));
 });
-Breadcrumbs::for('order.info', static function (Generator $trail) {
+Breadcrumbs::for('order.confirm', static function (Generator $trail) {
     $trail->parent('home');
-    $trail->push(__('OrderInfo'), route('order.info'));
+    $trail->push(__('OrderInfo'), route('order.confirm'));
 });
 // Catalog main
 Breadcrumbs::for('catalog', static function (Generator $trail) {

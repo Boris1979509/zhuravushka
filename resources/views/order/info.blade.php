@@ -42,9 +42,9 @@
                     <div class="title">{{ __('OrderInfo') }}</div>
                     <div class="customer-block">
                         <p class="customer-block__title">{{ __('Customer') }}</p>
-                        <p class="customer-block__name">{{ $orderInfo->user_data->contacts->last_name }} {{ $orderInfo->user_data->contacts->name }}</p>
-                        <p class="customer-block__phone">{{ $orderInfo->user_data->contacts->phone }}</p>
-                        <p class="customer-block__email">{{ $orderInfo->user_data->contacts->email }}</p>
+                        <p class="customer-block__name">{{ $orderInfo->user_data['contacts']['last_name'] }} {{ $orderInfo->user_data['contacts']['name'] }}</p>
+                        <p class="customer-block__phone">{{ $orderInfo->user_data['contacts']['phone'] }}</p>
+                        <p class="customer-block__email">{{ $orderInfo->user_data['contacts']['email'] }}</p>
                     </div>
                 </div>
                 <div class="order-info__delivery">

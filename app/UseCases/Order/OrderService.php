@@ -12,6 +12,7 @@ use App\UseCases\Auth\PhoneService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
@@ -39,15 +40,17 @@ class OrderService
     }
 
     /**
-     * @param OrderRequest $request
-     * @param int $id
+     * @param Request $request
+     * @param integer $total_cost
+     * @param integer $id
+     * @param null|string $acquiring_order_id
      * @return bool
      */
-    public function order(OrderRequest $request, $id): bool
+    public function order(Request $request, $total_cost, $id, $acquiring_order_id = null): bool
     {
         $data = [
             'user_id' => Auth::id(),
-            'order_status' => true,
+            'total_cost' => $total_cost,
             'user_data' => [
                 'contacts' => [
                     'name' => Str::ucfirst($request['name']),
@@ -68,6 +71,9 @@ class OrderService
             ],
             'comment' => $request['message'],
         ];
+        if (is_null($acquiring_order_id)) {
+            $data['order_status'] = true;
+        }
         return Order::updateOrder($data, $id);
 
         //$this->mailer->to($user->email)->send(new SuccessfulOrderRegistration($user));

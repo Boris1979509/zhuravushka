@@ -5,14 +5,11 @@
     <section id="admin-users">
         <div class="container">
             <div class="admin-users">
-                <h1>{{ __('AdminUsers') }}</h1>
                 @include('admin.users._nav')
-
-                <p><a href="{{ route('admin.users.create') }}" class="btn btn-active">{{ __('Add User') }}</a></p>
-
-                <div class="card-header">{{ __('Filter') }}</div>
+                <h1>{{ __('AdminUsers') }}</h1>
+                <a href="{{ route('admin.users.create') }}" class="btn btn-active ml w-1">{{ __('Add User') }}</a>
                 <form action="?" method="GET">
-                    <div style="display: flex;">
+                    <div class="filter">
                         <div class="form-input">
                             <label for="id" class="form-input-label">{{ __('ID') }}</label>
                             <input id="id" class="input" name="id" value="{{ request('id') }}">
@@ -42,17 +39,16 @@
                             <label for="role" class="form-input-label">{{ __('Role') }}</label>
                             <select id="role" class="input" name="role">
                                 <option value=""></option>
-                                {{--                                        @php /** @var App\Http\Controllers\Admin\Users\UsersController $roles */ @endphp--}}
-                                {{--                                        @foreach ($roles as $value => $label)--}}
-                                {{--                                            <option value="{{ $value }}" {{ ($value === request('role')) ? ' selected' : ''--}}
-                                {{--                                    }}>{{ $label }}--}}
-                                {{--                                            </option>--}}
-                                {{--                                        @endforeach;--}}
+{{--                                @foreach ($roles as $role => $label)--}}
+{{--                                    <option value="{{ $role }}" @if ($role === request('role')) selected @endif>{{--}}
+{{--                                        $label }}--}}
+{{--                                    </option>--}}
+{{--                                @endforeach;--}}
                             </select>
                         </div>
-                        <div class="form-input">
-                            <button type="submit" class="btn btn-active">{{ __('Search') }}</button>
-                        </div>
+                    </div>
+                    <div class="form-input">
+                        <button type="submit" class="btn btn-active ml w-1">{{ __('Search') }}</button>
                     </div>
                 </form>
 

@@ -1,0 +1,72 @@
+%flex {
+    display: flex;
+    justify-content: space-between;
+}
+
+.admin-nav {
+    @extend %flex;
+    align-items: center;
+    padding-bottom: 17px;
+    border-bottom: 2px solid #DBDBDB;
+    margin-bottom: 30px;
+
+    &__options {
+        margin-top: 10px;
+        min-width: 60%;
+    }
+
+    &__link {
+        text-decoration: none;
+        position: relative;
+        color: #404040;
+        margin-right: 10px;
+
+        &.active {
+            color: #0075d2;
+
+            &:after {
+                bottom: -17px;
+                content: "";
+                display: block;
+                height: 5px;
+                left: 0;
+                position: absolute;
+                background: #0075d2;
+                transition: width .3s ease 0s, left 0s ease 0s;
+                width: 100%;
+            }
+        }
+    }
+
+    &__logout {
+        align-self: flex-end;
+
+        .link {
+            color: $color-body-default;
+            font-weight: 600;
+        }
+    }
+}
+
+.filter {
+    display: inline-flex;
+    align-items: center;
+    justify-content: space-between;
+    width: 100%;
+}
+
+.ml {
+    margin-left: auto !important;
+}
+
+.w-1 {
+    width: 10% !important;
+
+}
+
+
+
+
+
+
+

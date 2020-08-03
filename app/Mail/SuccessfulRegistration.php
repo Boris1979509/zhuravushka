@@ -32,6 +32,7 @@ class SuccessfulRegistration extends Mailable
      */
     public function build(): self
     {
-        return $this->subject(__('SuccessfulRegister'))->markdown('emails.auth.registration');
+        return $this->subject(__('SubjectRegisterTitle') )
+            ->markdown('emails.auth.registration');
     }
 }

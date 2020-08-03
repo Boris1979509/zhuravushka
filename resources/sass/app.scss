@@ -31,6 +31,7 @@
 @import "sections/category";
 @import "sections/login";
 @import "sections/register";
+@import "sections/reset-password";
 @import "sections/compare";
 @import "sections/favorite";
 @import "sections/cabinet";
@@ -53,4 +54,8 @@
 @import "components/alerts";
 @import "components/validate";
 @import "components/cabinet-sort";
+
+// Admin
+@import "admin/custom";
+@import "admin/users";
 

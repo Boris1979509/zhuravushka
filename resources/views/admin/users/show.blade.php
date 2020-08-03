@@ -2,9 +2,9 @@
 @section('title', __('Edit'))
 
 @section('content')
-    @include('admin.users._nav')
+    @include('admin.users._nav', ['page' => 'users'])
     <div class="d-flex flex-row mb-3">
-        <a href="{{ route('admin.users.edit', $user) }}" class="btn btn-primary mr-1">{{ __('Edit') }}</a>
+        <a href="{{ route('admin.users.edit') }}" class="btn btn-primary mr-1">{{ __('Edit') }}</a>
 
 {{--        @if ($user->isWait())--}}
 {{--            <form method="POST" action="{{ route('admin.users.verify', $user) }}" class="mr-1">--}}

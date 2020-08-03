@@ -47,9 +47,10 @@ class RegisterService
             'phone_verify_token'    => session('token'),
             'password'              => Hash::make($request['password']),
             'delivery_place'        => $request['address'],
+            'role'                  => User::ROLE_USER,
         ]);
 
-        //$this->mailer->to($user->email)->send(new SuccessfulRegistration($user));
+        $this->mailer->to($user->email)->send(new SuccessfulRegistration($user));
         $this->dispatcher->dispatch(new Registered($user));
     }
 

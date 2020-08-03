@@ -59,6 +59,10 @@ Breadcrumbs::for('order.confirm.payment', static function (Generator $trail) {
     $trail->parent('home');
     $trail->push(__('OrderInfo'), route('order.confirm.payment'));
 });
+Breadcrumbs::for('order.confirmNoPaid', static function (Generator $trail) {
+    $trail->parent('home');
+    $trail->push(__('OrderInfo'), route('order.confirmNoPaid'));
+});
 // Catalog main
 Breadcrumbs::for('catalog', static function (Generator $trail) {
     $trail->parent('home');
@@ -102,10 +106,15 @@ Breadcrumbs::for('register', static function (Generator $trail) {
     $trail->parent('home');
     $trail->push(__('Registration'), route('register'));
 });
-// Reset Password
+// Request Password
 Breadcrumbs::for('password.request', static function (Generator $trail) {
-    $trail->parent('login');
-    $trail->push(__('ResetPassword'), route('password.request'));
+    $trail->parent('home');
+    $trail->push(__('Request Password'), route('password.request'));
+});
+// Reset password
+Breadcrumbs::for('password.reset', function (Generator $trail, $token) {
+    $trail->parent('home');
+    $trail->push(__('Reset Password'), route('password.reset', $token));
 });
 
 // Cabinet

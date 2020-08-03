@@ -1,4 +1,4 @@
-@if(auth()->user() && $compare)
+@if(auth()->user() && isset($compare))
     @foreach($productItem->favorites as $pivot)
         <div class="compare @if($pivot->pivot->product_id) compare__active @endif"
              data-id="{{ $productItem->id }}">

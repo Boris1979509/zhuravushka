@@ -1,12 +1,11 @@
 @component('mail::message')
-# Introduction
-
-The body of your message.
-
-@component('mail::button', ['url' => ''])
-Button Text
+## {{ __('Thanks for register') }}
+@component('mail::button', ['url' => route('home'), 'color' => 'success'])
+{{ __('StartShopping') }}
 @endcomponent
-
-Thanks,<br>
-{{ config('app.name') }}
+<hr>
+@component('mail::panel')
+{{ __('Thanks') }}<br>
+[{{ __('AppName') }}]({{ route('home') }})
+@endcomponent
 @endcomponent

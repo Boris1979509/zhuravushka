@@ -184,7 +184,7 @@
                 Array.from(formOrder.elements, item => {
                     data[item.name] = item.value;
                 });
-                data['payment_type'] = formOrder.elements.payment_type.value;
+                data.payment_type = formOrder.elements.payment_type.value;
                 xmlHttpRequest(formOrder.action, data, (data) => {
                     if (validator(formOrder, data)) {
                         if (data.error) {

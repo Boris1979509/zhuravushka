@@ -43,7 +43,7 @@
     "OrderLinkTitle": "Оформить заказ",
     "OrderConfirm": "Подтвердить заказ",
     "Confirm Password": "Повторите пароль",
-    "Add User": "Добавить нового пользователя",
+    "Add User": "Добавить",
     "Filter": "Фильтр",
     "ID": "Идентификатор",
     "Status": "Статус",
@@ -168,5 +168,14 @@
     "Product added to your compare.": "добавлено в сравнение.",
     "Product deleted to your compare.": "удалено из сравнения.",
     "ErrorPayment": "Ошибка оплаты.",
+    "SubjectRegisterTitle": "Регистрация на сайте Белаястройка.рф",
+    "AppName": "Белаястройка.рф",
+    "Reset Password": "Восстановление пароля",
+    "Reset": "Восстановить",
+    "Request": "Запросить",
+    "Request Password": "Запрос на восстановление пароля",
+    "Thanks": "С уважением,",
+    "Thanks for register": "Спасибо за регистрацию на нашем сайте!",
+    "StartShopping": "Начать покупки",
     "UnderOrderInfo": "В Вашей корзине есть товар с пометкой \"Под заказ\", в связи с этим срок доставки может измениться."
 }

@@ -1,4 +1,4 @@
-@if(auth()->user() && $favorite)
+@if(auth()->user() && isset($favorite))
     @foreach($productItem->favorites as $pivot)
         <div class="favorite @if($pivot->pivot->product_id) favorite__active @endif"
              data-id="{{ $productItem->id }}">

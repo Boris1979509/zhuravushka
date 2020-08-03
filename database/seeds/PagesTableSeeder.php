@@ -24,6 +24,7 @@ class PagesTableSeeder extends Seeder
             ['title' => 'Доставка и оплата', 'page' => 'delivery_and_payment', 'parent_id' => 3],
             ['title' => 'Резка металла', 'page' => 'cut_metal', 'parent_id' => 3],
             ['title' => 'Прокат', 'page' => 'rental', 'parent_id' => 3],
+            ['title' => 'Возврат денежных средств или обмен товара', 'page' => 'return_money', 'parent_id' => 3],
         ];
         $data = [];
         foreach ($pages as $key => $value) {

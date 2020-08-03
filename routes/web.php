@@ -71,7 +71,7 @@ Route::group([
 ], static function () {
     Route::get('place', 'OrderController@place')->name('place');
     Route::post('confirm', 'OrderController@confirm')->name('confirm');
-    Route::post('confirm-no-paid', 'OrderController@confirmNoPaid')->name('confirmNoPaid');
+    Route::get('confirm-no-paid', 'OrderController@confirmNoPaid')->name('confirmNoPaid');
     Route::get('confirm-payment', 'OrderController@confirmPayment')->name('confirm.payment');
     Route::get('cancel-payment', 'OrderController@cancelPayment')->name('cancel.payment');
 });

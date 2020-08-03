@@ -100,6 +100,8 @@ button, span, a {
         height: 55px;
         width: 100%;
         text-transform: uppercase;
+        box-sizing: border-box;
+        text-decoration: none;
     }
 
     /* btn-active style*/

@@ -4,7 +4,7 @@ use Illuminate\Database\Migrations\Migration;
 use Illuminate\Database\Schema\Blueprint;
 use Illuminate\Support\Facades\Schema;
 
-class AddOrdersTable extends Migration
+class AddConfirmPaymentsOrdersTable extends Migration
 {
     /**
      * Run the migrations.
@@ -14,7 +14,8 @@ class AddOrdersTable extends Migration
     public function up(): void
     {
         Schema::table('orders', static function (Blueprint $table) {
-            $table->double('total_cost')->default(0)->after('order_status');
+            $table->string('confirm_payment_code')->nullable()->after('acquiring_order_id');
+            $table->string('cancel_payment_code')->nullable()->after('confirm_payment_code');
         });
     }
 
@@ -26,7 +27,7 @@ class AddOrdersTable extends Migration
     public function down(): void
     {
         Schema::table('orders', static function (Blueprint $table) {
-            $table->dropColumn('total_cost');
+            $table->dropColumn(['confirm_payment_code', 'cancel_payment_code']);
         });
     }
 }

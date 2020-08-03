@@ -11,18 +11,25 @@ use Illuminate\Database\Eloquent\Relations\BelongsToMany;
  * Class Order
  * @package App\Models\Shop
  * @property  integer $id
- * @property integer $order_status
+ * @property string $order_status
  * @property string $user_data
  * @property string $comment
  * @property double $total_cost
  * @property integer $user_id
  * @property string $acquiring_order_id
+ * @property string $number №00000020
+ * @property string $confirm_payment_code
+ * @property string $cancel_payment_code
  * @property BelongsToMany $products
  */
 class Order extends Model
 {
+    public const STATUS_PAID = 'paid';
+    public const STATUS_NO_PAID = 'no_paid';
+    public const STATUS_CANCEL_PAID = 'cancel_paid';
+
     protected $casts = [
-        'user_data' => 'array'
+        'user_data' => 'array',
     ];
 
     /**
@@ -42,7 +49,7 @@ class Order extends Model
     public function products(): belongsToMany
     {
         return $this->belongsToMany(Product::class)
-            ->withPivot(['count', 'under_order'])->withTimestamps();
+            ->withPivot('count')->withTimestamps();
     }
 
     /**

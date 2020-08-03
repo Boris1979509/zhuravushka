@@ -9,15 +9,17 @@
                     <div class="icon-check"></div>
                     <div class="title">Заказ {{ $orderInfo->number }} успешно оформлен!</div>
                 </div>
-                <div class="alert alert-info">
-                    <div class="alert-info__icon">
-                        <img src="{{ asset('images/icons/alerts/info.svg') }}" alt="info">
+                @guest
+                    <div class="alert alert-info">
+                        <div class="alert-info__icon">
+                            <img src="{{ asset('images/icons/alerts/info.svg') }}" alt="info">
+                        </div>
+                        <div class="alert-info__message">
+                            <p>{{ __('ConfirmYourPhoneNumberUseProfile') }}</p>
+                            <button class="btn btn-active btn-confirmed">{{ __('ConfirmedPhone') }}</button>
+                        </div>
                     </div>
-                    <div class="alert-info__message">
-                        <p>{{ __('ConfirmYourPhoneNumberUseProfile') }}</p>
-                        <button class="btn btn-active btn-confirmed">{{ __('ConfirmedPhone') }}</button>
-                    </div>
-                </div>
+                @endguest
                 <div class="title">{{ __('ThanksForOrderTitle') }}</div>
                 <div class="order-info__primary-info-block">
                     <div class="print">

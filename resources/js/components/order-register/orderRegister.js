@@ -48,7 +48,9 @@ window.exports = (() => {
                 if (data.error) {
                     message.innerHTML = data.error;
                 } else {
-                    window.location = data.route;
+                    if(data.route){
+                        window.location = data.route;
+                    }
                 }
             }
         });

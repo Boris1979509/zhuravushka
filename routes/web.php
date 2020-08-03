@@ -64,13 +64,14 @@ Route::group([
 });
 // Order
 Route::group([
-    'namespace' => 'Order',
-    'prefix'    => 'order',
-    'as'        => 'order.',
-    'middleware' => 'check_is_not_empty_cart'
+    'namespace'  => 'Order',
+    'prefix'     => 'order',
+    'as'         => 'order.',
+    'middleware' => 'check_is_not_empty_cart',
 ], static function () {
     Route::get('place', 'OrderController@place')->name('place');
     Route::post('confirm', 'OrderController@confirm')->name('confirm');
+    Route::post('confirm-no-paid', 'OrderController@confirmNoPaid')->name('confirmNoPaid');
     Route::get('confirm-payment', 'OrderController@confirmPayment')->name('confirm.payment');
     Route::get('cancel-payment', 'OrderController@cancelPayment')->name('cancel.payment');
 });
@@ -101,6 +102,15 @@ Route::group(['namespace' => 'Auth',], static function () {
     Route::post('/verify', 'PhoneController@verify')->name('phone.verify');
     Route::post('/login', 'LoginController@login')->name('login');
 });
-
+// Admin
+Route::group([
+    'namespace'  => 'Admin',
+    'prefix'     => 'admin',
+    'as'         => 'admin.',
+    'middleware' => 'auth',
+], static function () {
+    Route::get('/', 'HomeController@index')->name('home');
+    Route::resource('users', 'UsersController');
+});
 
 

@@ -19,7 +19,7 @@ class CheckIsEmptyCart
     {
         $cartService = app(CartService::class)->getCart();
         if (!$cartService) {
-            return redirect()->route('home');
+            return redirect()->route('cart');
         }
         return $next($request);
     }

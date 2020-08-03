@@ -167,5 +167,6 @@
     "Product deleted to your favorite.": "удалено из избранного.",
     "Product added to your compare.": "добавлено в сравнение.",
     "Product deleted to your compare.": "удалено из сравнения.",
+    "ErrorPayment": "Ошибка оплаты.",
     "UnderOrderInfo": "В Вашей корзине есть товар с пометкой \"Под заказ\", в связи с этим срок доставки может измениться."
 }

@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Order;
 
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\Core;
 use App\Http\Requests\Order\OrderRequest;
 use App\Models\Shop\Order;
@@ -51,57 +50,75 @@ class OrderController extends Core
     }
 
     /**
-     * @param Request $request
+     * @param OrderRequest $request
      * @param CartService $cartService
      * @param Rshb $bank
-     * @return void
+     * @return Factory|JsonResponse|View
+     * @throws Throwable
      */
-//    public function confirm(OrderRequest $request)
-//    {
-//        $orderId = $this->service->getOrder()->id;
-//        if ($this->phoneVerified()) {
-//            $this->service->order($request, $orderId);
-//            session()->put(['orderInfo' => $orderId]);
-//            session()->forget('orderId');
-//            $this->data = ['route' => route('order.info')];
-//        } else {
-//            $this->data = [
-//                'error' => view('flash.index')
-//                    ->with('error', __('The phone number was not confirmed'))
-//                    ->render(),
-//            ];
-//        }
-//        return response()->json($this->data);
-//    }
-    public function confirm(Request $request, CartService $cartService, Rshb $bank)
+    public function confirm(OrderRequest $request, CartService $cartService, Rshb $bank)
     {
         $order = $cartService->getOrder(); // Текущий заказ
         $total_cost = $cartService->getTotalSum();
-
+        if (!$this->phoneVerified()) {
+            return response()->json([
+                'error' => view('flash.index')
+                    ->with('error', __('The phone number was not confirmed'))
+                    ->render(),
+            ]);
+        }
         if ($request->get('payment_type') === 'bank_card') {
+
+            $confirmOrderPaymentCode = hash('sha256', $order->id . time());
+            $cancelOrderPaymentCode = hash('sha256', $order->id . random_int(1, 1000));
+
             $acquiringResult = $bank->orderRegistration(
                 $order->id,
-                $total_cost
+                $total_cost,
+                $confirmOrderPaymentCode,
+                $cancelOrderPaymentCode
             );
             if ($acquiringResult === false || !isset($acquiringResult['orderId'])) {
-                return redirect()
-                    ->back()
-                    ->with(['error' => $acquiringResult['errorMessage']]);
+                return response()->json([
+                    'error' => view('flash.index')
+                        ->with('error', $acquiringResult['errorMessage'])
+                        ->render(),
+                ]);
             }
             /* Saved */
-            $this->service->order($request, $total_cost, $order->id, $acquiringResult['orderId']);
-            // В случаи успеха перенаправляем пользователя на страницу оплаты
-            return redirect()->away($acquiringResult['formUrl']);
+            $this->service->order($request, $total_cost, $order->id, $acquiringResult['orderId'], $confirmOrderPaymentCode, $cancelOrderPaymentCode);
+            // if successful redirect user to the payment page transfer
+            //return redirect()->away($acquiringResult['formUrl']);
+            return response()->json(['route' => $acquiringResult['formUrl']]);
         }
+
+        if ($request->get('payment_type') === 'cash') {
+            $orderId = hash_hmac('sha256', $order->id, true);
+            return response()->json(['route' => route('order.confirmNoPaid', compact('orderId'))]);
+        }
+    }
+
+    /**
+     * @param Request $request
+     * @param CartService $cartService
+     * @return Factory|RedirectResponse|View
+     */
+    public function confirmNoPaid(Request $request, CartService $cartService)
+    {
+        $order = $cartService->getOrder(); // Current order
+        $total_cost = $cartService->getTotalSum();
+        $orderId = $request->get('orderId');
+
+        if (!$orderId && !hash_equals($orderId, hash_hmac('sha256', $order->id, true))) {
+            return redirect()->route('order.place');
+        }
+
         /* Saved */
         $this->service->order($request, $total_cost, $order->id);
+        $order = $this->orderRepository->getUserOrder($order->id);
+        $order->number = $this->getOrderNumber($order->id);
+        $this->data['orderInfo'] = $order;
 
-        $this->data['orderInfo'] = $this->orderRepository
-            ->getUserOrder($order->id)
-            ->each(function ($item) {
-                $item->number = $this->getOrderNumber($item->id);
-                //$item->user_data = $this->toArray($item->user_data);
-            })->first();
         session()->forget('orderId'); // Stay here
         return view('order.info', $this->data, $cartService->getCart());
     }
@@ -114,38 +131,40 @@ class OrderController extends Core
     public function confirmPayment(Request $request, CartService $cartService)
     {
         $acquiringOrderId = $request->get('orderId');
+        $confirmOrderPaymentCode = $request->get('confirmOrderPaymentCode');
 
-        $order = Order::where([
-            'order_status' => 0,
-            'acquiring_order_id' => $acquiringOrderId,
-        ])->first();
-
-        if (!$order) {
+        if (!$order = $this->orderRepository->confirmPayment($acquiringOrderId, $confirmOrderPaymentCode)) {
             return abort(404);
         }
 
-        $order->order_status = true;
+        $order->order_status = Order::STATUS_PAID;
+        $order->confirm_payment_code = null;
+        $order->cancel_payment_code = null;
         $order->save();
-        //session()->forget('orderId');
-        dd($order);
-        $this->data['orderInfo'] = $this->orderRepository
-            ->getUserOrderAcquiring($acquiringOrderId)
-            ->each(function ($item) {
-                $item->number = $this->getOrderNumber($item->id);
-                //$item->user_data = $this->toArray($item->user_data);
-            })->first();
+
+        $order->number = $this->getOrderNumber($order->id);
+        $this->data['orderInfo'] = $order;
+
+        session()->forget('orderId');
         return view('order.info', $this->data, $cartService->getCart());
     }
 
     /**
      * @param Request $request
      * @param CartService $cartService
+     * @return RedirectResponse|void
      */
     public function cancelPayment(Request $request, CartService $cartService)
     {
         $acquiringOrderId = $request->get('orderId');
+        $cancelOrderPaymentCode = $request->get('cancelOrderPaymentCode');
 
-        dd($acquiringOrderId);
+        if (!$order = $this->orderRepository->cancelPayment($acquiringOrderId, $cancelOrderPaymentCode)) {
+            return abort(404);
+        }
+        $order->order_status = Order::STATUS_CANCEL_PAID;
+        $order->save();
+        return redirect()->route('order.place')->with('error', __('ErrorPayment'));
     }
 
     /**

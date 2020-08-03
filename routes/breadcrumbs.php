@@ -7,6 +7,7 @@ use App\Repositories\ProductCategoryRepository as CategoryProduct;
 use App\Repositories\BlogPostRepository as Post;
 use DaveJamesMiller\Breadcrumbs\BreadcrumbsGenerator as Generator;
 use DaveJamesMiller\Breadcrumbs\Facades\Breadcrumbs;
+use App\Models\User;
 
 // Home
 Breadcrumbs::for('home', static function (Generator $trail) {
@@ -53,6 +54,10 @@ Breadcrumbs::for('order.place', static function (Generator $trail) {
 Breadcrumbs::for('order.confirm', static function (Generator $trail) {
     $trail->parent('home');
     $trail->push(__('OrderInfo'), route('order.confirm'));
+});
+Breadcrumbs::for('order.confirm.payment', static function (Generator $trail) {
+    $trail->parent('home');
+    $trail->push(__('OrderInfo'), route('order.confirm.payment'));
 });
 // Catalog main
 Breadcrumbs::for('catalog', static function (Generator $trail) {
@@ -141,4 +146,31 @@ Breadcrumbs::register('cabinet.profile.edit', static function (Generator $crumbs
 Breadcrumbs::register('cabinet.profile.phone', static function (Generator $crumbs) {
     $crumbs->parent('cabinet.profile.home');
     $crumbs->push(__('cabinetProfilePhone'), route('cabinet.profile.phone'));
+});
+// Admin
+
+Breadcrumbs::register('admin.home', static function (Generator $crumbs) {
+    $crumbs->parent('home');
+    $crumbs->push(__('Admin'), route('admin.home'));
+});
+// Users
+
+Breadcrumbs::register('admin.users.index', static function (Generator $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push(__('Users'), route('admin.users.index'));
+});
+
+Breadcrumbs::register('admin.users.create', static function (Generator $crumbs) {
+    $crumbs->parent('admin.users.index');
+    $crumbs->push(__('Create'), route('admin.users.create'));
+});
+
+Breadcrumbs::register('admin.users.show', static function (Generator $crumbs, User $user) {
+    $crumbs->parent('admin.users.index');
+    $crumbs->push($user->name, route('admin.users.show', $user));
+});
+
+Breadcrumbs::register('admin.users.edit', static function (Generator $crumbs, User $user) {
+    $crumbs->parent('admin.users.show', $user);
+    $crumbs->push(__('Edit'), route('admin.users.edit', $user));
 });

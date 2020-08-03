@@ -8,10 +8,6 @@ use Illuminate\Database\Eloquent\Collection;
 
 class OrderRepository extends CoreRepository
 {
-    /**
-     * @var OrderRepository
-     */
-    private $order;
 
     /**
      * Возвращает полное имя класса
@@ -35,29 +31,45 @@ class OrderRepository extends CoreRepository
     }
 
     /**
-     * @param integer $id
-     * @return Collection
+     * @param string $acquiringOrderId
+     * @param string $confirmOrderPaymentCode
+     * @return mixed
      */
-    public function getUserOrder($id): Collection
+    public function confirmPayment($acquiringOrderId, $confirmOrderPaymentCode)
     {
         return $this->startConditions()
-            ->select('id', 'user_data', 'user_id', 'total_cost')
-            ->where('id', $id)
-            ->with('Products')
-            ->get();
+            ->where([
+                'order_status'         => Model::STATUS_NO_PAID,
+                'acquiring_order_id'   => $acquiringOrderId,
+                'confirm_payment_code' => $confirmOrderPaymentCode,
+            ])->with('products')
+            ->first();
     }
 
     /**
-     * @param string $acquiring_order_id
-     * @return Collection
+     * @param string $acquiringOrderId
+     * @param string $cancelOrderPaymentCode
+     * @return mixed
      */
-    public function getUserOrderAcquiring($acquiring_order_id): Collection
+    public function cancelPayment($acquiringOrderId, $cancelOrderPaymentCode)
     {
         return $this->startConditions()
-            ->select('id', 'user_data', 'user_id', 'total_cost', 'acquiring_order_id')
-            ->where('acquiring_order_id', $acquiring_order_id)
-            ->with('Products')
-            ->get();
+            ->where([
+                'acquiring_order_id'  => $acquiringOrderId,
+                'order_status'        => Model::STATUS_NO_PAID,
+                'cancel_payment_code' => $cancelOrderPaymentCode,
+            ])->first();
     }
 
+    /**
+     * @param integer $id
+     * @return mixed
+     */
+    public function getUserOrder($id)
+    {
+        return $this->startConditions()
+            ->where('id', $id)
+            ->with('products')
+            ->first();
+    }
 }

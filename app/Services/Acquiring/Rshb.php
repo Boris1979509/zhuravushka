@@ -13,13 +13,13 @@ class Rshb
     /**
      * API
      */
-    const API = 'belaya.stroyka-api';
+    public const API = 'belaya.stroyka-api';
 
     private $password;
 
-    const DEV_PASSWORD = 'belaya.stroyka';
+    public const DEV_PASSWORD = 'belaya.stroyka';
 
-    const PROD_PASSWORD = '';
+    public const PROD_PASSWORD = '';
 
     /** @var HttpClient $httpClient */
     private $httpClient;
@@ -31,25 +31,25 @@ class Rshb
     {
         $this->password = $this->password = config('app.debug') ? self::DEV_PASSWORD : self::PROD_PASSWORD;
         $this->httpClient = new HttpClient([
-            'base_uri' => config('app.debug') ? 'https://web.rbsuat.com' : ''
+            'base_uri' => config('app.debug') ? 'https://web.rbsuat.com' : '',
         ]);
     }
 
-    public function orderRegistration($orderId, $amount)
+    public function orderRegistration($orderId, $amount, $confirmOrderPaymentCode, $cancelOrderPaymentCode)
     {
         try {
 
             $response = $this->httpClient->post('/rshb/payment/rest/register.do', [
-                'allow_redirects' => true,
-                'port' => 443,
+                'allow_redirects'           => true,
+                'port'                      => 443,
                 RequestOptions::FORM_PARAMS => [
-                    'userName' => self::API,
-                    'password' => $this->password,
+                    'userName'    => self::API,
+                    'password'    => $this->password,
                     'orderNumber' => $this->getOrderNumber($orderId),
-                    'amount' => $this->amount($amount),// Переводим рубли в копейки
-                    'returnUrl' => route('confirm.payment'),
-                    'failUrl' => route('cancel.payment'),
-                ]
+                    'amount'      => $this->amount($amount),// Переводим рубли в копейки
+                    'returnUrl'   => route('order.confirm.payment', compact('confirmOrderPaymentCode')),
+                    'failUrl'     => route('order.cancel.payment', compact('cancelOrderPaymentCode')),
+                ],
             ]);
         } catch (ServerException $e) {
             return false;

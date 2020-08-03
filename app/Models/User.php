@@ -7,6 +7,7 @@ use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
 use Illuminate\Foundation\Auth\User as Authenticatable;
 use Illuminate\Notifications\Notifiable;
+use Illuminate\Support\Str;
 
 /**
  * @property int $id
@@ -15,16 +16,25 @@ use Illuminate\Notifications\Notifiable;
  * @property string $middle_name
  * @property string $email
  * @property string $phone
- * @property bool $phone_verified
+ * @property string $phone_verified_status
  * @property string $verify_token
  * @property string $phone_verify_token
  * @property string $delivery_place
  * @property Carbon $phone_verify_token_expire
+ * @property string $role
  */
 class User extends Authenticatable
 {
 
     use Notifiable;
+
+    public const STATUS_ACTIVE = 'active';
+    public const STATUS_WAIT = 'wait';
+
+    public const ROLE_USER = 'user';
+    public const ROLE_MODERATOR = 'moderator';
+    public const ROLE_ADMIN = 'admin';
+
     /**
      * @var array
      */
@@ -36,8 +46,9 @@ class User extends Authenticatable
         'last_name',
         'middle_name',
         'phone_verify_token',
-        'phone_verified',
+        'phone_verified_status',
         'delivery_place',
+        'role',
     ];
 
     /**
@@ -56,9 +67,20 @@ class User extends Authenticatable
      */
     protected $casts = [
         //'email_verified_at'       => 'datetime',
-        'phone_verified' => 'boolean',
         'phone_verify_token_expire' => 'datetime',
     ];
+
+    /**
+     * @return array
+     */
+    public static function rolesList(): array
+    {
+        return [
+            self::ROLE_USER      => 'User',
+            self::ROLE_MODERATOR => 'Moderator',
+            self::ROLE_ADMIN     => 'Admin',
+        ];
+    }
 
     /**
      * @param array $data
@@ -67,6 +89,24 @@ class User extends Authenticatable
     public static function register($data): self
     {
         return static::create($data);
+    }
+
+    /**
+     * Create New User
+     * @param string $name
+     * @param string $email
+     * @param string $phone
+     * @return mixed
+     */
+    public static function new($name, $email, $phone)
+    {
+        return static::create([
+            'name'                  => Str::ucfirst($name),
+            'email'                 => $email,
+            'password'              => bcrypt(Str::random()),
+            'role'                  => self::ROLE_USER,
+            'phone_verified_status' => self::STATUS_ACTIVE,
+        ]);
     }
 
     /**
@@ -139,6 +179,28 @@ class User extends Authenticatable
     public function compares(): BelongsToMany
     {
         return $this->belongsToMany(Product::class, 'product_compares', 'user_id', 'product_id');
+    }
+
+    /**
+     * @param string $role
+     */
+    public function changeRole($role): void
+    {
+        if (!array_key_exists($role, self::rolesList())) {
+            throw new \InvalidArgumentException('Undefined role "' . $role . '"');
+        }
+        if ($this->role === $role) {
+            throw new \DomainException('Role is already assigned.');
+        }
+        $this->update(['role' => $role]);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isAdmin(): bool
+    {
+        return $this->role === self::ROLE_ADMIN;
     }
 
 }

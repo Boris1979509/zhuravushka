@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 use App\Models\User as Model;
+use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserRepository extends CoreRepository
 {
@@ -19,12 +20,12 @@ class UserRepository extends CoreRepository
 
     /**
      * @param string $phone
-     * @return bool;
+     * @return mixed
      */
     public function phoneVerified($phone)
     {
         return $this->startConditions()
-            ->select('phone_verified')
+            ->select('phone_verified_status')
             ->where('phone', $phone);
     }
 
@@ -36,5 +37,19 @@ class UserRepository extends CoreRepository
     {
         return $this->startConditions()
             ->where('id', $user_id)->first();
+    }
+
+    /**
+     * @param null|int $perPage
+     * @param array $columns
+     * @return LengthAwarePaginator
+     */
+    public function getAllWithPaginate($perPage = null, $columns = ['*']): LengthAwarePaginator
+    {
+        $result = $this->startConditions()
+            ->select($columns)
+            ->orderBy('id', 'DESC')
+            ->paginate($perPage);
+        return $result;
     }
 }

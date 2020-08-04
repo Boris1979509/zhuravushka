@@ -6,6 +6,7 @@ use App\Http\Controllers\Core;
 use App\Http\Requests\Admin\Users\UpdateRequest;
 use App\Models\User;
 use Exception;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Users\CreateRequest;
 use Illuminate\Http\Response;
@@ -16,7 +17,8 @@ class UsersController extends Core
     /**
      * @var array
      */
-    private  $data = [];
+    private $data = [];
+
     /**
      * UsersController constructor.
      */
@@ -28,31 +30,56 @@ class UsersController extends Core
     }
 
     /**
+     * @param Request $request
      * @return View
      */
-    public function index(): View
+    public function index(Request $request): View
     {
-        $users = $this->userRepository->getAllWithPaginate(20);
-        return view('admin.users.index', compact('users'), $this->data);
+        $query = $this->userRepository->orderByDesc();
+        if (!empty($value = $request->get('id'))) {
+            $query->where('id', $value);
+        }
+
+        if (!empty($value = $request->get('name'))) {
+            $query->where('name', 'like', '%' . $value . '%');
+        }
+
+        if (!empty($value = $request->get('email'))) {
+            $query->where('email', 'like', '%' . $value . '%');
+        }
+
+        if (!empty($value = $request->get('phone'))) {
+            $query->where('phone', 'like', '%' . $value . '%');
+        }
+
+        if (!empty($value = $request->get('role'))) {
+            $query->where('role', $value);
+        }
+
+        $users = $query->paginate(20);
+
+        $roles = User::rolesList();
+
+        return view('admin.users.index', compact('users', 'roles'), $this->data);
     }
 
     /**
      * Show the form for creating a new resource.
      *
-     * @return Response
+     * @return View
      */
-    public function create(): Response
+    public function create(): View
     {
-        return view('admin.users.create');
+        return view('admin.users.create', $this->data);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param CreateRequest $request
-     * @return Response
+     * @return RedirectResponse
      */
-    public function store(CreateRequest $request): Response
+    public function store(CreateRequest $request): RedirectResponse
     {
         $user = User::new(
             $request['name'],
@@ -67,11 +94,11 @@ class UsersController extends Core
      * Display the specified resource.
      *
      * @param User $user
-     * @return Response
+     * @return View
      */
-    public function show(User $user): Response
+    public function show(User $user): View
     {
-        return view('admin.users.show', compact('user'));
+        return view('admin.users.show', compact('user'), $this->data);
     }
 
     /**

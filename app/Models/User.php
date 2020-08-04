@@ -76,9 +76,9 @@ class User extends Authenticatable
     public static function rolesList(): array
     {
         return [
-            self::ROLE_USER      => 'User',
-            self::ROLE_MODERATOR => 'Moderator',
-            self::ROLE_ADMIN     => 'Admin',
+            self::ROLE_USER      => __('User'),
+            self::ROLE_MODERATOR => __('Moderator'),
+            self::ROLE_ADMIN     => __('Admin'),
         ];
     }
 
@@ -103,10 +103,27 @@ class User extends Authenticatable
         return static::create([
             'name'                  => Str::ucfirst($name),
             'email'                 => $email,
+            'phone'                 => $phone,
             'password'              => bcrypt(Str::random()),
             'role'                  => self::ROLE_USER,
             'phone_verified_status' => self::STATUS_ACTIVE,
         ]);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isWait(): bool
+    {
+        return $this->phone_verified_status === self::STATUS_WAIT;
+    }
+
+    /**
+     * @return bool
+     */
+    public function isActive(): bool
+    {
+        return $this->phone_verified_status === self::STATUS_ACTIVE;
     }
 
     /**

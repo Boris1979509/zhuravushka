@@ -1,57 +1,48 @@
 @extends('layouts.app')
-@section('title', __('Add'))
+@section('title', __('Users'))
 
 @section('content')
     <section id="admin-users">
         <div class="container">
             <div class="admin-users">
                 @include('admin.users._nav')
-                <h1>{{ __('AdminUsers') }}</h1>
-                <a href="{{ route('admin.users.create') }}" class="btn btn-active ml w-1">{{ __('Add User') }}</a>
+                <h1>{{ __('Users') }}</h1>
+                <button onclick="window.location.href='{{ route('admin.users.create') }}'"
+                        class="btn btn-active w-2">{{ __('Create') }}</button>
                 <form action="?" method="GET">
                     <div class="filter">
                         <div class="form-input">
                             <label for="id" class="form-input-label">{{ __('ID') }}</label>
-                            <input id="id" class="input" name="id" value="{{ request('id') }}">
+                            <input id="id" class="input" name="id" value="{{ request('id') }}" required>
                         </div>
                         <div class="form-input">
                             <label for="name" class="form-input-label">{{ __('Name') }}</label>
-                            <input id="name" class="input" name="name" value="{{ request('name') }}">
+                            <input id="name" class="input" name="name" value="{{ request('name') }}" required>
                         </div>
                         <div class="form-input">
                             <label for="email" class="form-input-label">{{ __('Email') }}</label>
-                            <input id="email" class="input" name="email" value="{{ request('email') }}">
+                            <input id="email" class="input" name="email" value="{{ request('email') }}" required>
                         </div>
                         <div class="form-input">
-                            <label for="status" class="form-input-label">{{ __('Status') }}</label>
-                            <select id="status" class="input" name="status">
-                                <option value=""></option>
-                                {{--                                        @php /** @var App\Http\Controllers\Admin\Users\UsersController $statuses */ @endphp--}}
-                                {{--                                        @foreach ($statuses as $value => $label)--}}
-                                {{--                                            <option value="{{ $value }}" {{ ($value === request('status')) ? ' selected' : ''--}}
-                                {{--                                    }}>{{ $label }}--}}
-                                {{--                                            </option>--}}
-                                {{--                                        @endforeach;--}}
-                            </select>
+                            <label for="phone" class="form-input-label">{{ __('Phone') }}</label>
+                            <input type="tel" name="phone" id="phone" class="input mask-input"
+                                   value="{{ request('phone') }}" required>
                         </div>
-
                         <div class="form-input">
                             <label for="role" class="form-input-label">{{ __('Role') }}</label>
-                            <select id="role" class="input" name="role">
-                                <option value=""></option>
-{{--                                @foreach ($roles as $role => $label)--}}
-{{--                                    <option value="{{ $role }}" @if ($role === request('role')) selected @endif>{{--}}
-{{--                                        $label }}--}}
-{{--                                    </option>--}}
-{{--                                @endforeach;--}}
+                            <select id="role" class="input" name="role" required>
+                                @foreach ($roles as $role => $label)
+                                    <option value="{{ $role }}" @if ($role === request('role')) selected @endif>{{
+                                        $label }}
+                                    </option>
+                                @endforeach
                             </select>
                         </div>
                     </div>
                     <div class="form-input">
-                        <button type="submit" class="btn btn-active ml w-1">{{ __('Search') }}</button>
+                        <button type="submit" class="btn btn-active ml w-2">{{ __('Search') }}</button>
                     </div>
                 </form>
-
                 <table class="table">
                     <thead>
                     <tr>
@@ -68,30 +59,28 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->id }}</td>
-                            <td><a href="{{ route('admin.users.show', $user) }}">{{ $user->name }}</a></td>
+                            <td><a class="link" href="{{ route('admin.users.show', $user) }}">{{ $user->name }}</a></td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone }}</td>
                             <td>
-                                {{--                                @if ($user->isWait())--}}
-                                {{--                                    <span class="badge badge-secondary">Waiting</span>--}}
-                                {{--                                @endif--}}
-                                {{--                                @if ($user->isActive())--}}
-                                {{--                                    <span class="badge badge-success">Active</span>--}}
-                                {{--                                @endif--}}
+                                @if ($user->isWait())
+                                    <span class="badge-waiting">{{ __('Waiting') }}</span>
+                                @endif
+                                @if ($user->isActive())
+                                    <span class="badge-active">{{ __('Active') }}</span>
+                                @endif
                             </td>
                             <td>
-                                {{--                                @if ($user->isAdmin())--}}
-                                {{--                                    <span class="badge badge-danger">Admin</span>--}}
-                                {{--                                @else--}}
-                                {{--                                    <span class="badge badge-secondary">User</span>--}}
-                                {{--                                @endif--}}
+                                @if ($user->isAdmin())
+                                    <span class="badge-admin">{{ __('Admin') }}</span>
+                                @else
+                                    <span class="badge-user">{{ __('User') }}</span>
+                                @endif
                             </td>
                         </tr>
                     @endforeach
-
                     </tbody>
                 </table>
-
                 {{ $users->links() }}
             </div>
         </div>

@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 use App\Models\User as Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserRepository extends CoreRepository
@@ -40,16 +41,11 @@ class UserRepository extends CoreRepository
     }
 
     /**
-     * @param null|int $perPage
-     * @param array $columns
-     * @return LengthAwarePaginator
+     * @return Builder
      */
-    public function getAllWithPaginate($perPage = null, $columns = ['*']): LengthAwarePaginator
+    public function OrderByDesc(): Builder
     {
-        $result = $this->startConditions()
-            ->select($columns)
-            ->orderBy('id', 'DESC')
-            ->paginate($perPage);
-        return $result;
+        return $this->startConditions()
+            ->OrderByDesc('id');
     }
 }

@@ -159,8 +159,7 @@ Breadcrumbs::register('cabinet.profile.phone', static function (Generator $crumb
 // Admin
 
 Breadcrumbs::register('admin.home', static function (Generator $crumbs) {
-    $crumbs->parent('home');
-    $crumbs->push(__('Admin'), route('admin.home'));
+    $crumbs->push(__('Dashboard'), route('admin.home'));
 });
 // Users
 

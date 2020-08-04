@@ -19,7 +19,7 @@ class PhoneRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'phone' => 'required|string|unique:users|regex:/^\+7 \([0-9]{3}\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/',
+            'phone' => 'required|string|regex:/^\+7 \([0-9]{3}\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/',
         ];
     }
 }

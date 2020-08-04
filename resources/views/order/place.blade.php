@@ -8,11 +8,29 @@
         <form action="{{ route('order.confirm') }}" method="POST" class="form-label" id="order-form">
             @csrf
             <div class="order-registration">
+                <div class="order-registration__select-delivery-top">
+                    <div class="title">{{ __('SelectDeliveryTitle') }}</div>
+                    <div class="delivery-type">
+                        <div class="delivery-type__transport active">
+                            <input type="radio" id="delivery-transport" name="delivery_type" value="transport" checked>
+                            <p class="title">{{ __('TransportTitle') }}</p>
+                            <div class="description">
+                                {{ __('TransportTitleDescription') }}
+                            </div>
+                        </div>
+                        <div class="delivery-type__pick-up">
+                            <input type="radio" id="pick-up" name="delivery_type" value="pickup">
+                            <p class="title">{{ __('PickUpTitle') }}</p>
+                            <div class="description">{{ __('PickUpTitleDescription') }}
+                            </div>
+                        </div>
+                    </div>
+                </div>
                 <div class="order-registration__select-delivery">
                     <div class="title">{{ __('SelectDeliveryTitle') }}</div>
                     <div class="delivery-type">
-                        <div class="delivery-type__saving active">
-                            <input type="radio" id="delivery-saving" name="delivery_type" value="saving" checked>
+                        <div class="delivery-type__saving">
+                            <input type="radio" id="delivery-saving" name="delivery_type" value="saving">
                             <p class="title">{{ __('SavingTitle') }}</p>
                             <div class="description">
                                 {{ __('SavingTitleDescription') }}
@@ -64,15 +82,15 @@
                         <div class="delivery-address-block__form">
                             <div class="title">{{ __('SelectAddressDeliveryTitle') }}</div>
                             <div class="form-input">
-                                <input type="text" class="input" name="city" id="city">
+                                <input type="text" class="input" name="city" id="city" required>
                                 <label for="city">{{ __('City') }}<span class="require">*</span></label>
                             </div>
                             <div class="form-input">
-                                <input type="text" class="input" name="street" id="street">
+                                <input type="text" class="input" name="street" id="street" required>
                                 <label for="street">{{ __('Street') }}<span class="require">*</span></label>
                             </div>
                             <div class="form-input">
-                                <input type="text" class="input" name="house_number" id="houseNumber">
+                                <input type="text" class="input" name="house_number" id="houseNumber" required>
                                 <label for="houseNumber">{{ __('HouseNumber') }}<span class="require">*</span></label>
                             </div>
                         <!--<button type="submit"
@@ -107,12 +125,12 @@
                     <div class="title">{{ __('EnterContactInfo') }}</div>
                     <div class="form-input">
                         <input type="text" name="last_name" id="lastName" class="input"
-                               placeholder="">
+                               placeholder="" value="{{ auth()->user()->last_name ?? '' }}" required>
                         <label for="lastName">{{ __('LastName') }}<span class="require">*</span></label>
                     </div>
                     <div class="form-input">
                         <input type="text" name="name" id="name" class="input"
-                               placeholder="">
+                               placeholder="" value="{{ auth()->user()->name ?? ''}}" required>
                         <label for="name">{{ __('Name') }}<span class="require">*</span></label>
                     </div>
                     <div class="form-input">
@@ -120,11 +138,10 @@
                                placeholder="">
                         <label for="middleName">{{ __('MiddleName') }}</label>
                     </div>
-                    @guest
-                        @include('auth.phoneRequest')
-                    @endguest
+                    @include('auth.phoneRequest')
                     <div class="form-input">
-                        <input type="email" name="email" id="email" class="input" placeholder="">
+                        <input type="email" name="email" id="email" class="input" placeholder=""
+                               value="{{ auth()->user()->email ?? '' }}" required>
                         <label for="email">{{ __('E-Mail Address') }}<span class="require">*</span></label>
                     </div>
                     <div class="form-input">
@@ -185,6 +202,7 @@
                     data[item.name] = item.value;
                 });
                 data.payment_type = formOrder.elements.payment_type.value;
+                data.delivery_type = formOrder.elements.delivery_type.value;
                 xmlHttpRequest(formOrder.action, data, (data) => {
                     if (validator(formOrder, data)) {
                         if (data.error) {

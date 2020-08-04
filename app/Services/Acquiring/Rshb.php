@@ -31,7 +31,8 @@ class Rshb
     {
         $this->password = $this->password = config('app.debug') ? self::DEV_PASSWORD : self::PROD_PASSWORD;
         $this->httpClient = new HttpClient([
-            'base_uri' => config('app.debug') ? 'https://web.rbsuat.com' : '',
+            //'base_uri' => config('app.debug') ? 'https://web.rbsuat.com' : '',
+            'base_uri' => 'https://web.rbsuat.com',
         ]);
     }
 
@@ -40,15 +41,15 @@ class Rshb
         try {
 
             $response = $this->httpClient->post('/rshb/payment/rest/register.do', [
-                'allow_redirects'           => true,
-                'port'                      => 443,
+                'allow_redirects' => true,
+                'port' => 443,
                 RequestOptions::FORM_PARAMS => [
-                    'userName'    => self::API,
-                    'password'    => $this->password,
+                    'userName' => self::API,
+                    'password' => $this->password,
                     'orderNumber' => $this->getOrderNumber($orderId),
-                    'amount'      => $this->amount($amount),// Переводим рубли в копейки
-                    'returnUrl'   => route('order.confirm.payment', compact('confirmOrderPaymentCode')),
-                    'failUrl'     => route('order.cancel.payment', compact('cancelOrderPaymentCode')),
+                    'amount' => $this->amount($amount),// Переводим рубли в копейки
+                    'returnUrl' => route('order.confirm.payment', compact('confirmOrderPaymentCode')),
+                    'failUrl' => route('order.cancel.payment', compact('cancelOrderPaymentCode')),
                 ],
             ]);
         } catch (ServerException $e) {

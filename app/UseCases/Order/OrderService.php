@@ -2,40 +2,21 @@
 
 namespace App\UseCases\Order;
 
-use App\Http\Requests\Order\OrderRequest;
 use App\Models\Shop\Order;
-use App\Models\User;
-use App\Http\Requests\Auth\RegisterRequest;
-use App\Mail\SuccessfulRegistration;
-use App\Repositories\OrderRepository;
 use App\UseCases\Auth\PhoneService;
-use Illuminate\Auth\Events\Registered;
-use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
 class OrderService
 {
     /**
-     * @var Mailer $mailer
-     */
-    private $mailer;
-    /**
-     * @var Dispatcher $dispatcher
-     */
-    private $dispatcher;
-    /**
      * @var PhoneService $phoneService
      */
     private $service;
 
-    public function __construct(Mailer $mailer, Dispatcher $dispatcher, PhoneService $service)
+    public function __construct(PhoneService $service)
     {
-        $this->mailer = $mailer;
-        $this->dispatcher = $dispatcher;
         $this->service = $service;
     }
 
@@ -70,6 +51,7 @@ class OrderService
                     'street'       => $request['street'],
                     'house_number' => $request['house_number'],
                 ],
+                'delivery_type'  => $request['delivery_type'],
                 'date_time'      => [
                     'delivery_date' => $request['delivery_date'],
                     'delivery_time' => $request['delivery_time'],
@@ -78,8 +60,6 @@ class OrderService
             'comment'              => $request['message'],
         ];
         return Order::updateOrder($data, $id);
-
-        //$this->mailer->to($user->email)->send(new SuccessfulOrderRegistration($user));
     }
 
     /**

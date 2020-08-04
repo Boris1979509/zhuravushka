@@ -114,6 +114,19 @@
                 text-decoration-line: underline;
                 color: #FC8507;
             }
+
+            &__description {
+                font-size: 0.875rem;
+                line-height: 1.3;
+                letter-spacing: $letter-spacing-4;
+            }
+
+            &__sub-description {
+                font-size: 0.875rem;
+                line-height: 1.3;
+                margin-top: 5px;
+                color: #919191;
+            }
         }
     }
 

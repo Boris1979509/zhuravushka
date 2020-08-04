@@ -4,10 +4,13 @@ namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Core;
 use App\Http\Requests\Order\OrderRequest;
+use App\Mail\UserOrder;
 use App\Models\Shop\Order;
 use App\Services\Acquiring\Rshb;
 use App\UseCases\Cart\CartService;
 use App\UseCases\Order\OrderService;
+use Illuminate\Contracts\Events\Dispatcher;
+use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
@@ -25,17 +28,23 @@ class OrderController extends Core
      * @var OrderService $service
      */
     private $service;
+    /**
+     * @var Mailer $mailer
+     */
+    private $mailer;
 
     /**
      * OrderController constructor.
+     * @param Mailer $mailer
      * @param OrderService $service
      */
-    public function __construct(OrderService $service)
+    public function __construct(Mailer $mailer, OrderService $service)
     {
         parent::__construct();
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
         $this->service = $service;
+        $this->mailer = $mailer;
 
     }
 
@@ -46,6 +55,8 @@ class OrderController extends Core
      */
     public function place(CartService $cartService)
     {
+//        $order = $cartService->getOrder();
+//        dd($order->products);
         return view('order.place', $this->data, $cartService->getCart());
     }
 
@@ -93,6 +104,7 @@ class OrderController extends Core
         }
 
         if ($request->get('payment_type') === 'cash') {
+            $this->service->order($request, $total_cost, $order->id); /* Saved */
             $orderId = hash_hmac('sha256', $order->id, true);
             return response()->json(['route' => route('order.confirmNoPaid', compact('orderId'))]);
         }
@@ -105,19 +117,16 @@ class OrderController extends Core
      */
     public function confirmNoPaid(Request $request, CartService $cartService)
     {
-        $order = $cartService->getOrder(); // Current order
-        $total_cost = $cartService->getTotalSum();
-        $orderId = $request->get('orderId');
+        $orderId = $request->get('orderId'); // hash
+        $order = $this->orderRepository->getUserOrder($cartService->getOrder()->id);
 
         if (!$orderId && !hash_equals($orderId, hash_hmac('sha256', $order->id, true))) {
             return redirect()->route('order.place');
         }
 
-        /* Saved */
-        $this->service->order($request, $total_cost, $order->id);
-        $order = $this->orderRepository->getUserOrder($order->id);
         $order->number = $this->getOrderNumber($order->id);
         $this->data['orderInfo'] = $order;
+        $this->sendMail(config('mail.from.address'), $order); // Send mail
 
         session()->forget('orderId'); // Stay here
         return view('order.info', $this->data, $cartService->getCart());
@@ -144,6 +153,7 @@ class OrderController extends Core
 
         $order->number = $this->getOrderNumber($order->id);
         $this->data['orderInfo'] = $order;
+        $this->sendMail(config('mail.from.address'), $order);
 
         session()->forget('orderId');
         return view('order.info', $this->data, $cartService->getCart());
@@ -195,5 +205,14 @@ class OrderController extends Core
     private function toArray($string)
     {
         return json_decode(preg_replace("/[\r\n]+/", ' ', $string), false);
+    }
+
+    /**
+     * @param $mail
+     * @param $order
+     */
+    private function sendMail($mail, $order)
+    {
+        $this->mailer->to($mail)->send(new UserOrder($order));
     }
 }

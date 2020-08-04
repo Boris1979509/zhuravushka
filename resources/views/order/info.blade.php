@@ -49,18 +49,25 @@
                         <p class="customer-block__email">{{ $orderInfo->user_data['contacts']['email'] }}</p>
                     </div>
                 </div>
-                <div class="order-info__delivery">
-                    <div class="customer-block">
-                        <p class="customer-block__title">{{ __('OrderInfoDelivery') }}</p>
+                @if($orderInfo->user_data['delivery_type'] === 'pickup')
+                    <div class="order-info__delivery">
+                        <div class="customer-block">
+                            <p class="customer-block__title">{{ __('OrderInfoDelivery') }}</p>
+                            <p class="customer-block__description">{{ __('PickupText') }}</p>
+                        </div>
                     </div>
-                </div>
-                <div class="order-info__payment">
-                    <div class="customer-block">
-                        <p class="customer-block__title">{{ __('OrderInfoPayment') }}</p>
-                    </div>
-                </div>
+                    @if($orderInfo->order_status !== 'paid')
+                        <div class="order-info__payment">
+                            <div class="customer-block">
+                                <p class="customer-block__title">{{ __('OrderInfoPayment') }}</p>
+                                <p class="customer-block__description">{{ __('PaymentText') }}</p>
+                                <p class="customer-block__sub-description">{{ __('PaymentSubText') }}</p>
+                            </div>
+                        </div>
+                    @endif
+                @endif
             </div>
-            @include('order.info-Products')
+            @include('order.info-products')
         </div>
     </section>
 @endsection

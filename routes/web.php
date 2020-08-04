@@ -107,7 +107,7 @@ Route::group([
     'namespace'  => 'Admin',
     'prefix'     => 'admin',
     'as'         => 'admin.',
-    'middleware' => 'can:admin-panel',
+    'middleware' => ['auth', 'can:admin-panel'],
 ], static function () {
     Route::get('/', 'HomeController@index')->name('home');
     Route::resource('users', 'UsersController');

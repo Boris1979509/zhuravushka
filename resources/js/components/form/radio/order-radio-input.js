@@ -1,5 +1,4 @@
 module.exports = (() => {
-    const orderRegistrationSelectAddressDelivery = document.querySelector('.order-registration__select-address-delivery');
     const showDateTimeDelivery = (e) => {
         const deliveryAdd = document.querySelector('.date-time-delivery');
         if (e.classList.contains('delivery-type__express')) {
@@ -28,13 +27,17 @@ module.exports = (() => {
             });
         });
         delivery.forEach((item) => {
-            item.addEventListener('click', (e) => {
-                const el = e.currentTarget;
-                if (el.classList.contains('delivery-type__pick-up')) {
-                    orderRegistrationSelectAddressDelivery.setAttribute('hidden', 'hidden');
+            function pickUp(e) {
+                const addressBlock = document.querySelector('.order-registration__select-address-delivery');
+                if (e.classList.contains('delivery-type__pick-up')) {
+                    addressBlock.setAttribute('hidden', 'hidden');
                 } else {
-                    orderRegistrationSelectAddressDelivery.removeAttribute('hidden');
+                    addressBlock.removeAttribute('hidden');
                 }
+            }
+
+            item.addEventListener('click', (e) => {
+                pickUp(e.currentTarget);
                 handleClick(e, delivery);
             });
         });

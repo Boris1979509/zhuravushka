@@ -3,6 +3,7 @@
 namespace App\Http\Requests\Order;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Support\Facades\Auth;
 
 class OrderRequest extends FormRequest
 {
@@ -34,7 +35,6 @@ class OrderRequest extends FormRequest
             'last_name'          => 'required|string|max:255|nullable',
             'name'               => 'required|string|max:255',
             'middle_name'        => 'string|max:255|nullable',
-            'phone'              => 'nullable|string|regex:/^\+7 \([0-9]{3}\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/',
             'email'              => 'required|string|email',
             'message'            => 'nullable|string',
         ];

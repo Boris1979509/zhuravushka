@@ -14,7 +14,6 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Throwable;
 
@@ -69,7 +68,8 @@ class OrderController extends Core
     {
         $order = $cartService->getOrder(); // Текущий заказ
         $total_cost = $cartService->getTotalSum();
-        if (!Auth::check()) {
+        // Если в запросе есть поле телефон и оно не пустое
+        if ($request->has('phone') && is_null($request->input('phone'))) {
             return response()->json([
                 'error' => view('flash.index')
                     ->with('error', __('The phone number was not confirmed'))
@@ -173,18 +173,6 @@ class OrderController extends Core
         $order->order_status = Order::STATUS_CANCEL_PAID;
         $order->save();
         return redirect()->route('order.place')->with('error', __('ErrorPayment'));
-    }
-
-    /**
-     * Guest users
-     * @return bool
-     */
-    private function phoneVerified(): bool
-    {
-        if (session('verified') && session('phone')) {
-            return true;
-        }
-        return false;
     }
 
     /**

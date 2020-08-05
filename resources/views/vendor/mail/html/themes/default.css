@@ -98,8 +98,8 @@ img {
 /* Header */
 
 .header {
-    padding: 25px 0;
     text-align: center;
+    background: #0075D2;
 }
 
 .header a {
@@ -112,8 +112,9 @@ img {
 /* Logo */
 
 .logo {
-    height: 75px;
-    width: 75px;
+    margin: 0 auto;
+    width: 212px;
+    height: 64px;
 }
 
 /* Body */
@@ -139,7 +140,7 @@ img {
     border-radius: 2px;
     border-width: 1px;
     box-shadow: 0 2px 0 rgba(0, 0, 150, 0.025), 2px 4px 0 rgba(0, 0, 150, 0.015);
-    margin: 0 auto;
+    margin: 5px auto;
     padding: 0;
     width: 570px;
 }

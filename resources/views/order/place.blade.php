@@ -8,7 +8,7 @@
         <form action="{{ route('order.confirm') }}" method="POST" class="form-label" id="order-form">
             @csrf
             <div class="order-registration">
-                <div class="order-registration__select-delivery-top">
+                <div class="order-registration__select-delivery">
                     <div class="title">{{ __('SelectDeliveryTitle') }}</div>
                     <div class="delivery-type">
                         <div class="delivery-type__transport active">
@@ -24,11 +24,6 @@
                             <div class="description">{{ __('PickUpTitleDescription') }}
                             </div>
                         </div>
-                    </div>
-                </div>
-                <div class="order-registration__select-delivery">
-                    <div class="title">{{ __('SelectDeliveryTitle') }}</div>
-                    <div class="delivery-type">
                         <div class="delivery-type__saving">
                             <input type="radio" id="delivery-saving" name="delivery_type" value="saving">
                             <p class="title">{{ __('SavingTitle') }}</p>
@@ -148,7 +143,6 @@
                     <textarea name="message" id="orderMessage" cols="30" rows="4"
                               placeholder="{{ __('OrderMessage') }}"></textarea>
                     </div>
-
                 </div>
                 @include('order.products')
             </div>

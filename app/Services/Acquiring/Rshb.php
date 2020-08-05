@@ -29,7 +29,8 @@ class Rshb
      */
     public function __construct()
     {
-        $this->password = $this->password = config('app.debug') ? self::DEV_PASSWORD : self::PROD_PASSWORD;
+        // $this->password = config('app.debug') ? self::DEV_PASSWORD : self::PROD_PASSWORD;
+        $this->password = self::DEV_PASSWORD;
         $this->httpClient = new HttpClient([
             //'base_uri' => config('app.debug') ? 'https://web.rbsuat.com' : '',
             'base_uri' => 'https://web.rbsuat.com',
@@ -77,7 +78,7 @@ class Rshb
      */
     public function getOrderNumber($orderId): string
     {
-        return str_pad($orderId, 8, '0', STR_PAD_LEFT);
+        return str_pad($orderId, 9, '0', STR_PAD_LEFT);
     }
 
 }

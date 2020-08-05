@@ -4,12 +4,11 @@ namespace App\Http\Controllers\Order;
 
 use App\Http\Controllers\Core;
 use App\Http\Requests\Order\OrderRequest;
-use App\Mail\UserOrder;
+use App\Mail\OrderShipped;
 use App\Models\Shop\Order;
 use App\Services\Acquiring\Rshb;
 use App\UseCases\Cart\CartService;
 use App\UseCases\Order\OrderService;
-use Illuminate\Contracts\Events\Dispatcher;
 use Illuminate\Contracts\Mail\Mailer;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
@@ -55,8 +54,6 @@ class OrderController extends Core
      */
     public function place(CartService $cartService)
     {
-//        $order = $cartService->getOrder();
-//        dd($order->products);
         return view('order.place', $this->data, $cartService->getCart());
     }
 
@@ -209,10 +206,27 @@ class OrderController extends Core
 
     /**
      * @param $mail
-     * @param $order
+     * @param Order $order
      */
-    private function sendMail($mail, $order)
+    private function sendMail($mail, Order $order)
     {
-        $this->mailer->to($mail)->send(new UserOrder($order));
+        $data = $this->mailRender($order);
+        $this->mailer->to($mail)->send(new OrderShipped($data, $order));
+    }
+
+    private function mailRender($order)
+    {
+        $data = [];
+        $columns = ['Название', 'Цена', 'Количество', 'Сумма'];
+
+        foreach ($order->products as $product) {
+            $data[] = [
+                $product->title,
+                $product->price . ' ' . __('Rub'),
+                $product->pivot->count . ' ' . $product->unit_pricing_base_measure,
+                round($product->price * $product->pivot->count, 2) . ' ' . __('Rub')
+            ];
+        }
+        return compact('data', 'columns');
     }
 }

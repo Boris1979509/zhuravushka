@@ -77,15 +77,15 @@
                         <div class="delivery-address-block__form">
                             <div class="title">{{ __('SelectAddressDeliveryTitle') }}</div>
                             <div class="form-input">
-                                <input type="text" class="input" name="city" id="city" required>
+                                <input type="text" class="input" name="city" id="city">
                                 <label for="city">{{ __('City') }}<span class="require">*</span></label>
                             </div>
                             <div class="form-input">
-                                <input type="text" class="input" name="street" id="street" required>
+                                <input type="text" class="input" name="street" id="street">
                                 <label for="street">{{ __('Street') }}<span class="require">*</span></label>
                             </div>
                             <div class="form-input">
-                                <input type="text" class="input" name="house_number" id="houseNumber" required>
+                                <input type="text" class="input" name="house_number" id="houseNumber">
                                 <label for="houseNumber">{{ __('HouseNumber') }}<span class="require">*</span></label>
                             </div>
                         <!--<button type="submit"

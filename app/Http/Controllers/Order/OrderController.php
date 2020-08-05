@@ -197,7 +197,7 @@ class OrderController extends Core
      * @param $mail
      * @param Order $order
      */
-    private function sendMail($mail, Order $order)
+    private function sendMail($mail, Order $order): void
     {
         $data = $this->mailRender($order);
         $this->mailer->to($mail)->send(new OrderShipped($data, $order));

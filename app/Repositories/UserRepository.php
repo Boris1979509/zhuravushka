@@ -41,6 +41,20 @@ class UserRepository extends CoreRepository
     }
 
     /**
+     * @param integer $user_id
+     * @return mixed
+     */
+    public function findUserWithOrdersProducts($user_id)
+    {
+        return $this->startConditions()
+            ->where('id', $user_id)
+            ->with(['orders' => static function ($query){
+                $query->with('products');
+            }])
+            ->first();
+    }
+
+    /**
      * @return Builder
      */
     public function OrderByDesc(): Builder

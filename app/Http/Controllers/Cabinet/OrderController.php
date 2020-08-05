@@ -5,8 +5,10 @@ namespace App\Http\Controllers\Cabinet;
 
 
 use App\Http\Controllers\Core;
+use App\Models\User;
 use App\UseCases\Cart\CartService;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class OrderController extends Core
@@ -26,10 +28,12 @@ class OrderController extends Core
 
     /**
      * @param CartService $cartService
+     * @param User $user
      * @return Factory|View
      */
-    public function index(CartService $cartService)
+    public function index(CartService $cartService, User $user)
     {
+        $this->data['user'] = $this->userRepository->findUserWithOrdersProducts(Auth::id());
         return view('cabinet.order.index', $this->data, $cartService->getCart());
     }
 }

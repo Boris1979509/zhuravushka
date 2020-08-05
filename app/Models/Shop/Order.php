@@ -92,4 +92,20 @@ class Order extends Model
     {
         return $this->belongsTo(User::class);
     }
+
+    /**
+     * @return string
+     */
+    public function getOrderNumber(): string
+    {
+        return '№' . str_pad($this->id, 8, '0', STR_PAD_LEFT);
+    }
+
+    /**
+     * @return bool
+     */
+    public function isPaid(): bool
+    {
+        return $this->order_status === self::STATUS_PAID;
+    }
 }

@@ -133,7 +133,9 @@
                                placeholder="">
                         <label for="middleName">{{ __('MiddleName') }}</label>
                     </div>
-                    @include('auth.phoneRequest')
+                    @guest
+                        @include('auth.phoneRequest')
+                    @endguest
                     <div class="form-input">
                         <input type="email" name="email" id="email" class="input" placeholder=""
                                value="{{ auth()->user()->email ?? '' }}" required>

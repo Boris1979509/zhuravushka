@@ -14,6 +14,7 @@ use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\JsonResponse;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 use Throwable;
 
@@ -68,7 +69,7 @@ class OrderController extends Core
     {
         $order = $cartService->getOrder(); // Текущий заказ
         $total_cost = $cartService->getTotalSum();
-        if (!$this->phoneVerified()) {
+        if (!Auth::check()) {
             return response()->json([
                 'error' => view('flash.index')
                     ->with('error', __('The phone number was not confirmed'))

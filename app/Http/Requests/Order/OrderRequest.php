@@ -34,7 +34,7 @@ class OrderRequest extends FormRequest
             'last_name'          => 'required|string|max:255|nullable',
             'name'               => 'required|string|max:255',
             'middle_name'        => 'string|max:255|nullable',
-            'phone'              => 'required|string|regex:/^\+7 \([0-9]{3}\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/',
+            'phone'              => 'nullable|string|regex:/^\+7 \([0-9]{3}\) [0-9]{3}-[0-9]{2}-[0-9]{2}$/',
             'email'              => 'required|string|email',
             'message'            => 'nullable|string',
         ];

@@ -13,16 +13,16 @@ class PhoneService
     public const ATTEMPTS = 3;
     public const TIMER = 60; // 60 sec.
 
-    public function __construct(/*SmsSender $sms*/)
+    public function __construct(SmsSender $sms)
     {
-        //$this->sms = $sms;
+        $this->sms = $sms;
     }
 
     public function request($phone)
     {
         $data = $this->getToken($phone, Carbon::now());
         if (isset($data['token'])) {
-            //$this->sms->send($phone, __('Phone verification token: ') . $data['token']); // Send ...
+            $this->sms->send($phone, __('Phone verification token') . $data['token']); // Send ...
         }
         return $data;
     }

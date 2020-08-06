@@ -91,7 +91,7 @@ Route::group([
     Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
     Route::put('/update', 'ProfileController@update')->name('profile.update');
     /* End Profile */
-    Route::get('/favorite', 'FavoriteController@index')->name('favorite');
+    //Route::get('/favorite', 'FavoriteController@index')->name('favorite');
     Route::get('/feedback', 'FeedbackController@index')->name('feedback');
     Route::get('/comment', 'CommentController@index')->name('comment');
     Route::get('/order', 'OrderController@index')->name('order');

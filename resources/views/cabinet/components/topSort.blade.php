@@ -10,10 +10,7 @@
            class="cabinet__sorting-link {{ isCurrentRoute('cabinet.feedback') }}">{{ __('CabinetFeedBack') }}</a>
         <a href="{{ route('cabinet.profile.edit') }}"
            class="cabinet__sorting-link {{ isCurrentRoute('cabinet.profile.edit') }}">{{ __('ProfileSetting') }}</a>
-        <a href="{{ route('cabinet.favorite') }}"
-           class="cabinet__sorting-link {{ isCurrentRoute('cabinet.favorite') }}">{{ __('Favorite') }}</a>
     </div>
-
     <div class="cabinet__sorting-logout">
         @include('cabinet.logout.logout')
     </div>

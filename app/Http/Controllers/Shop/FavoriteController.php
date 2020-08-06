@@ -28,7 +28,6 @@ class FavoriteController extends Core
     public function __construct(FavoriteService $service)
     {
         parent::__construct();
-        //$this->middleware('auth');
         $this->service = $service;
     }
 

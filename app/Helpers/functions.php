@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Support\Facades\Storage;
 use Illuminate\Support\Str;
 use Jenssegers\Date\Date;
@@ -72,5 +73,17 @@ if (!function_exists('fileExist')) {
             return asset($path);
         }
         return asset('images/nophoto.png');
+    }
+}
+if (!function_exists('getIdsFromCollect')) {
+    /**
+     * @param $collect
+     * @return array
+     */
+    function getIdsFromCollect($collect): array
+    {
+        return $collect->map(function ($item) {
+            return $item->id;
+        })->toArray();
     }
 }

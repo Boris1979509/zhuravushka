@@ -47,7 +47,13 @@ h3 {
         width: 720px;
     }
     @media (max-width: 767px) {
-        max-width: 540px;
+        width: 540px;
+    }
+    @media (max-width: 480px) {
+
+    }
+    @media (max-width: 320px) {
+
     }
 }
 

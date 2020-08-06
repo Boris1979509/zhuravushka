@@ -57,9 +57,9 @@ const cardIcons = {
         cardIcons.init();
 
     },
-    refresh: () => {
+    refresh: (data) => {
         const url = location.href;
-        if (url.indexOf('favorites') !== -1) {
+        if (url.indexOf(data) !== -1) {
             setTimeout(() => {
                 location.reload();
             }, 1500);
@@ -70,7 +70,7 @@ const cardIcons = {
         xmlHttpRequest(url, {}, (data) => {
             if (data.status) {
                 flash(data.message, data.status);
-                cardIcons.refresh();
+                cardIcons.refresh(cardIcons.data.controller);
                 countIcons(data.count, cardIcons.data.controller);
             }
         });

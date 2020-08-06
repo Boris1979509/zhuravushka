@@ -57,14 +57,37 @@ const tab = {
         if (!tab.gl) return;
         new Glider(tab.gl, {
             //itemWidth: 'auto',
-            slidesToShow: 4, // auto
-            slidesToScroll: 4, // auto
+            slidesToShow: 1, // auto
+            slidesToScroll: 1, // auto
             propagateEvent: false,
             draggable: false,
             arrows: {
                 prev: tab.prev,
                 next: tab.next,
-            }
+            },
+            responsive: [
+                {
+                    // screens greater than >= 775px
+                    breakpoint: 775,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                        itemWidth: 'auto',
+                        duration: 0.25
+                    }
+                },
+                {
+                    // screens greater than >= 775px
+                    breakpoint: 1200,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4,
+                        itemWidth: 'auto',
+                        duration: 0.25
+                    }
+                }
+
+            ]
         });
     }
 };

@@ -33,27 +33,24 @@ h3 {
 }
 
 .container {
-    width: 100%;
     margin: 0 auto;
     padding: 0 15px;
     position: relative;
-    @media (min-width: 1200px) {
+
+    @include mq($min-width: 1200px) {
         width: 1140px;
     }
-    @media (max-width: 1199px) and (min-width: 992px) {
-        width: 960px;
+    @include custom-device(992px, 1199px) {
+        min-width: 960px;
+        width: calc(100% - 30px);
     }
-    @media (max-width: 991px) and (min-width: 768px) {
-        width: 720px;
+    @include custom-device(768px, 991px) {
+        min-width: 690px;
+        width: calc(100% - 30px);
     }
-    @media (max-width: 767px) {
-        width: 540px;
-    }
-    @media (max-width: 480px) {
-
-    }
-    @media (max-width: 320px) {
-
+    @include custom-device(480px, 767px) {
+        min-width: 450px;
+        width: calc(100% - 30px);
     }
 }
 

@@ -27,7 +27,7 @@ class SmsRu implements SmsSender
             'form_params' => [
                 'api_id' => $this->appId,
                 'to' => preg_replace('/[^\d+]/', '', $number),
-                'text' => $text
+                'text' => __('Phone verification token') . $text
             ],
         ]);
     }

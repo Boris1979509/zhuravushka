@@ -22,7 +22,7 @@ class PhoneService
     {
         $data = $this->getToken($phone, Carbon::now());
         if (isset($data['token'])) {
-            $this->sms->send($phone, __('Phone verification token') . $data['token']); // Send ...
+            $this->sms->send($phone, $data['token']); // Send ...
         }
         return $data;
     }

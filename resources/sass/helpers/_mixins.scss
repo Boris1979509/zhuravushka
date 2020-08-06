@@ -273,3 +273,10 @@ Add button icon
     }
 }
 
+// Media queries
+@mixin custom-device($min, $max) {
+    @include mq($media-type: 'all', $min-width: $min, $max-width: $max) {
+        @content;
+    }
+}
+

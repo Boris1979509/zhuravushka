@@ -157,10 +157,15 @@
     }
 
     .delivery-address-block {
-        display: flex;
+        width: 100%;
 
         input, textarea {
             border-radius: 0 !important;
+        }
+
+        .row {
+            column-gap: 20px;
+            flex-flow: inherit;
         }
     }
 

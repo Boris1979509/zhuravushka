@@ -30,7 +30,7 @@ module.exports = ((login) => {
         }
         xmlHttpRequest(loginForm.action, data, (data) => {
             if (validator(loginForm, data)) {
-                window.location.href = '/cabinet';
+                window.location.href = data.url;
             }
         });
     });

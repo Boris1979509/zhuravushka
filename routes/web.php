@@ -1,5 +1,6 @@
 <?php
 
+use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -76,7 +77,8 @@ Route::group([
     Route::get('cancel-payment', 'OrderController@cancelPayment')->name('cancel.payment');
 });
 
-Auth::routes(['login' => false]); // except route
+//Auth::routes(['login' => false]); // except route
+Auth::routes(); // except route
 
 // User Cabinet
 Route::group([
@@ -100,7 +102,7 @@ Route::group([
 Route::group(['namespace' => 'Auth',], static function () {
     Route::post('/phone', 'PhoneController@request')->name('phone.request');
     Route::post('/verify', 'PhoneController@verify')->name('phone.verify');
-    Route::post('/login', 'LoginController@login')->name('login');
+    // Route::post('/login', 'LoginController@login')->name('login');
 });
 // Admin
 Route::group([

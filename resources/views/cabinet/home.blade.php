@@ -5,7 +5,6 @@
         <div class="container">
             <div class="cabinet">
                 <h1>{{ __('Cabinet') }}</h1>
-                @include('flash.index')
                 @include('cabinet.components.topSort')
             </div>
         </div>

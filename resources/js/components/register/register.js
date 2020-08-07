@@ -17,13 +17,17 @@ module.exports = ((register) => {
         });
         xmlHttpRequest(register.action, data, (data) => {
             if (validator(register, data)) {
-                message.innerHTML = data.success || data.error;
-                window.scrollTo({top: 0, behavior: 'smooth'});
-                if (data.success) {
-                    const loginContainer = document.querySelector('.sub-header__login');
-                    loginContainer.removeAttribute('hidden');
-                    clearAllFormInputs();
+                if (data.error) {
+                    window.scrollTo({top: 0, behavior: 'smooth'});
+                    message.innerHTML = data.error;
+                } else {
+                    location.href = data.url;
                 }
+                // message.innerHTML = data.success || data.error;
+                // window.scrollTo({top: 0, behavior: 'smooth'});
+                // const loginContainer = document.querySelector('.sub-header__login');
+                // loginContainer.removeAttribute('hidden');
+                // clearAllFormInputs();
             }
         });
     });

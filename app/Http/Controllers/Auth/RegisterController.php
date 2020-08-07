@@ -54,8 +54,8 @@ class RegisterController extends Core
         if ($this->phoneVerified()) {
             $this->service->register($request);
             $this->service->forget();// Session destroy
-            $message = ['success' => __('SuccessfulRegistrationInfo')];
-            $this->data = ['success' => view('flash.index', $message)->render()];
+            session()->flash('success', __('SuccessfulRegistrationInfo'));
+            $this->data = ['url' => route('login')];
         } else {
             $message = ['error' => __('The phone number was not confirmed')];
             $this->data = ['error' => view('flash.index', $message)->render()];

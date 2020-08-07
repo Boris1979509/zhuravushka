@@ -14,7 +14,7 @@ module.exports = (() => {
         });
         e.currentTarget.classList.add('active');
         e.currentTarget.querySelector('input[type=radio]').checked = true;
-        showDateTimeDelivery(e.currentTarget);
+        // showDateTimeDelivery(e.currentTarget);
     }
     const payments = document.querySelectorAll('.payment-type > div');
     const delivery = document.querySelectorAll('.delivery-type > div');

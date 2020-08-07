@@ -31,7 +31,11 @@
                         <ul>
                             @guest
                                 <li>
-                                    <a class="link" id="login" href="javascript:void(0)">{{ __('Login') }}</a>
+                                    @if(url()->current() !== route('login'))
+                                        <a class="link" id="login" href="javascript:void(0)">{{ __('Login') }}</a>
+                                    @else
+                                        <a class="link" href="{{ route('login') }}">{{ __('Login') }}</a>
+                                    @endif
                                 </li>
                                 <li>
                                     <a class="link" href="{{ route('register') }}">{{ __('Registration') }}</a>
@@ -130,7 +134,11 @@
                     </a>
                 </div>
             </div>
-            @include('auth.login')
+            @if(url()->current() !== route('login'))
+                <div class="sub-header__login" hidden>
+                    @include('auth.login')
+                </div>
+            @endif
             <div id="catalogMenu" hidden>
                 @include('components.barMenu')
             </div>

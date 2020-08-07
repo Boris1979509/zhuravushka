@@ -50,6 +50,7 @@ class OrderService
                     'city'         => $request['city'],
                     'street'       => $request['street'],
                     'house_number' => $request['house_number'],
+                    'apartment'    => $request['apartment'],
                 ],
                 'delivery_type'  => $request['delivery_type'],
                 'date_time'      => [

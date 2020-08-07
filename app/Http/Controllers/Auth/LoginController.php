@@ -3,16 +3,21 @@
 namespace App\Http\Controllers\Auth;
 
 use App\Http\Controllers\Controller;
+use App\Http\Controllers\Core;
 use App\Http\Requests\Auth\LoginRequest;
 use App\Models\User;
+use App\UseCases\Cart\CartService;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Foundation\Auth\ThrottlesLogins;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Validation\ValidationException;
+use Illuminate\View\View;
 use Symfony\Component\HttpKernel\Exception\BadRequestHttpException;
 
-class LoginController extends Controller
+class LoginController extends Core
 {
     use ThrottlesLogins;
     /**
@@ -22,15 +27,27 @@ class LoginController extends Controller
 
     public function __construct()
     {
+        parent::__construct();
         $this->middleware('guest')->except('logout');
+        $this->data['pages'] = $this->pageRepository->getAllPagesNav();
+        $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
+    }
+
+    /**
+     * @param CartService $cartService
+     * @return Factory|View
+     */
+    public function showLoginForm(CartService $cartService)
+    {
+        return view('auth.inc.inc-login', $this->data, $cartService->getCart());
     }
 
     /**
      * @param LoginRequest $request
-     * @return bool
+     * @return mixed
      * @throws ValidationException
      */
-    public function login(LoginRequest $request): bool
+    public function login(LoginRequest $request)
     {
         if ($this->hasTooManyLoginAttempts($request)) {
             $this->fireLockoutEvent($request);
@@ -45,9 +62,16 @@ class LoginController extends Controller
         if ($authenticate) {
             $request->session()->regenerate();
             $this->clearLoginAttempts($request);
-            //return redirect()->intended(route('cabinet.home'));
-            session()->flash('success', __('Welcome') . auth()->user()->name);
-            return true;
+
+            if ($request->wantsJson()) {
+                session()->flash('success', __('Welcome') . auth()->user()->name);
+                $this->data = ['url' => route('cabinet.order')];
+                return response()->json($this->data);
+            } else {
+                return redirect()
+                    ->intended(route('cabinet.order'))
+                    ->with('success', __('Welcome') . auth()->user()->name);
+            }
         }
 
         $this->incrementLoginAttempts($request);

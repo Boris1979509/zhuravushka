@@ -34,13 +34,13 @@
         //grid-column: 1 / span 10;
 
         &__product {
-            display: flex;
+            display: inline-flex;
             background: #FFFFFF;
             border: 1px solid #CCCCCC;
             margin-bottom: -1px;
             padding: 30px 30px 30px 22px;
-            flex-wrap: wrap;
             justify-content: space-between;
+            gap: 20px;
         }
 
         &__img {

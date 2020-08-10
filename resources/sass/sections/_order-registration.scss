@@ -8,7 +8,7 @@
 
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-areas: "Delivery Info" "Address Info" "Payment Info" "Contact Info";
+    grid-template-areas: "Sticky Info" "Sticky Info" "Sticky Info" "Sticky Info";
     column-gap: 20px;
     margin-bottom: 40px;
 
@@ -268,27 +268,34 @@
             line-height: 1.33;
         }
 
-        .cart {
-            display: flex;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
+        .cart-products-wrap {
+            max-height: 150px;
+            overflow: auto;
+            padding: 10px;
+            .cart {
+                display: flex;
+                margin-bottom: 20px;
+                flex-wrap: wrap;
 
-            &__product-title {
-                letter-spacing: $letter-spacing-4;
-                color: #8D8D8D;
-                width: 50%;
+                &__product-title {
+                    letter-spacing: $letter-spacing-4;
+                    color: #8D8D8D;
+                    width: 50%;
+                    contain: content;
+                }
+
+                &__product-item-total-sum {
+                    @extend %templateBlockFonts;
+                    letter-spacing: $letter-spacing-3;
+                    width: 50%;
+                    align-self: center;
+                    text-align: right;
+                    line-height: 1;
+                }
+
             }
-
-            &__product-item-total-sum {
-                @extend %templateBlockFonts;
-                letter-spacing: $letter-spacing-3;
-                width: 50%;
-                align-self: flex-end;
-                text-align: right;
-                line-height: 1;
-            }
-
         }
+
 
         .cart-total-wrap {
 
@@ -369,36 +376,41 @@
         }
     }
 
+    .sticky-content {
+        grid-area: Sticky;
+        grid-column: 1 / span 8;
+    }
+
     &__select-delivery {
         @extend %templateBlock;
-        grid-area: Delivery;
-        grid-column: 1 / span 9;
+        //grid-area: Delivery;
+        //grid-column: 1 / span 8;
         margin-bottom: 20px;
     }
 
     &__select-address-delivery {
         @extend %templateBlock;
-        grid-area: Address;
-        grid-column: 1 / span 9;
+        //grid-area: Address;
+        //grid-column: 1 / span 8;
         margin-bottom: 20px;
     }
 
     &__select-payment-method {
         @extend %templateBlock;
-        grid-area: Payment;
-        grid-column: 1 / span 9;
+        //grid-area: Payment;
+        //grid-column: 1 / span 8;
         margin-bottom: 20px;
     }
 
     &__contact-form {
         @extend %templateBlock;
-        grid-area: Contact;
-        grid-column: 1 / span 9;
+        //grid-area: Contact;
+        //grid-column: 1 / span 8;
     }
 
     &__info {
         grid-area: Info;
-        grid-column: span 9 / span 12;
+        grid-column: 9 / 13;
     }
 
 }

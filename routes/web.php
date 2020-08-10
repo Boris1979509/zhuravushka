@@ -89,7 +89,7 @@ Route::group([
 ], static function () {
     Route::get('/', 'HomeController@index')->name('home');
     /* Profile */
-    Route::get('/home', 'ProfileController@index')->name('profile.home');
+    Route::get('/profile', 'ProfileController@index')->name('profile.home');
     Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
     Route::put('/update', 'ProfileController@update')->name('profile.update');
     /* End Profile */

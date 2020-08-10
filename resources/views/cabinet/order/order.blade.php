@@ -20,20 +20,20 @@
                     <div class="content-block__item status-order-confirmed">
                         <div>
                             <div class="content-block__title-prop">{{ __('CabinetStatusOrder') }}</div>
-                            <div class="content-block__title-value">{{ __('Confirmed') }}</div>
+                            <div class="content-block__title-value">{{ __('Paid') }}</div>
                         </div>
                     </div>
                 @else
                     <div class="content-block__item status-pending-payment">
                         <div>
                             <div class="content-block__title-prop">{{ __('CabinetStatusOrder') }}</div>
-                            <div class="content-block__title-value">{{ __('PendingPayment') }}</div>
+                            <div class="content-block__title-value">{{ __('NoPaid') }}</div>
                         </div>
                     </div>
                 @endif
-                <div class="content-block__item">
-                    <button class="btn btn-outline btn-go-on">{{ __('GoOn') }}</button>
-                </div>
+{{--                <div class="content-block__item">--}}
+{{--                    <button class="btn btn-outline btn-go-on">{{ __('GoOn') }}</button>--}}
+{{--                </div>--}}
                 <span class="accordion__button-item"></span>
                 <div class="content-block__sub-content">
                     <div class="content-block__sub-content-item">
@@ -73,7 +73,9 @@
                     <img src="{{ asset('images/icons/alerts/info.svg') }}" alt="info">
                 </div>
                 <div class="alert-info__message">
-                    <p>{{ __('OrdersNotFound') }}</p>
+                    <p>{{ __('OrdersNotFound') }}
+                        <a href="{{ route('catalog') }}" class="link">{{ __('MakeFirstOrder') }}</a>
+                    </p>
                 </div>
             </div>
         @endforelse

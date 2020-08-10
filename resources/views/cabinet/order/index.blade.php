@@ -6,8 +6,8 @@
             <div class="cabinet">
                 <h1>{{ __('CabinetOrder') }}</h1>
                 @include('flash.index')
-                @include('cabinet.components.topSort')
-                @include('cabinet.components.order')
+                @include('cabinet.order._nav')
+                @include('cabinet.order.order')
             </div>
         </div>
     </section>

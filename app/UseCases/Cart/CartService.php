@@ -6,6 +6,7 @@ namespace App\UseCases\Cart;
 use App\Models\Shop\Order;
 use App\Repositories\OrderRepository;
 use App\Models\Shop\Product;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Http\Request;
 use Throwable;
 
@@ -209,6 +210,17 @@ class CartService
             ];
         }
         return false;
+    }
+
+    /**
+     * @param int $page
+     * @return LengthAwarePaginator
+     */
+    public function productsPaginate(int $page): LengthAwarePaginator
+    {
+        return $this->order->products()
+            ->orderBy('id', 'DESC')
+            ->paginate($page);
     }
 
 }

@@ -67,11 +67,11 @@ class LoginController extends Core
                 session()->flash('success', __('Welcome') . auth()->user()->name);
                 $this->data = ['url' => route('cabinet.order')];
                 return response()->json($this->data);
-            } else {
-                return redirect()
-                    ->intended(route('cabinet.order'))
-                    ->with('success', __('Welcome') . auth()->user()->name);
             }
+
+            return redirect()
+                ->intended(route('cabinet.order'))
+                ->with('success', __('Welcome') . auth()->user()->name);
         }
 
         $this->incrementLoginAttempts($request);

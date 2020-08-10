@@ -5,7 +5,7 @@
         <div class="container">
             <div class="cabinet">
                 <h1>{{ __('Cabinet') }}</h1>
-                @include('cabinet.components.topSort')
+                @include('cabinet.topSort')
             </div>
         </div>
     </section>

@@ -19,7 +19,7 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        View::composer(['components.header', 'shop.favorite', 'cabinet.favorite.index', 'shop.compare'], static function ($view) {
+        View::composer(['components.header', 'shop.cardIconFavorite', 'shop.cardIconCompare', 'cabinet.favorite.index', 'shop.compare'], static function ($view) {
             /**
              * Favorite
              */

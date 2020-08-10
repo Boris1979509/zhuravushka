@@ -36,6 +36,7 @@ require('./components/modals/webDevModal');
 require('./components/verify-phone/phone');
 require('./components/register/register');
 require('./components/order-register/orderRegister');
+require('./components/sticky-bar/sticky-bar');
 
 
 import btnAdd from './components/card/btnAdd';

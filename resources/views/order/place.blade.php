@@ -3,103 +3,106 @@
 @section('title', __('Order Place'))
 @section('content')
     <div class="container">
+        <h1 class="title">{{ __('Order Place') }}</h1>
         @include('flash.index')
         <div class="message"></div>
         <form action="{{ route('order.confirm') }}" method="POST" class="form-label" id="order-form">
             @csrf
             <div class="order-registration">
-                <div class="order-registration__select-delivery">
-                    <div class="title">{{ __('SelectDeliveryTitle') }}</div>
-                    <div class="delivery-type">
-                        @include('order.inc.delivery.deliveryTypeTransport')
-                        @include('order.inc.delivery.deliveryTypePickUp')
-                        {{--                        @include('order.inc.delivery.deliveryTypeSaving')--}}
-                        {{--                        @include('order.inc.delivery.deliveryTypeExpress')--}}
-                    </div>
-                    {{--                    @include('order.inc.delivery.deliveryDateTime')--}}
-                </div>
-                <div class="order-registration__select-address-delivery">
-                    <div class="delivery-address-block">
-                        <div class="delivery-address-block__form">
-                            <div class="title">{{ __('EnterAddressDeliveryTitle') }}</div>
-                            <div class="row">
-                                <div class="form-input">
-                                    <input type="text" class="input" name="city" id="city">
-                                    <label for="city">{{ __('City') }}<span class="require">*</span></label>
-                                </div>
-                                <div class="form-input">
-                                    <input type="text" class="input" name="street" id="street">
-                                    <label for="street">{{ __('Street') }}<span class="require">*</span></label>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="form-input">
-                                    <input type="number" class="input" name="house_number" id="houseNumber">
-                                    <label for="houseNumber">{{ __('HouseNumber') }}<span
-                                            class="require">*</span></label>
-                                </div>
-                                <div class="form-input">
-                                    <input type="number" class="input" name="apartment" id="apartment">
-                                    <label for="apartment">{{ __('Apartment') }}<span
-                                            class="require">*</span></label>
-                                </div>
-                            </div>
-                        <!--<button type="submit"
-                                    class="btn btn-active btn-find-place-map">{{-- __('FindAddressOnMapTitle') --}}</button>-->
+                <div class="sticky-content">
+                    <div class="order-registration__select-delivery">
+                        <div class="title">{{ __('SelectDeliveryTitle') }}</div>
+                        <div class="delivery-type">
+                            @include('order.inc.delivery.deliveryTypeTransport')
+                            @include('order.inc.delivery.deliveryTypePickUp')
+                            {{--                        @include('order.inc.delivery.deliveryTypeSaving')--}}
+                            {{--                        @include('order.inc.delivery.deliveryTypeExpress')--}}
                         </div>
-                    <!--<div class="delivery-address-block__map">
+                        {{--                    @include('order.inc.delivery.deliveryDateTime')--}}
+                    </div>
+                    <div class="order-registration__select-address-delivery">
+                        <div class="delivery-address-block">
+                            <div class="delivery-address-block__form">
+                                <div class="title">{{ __('EnterAddressDeliveryTitle') }}</div>
+                                <div class="row">
+                                    <div class="form-input">
+                                        <input type="text" class="input" name="city" id="city">
+                                        <label for="city">{{ __('City') }}<span class="require">*</span></label>
+                                    </div>
+                                    <div class="form-input">
+                                        <input type="text" class="input" name="street" id="street">
+                                        <label for="street">{{ __('Street') }}<span class="require">*</span></label>
+                                    </div>
+                                </div>
+                                <div class="row">
+                                    <div class="form-input">
+                                        <input type="number" class="input" name="house_number" id="houseNumber">
+                                        <label for="houseNumber">{{ __('HouseNumber') }}<span
+                                                class="require">*</span></label>
+                                    </div>
+                                    <div class="form-input">
+                                        <input type="number" class="input" name="apartment" id="apartment">
+                                        <label for="apartment">{{ __('Apartment') }}<span
+                                                class="require">*</span></label>
+                                    </div>
+                                </div>
+                            <!--<button type="submit"
+                                    class="btn btn-active btn-find-place-map">{{-- __('FindAddressOnMapTitle') --}}</button>-->
+                            </div>
+                        <!--<div class="delivery-address-block__map">
                             <img src="{{-- asset('images/delivery-map.jpg') --}}" alt="">
                         </div>-->
-                    </div>
-                </div>
-                <div class="order-registration__select-payment-method">
-                    <div class="title">{{ __('SelectPaymentTitle') }}</div>
-                    <div class="payment-type">
-                        <div class="payment-type__cash active">
-                            <input type="radio" id="payment-cash" name="payment_type" value="cash" checked>
-                            <p class="title">{{ __('DriverCashTitle') }}</p>
-                            <div class="description">
-                                {{ __('DriverCashDescription') }}
-                            </div>
-                            <div class="question-block"><span class="question">?</span></div>
-                        </div>
-                        <div class="payment-type__online">
-                            <input type="radio" id="payment-online" name="payment_type" value="bank_card">
-                            <p class="title">{{ __('PaymentOnline') }}</p>
-                            <div class="description">{{ __('PaymentOnlineDescription') }}
-                            </div>
-                            <div class="question-block"><span class="question">?</span></div>
                         </div>
                     </div>
-                </div>
-                <div class="order-registration__contact-form">
-                    <div class="title">{{ __('EnterContactInfo') }}</div>
-                    <div class="form-input">
-                        <input type="text" name="last_name" id="lastName" class="input"
-                               placeholder="" value="{{ auth()->user()->last_name ?? '' }}" required>
-                        <label for="lastName">{{ __('LastName') }}<span class="require">*</span></label>
+                    <div class="order-registration__select-payment-method">
+                        <div class="title">{{ __('SelectPaymentTitle') }}</div>
+                        <div class="payment-type">
+                            <div class="payment-type__cash active">
+                                <input type="radio" id="payment-cash" name="payment_type" value="cash" checked>
+                                <p class="title">{{ __('DriverCashTitle') }}</p>
+                                <div class="description">
+                                    {{ __('DriverCashDescription') }}
+                                </div>
+                                <div class="question-block"><span class="question">?</span></div>
+                            </div>
+                            <div class="payment-type__online">
+                                <input type="radio" id="payment-online" name="payment_type" value="bank_card">
+                                <p class="title">{{ __('PaymentOnline') }}</p>
+                                <div class="description">{{ __('PaymentOnlineDescription') }}
+                                </div>
+                                <div class="question-block"><span class="question">?</span></div>
+                            </div>
+                        </div>
                     </div>
-                    <div class="form-input">
-                        <input type="text" name="name" id="name" class="input"
-                               placeholder="" value="{{ auth()->user()->name ?? ''}}" required>
-                        <label for="name">{{ __('Name') }}<span class="require">*</span></label>
-                    </div>
-                    <div class="form-input">
-                        <input type="text" name="middle_name" id="middleName" class="input"
-                               placeholder="">
-                        <label for="middleName">{{ __('MiddleName') }}</label>
-                    </div>
-                    @guest
-                        @include('auth.phoneRequest')
-                    @endguest
-                    <div class="form-input">
-                        <input type="email" name="email" id="email" class="input" placeholder=""
-                               value="{{ auth()->user()->email ?? '' }}" required>
-                        <label for="email">{{ __('E-Mail Address') }}<span class="require">*</span></label>
-                    </div>
-                    <div class="form-input">
+                    <div class="order-registration__contact-form">
+                        <div class="title">{{ __('EnterContactInfo') }}</div>
+                        <div class="form-input">
+                            <input type="text" name="last_name" id="lastName" class="input"
+                                   placeholder="" value="{{ auth()->user()->last_name ?? '' }}" required>
+                            <label for="lastName">{{ __('LastName') }}<span class="require">*</span></label>
+                        </div>
+                        <div class="form-input">
+                            <input type="text" name="name" id="name" class="input"
+                                   placeholder="" value="{{ auth()->user()->name ?? ''}}" required>
+                            <label for="name">{{ __('Name') }}<span class="require">*</span></label>
+                        </div>
+                        <div class="form-input">
+                            <input type="text" name="middle_name" id="middleName" class="input"
+                                   placeholder="">
+                            <label for="middleName">{{ __('MiddleName') }}</label>
+                        </div>
+                        @guest
+                            @include('auth.phoneRequest')
+                        @endguest
+                        <div class="form-input">
+                            <input type="email" name="email" id="email" class="input" placeholder=""
+                                   value="{{ auth()->user()->email ?? '' }}" required>
+                            <label for="email">{{ __('E-Mail Address') }}<span class="require">*</span></label>
+                        </div>
+                        <div class="form-input">
                     <textarea name="message" id="orderMessage" cols="30" rows="4"
                               placeholder="{{ __('OrderMessage') }}"></textarea>
+                        </div>
                     </div>
                 </div>
                 @include('order.products')

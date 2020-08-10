@@ -44,7 +44,7 @@ Breadcrumbs::for('page', static function (Generator $trail, $pageSlug) {
 // User Cart
 Breadcrumbs::for('cart', static function (Generator $trail) {
     $trail->parent('home');
-    $trail->push('Корзина товаров', route('cart'));
+    $trail->push(__('ProductsCart'), route('cart'));
 });
 // Order
 Breadcrumbs::for('order.place', static function (Generator $trail) {
@@ -121,11 +121,7 @@ Breadcrumbs::for('password.reset', function (Generator $trail, $token) {
 Breadcrumbs::register('cabinet.home', static function (Generator $crumbs) {
     $crumbs->push(__('Cabinet'), route('cabinet.home'));
 });
-/* Home */
-Breadcrumbs::register('cabinet.favorite', static function (Generator $crumbs) {
-    $crumbs->parent('cabinet.home');
-    $crumbs->push(__('Favorite'), route('cabinet.favorite'));
-});
+
 /* Feedback */
 Breadcrumbs::register('cabinet.feedback', static function (Generator $crumbs) {
     $crumbs->parent('cabinet.home');
@@ -141,28 +137,21 @@ Breadcrumbs::register('cabinet.order', static function (Generator $crumbs) {
     $crumbs->parent('cabinet.home');
     $crumbs->push(__('CabinetOrder'), route('cabinet.order'));
 });
-
+// Profile setting
 Breadcrumbs::register('cabinet.profile.home', static function (Generator $crumbs) {
     $crumbs->parent('cabinet.home');
-    $crumbs->push(__('CabinetProfile'), route('cabinet.profile.home'));
+    $crumbs->push(__('ProfileSetting'), route('cabinet.profile.home'));
 });
 
 Breadcrumbs::register('cabinet.profile.edit', static function (Generator $crumbs) {
     $crumbs->parent('cabinet.profile.home');
     $crumbs->push(__('CabinetProfileEdit'), route('cabinet.profile.edit'));
 });
-
-Breadcrumbs::register('cabinet.profile.phone', static function (Generator $crumbs) {
-    $crumbs->parent('cabinet.profile.home');
-    $crumbs->push(__('cabinetProfilePhone'), route('cabinet.profile.phone'));
-});
 // Admin
-
 Breadcrumbs::register('admin.home', static function (Generator $crumbs) {
     $crumbs->push(__('Dashboard'), route('admin.home'));
 });
 // Users
-
 Breadcrumbs::register('admin.users.index', static function (Generator $crumbs) {
     $crumbs->parent('admin.home');
     $crumbs->push(__('Users'), route('admin.users.index'));

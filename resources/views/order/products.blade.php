@@ -1,17 +1,19 @@
-<div class="order-registration__info">
+<div class="order-registration__info sticky-bar">
     <div class="order-registration__info-container">
         <div class="title">{{ __('YourOrderTitle') }}</div>
         @php /** @var $product Product */use App\Models\Shop\Product;@endphp
-        @foreach($order->products as $product)
-            <div class="cart">
-                <div class="cart__product-title">{{ $product->title }}</div>
-                <div
-                    class="cart__product-item-total-sum">{{ numberFormat($product->getItemTotalSum()) }}
-                    <span
-                        class="rub">₽</span>
+        <div class="cart-products-wrap">
+            @foreach($order->products as $product)
+                <div class="cart">
+                    <div class="cart__product-title">{{ $product->title }}</div>
+                    <div
+                        class="cart__product-item-total-sum">{{ numberFormat($product->getItemTotalSum()) }}
+                        <span
+                            class="rub">₽</span>
+                    </div>
                 </div>
-            </div>
-        @endforeach
+            @endforeach
+        </div>
         <div class="cart-total-wrap">
             <div class="cart-delivery">
                 <p class="cart-delivery__title">{{ __('Delivery') }}</p>

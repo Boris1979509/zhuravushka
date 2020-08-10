@@ -13,6 +13,7 @@ use Throwable;
 
 class CartController extends Core
 {
+    public const PAGE = 3;
     /**
      * @var array $data
      */
@@ -31,6 +32,7 @@ class CartController extends Core
      */
     public function index(CartService $cartService)
     {
+        // $this->data['products'] = $cartService->productsPaginate(self::PAGE);
         return view('shop.userCart', array_merge($this->data, $cartService->getCart()), compact('cartService'));
     }
 

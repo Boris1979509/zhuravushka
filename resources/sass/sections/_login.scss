@@ -12,6 +12,13 @@
     }
 }
 
+.btn__login {
+    &:after {
+        @include btnIcon("../../images/icons/login/sign-in.svg");
+        vertical-align: bottom !important;
+    }
+}
+
 .sub-header__login {
     position: absolute;
     right: 15px;
@@ -28,13 +35,6 @@
         top: -10px;
         border: 5px solid transparent;
         border-bottom: 5px solid #ffffff;
-    }
-
-    .btn__login {
-        &:after {
-            @include btnIcon("../../images/icons/login/sign-in.svg");
-            vertical-align: bottom !important;
-        }
     }
 
     .form-input {
@@ -63,5 +63,13 @@
         }
 
         @extend %password-request;
+
+        .password-request {
+            text-align: left !important;
+        }
+    }
+
+    .btn__login {
+        width: auto;
     }
 }

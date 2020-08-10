@@ -37,11 +37,10 @@ class ProfileController extends Core
 //        $this->service = $service;
 //    }
 
-    public function index()
+    public function index(CartService $cartService)
     {
-        //$user = Auth::user();
-
-        return view('cabinet.profile.home', $this->data);
+        $user = Auth::user();
+        return view('cabinet.profile.home', $this->data, $cartService->getCart());
     }
 
     /**
@@ -50,7 +49,7 @@ class ProfileController extends Core
      */
     public function edit(CartService $cartService)
     {
-        //$user = Auth::user();
+        $user = Auth::user();
         return view('cabinet.profile.edit', $this->data, $cartService->getCart());
     }
 

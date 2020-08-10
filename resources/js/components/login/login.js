@@ -1,26 +1,30 @@
-module.exports = ((login) => {
-    if (!login) return;
+module.exports = ((loginForm) => {
+    if (!loginForm) return;
     const loginContainer = document.querySelector('.sub-header__login');
-    const loginForm = document.getElementById("login-form");
-    /**
-     * @param event
-     * @param elem
-     * @param clickElem
-     */
-    const toggleShow = (event, elem, clickElem) => {
-        if (!elem && clickElem) return;
-        if (elem.contains(event) || clickElem.contains(event)) {
-            return;
-        }
-        elem.setAttribute('hidden', 'hidden');
-    }
-    login.addEventListener('click', (e) => {
-        loginContainer.toggleAttribute('hidden');
-    });
+    const login = document.querySelector('#login');
 
-    document.addEventListener('click', (event) => {
-        toggleShow(event.target, loginContainer, login);
-    });
+    // Login header
+    if (login) {
+        /**
+         * @param event
+         * @param elem
+         * @param clickElem
+         */
+        const toggleShow = (event, elem, clickElem) => {
+            if (!elem && clickElem) return;
+            if (elem.contains(event) || clickElem.contains(event)) {
+                return;
+            }
+            elem.setAttribute('hidden', 'hidden');
+        }
+        login.addEventListener('click', (e) => {
+            loginContainer.toggleAttribute('hidden');
+        });
+        document.addEventListener('click', (event) => {
+            toggleShow(event.target, loginContainer, login);
+        });
+    }
+
     loginForm.addEventListener('submit', function (e) {
         e.preventDefault();
         const data = {
@@ -34,4 +38,4 @@ module.exports = ((login) => {
             }
         });
     });
-})(document.querySelector('#login'));
+})(document.getElementById("login-form"));

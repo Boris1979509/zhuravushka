@@ -5,8 +5,8 @@
         <div class="container">
             <div class="cabinet">
                 <h1>{{ __('CabinetFeedBack') }}</h1>
-                @include('cabinet.components.topSort')
-                @include('cabinet.components.feedback')
+                @include('cabinet.feedback._nav')
+                @include('cabinet.feedback.feedback')
             </div>
         </div>
     </section>

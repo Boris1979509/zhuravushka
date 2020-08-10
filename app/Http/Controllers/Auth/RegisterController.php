@@ -38,7 +38,7 @@ class RegisterController extends Core
     public function __construct(RegisterService $service)
     {
         parent::__construct();
-        //$this->middleware('guest');
+        $this->middleware('guest');
         $this->service = $service;
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();

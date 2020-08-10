@@ -4,6 +4,10 @@
     border: 1px solid #CCCCCC;
     margin-right: -1px;
 
+    svg, path, circle, rect, line {
+        transition: all .3s;
+    }
+
     &__title {
         text-align: center;
         padding: 0 10px 0 10px;
@@ -200,14 +204,14 @@
             height: 24px;
             width: 24px;
             position: absolute;
-            cursor: default;
+            cursor: pointer;
         }
 
         .favorite {
             top: 15px;
             right: 15px;
 
-            &__active {
+            &__active, &:hover {
                 circle {
                     stroke: $bg-card-icon-active;
                 }
@@ -223,7 +227,7 @@
             top: 50px;
             right: 15px;
 
-            &__active {
+            &__active, &:hover {
                 circle, line {
                     stroke: $bg-card-icon-active;
                 }

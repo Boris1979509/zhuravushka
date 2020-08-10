@@ -12,7 +12,6 @@ window.exports = addCardTitleHeight = () => {
 
     title.forEach((item) => {
         const height = getHeight(item);
-        console.log(height);
         if (item.clientHeight > height) {
             item.style = `height: ${height}px`;
             item.firstElementChild.classList.add('active');

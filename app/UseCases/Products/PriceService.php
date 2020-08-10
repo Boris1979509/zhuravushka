@@ -9,7 +9,7 @@ class PriceService
     /**
      * Percent
      */
-    public const PERCENT = 5; // %
+    public const PERCENT = 15; // %
 
     /**
      * @param $price
@@ -30,10 +30,10 @@ class PriceService
      * @param int $price
      * @return float|null
      */
-    private function math($price)
+    private function math($price): ?float
     {
         if ($price) {
-            return round($price - ($price * (self::PERCENT / 100)));
+            return round($price + ($price * (self::PERCENT / 100)));
         }
         return null;
     }

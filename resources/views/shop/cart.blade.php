@@ -9,7 +9,7 @@
             </div>
         @else
             <div class="cart-wrap">
-                <div class="cart">
+                <div class="cart sticky-content">
                     @foreach ($order->products as $product)
                         <div class="cart__product">
                             <div class="cart__img">
@@ -64,7 +64,7 @@
                         </div>
                     @endforeach
                 </div>
-                <div class="cart-total-wrap">
+                <div class="cart-total-wrap sticky-bar">
                     <div class="checkout-wrap">
                     <!--<div class="cart-sale">
                             <p class="cart-total-wrap__title">{{-- __('Sale') --}}</p>
@@ -84,6 +84,9 @@
                         <p>{{ __('UnderOrderInfo') }}</p>
                     </div>
                 </div>
+                {{--                @if($products->total() > $products->count())--}}
+                {{--                    <div class="paginator-wrap">{{ $products->links() }}</div>--}}
+                {{--                @endif--}}
             </div>
         @endif
     </div>

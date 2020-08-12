@@ -21,6 +21,7 @@
     "MiddleName": "Отчество",
     "EnterAddressDeliveryTitle": "Введите адрес доставки",
     "SpecifyDeliveryAddress": "Укажите адрес доставки",
+    "NoComments": "Отзывов нет.",
     "City": "Город",
     "Street": "Улица",
     "HouseNumber": "Дом",
@@ -202,5 +203,11 @@
     "PickUpTitleDescription": "Самый бесплатный тип доставки с удобной парковочной зоной и приятным сервисом.",
     "TransportTitleDescription": "Доставка заказов для крупногабаритных товаров. Осуществляется грузовым транспортом до 1,5 тонн.",
     "UnderOrderInfo": "В Вашей корзине есть товар с пометкой \"Под заказ\", в связи с этим срок доставки может измениться.",
-    "All rights reserved.": "Все права защищены."
+    "All rights reserved.": "Все права защищены.",
+    "Other": "Другое",
+    "SuggestionsImprovingService": "Предложение по улучшению сервиса",
+    "SelectInList": "Выберите из списка",
+    "MessageSuccessfullySend": "Сообщение успешно отправлено.",
+    "DeliveryUserAddress": "Адрес доставки",
+    "CabinetProfileEdit": "Редактирование профиля"
 }

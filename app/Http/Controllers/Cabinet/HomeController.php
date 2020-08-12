@@ -8,6 +8,7 @@ use App\UseCases\Cart\CartService;
 use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class HomeController extends Core
@@ -20,7 +21,6 @@ class HomeController extends Core
     public function __construct()
     {
         parent::__construct();
-        //$this->middleware('auth');
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
     }
@@ -31,6 +31,7 @@ class HomeController extends Core
      */
     public function index(CartService $cartService)
     {
+        $this->data['user'] = Auth::user();
         return view('cabinet.home', $this->data, $cartService->getCart());
     }
 }

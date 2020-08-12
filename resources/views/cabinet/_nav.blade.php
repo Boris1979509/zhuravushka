@@ -1,9 +1,9 @@
 <div class="cabinet__sorting">
     <div class="cabinet__sorting-options">
         <a href="{{ route('cabinet.order') }}"
-           class="cabinet__sorting-link{{ $page === '' ? ' active' : '' }}">{{ __('CabinetOrder') }}</a>
+           class="cabinet__sorting-link{{ $page === '' ? ' active' : '' }}">{{ __('CabinetOrder') }}<span class="count">{{ $user->orders->count() }}</span></a>
         <a href="{{ route('cabinet.comment') }}"
-           class="cabinet__sorting-link{{ $page === 'comment' ? ' active' : '' }}">{{ __('CabinetComment') }}</a>
+           class="cabinet__sorting-link{{ $page === 'comment' ? ' active' : '' }}">{{ __('CabinetComment') }}<span class="count">0</span></a>
         <a href="{{ route('cabinet.feedback') }}"
            class="cabinet__sorting-link{{ $page === 'feedback' ? ' active' : '' }}">{{ __('CabinetFeedBack') }}</a>
         <a href="{{ route('cabinet.profile.home') }}"

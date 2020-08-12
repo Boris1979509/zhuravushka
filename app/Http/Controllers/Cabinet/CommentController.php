@@ -7,6 +7,7 @@ namespace App\Http\Controllers\Cabinet;
 use App\Http\Controllers\Core;
 use App\UseCases\Cart\CartService;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
 class CommentController extends Core
@@ -30,6 +31,7 @@ class CommentController extends Core
      */
     public function index(CartService $cartService)
     {
+        $this->data['user'] = Auth::user();
         return view('cabinet.comment.index', $this->data, $cartService->getCart());
     }
 }

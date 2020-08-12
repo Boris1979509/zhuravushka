@@ -95,6 +95,7 @@ Route::group([
     /* End Profile */
     //Route::get('/favorite', 'FavoriteController@index')->name('favorite');
     Route::get('/feedback', 'FeedbackController@index')->name('feedback');
+    Route::post('/feedback/send', 'FeedbackController@send')->name('feedback.send');
     Route::get('/comment', 'CommentController@index')->name('comment');
     Route::get('/order', 'OrderController@index')->name('order');
 });

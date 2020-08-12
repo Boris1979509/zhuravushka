@@ -1,4 +1,4 @@
-@if(isset($favorites) && $favorites->count())
+@if($favorites)
     <div class="favorite @if(in_array($productItem->id, getIdsFromCollect($favorites))) favorite__active @endif"
          data-id="{{ $productItem->id }}">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

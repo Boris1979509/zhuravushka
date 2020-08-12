@@ -194,5 +194,7 @@ return [
         'priceTo'               => 'до',
         'street'                => 'Улица',
         'house_number'          => 'Дом',
+        'subject'               => 'Тема письма',
+        'message'               => 'Текст письма',
     ],
 ];

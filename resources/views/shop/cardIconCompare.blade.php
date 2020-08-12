@@ -1,4 +1,4 @@
-@if(isset($compares) && $compares->count())
+@if($compares)
     <div class="compare @if(in_array($productItem->id, getIdsFromCollect($compares))) compare__active @endif"
          data-id="{{ $productItem->id }}">
         <svg width="24" height="24" viewBox="0 0 24 24" fill="none"

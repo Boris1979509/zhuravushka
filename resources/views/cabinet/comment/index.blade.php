@@ -6,6 +6,7 @@
             <div class="cabinet">
                 <h1>{{ __('CabinetComment') }}</h1>
                 @include('cabinet.comment._nav')
+                @include('flash.index', ['info' => __('NoComments')])
             </div>
         </div>
     </section>

@@ -175,5 +175,10 @@ textarea {
 .bold {
     font-weight: 600;
 }
+/* Grid */
+.grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+}
 
 /* End button */

@@ -177,6 +177,60 @@
                 }
             }
         }
+
+        &.profile {
+            .table {
+                margin-top: 30px;
+                margin-bottom: 40px;
+            }
+
+            .btn-go-on {
+                width: auto;
+            }
+        }
+
+        .count {
+            margin-left: 5px;
+        }
+
+        &__home {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
+            gap: 10px;
+
+            &-link {
+                padding: 10px;
+                border: 1px solid #ccc;
+                text-align: center;
+                transition: .3s;
+                color: #858585;
+                text-decoration: none;
+
+                &:hover {
+                    background: #ccc;
+                    color: #0075D2;
+                }
+            }
+        }
+
+        .update-profile {
+            column-gap: 60px;
+            row-gap: 40px;
+
+            .form-input {
+                margin-bottom: 0;
+            }
+
+            .input {
+                border-radius: 0 !important;
+                height: 53px;
+
+                &:focus {
+                    border: 2px solid #FC8507;
+                }
+            }
+        }
     }
+
 
 }

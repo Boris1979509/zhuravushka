@@ -43,7 +43,7 @@
                             @endguest
                             @auth
                                 <li>
-                                    <a class="link" href="{{ route('cabinet.home') }}">{{ auth()->user()->name }}</a>
+                                    <a class="link" href="{{ route('cabinet.order') }}">{{ auth()->user()->name }}</a>
                                 </li>
                                 <li>
                                     @include('cabinet.logout.logout')

@@ -6,11 +6,9 @@
 @section('content')
     <section id="page-catalog">
         <div class="container">
-            <div class="row">
-                <h1>{{ __('Catalog') }}</h1>
-                <div class="page-catalog">
-                    @include('components.barMenu')
-                </div>
+            <h1>{{ __('Catalog') }}</h1>
+            <div class="page-catalog">
+                @include('components.barMenu')
             </div>
         </div>
     </section>

@@ -214,8 +214,9 @@ Add button icon
     width: 18px;
     height: 18px;
     display: inline-block;
-    margin-left: 20px;
-    vertical-align: top;
+    //margin-left: 20px;
+    margin-right: 5px;
+    vertical-align: sub;
 }
 
 @mixin orderRadioInput {

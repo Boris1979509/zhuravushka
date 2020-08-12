@@ -91,7 +91,9 @@ Route::group([
     /* Profile */
     Route::get('/profile', 'ProfileController@index')->name('profile.home');
     Route::get('/edit', 'ProfileController@edit')->name('profile.edit');
-    Route::put('/update', 'ProfileController@update')->name('profile.update');
+    Route::post('/update', 'ProfileController@update')->name('profile.update');
+    Route::get('/change-password', 'ChangePasswordController@index')->name('change.password.index');
+    Route::post('/change-password', 'ChangePasswordController@store')->name('change.password');
     /* End Profile */
     //Route::get('/favorite', 'FavoriteController@index')->name('favorite');
     Route::get('/feedback', 'FeedbackController@index')->name('feedback');

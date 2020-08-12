@@ -1,5 +1,5 @@
 <div class="catalog">
-    <div class="catalog__list">
+    <div class="catalog__list grid">
         @php /** @var ProductCategory $categoryItem */use App\Models\Shop\ProductCategory;
             $productCategories = (isset($take)) ? $productCategories->take($take) : $productCategories
         @endphp

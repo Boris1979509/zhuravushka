@@ -167,7 +167,6 @@ return [
         'last_name'             => 'Фамилия',
         'middle_name'           => 'Отчество',
         'password'              => 'Пароль',
-        'password_conformation' => 'Подтверждение пароля',
         'city'                  => 'Город',
         'country'               => 'Страна',
         'address'               => 'Адрес',
@@ -196,5 +195,8 @@ return [
         'house_number'          => 'Дом',
         'subject'               => 'Тема письма',
         'message'               => 'Текст письма',
+        'new_password'          => 'Новый пароль',
+        'old_password'          => 'Старый пароль',
+        'password_confirmation'   => 'Подтверждение пароля',
     ],
 ];

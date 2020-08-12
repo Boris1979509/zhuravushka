@@ -19,6 +19,9 @@ class ProfileController extends Core
      * @var array
      */
     protected $data = [];
+    /**
+     * @var $service
+     */
     private $service;
 
     public function __construct()

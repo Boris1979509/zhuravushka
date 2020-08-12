@@ -135,6 +135,45 @@ button, span, a {
         }
     }
 
+    %templateIcon {
+        margin-right: 11px !important;
+        margin-left: 0 !important;
+        transform: translateY(3px);
+        vertical-align: baseline !important;
+    }
+
+    /* Go on btn */
+    &.btn-go-on {
+        width: auto;
+        &:before {
+            @include btnIcon("../../images/icons/cabinet/go-on.svg");
+            @extend %templateIcon;
+        }
+
+        &:hover {
+            &:before {
+                @include btnIcon("../../images/icons/cabinet/go-on-hover.svg");
+                @extend %templateIcon;
+            }
+        }
+    }
+
+    /* Cancel btn */
+    &.btn-cancel {
+        width: auto;
+        &:before {
+            @include btnIcon("../../images/icons/cabinet/cancel.svg");
+            @extend %templateIcon;
+        }
+
+        &:hover {
+            &:before {
+                @include btnIcon("../../images/icons/cabinet/cancel-hover.svg");
+                @extend %templateIcon;
+            }
+        }
+    }
+
     &[disabled] {
         background: #FFA341;
         box-shadow: none !important;
@@ -175,6 +214,7 @@ textarea {
 .bold {
     font-weight: 600;
 }
+
 /* Grid */
 .grid {
     display: grid;

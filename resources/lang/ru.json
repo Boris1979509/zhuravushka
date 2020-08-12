@@ -209,5 +209,12 @@
     "SelectInList": "Выберите из списка",
     "MessageSuccessfullySend": "Сообщение успешно отправлено.",
     "DeliveryUserAddress": "Адрес доставки",
-    "CabinetProfileEdit": "Редактирование профиля"
+    "CabinetProfileEdit": "Редактирование профиля",
+    "DeliveryData": "Данные для доставки",
+    "ChangePassword": "Изменить пароль",
+    "CabinetProfileChangePassword": "Изменение пароля",
+    "SaveSetting": "Сохранить настройки",
+    "NewPassword": "Новый пароль",
+    "OldPassword": "Старый пароль",
+    "Invalid old password specified": "Неверно указан старый пароль."
 }

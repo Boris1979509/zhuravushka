@@ -19,7 +19,7 @@
                             @enderror
                         </div>
                         <div class="form-input">
-                            <button type="submit" class="btn btn-active">
+                            <button type="submit" class="btn btn-outline btn-go-on">
                                 {{ __('Request') }}
                             </button>
                         </div>

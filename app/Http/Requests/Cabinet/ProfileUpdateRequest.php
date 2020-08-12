@@ -24,10 +24,14 @@ class ProfileUpdateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'name'        => 'required|string|max:255',
-            'last_name'   => 'required|string|max:255',
-            'middle_name' => 'required|string|max:255',
-            'phone'       => 'required|string|max:255|regex:/^\d+$/s',
+            'name'          => 'required|string|max:255',
+            'last_name'     => 'required|string|max:255',
+            'middle_name'   => 'nullable|string|max:255',
+            'email'         => 'required|string|email|max:255',
+            'city'          => 'nullable|string',
+            'street'        => 'nullable|string',
+            'house_number'  => 'nullable|numeric',
+            'apartment'     => 'nullable|numeric',
         ];
     }
 }

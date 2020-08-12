@@ -142,6 +142,11 @@ Breadcrumbs::register('cabinet.profile.home', static function (Generator $crumbs
     $crumbs->parent('cabinet.home');
     $crumbs->push(__('ProfileSetting'), route('cabinet.profile.home'));
 });
+// Change password
+Breadcrumbs::register('cabinet.change.password.index', static function (Generator $crumbs) {
+    $crumbs->parent('cabinet.profile.edit');
+    $crumbs->push(__('CabinetProfileChangePassword'), route('cabinet.change.password.index'));
+});
 
 Breadcrumbs::register('cabinet.profile.edit', static function (Generator $crumbs) {
     $crumbs->parent('cabinet.profile.home');

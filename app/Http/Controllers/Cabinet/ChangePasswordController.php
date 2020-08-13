@@ -5,13 +5,10 @@ namespace App\Http\Controllers\Cabinet;
 use App\Http\Controllers\Core;
 use App\Http\Requests\Cabinet\ChangePasswordRequest;
 use App\UseCases\Cart\CartService;
-use Illuminate\Contracts\Support\Renderable;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Http\Request;
-use App\Rules\MatchOldPassword;
+use Illuminate\Http\RedirectResponse;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Hash;
-use App\Models\User;
 use Illuminate\View\View;
 
 class ChangePasswordController extends Core
@@ -43,14 +40,14 @@ class ChangePasswordController extends Core
 
     /**
      * @param ChangePasswordRequest $request
-     * @param MatchOldPassword $rule
+     * @return RedirectResponse
      */
-    public function store(ChangePasswordRequest $request, MatchOldPassword $rule)
+    public function store(ChangePasswordRequest $request)
     {
         Auth::user()->update([
             'password' => Hash::make($request['new_password'])
         ]);
-
-        dd('Password change successfully.');
+        Auth::logout();
+        return redirect()->route('login');
     }
 }

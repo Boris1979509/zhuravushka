@@ -2,14 +2,12 @@
 
 namespace App\Http\Controllers\Cabinet;
 
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\Core;
 use App\Http\Requests\Cabinet\ProfileUpdateRequest;
-//use App\UseCases\Profile\ProfileService;
+use App\UseCases\Cabinet\ProfileService;
 use App\UseCases\Cart\CartService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\View\View;
 
@@ -24,21 +22,13 @@ class ProfileController extends Core
      */
     private $service;
 
-    public function __construct()
+    public function __construct(ProfileService $service)
     {
         parent::__construct();
-        //$this->middleware('auth');
-        //$this->service = app(ProfileService::class);
         $this->data['pages'] = $this->pageRepository->getAllPagesNav();
         $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
+        $this->service = $service;
     }
-
-
-
-//    public function __construct(ProfileService $service)
-//    {
-//        $this->service = $service;
-//    }
 
     public function index(CartService $cartService)
     {
@@ -67,6 +57,6 @@ class ProfileController extends Core
         } catch (\DomainException $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
-        return redirect()->route('cabinet.profile.home');
+        return redirect()->route('cabinet.profile.home')->with('success', __('DataUpdated'));
     }
 }

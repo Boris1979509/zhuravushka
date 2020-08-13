@@ -19,7 +19,20 @@
         <td>{{ $user->middle_name }}</td>
         <td>{{ $user->email }}</td>
         <td>{{ $user->phone }}</td>
-        <td>{{ $user->delivery_place }}</td>
+        <td>
+            @if($user->delivery_place)
+                <ul>
+                    @if($user->delivery_place->city)
+                        <li><b>{{ __('City') }}:</b> {{ $user->delivery_place->city }}</li>@endif
+                    @if($user->delivery_place->street)
+                        <li><b>{{ __('Street') }}:</b> {{ $user->delivery_place->street }}</li>@endif
+                    @if($user->delivery_place->house_number)
+                        <li><b>{{ __('HouseNumber') }}:</b> {{ $user->delivery_place->house_number }}</li>@endif
+                    @if($user->delivery_place->apartment)
+                        <li><b>{{ __('Apartment') }}:</b> {{ $user->delivery_place->apartment }}</li>@endif
+                </ul>
+            @endif
+        </td>
     </tr>
     </tbody>
 </table>

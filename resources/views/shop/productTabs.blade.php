@@ -1,15 +1,15 @@
 <div class="product-tabs">
     <nav class="tabs-nav">
         <ul>
-            <li class="tabs-nav__item">{{ __('InfoProduct') }}</li>
-            {{--            <li class="tabs-nav__item">Отзывы</li>--}}
-            <li class="tabs-nav__item">Советы</li>
+            <li class="tabs-nav__item active">{{ __('InfoProduct') }}</li>
+            <li class="tabs-nav__item">Отзывы <span class="count">0</span></li>
+            <li class="tabs-nav__item">Советы <span class="count">0</span></li>
         </ul>
     </nav>
 
     <div class="tabs-content">
         <div class="tabs-content__item">
-            <p class="description">{{ $product->description }}</p>
+        @include('flash.index', ['info' => __('During the adding process')])
         {{--            <div class="characteristics">--}}
         {{--<h2>Характеристики</h2>--}}
         <!--<div class="characteristics__props">
@@ -47,10 +47,10 @@
             {{--            </div>--}}
         </div>
         <div class="tabs-content__item">
-            @include('flash.index', ['info' => __('During the adding process')])
+            @include('flash.index', ['info' => __('NoComments')])
         </div>
         <div class="tabs-content__item">
-            @include('flash.index', ['info' => __('During the adding process')])
+            @include('flash.index', ['info' => __('NoRecommendations')])
         </div>
     </div>
 </div>

@@ -62,22 +62,25 @@
                         <div class="profile-setting__user-address grid">
                             <div class="form-input">
                                 <label class="form-input-label" for="city">{{ __('City') }}</label>
-                                <input type="text" class="input" name="city" id="city" placeholder="{{ __('City') }}">
+                                <input type="text" class="input" name="city" id="city" placeholder="{{ __('City') }}"
+                                       value="{{ $user->delivery_place->city }}">
                             </div>
                             <div class="form-input">
                                 <label class="form-input-label" for="street">{{ __('Street') }}</label>
                                 <input type="text" class="input" name="street" id="street"
-                                       placeholder="{{ __('Street') }}">
+                                       placeholder="{{ __('Street') }}" value="{{ $user->delivery_place->street }}">
                             </div>
                             <div class="form-input">
                                 <label class="form-input-label" for="houseNumber">{{ __('HouseNumber') }}</label>
                                 <input type="number" class="input" name="house_number" id="houseNumber"
-                                       placeholder="{{ __('HouseNumber') }}">
+                                       placeholder="{{ __('HouseNumber') }}"
+                                       value="{{ $user->delivery_place->house_number }}">
                             </div>
                             <div class="form-input">
                                 <label class="form-input-label" for="apartment">{{ __('Apartment') }}</label>
                                 <input type="number" class="input" name="apartment" id="apartment"
-                                       placeholder="{{ __('Apartment') }}">
+                                       placeholder="{{ __('Apartment') }}"
+                                       value="{{ $user->delivery_place->apartment }}">
                             </div>
                         </div>
                         <div class="profile-setting__user-change-password-link">

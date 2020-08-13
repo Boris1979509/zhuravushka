@@ -21,7 +21,7 @@ use Illuminate\Support\Str;
  * @property string $phone_verified_status
  * @property string $verify_token
  * @property string $phone_verify_token
- * @property string $delivery_place
+ * @property object $delivery_place
  * @property Carbon $phone_verify_token_expire
  * @property string $role
  */
@@ -70,6 +70,7 @@ class User extends Authenticatable
     protected $casts = [
         //'email_verified_at'       => 'datetime',
         'phone_verify_token_expire' => 'datetime',
+        'delivery_place'            => 'object',
     ];
 
     /**

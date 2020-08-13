@@ -123,6 +123,7 @@
     "UserDataTitle": "Ваши данные",
     "Register": "Зарегистрироваться",
     "Sovety": "Советы",
+    "NoRecommendations": "Советов нет.",
     "Favorite": "Избранное",
     "Compare": "Сравнение",
     "IsEmptyCompareMessage": "Список для сравнения пуст.",
@@ -216,5 +217,6 @@
     "SaveSetting": "Сохранить настройки",
     "NewPassword": "Новый пароль",
     "OldPassword": "Старый пароль",
-    "Invalid old password specified": "Неверно указан старый пароль."
+    "Invalid old password specified": "Неверно указан старый пароль.",
+    "DataUpdated": "Данные успешно обновлены."
 }

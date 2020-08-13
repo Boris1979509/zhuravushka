@@ -21,6 +21,10 @@ h3 {
     //padding-bottom: 50px;
 }
 
+b {
+    font-weight: 600;
+}
+
 .row {
     display: flex;
     flex-flow: row wrap;
@@ -145,6 +149,7 @@ button, span, a {
     /* Go on btn */
     &.btn-go-on {
         width: auto;
+
         &:before {
             @include btnIcon("../../images/icons/cabinet/go-on.svg");
             @extend %templateIcon;
@@ -161,6 +166,7 @@ button, span, a {
     /* Cancel btn */
     &.btn-cancel {
         width: auto;
+
         &:before {
             @include btnIcon("../../images/icons/cabinet/cancel.svg");
             @extend %templateIcon;

@@ -146,12 +146,21 @@
                 font-weight: bold;
                 border-bottom: 1px solid #ccc;
                 border-left: 0;
+                padding: 15px;
+
+                ul {
+                    gap: 10px;
+                    justify-content: space-between;
+                }
 
                 &__item {
+                    border-bottom: 0 !important;
+                    margin: 0 !important;
+                    padding: 0 !important;
+
+
                     &.active {
-                        border-bottom: 0;
                         color: inherit;
-                        border-bottom: 0;
                     }
 
                     letter-spacing: $letter-spacing-4;
@@ -161,6 +170,11 @@
 
                     &:hover:not(.active) {
                         color: #005AA7;
+                    }
+
+                    .count {
+                        font-size: 1rem;
+                        vertical-align: text-top;
                     }
                 }
             }
@@ -197,7 +211,7 @@
         grid-column-start: span 6;
 
         h3 {
-            padding: 30px 30px 15px 30px;
+            padding: 15px;
             border: 1px solid #cccccc;
             margin-bottom: -1px;
             background: #fff;

@@ -70,26 +70,6 @@
                                 <div class="invalid-feedback">{{ $message }}</div>
                                 @enderror
                             </div>
-                            <div class="form-control p_rel registration__address-wrap">
-                                <!--<p class="text-style strong">
-                                    Указать адрес доставки
-                                </p>
-                                <div class="registration__address-controls">
-                                    <div class="registration__address-yes">Да</div>
-                                    <div class="registration__hr"></div>
-                                    <div class="registration__address-no r_controls_active">Позже</div>
-                                </div>-->
-                                <div class="form-input">
-                                    <label for="address"
-                                           class="form-input-label">{{ __('SpecifyDeliveryAddress') }}</label>
-                                    <input type="text" name="address" id="address" class="input"
-                                           placeholder="{{ __('SpecifyDeliveryAddress') }}"
-                                           value="{{ old('address') }}">
-                                    @error('address')
-                                    <div class="invalid-feedback">{{ $message }}</div>
-                                    @enderror
-                                </div>
-                            </div>
                             <div class="form-input">
                                 <button type="submit" class="btn btn-active">
                                     {{ __('Register') }}

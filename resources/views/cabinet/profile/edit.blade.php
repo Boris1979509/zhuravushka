@@ -63,24 +63,25 @@
                             <div class="form-input">
                                 <label class="form-input-label" for="city">{{ __('City') }}</label>
                                 <input type="text" class="input" name="city" id="city" placeholder="{{ __('City') }}"
-                                       value="{{ $user->delivery_place->city }}">
+                                       value="@if($user->delivery_place){{ $user->delivery_place->city }}@endif">
                             </div>
                             <div class="form-input">
                                 <label class="form-input-label" for="street">{{ __('Street') }}</label>
                                 <input type="text" class="input" name="street" id="street"
-                                       placeholder="{{ __('Street') }}" value="{{ $user->delivery_place->street }}">
+                                       placeholder="{{ __('Street') }}"
+                                       value="@if($user->delivery_place){{ $user->delivery_place->street }}@endif">
                             </div>
                             <div class="form-input">
                                 <label class="form-input-label" for="houseNumber">{{ __('HouseNumber') }}</label>
                                 <input type="number" class="input" name="house_number" id="houseNumber"
                                        placeholder="{{ __('HouseNumber') }}"
-                                       value="{{ $user->delivery_place->house_number }}">
+                                       value="@if($user->delivery_place){{ $user->delivery_place->house_number }}@endif">
                             </div>
                             <div class="form-input">
                                 <label class="form-input-label" for="apartment">{{ __('Apartment') }}</label>
                                 <input type="number" class="input" name="apartment" id="apartment"
                                        placeholder="{{ __('Apartment') }}"
-                                       value="{{ $user->delivery_place->apartment }}">
+                                       value="@if($user->delivery_place){{ $user->delivery_place->apartment }}@endif">
                             </div>
                         </div>
                         <div class="profile-setting__user-change-password-link">

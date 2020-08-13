@@ -7,6 +7,7 @@
     }
 
     const subHeader = document.querySelector('.sub-header');
+    const topBar = document.querySelector('.top-bar');
     const logoContainer = document.querySelector('.sub-header__logo-container');
     const catalogMenu = document.querySelector('.page-top-grid .catalog');
     const catalogMenuButton = document.getElementById('catalogMenu');

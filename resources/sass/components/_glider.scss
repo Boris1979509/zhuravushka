@@ -88,7 +88,9 @@
 
     right: -30px;
     left: auto;
-    //transform: translateX(10px) translateY(calc(20px - 50%));
+    @include mq($max-width: 1199px) {
+        right: 15px;
+    }
 }
 
 .glider-prev {
@@ -104,7 +106,9 @@
 
     left: -30px;
     right: auto;
-    //transform: translateX(-10px) translateY(calc(20px - 50%));
+    @include mq($max-width: 1199px) {
+        left: 15px;
+    }
 }
 
 .glider-hide {

@@ -1,5 +1,5 @@
 <div class="phone-verify">
-    <div class="request-block">
+    <div class="request-block grid">
         <div class="form-input">
             @if(url()->current() === route('register'))
                 <label for="phone" class="form-input-label">{{ __('Phone') }}</label>
@@ -20,5 +20,5 @@
                     id="request-btn">{{ __('ButtonTitleConfirmPhone') }}</button>
         </div>
     </div>
-    <div class="verify-block"></div>
+    <div class="verify-block grid"></div>
 </div>

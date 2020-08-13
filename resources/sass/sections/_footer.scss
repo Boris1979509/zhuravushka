@@ -19,6 +19,7 @@ footer {
                 .footer__nav-item {
                     max-width: 200px;
                     padding-bottom: 20px;
+
                     a {
                         &.footer__link {
                             position: relative;
@@ -78,6 +79,12 @@ footer {
             span {
                 font-size: .875rem;
                 font-weight: normal;
+            }
+        }
+
+        &__catalog {
+            @include mq($max-width: 535px) {
+                display: none;
             }
         }
     }

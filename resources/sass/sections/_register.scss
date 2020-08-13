@@ -3,7 +3,6 @@
     padding: 40px 0;
 
     .register {
-        width: 50%;
 
         .invalid-feedback {
             margin-top: 10px;
@@ -20,16 +19,16 @@
         %templateFormInput {
             .form-input {
                 &:first-child {
-                    flex-basis: 60%;
-
                     .input {
                         width: inherit;
                     }
                 }
 
                 &:last-child {
-                    flex-basis: 37%;
                     margin-top: 34px;
+                    @include mq($max-width: 549px) {
+                        margin-top: 0;
+                    }
                 }
             }
         }
@@ -46,7 +45,11 @@
         }
 
         &__userData {
-            margin-top: 60px;
+            margin-top: 50px;
+            width: 50%;
+            @include mq($max-width: 767px) {
+                width: 100%;
+            }
         }
 
         .verify-block {

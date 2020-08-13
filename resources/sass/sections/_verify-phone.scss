@@ -2,16 +2,14 @@
     %templateFormInput {
         .form-input {
             margin-bottom: 10px;
-            &:first-child {
-                flex-basis: 48%;
 
+            &:first-child {
                 .input {
                     width: inherit;
                 }
             }
 
             &:last-child {
-                flex-basis: 48%;
                 margin-top: 34px;
             }
         }
@@ -29,9 +27,7 @@
     }
 
     .request-block, .verify-block {
-        display: flex;
-        flex-wrap: wrap;
-        justify-content: space-between;
+        gap: 20px;
         @extend %templateFormInput;
     }
 

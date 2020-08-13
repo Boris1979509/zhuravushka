@@ -1,0 +1,19 @@
+/* Start header */
+header {
+    .header-mobile {
+        @include mq($min-width: 990px) {
+            display: none;
+        }
+
+        .row {
+            align-items: center;
+            justify-content: space-between;
+        }
+
+        .top-bar {
+            &__phone {
+                margin: 0;
+            }
+        }
+    }
+}

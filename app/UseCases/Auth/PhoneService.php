@@ -21,7 +21,7 @@ class PhoneService
     public function request($phone)
     {
         $data = $this->getToken($phone, Carbon::now());
-        if (isset($data['token'])) {
+        if (isset($data['token']) && !config('app.debug')) {
             $this->sms->send($phone, $data['token']); // Send ...
         }
         return $data;

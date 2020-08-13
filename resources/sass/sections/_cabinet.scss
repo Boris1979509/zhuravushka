@@ -124,6 +124,13 @@
 
             td, th {
                 padding: 10px;
+                vertical-align: middle;
+            }
+
+            ul {
+                > li {
+                    padding: 5px 0;
+                }
             }
         }
 

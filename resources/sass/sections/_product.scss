@@ -40,6 +40,7 @@
         &__photo-container {
             align-self: self-start;
             max-width: 250px;
+            max-height: 300px;
         }
 
         &__desc {
@@ -129,6 +130,10 @@
         &__all {
             max-width: 450px;
             align-self: start;
+        }
+        &__img{
+            max-width: inherit;
+            max-height: inherit;
         }
     }
 

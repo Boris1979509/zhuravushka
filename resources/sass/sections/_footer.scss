@@ -58,6 +58,11 @@ footer {
                 //color: #404040;
                 width: 50%;
                 text-align: center;
+                @include mq($max-width: 767px) {
+                    width: 100%;
+                    font-size: .8rem;
+                    padding-bottom: 60px;
+                }
             }
         }
 

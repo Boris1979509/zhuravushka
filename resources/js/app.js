@@ -37,6 +37,7 @@ require('./components/verify-phone/phone');
 require('./components/register/register');
 require('./components/order-register/orderRegister');
 require('./components/sticky-bar/sticky-bar');
+require('./components/search/search');
 
 
 import btnAdd from './components/card/btnAdd';

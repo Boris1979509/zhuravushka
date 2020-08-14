@@ -1,3 +1,8 @@
+html, body {
+    max-width: 100%;
+    overflow-x: hidden;
+}
+
 h1 {
     font-weight: 600;
     font-size: 2rem;
@@ -54,6 +59,10 @@ b {
     }
     @include custom-device(480px, 767px) {
         min-width: 450px;
+        width: calc(100% - 30px);
+    }
+    @include custom-device(300px, 479px) {
+        min-width: 280px;
         width: calc(100% - 30px);
     }
 }

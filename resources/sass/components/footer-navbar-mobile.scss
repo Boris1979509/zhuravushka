@@ -1,0 +1,19 @@
+.bottom-navbar-mobile {
+    background: $bg-footer-top;
+    left: 0;
+    right: 0;
+    padding: 10px;
+    bottom: 0;
+    position: fixed;
+
+    .sub-header__right {
+        display: flex;
+        justify-content: space-around;
+        flex-wrap: wrap;
+    }
+
+    @include mq($min-width: 767px) {
+        display: none;
+    }
+
+}

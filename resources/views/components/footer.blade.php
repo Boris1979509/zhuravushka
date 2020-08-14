@@ -79,7 +79,7 @@
                 </div>
             </div>
         </div>
-        <div class="footer__copyright">
+        <div class="footer__copyright container">
             <p>2007 - 2020 ООО «Журавушка»<br>Продолжая работу с сайтом, вы даете согласие на использование сайтом
                 cookies
                 и обработку персональных данных в целях функционирования сайта, проведения ретаргетинга,
@@ -89,3 +89,4 @@
         </div>
     </div>
 </footer>
+@include('components.footer-navbar-mobile')

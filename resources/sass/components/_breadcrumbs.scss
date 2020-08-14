@@ -28,4 +28,8 @@
             color: #0075d2;
         }
     }
+
+    @include mq($max-width: 767px) {
+        display: none;
+    }
 }

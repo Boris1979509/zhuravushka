@@ -33,7 +33,9 @@
             @extend %templateFlex;
             margin-top: 30px;
             min-width: 60%;
-
+            @include mq($max-width: 990px) {
+                gap: 20px;
+            }
 
             .title {
                 font-weight: bold;
@@ -86,16 +88,26 @@
                     }
                 }
             }
-        }
 
-        &__wrap {
-            display: flex;
-            flex-wrap: wrap;
+            @include mq($max-width: 990px) {
+                display: none;
+            }
         }
 
         &__subsection {
             flex-basis: 300px;
             margin-right: -1px;
+            @include mq($max-width: 767px) {
+                margin-bottom: 20px;
+                margin-right: 0;
+            }
+        }
+
+        &__wrap {
+            @include mq($min-width: 767px) {
+                display: flex;
+                flex-wrap: wrap;
+            }
         }
 
         &__items-section {

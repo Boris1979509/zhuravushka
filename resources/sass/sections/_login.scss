@@ -26,7 +26,8 @@
     background: #FFFFFF;
     box-shadow: 0 2px 12px rgba(0, 0, 0, 0.09);
     padding: 20px 20px 5px 20px;
-    width: 200px;
+    z-index: 2;
+    max-width: 200px;
 
     &:after {
         content: '';
@@ -59,7 +60,10 @@
 
     form {
         &#login-form {
-            max-width: 50%;
+            width: 50%;
+            @include mq($max-width: 767px) {
+                width: 100%;
+            }
         }
 
         @extend %password-request;
@@ -67,9 +71,13 @@
         .password-request {
             text-align: left !important;
         }
+
     }
 
     .btn__login {
         width: auto;
+        @include mq($max-width: 767px) {
+            width: 100%;
+        }
     }
 }

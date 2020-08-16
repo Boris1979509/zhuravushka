@@ -38,6 +38,7 @@ require('./components/register/register');
 require('./components/order-register/orderRegister');
 require('./components/sticky-bar/sticky-bar');
 require('./components/search/search');
+require('./components/search/ajax-search');
 
 
 import btnAdd from './components/card/btnAdd';

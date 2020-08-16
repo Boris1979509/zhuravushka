@@ -1,4 +1,5 @@
 html, body {
+    @include scrollbars(.5rem, #ccc); // Scroll
     max-width: 100%;
     overflow-x: hidden;
 }
@@ -41,11 +42,19 @@ b {
     }
 }
 
+.flex-center {
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
+}
+
 .container {
     margin: 0 auto;
     padding: 0 15px;
     position: relative;
-
+    flex-grow: 1;
+    flex-shrink: 0;
+    flex-basis: auto;
     @include mq($min-width: 1200px) {
         width: 1140px;
     }
@@ -236,4 +245,17 @@ textarea {
     grid-template-columns: repeat(auto-fill, minmax(250px, 1fr));
 }
 
-/* End button */
+.badge {
+    position: absolute;
+    left: 15px;
+    background: $bg-color-icon-active;
+    border-radius: 50%;
+    padding: 3px;
+    font-size: .625rem;
+    line-height: 1.5;
+    color: #FFFFFF;
+    top: -10px;
+    text-align: center;
+    width: 15px;
+    height: 15px;
+}

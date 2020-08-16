@@ -176,3 +176,8 @@ Breadcrumbs::register('admin.users.edit', static function (Generator $crumbs, Us
     $crumbs->parent('admin.users.show', $user);
     $crumbs->push(__('Edit'), route('admin.users.edit', $user));
 });
+/* Search */
+Breadcrumbs::register('search', static function (Generator $crumbs) {
+    $crumbs->parent('home');
+    $crumbs->push(__('Search'), route('search'));
+});

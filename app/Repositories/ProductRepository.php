@@ -76,7 +76,7 @@ class ProductRepository extends CoreRepository
     /**
      * @return Builder
      */
-    public function query()
+    public function query(): Builder
     {
         return $this->startConditions()
             ->newQuery();
@@ -99,7 +99,7 @@ class ProductRepository extends CoreRepository
      * @param null $perPage
      * @return LengthAwarePaginator
      */
-    public function sortBy($sort, $id, $perPage = null)
+    public function sortBy($sort, $id, $perPage = null): ?LengthAwarePaginator
     {
         $columns = ['*'];
         switch ($sort) {
@@ -128,7 +128,7 @@ class ProductRepository extends CoreRepository
      * @param null|integer $perPage
      * @return LengthAwarePaginator
      */
-    public function sortByStock($id, $perPage = null)
+    public function sortByStock($id, $perPage = null): LengthAwarePaginator
     {
         $columns = ['*'];
         return $this->query()
@@ -148,14 +148,14 @@ class ProductRepository extends CoreRepository
      * @param null|integer $perPage
      * @return LengthAwarePaginator
      */
-    public function getPriceSort($id, $num, $opr = null, $perPage = null)
+    public function getPriceSort($id, $num, $opr = null, $perPage = null): LengthAwarePaginator
     {
         $columns = ['*'];
 
         return $this->query()
             ->select($columns)
             ->where(static function ($query) use ($id) {
-                if (is_integer($id)) {
+                if (is_int($id)) {
                     return $query->where('category_id', $id);
                 }
 

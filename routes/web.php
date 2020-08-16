@@ -55,6 +55,9 @@ Route::group([
     Route::get('compare', 'CompareController@index')->name('compare');
     Route::post('compare/{product}/add', 'CompareController@add')->name('compare.add');
     Route::post('compare/{product}/remove', 'CompareController@remove')->name('compare.remove');
+    /* Search */
+    Route::get('search/result', 'SearchController@index')->name('search');
+    Route::post('autocomplete', 'SearchController@search');
     Route::group([
         'as'     => 'cart.',
         'prefix' => 'cart',

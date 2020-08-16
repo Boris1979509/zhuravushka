@@ -218,5 +218,6 @@
     "NewPassword": "Новый пароль",
     "OldPassword": "Старый пароль",
     "Invalid old password specified": "Неверно указан старый пароль.",
-    "DataUpdated": "Данные успешно обновлены."
+    "DataUpdated": "Данные успешно обновлены.",
+    "SearchResult": "Результаты поиска:"
 }

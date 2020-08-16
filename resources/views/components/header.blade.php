@@ -50,17 +50,24 @@
 
                     <!-- Start search header -->
                     <div class="sub-header__search">
-                        <form method="get" class="b-search">
+                        <form action="{{ route('search') }}" class="b-search">
                             <input type="search" name="search" class="input b-search__input"
-                                   placeholder="Найдется все! И не только">
-                            <span class="b-search__icon loupe"></span>
+                                   placeholder="Найдется все! И не только" autocomplete="off">
+                            <span class="b-search__icon loupe" onclick="
+                                       document.querySelector('.b-search').submit();"></span>
                         </form>
                         <div class="sub-header__container">
-                            <form class="b-search-mobile">
-                                <input type="text" name="input" class="b-search-mobile__input">
+                            <form action="{{ route('search') }}" class="b-search-mobile">
+                                <input type="search" name="search" class="b-search-mobile__input" autocomplete="off">
                                 <div class="b-search-mobile__bg"></div>
                                 <button type="reset" class="b-search-mobile__btn"></button>
                             </form>
+                        </div>
+                        <div class="search-dropdown" hidden>
+                            <img src="{{ asset('images/triangle.png') }}" class="search-triangle">
+                            <span class="search-title">{{ __('SearchResult') }}</span>
+                            <div class="search-result">
+                            </div>
                         </div>
                     </div>
                     @include('components.sub-header-navbar')

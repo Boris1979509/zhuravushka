@@ -47,12 +47,8 @@
             <span id="cart-qty"
                   class="badge cart__qty">{{ cart() ? $order->cartCount() : 0 }}</span>
         </div>
-        <span class="sub-header__label cart-total-sum">
-            @if(cart())
-                {{ numberFormat($order->getTotalSum()) }} <span class="rub">₽</span>
-            @else
-                {{ __('Cart') }}
-            @endif
+        <span class="sub-header__label cart-total-sum">{{ cart() ? numberFormat($order->getTotalSum()) : 0 }}
+            <span class="rub">₽</span>
         </span>
     </a>
 </div>

@@ -1,5 +1,8 @@
 /* Start footer */
 footer {
+    flex-grow: 0;
+    flex-shrink: 0;
+    flex-basis: auto;
     .footer {
         &__footer-top {
             padding-top: 60px;
@@ -96,4 +99,3 @@ footer {
 }
 
 /* End footer */
-

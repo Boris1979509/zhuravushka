@@ -6,9 +6,17 @@
     grid-template-areas: "Catalog Carousel" "Catalog TabsCategoryTop";
     background: $bg-homepage-top-grid-menu;
     box-shadow: 0 2px 3px rgba(0, 0, 0, 0.08);
+    @include mq($max-width: "1199px") {
+        grid-template-columns: 1fr;
+        grid-template-areas: "Carousel Carousel" "TabsCategoryTop TabsCategoryTop";
+    }
 
     .glider-contain {
-        max-width: 860px;
+        width: 100%;
+
+        @include mq($min-width: "1200px") {
+            max-width: 860px;
+        }
     }
 
     .homepage-top-tabs-category {
@@ -61,6 +69,12 @@
                     transform: translateX(40px);
                 }
             }
+        }
+    }
+
+    .catalog {
+        @include mq($max-width: "1199px") {
+            display: none;
         }
     }
 }
@@ -133,7 +147,7 @@
         color: $color-homepage-top-grid-menu;
         font-size: 1rem;
         line-height: 1.5;
-        padding: 18px;
+        padding: 15px;
         align-items: center;
         display: flex;
         box-sizing: border-box;
@@ -164,6 +178,9 @@
         padding: 20px;
         transition: all .3s;
         min-width: max-content;
+        @include mq($max-width: "767px") {
+            display: none;
+        }
     }
 
     &__item:hover .catalog__sub-catalog {

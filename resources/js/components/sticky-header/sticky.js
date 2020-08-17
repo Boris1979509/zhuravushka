@@ -12,12 +12,20 @@
     const catalogMenu = document.querySelector('.page-top-grid .catalog');
     const catalogMenuButton = document.getElementById('catalogMenu');
     const catalogSpoiler = document.querySelector('.catalog-spoiler-btn');
+    const catalog = catalogMenuButton.querySelector('.catalog');
     const stickPoint = getDistance(subHeader);
 
     let stuck = false; //
 
     catalogSpoiler.addEventListener('click', () => {
         catalogMenuButton.toggleAttribute('hidden');
+        if (!catalogMenuButton.hasAttribute('hidden')) {
+            if (catalog.clientHeight > document.documentElement.clientHeight) {
+                catalog.style = `height: ${document.documentElement.clientHeight - catalog.getBoundingClientRect().top + document.body.scrollTop}px; overflow-y: scroll;`
+            } else {
+                catalog.removeAttribute('style');
+            }
+        }
     });
 
     /**

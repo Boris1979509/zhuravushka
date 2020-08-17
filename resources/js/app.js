@@ -1,6 +1,7 @@
 import {Datepicker} from 'vanillajs-datepicker';
 import ru from '../../node_modules/vanillajs-datepicker/js/i18n/locales/ru.js';
-
+import {tns} from "../../node_modules/tiny-slider/src/tiny-slider";
+window.tns = tns;
 Object.assign(Datepicker.locales, ru);
 
 window.Datepicker = Datepicker;
@@ -18,7 +19,7 @@ import countIcons from './components/card/countIcons';
 //import close from './components/alerts/close';
 
 require('./components/sticky-header/sticky');
-require('./components/homepage-slider/slider');
+//require('./components/homepage-slider/slider');
 require('./components/accordion/accordion');
 require('./components/tabs/tabs');
 require('./components/leaders-sales/leaders-sales');

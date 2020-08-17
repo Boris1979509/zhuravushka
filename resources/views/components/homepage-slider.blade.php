@@ -1,22 +1,31 @@
-<div class="b-carousel js-carousel">
-    <button class="b-carousel__prev js-carousel__prev"></button>
-    <button class="b-carousel__next js-carousel__next"></button>
-    <div class="b-carousel__wrap js-carousel__wrap">
-        <div class="b-carousel__item">
+<div class="b-carousel">
+    <div class="my-slider">
+        <div>
             <img src="{{ asset('images/homepage-slider/Rectangle1.jpg') }}" alt=""
                  class="b-carousel__img">
         </div>
-        <div class="b-carousel__item">
+        <div>
             <img src="{{ asset('images/homepage-slider/Rectangle1.jpg') }}" alt=""
                  class="b-carousel__img">
         </div>
-        <div class="b-carousel__item">
-            <img src="{{ asset('images/homepage-slider/Rectangle1.jpg') }}" alt=""
-                 class="b-carousel__img">
-        </div>
-        <div class="b-carousel__item">
+        <div>
             <img src="{{ asset('images/homepage-slider/Rectangle1.jpg') }}" alt=""
                  class="b-carousel__img">
         </div>
     </div>
 </div>
+@section('script')
+    <script>
+        const slider = tns({
+            container: '.my-slider',
+            nav: false,
+            autoplayButtonOutput: false,
+            controlsText: ["", ""],
+            autoplayHoverPause: true,
+            "mouseDrag": true,
+            items: 1,
+            slideBy: 'page',
+            autoplay: true
+        });
+    </script>
+@endsection

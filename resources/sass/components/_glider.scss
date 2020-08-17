@@ -89,7 +89,7 @@
     right: -30px;
     left: auto;
     @include mq($max-width: 1199px) {
-        right: 15px;
+        display: none;
     }
 }
 
@@ -107,7 +107,7 @@
     left: -30px;
     right: auto;
     @include mq($max-width: 1199px) {
-        left: 15px;
+        display: none;
     }
 }
 

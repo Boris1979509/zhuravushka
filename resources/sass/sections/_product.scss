@@ -4,6 +4,9 @@
     grid-template-areas: "Product Product" "Tabs Goods";
     gap: 40px;
     margin-bottom: 40px;
+    @include mq($max-width: "1050px") {
+        grid-template-areas: "Product Product" "Tabs Tabs" "Goods Goods";
+    }
 
     .characteristics {
         margin: 30px 0;
@@ -30,7 +33,6 @@
         grid-area: Product;
         grid-column-end: span 12;
         display: flex;
-        flex-wrap: wrap;
         background: #FFFFFF;
         border: 1px solid #CCCCCC;
         align-items: center;
@@ -131,7 +133,8 @@
             max-width: 450px;
             align-self: start;
         }
-        &__img{
+
+        &__img {
             max-width: inherit;
             max-height: inherit;
         }
@@ -156,6 +159,9 @@
                 ul {
                     gap: 10px;
                     justify-content: space-between;
+                    @include mq($max-width: "1050px") {
+                        justify-content: flex-start;
+                    }
                 }
 
                 &__item {
@@ -207,6 +213,10 @@
             }
         }
 
+        @include mq($max-width: "1050px") {
+            grid-column-end: span 12;
+        }
+
     }
 
     .more-goods {
@@ -224,6 +234,10 @@
 
         .glider {
             border-right: 1px solid #cccccc;
+        }
+        @include mq($max-width: "1050px") {
+            grid-column-start: 1;
+            grid-column-end: span 12;
         }
     }
 }

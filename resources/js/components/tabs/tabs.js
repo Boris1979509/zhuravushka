@@ -56,7 +56,8 @@ const tab = {
     glider: function () {
         if (!tab.gl) return;
         new Glider(tab.gl, {
-            //itemWidth: 'auto',
+            itemWidth: 'auto',
+            duration: 0.25,
             slidesToShow: 1, // auto
             slidesToScroll: 1, // auto
             propagateEvent: false,
@@ -67,26 +68,40 @@ const tab = {
             },
             responsive: [
                 {
-                    // screens greater than >= 775px
-                    breakpoint: 775,
+                    breakpoint: 700,
                     settings: {
                         slidesToShow: 2,
                         slidesToScroll: 2,
-                        itemWidth: 'auto',
-                        duration: 0.25
                     }
                 },
                 {
-                    // screens greater than >= 775px
+                    breakpoint: 776,
+                    settings: {
+                        slidesToShow: 2,
+                        slidesToScroll: 2,
+                    }
+                },
+                {
+                    breakpoint: 890,
+                    settings: {
+                        slidesToShow: 3,
+                        slidesToScroll: 3,
+                    }
+                },
+                {
+                    breakpoint: 960,
+                    settings: {
+                        slidesToShow: 4,
+                        slidesToScroll: 4,
+                    }
+                },
+                {
                     breakpoint: 1200,
                     settings: {
                         slidesToShow: 4,
                         slidesToScroll: 4,
-                        itemWidth: 'auto',
-                        duration: 0.25
                     }
                 }
-
             ]
         });
     }

@@ -2,34 +2,50 @@
     if (!elem)
         return;
     const glider = new Glider(elem, {
-        //itemWidth: 'auto',
+        itemWidth: 'auto',
         slidesToShow: 1, // auto
         slidesToScroll: 1, // auto
         propagateEvent: false,
         draggable: false,
+        duration: 0.25,
         arrows: {
             prev: '#glider-prev-leaders-sales',
             next: '#glider-next-leaders-sales'
         },
         responsive: [
             {
-                // screens greater than >= 775px
-                breakpoint: 775,
+                breakpoint: 700,
                 settings: {
-                    slidesToShow: 4,
-                    slidesToScroll: 4,
-                    itemWidth: 150,
-                    duration: 0.25
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
                 }
             },
             {
-                // screens greater than >= 1199px
-                breakpoint: 1199,
+                breakpoint: 776,
+                settings: {
+                    slidesToShow: 2,
+                    slidesToScroll: 2,
+                }
+            },
+            {
+                breakpoint: 890,
+                settings: {
+                    slidesToShow: 3,
+                    slidesToScroll: 3,
+                }
+            },
+            {
+                breakpoint: 960,
+                settings: {
+                    slidesToShow: 4,
+                    slidesToScroll: 4,
+                }
+            },
+            {
+                breakpoint: 1200,
                 settings: {
                     slidesToShow: 5,
                     slidesToScroll: 5,
-                    itemWidth: 150,
-                    duration: 0.25
                 }
             }
 

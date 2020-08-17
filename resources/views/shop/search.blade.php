@@ -4,7 +4,7 @@
 @section('content')
     <section id="search-wrap">
         <div class="container">
-            @if(!empty($products))
+            @if($products->count())
                 <div class="card-container grid">
                     @include('shop.card')
                     @if($products->total() > $products->count())

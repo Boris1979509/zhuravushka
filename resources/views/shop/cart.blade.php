@@ -9,23 +9,24 @@
             </div>
         @else
             <div class="cart-wrap">
-                <div class="cart sticky-content">
+                <table class="table cart sticky-content">
+                    <tbody>
                     @foreach ($order->products as $product)
-                        <div class="cart__product">
-                            <div class="cart__img">
+                        <tr>
+                            <td class="cart__img">
                                 <a href="{{ route('product', $product->slug) }}" target="_blank">
                                     <img src="{{ fileExist("images/products/{$product->photo}.jpg") }}"
                                          alt="{{ $product->title }}"
                                          class="cart__image">
                                 </a>
-                            </div>
-                            <div class="cart__name">
+                            </td>
+                            <td class="cart__name">
                                 <a href="{{ route('product', $product->slug) }}" target="_blank"
                                    class="link cart__name-link" title="{{ $product->title }}">
                                     {{ $product->title }}
                                 </a>
-                            </div>
-                            <div class="cart__count">
+                            </td>
+                            <td class="cart__count">
                                 <div class="count">
                                     <form action="{{ route('cart.add', $product) }}" method="POST"
                                           class="addCart">
@@ -47,8 +48,8 @@
                                         @include('shop.underOrder.underOrder')
                                     @endif
                                 </div>
-                            </div>
-                            <div class="cart__sum">
+                            </td>
+                            <td class="cart__sum">
                                 <p class="cart__sum-price">{{  numberFormat($product->getItemTotalSum()) }} <span
                                         class="rub">₽</span></p>
                                 <div class="under-order">
@@ -56,14 +57,18 @@
                                         @include('shop.underOrder.underOrderTotal')
                                     @endif
                                 </div>
-                            </div>
-                            <form action="{{ route('cart.remove', $product) }}" class="del-form" method="POST">
-                                @csrf
-                                <button type="submit" title="{{ __('ButtonCartRemove') }}" class="cart__del"></button>
-                            </form>
-                        </div>
+                            </td>
+                            <td>
+                                <form action="{{ route('cart.remove', $product) }}" class="del-form" method="POST">
+                                    @csrf
+                                    <button type="submit" title="{{ __('ButtonCartRemove') }}"
+                                            class="cart__del"></button>
+                                </form>
+                            </td>
+                        </tr>
                     @endforeach
-                </div>
+                    </tbody>
+                </table>
                 <div class="cart-total-wrap sticky-bar">
                     <div class="checkout-wrap">
                     <!--<div class="cart-sale">

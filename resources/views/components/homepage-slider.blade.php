@@ -1,5 +1,5 @@
 <div class="b-carousel">
-    <div class="my-slider">
+    <div id="home-slider">
         <div>
             <img src="{{ asset('images/homepage-slider/Rectangle1.jpg') }}" alt=""
                  class="b-carousel__img">
@@ -17,7 +17,7 @@
 @section('script')
     <script>
         const slider = tns({
-            container: '.my-slider',
+            container: '#home-slider',
             nav: false,
             autoplayButtonOutput: false,
             controlsText: ["", ""],

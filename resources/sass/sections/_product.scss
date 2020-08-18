@@ -4,8 +4,9 @@
     grid-template-areas: "Product Product" "Tabs Goods";
     gap: 40px;
     margin-bottom: 40px;
-    @include mq($max-width: "1050px") {
+    @include mq($max-width: "1199px") {
         grid-template-areas: "Product Product" "Tabs Tabs" "Goods Goods";
+        gap: 20px;
     }
 
     .characteristics {
@@ -36,12 +37,17 @@
         background: #FFFFFF;
         border: 1px solid #CCCCCC;
         align-items: center;
-        justify-content: space-around;
+        justify-content: space-between;
+        gap: 20px;
         padding: 40px;
+        @include mq($max-width: "767px") {
+            row-gap: 10px;
+            padding: 20px;
+        }
 
         &__photo-container {
             align-self: self-start;
-            max-width: 250px;
+            flex-basis: auto;
             max-height: 300px;
         }
 
@@ -53,6 +59,11 @@
         }
 
         &__actions-container {
+            flex-basis: 250px;
+            @include mq($max-width: "960px") {
+                flex-basis: 100%;
+            }
+
             .card {
                 position: unset;
                 background: none;
@@ -130,13 +141,25 @@
         }
 
         &__all {
-            max-width: 450px;
+            flex-basis: 450px;
             align-self: start;
+            @include mq($max-width: "960px") {
+                h1 {
+                    font-size: 1.5rem;
+                }
+                flex-basis: 100%;
+            }
         }
 
         &__img {
-            max-width: inherit;
+            // max-width: inherit;
             max-height: inherit;
+            max-width: 250px;
+        }
+
+        @include mq($max-width: "960px") {
+            flex-wrap: wrap;
+            justify-content: center;
         }
     }
 
@@ -145,29 +168,34 @@
         grid-column-end: span 6;
 
         .product-tabs {
-            background: #FFFFFF;
-            border: 1px solid #CCCCCC;
+            @include mq($min-width: "1200px") {
+                border: 1px solid #ccc;
+            }
 
             .tabs-nav {
                 font-size: 1.5rem;
                 line-height: 1.5;
                 font-weight: bold;
-                border-bottom: 1px solid #ccc;
-                border-left: 0;
-                padding: 15px;
+                @include mq($min-width: "1200px") {
+                    border-bottom: 1px solid #ccc;
+                    border-left: 0;
+                    padding: 15px;
+                }
 
                 ul {
                     gap: 10px;
                     justify-content: space-between;
-                    @include mq($max-width: "1050px") {
+                    @include mq($max-width: "1199px") {
                         justify-content: flex-start;
                     }
                 }
 
                 &__item {
-                    border-bottom: 0 !important;
-                    margin: 0 !important;
-                    padding: 0 !important;
+                    @include mq($min-width: "1200px") {
+                        border-bottom: 0 !important;
+                        margin: 0 !important;
+                        padding: 0 !important;
+                    }
 
 
                     &.active {
@@ -193,6 +221,11 @@
 
         .tabs-content {
             padding: 30px;
+            background: #fff;
+            margin-bottom: 0 !important;
+            @include mq($max-width: "1199px") {
+                border: 1px solid #ccc;
+            }
 
             &__item {
                 font-size: 1rem;
@@ -213,7 +246,7 @@
             }
         }
 
-        @include mq($max-width: "1050px") {
+        @include mq($max-width: "1199px") {
             grid-column-end: span 12;
         }
 
@@ -235,7 +268,8 @@
         .glider {
             border-right: 1px solid #cccccc;
         }
-        @include mq($max-width: "1050px") {
+
+        @include mq($max-width: "1199px") {
             grid-column-start: 1;
             grid-column-end: span 12;
         }

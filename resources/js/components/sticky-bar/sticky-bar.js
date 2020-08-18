@@ -1,9 +1,11 @@
 window.exports = (function () {
+
     const subHeader = document.querySelector('.sub-header');
     let a = document.querySelector('.sticky-bar'), b = null, P = subHeader.clientHeight;
-    if(!a) return;
+    if (!a) return;
     window.addEventListener('scroll', scroll, false);
     document.body.addEventListener('scroll', scroll, false);
+    document.body.addEventListener('resize', scroll, false);
 
     function scroll() {
         if (b == null) {
@@ -26,7 +28,7 @@ window.exports = (function () {
         }
         let Ra = a.getBoundingClientRect(),
             R = Math.round(Ra.top + b.getBoundingClientRect().height - document.querySelector('.sticky-content').getBoundingClientRect().bottom);  // селектор блока, при достижении нижнего края которого нужно открепить прилипающий элемент
-        if ((Ra.top - P) <= 0) {
+        if ((Ra.top - P) <= 0 && window.matchMedia('(min-width: 1200px)').matches) {
             if ((Ra.top - P) <= R) {
                 b.className = 'stop';
                 b.style.top = -R + 'px';
@@ -41,5 +43,8 @@ window.exports = (function () {
         window.addEventListener('resize', function () {
             a.children[0].style.width = getComputedStyle(a, '').width
         }, false);
+        if (window.matchMedia('(max-width: 1200px)').matches) {
+            a.removeAttribute('style');
+        }
     }
 })();

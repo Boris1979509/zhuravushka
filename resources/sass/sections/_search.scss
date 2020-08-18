@@ -1,6 +1,13 @@
 #search-wrap {
     height: 100%;
     padding-bottom: 40px;
+
+    .card {
+        background: #fff;
+        border: 1px solid #ccc;
+        margin-right: -1px;
+        margin-bottom: -1px;
+    }
 }
 
 .search-dropdown {

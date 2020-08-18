@@ -22,16 +22,22 @@
 .cart-wrap {
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-areas: "Cart Total" "Cart Total";
     grid-template-rows: max-content;
     column-gap: 20px;
 
     .cart {
-
         $self: &;
-        grid-area: Cart;
-        grid-row: auto;
         grid-column: 1/span 9;
+        background: #fff;
+        border: 1px solid #ccc;
+
+        tr {
+            border-bottom: 1px solid #ccc;
+        }
+
+        @include mq($max-width: "1200px") {
+            grid-column: 1/span 12;
+        }
 
         &__product {
             display: flex;
@@ -44,10 +50,10 @@
         }
 
         &__img {
-            background: #FFFFFF;
-            border: 1px solid #CCCCCC;
-            max-width: 150px;
-            padding: 10px;
+            img {
+                min-width: 150px;
+                max-width: 150px;
+            }
         }
 
         &__count {
@@ -124,7 +130,6 @@
         }
 
         &__sum {
-            font-weight: bold;
             font-size: 1.75rem;
             letter-spacing: $letter-spacing-4;
             color: inherit;
@@ -139,12 +144,13 @@
         }
 
         &__name {
-            max-width: 30%;
-            min-width: 30%;
+            @include mq($min-width: "767px") {
+                max-width: 30%;
+                min-width: 30%;
+            }
         }
 
         &__name-link {
-            font-weight: bold;
             font-size: 1.125rem;
             line-height: 1.5;
             letter-spacing: 0.03em;
@@ -187,6 +193,10 @@
         grid-area: Total;
         grid-row: auto;
         grid-column: 10/13;
+        @include mq($max-width: "1200px") {
+            grid-column: 1/span 12;
+            margin-top: 20px;
+        }
 
         .checkout-wrap {
             background: #FFFFFF;
@@ -268,4 +278,31 @@
 .stop {
     position: relative;
     z-index: 3;
+}
+
+@media screen and (max-width: 767px) {
+    table {
+        border: 0;
+    }
+    table thead {
+        display: none;
+    }
+    table tr {
+        display: block;
+        margin-bottom: -1px;
+    }
+    table td {
+        display: block;
+        text-align: right;
+        border-bottom: 1px dotted #ddd;
+    }
+    table td:last-child {
+        border-bottom: 0;
+    }
+    table td:before {
+        content: attr(data-label);
+        float: left;
+        text-transform: uppercase;
+        font-weight: bold;
+    }
 }

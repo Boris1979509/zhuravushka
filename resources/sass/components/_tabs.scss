@@ -2,13 +2,8 @@
     font-size: 1rem;
     letter-spacing: 0.05em;
     color: $color-tabs-nav;
-    border-bottom: 1px solid #ccc;
     background: #fff;
     border-left: 1px solid #ccc;
-    @include mq($max-width: "1200px") {
-        border-left: 0;
-    }
-
 
     ul {
         display: flex;
@@ -21,9 +16,6 @@
         margin: 15px 0 -1px 30px;
         border-bottom: 4px solid transparent;
         padding-bottom: 11px;
-        @include mq($max-width: "767px") {
-            padding-bottom: 5px;
-        }
 
         &.active {
             border-bottom: 4px solid $border-tab-active-bottom;
@@ -44,4 +36,41 @@
             display: block;
         }
     }
+    @include mq($min-width: "1199px") {
+        margin-bottom: -1px;
+    }
 }
+
+@include mq($max-width: "1199px") {
+    .tabs-nav {
+        margin-top: 20px;
+        background: none;
+        border: 0;
+
+        ul {
+            display: block;
+        }
+
+        &__item {
+            border: 1px solid #ccc;
+            display: block;
+            padding: 10px 10px 12px 10px;
+            border-top-right-radius: 4px;
+            border-top-left-radius: 4px;
+            margin: 0 0 -2px;
+            background: #ffffff;
+            border-bottom: 0;
+
+            &:last-child {
+                margin-bottom: 0;
+            }
+        }
+
+        &__item {
+            &.active {
+                border-bottom: 0;
+            }
+        }
+    }
+}
+

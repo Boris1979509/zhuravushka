@@ -94,6 +94,9 @@
         object-fit: cover;
         display: block;
     }
+    @include mq($max-width: "1199px") {
+        margin-top: 20px;
+    }
 }
 
 

@@ -10,10 +10,14 @@
         grid-template-columns: 1fr;
         grid-template-areas: "Carousel Carousel" "TabsCategoryTop TabsCategoryTop";
     }
+    @include mq($max-width: "1199px") {
+        box-shadow: none;
+        background: none;
+    }
 
     .glider-contain {
         width: 100%;
-
+        border: 0;
         @include mq($min-width: "1200px") {
             max-width: 860px;
         }
@@ -23,14 +27,6 @@
         grid-area: TabsCategoryTop;
 
         .card {
-            margin-top: -1px;
-            margin-bottom: -1px;
-
-            &:last-child {
-                margin-right: 0;
-                border-right: 0;
-            }
-
             &__price {
                 margin-top: 20px;
             }

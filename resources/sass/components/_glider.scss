@@ -1,7 +1,7 @@
-.glider-contain {
-    position: relative;
-    padding: 0;
-    margin: 0 auto;
+.glider-slide {
+    background: $bg-card;
+    border: 1px solid #CCCCCC;
+    margin-right: -1px;
 }
 
 .glider {
@@ -11,6 +11,10 @@
     -webkit-overflow-scrolling: touch;
     -ms-overflow-style: none;
     transform: translateZ(0);
+}
+
+.glider-contain {
+    position: relative;
 }
 
 .glider-track {

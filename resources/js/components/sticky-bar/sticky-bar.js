@@ -1,5 +1,4 @@
 window.exports = (function () {
-
     const subHeader = document.querySelector('.sub-header');
     let a = document.querySelector('.sticky-bar'), b = null, P = subHeader.clientHeight;
     if (!a) return;
@@ -8,6 +7,7 @@ window.exports = (function () {
     document.body.addEventListener('resize', scroll, false);
 
     function scroll() {
+        if (window.matchMedia('(max-width: 1200px)').matches) return;
         if (b == null) {
             let Sa = getComputedStyle(a, ''), s = '';
             for (let i = 0; i < Sa.length; i++) {
@@ -41,10 +41,14 @@ window.exports = (function () {
             b.style.top = '';
         }
         window.addEventListener('resize', function () {
-            a.children[0].style.width = getComputedStyle(a, '').width
+            if (window.matchMedia('(min-width: 1200px)').matches) {
+                a.children[0].style.width = getComputedStyle(a, '').width;
+            } else {
+                a.removeAttribute('style');
+                a.children[0].style = "";
+                b.className = '';
+            }
         }, false);
-        if (window.matchMedia('(max-width: 1200px)').matches) {
-            a.removeAttribute('style');
-        }
+
     }
 })();

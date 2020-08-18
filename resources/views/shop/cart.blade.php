@@ -12,7 +12,7 @@
                 <table class="table cart sticky-content">
                     <tbody>
                     @foreach ($order->products as $product)
-                        <tr>
+                        <tr class="cart__product">
                             <td class="cart__img">
                                 <a href="{{ route('product', $product->slug) }}" target="_blank">
                                     <img src="{{ fileExist("images/products/{$product->photo}.jpg") }}"

@@ -28,11 +28,14 @@
     .cart {
         $self: &;
         grid-column: 1/span 9;
-        background: #fff;
         border: 1px solid #ccc;
 
         tr {
             border-bottom: 1px solid #ccc;
+        }
+
+        tbody {
+            background: #fff;
         }
 
         @include mq($max-width: "1200px") {
@@ -40,13 +43,7 @@
         }
 
         &__product {
-            display: flex;
-            background: #FFFFFF;
-            border: 1px solid #CCCCCC;
-            margin-bottom: -1px;
-            padding: 30px 30px 30px 22px;
-            justify-content: space-between;
-            gap: 20px;
+
         }
 
         &__img {
@@ -189,7 +186,6 @@
     }
 
     .cart-total-wrap {
-
         grid-area: Total;
         grid-row: auto;
         grid-column: 10/13;
@@ -268,6 +264,33 @@
         margin-top: 20px;
     }
 
+    @include mq($max-width: "767px") {
+        table {
+            border: 0;
+        }
+        table thead {
+            display: none;
+        }
+        table tr {
+            display: block;
+            margin-bottom: -1px;
+        }
+        table td {
+            display: block;
+            text-align: right;
+            border-bottom: 1px dotted #ddd;
+        }
+        table td:last-child {
+            border-bottom: 0;
+        }
+        table td:before {
+            content: attr(data-label);
+            float: left;
+            text-transform: uppercase;
+            font-weight: bold;
+        }
+    }
+
 }
 
 .sticky {
@@ -278,31 +301,4 @@
 .stop {
     position: relative;
     z-index: 3;
-}
-
-@media screen and (max-width: 767px) {
-    table {
-        border: 0;
-    }
-    table thead {
-        display: none;
-    }
-    table tr {
-        display: block;
-        margin-bottom: -1px;
-    }
-    table td {
-        display: block;
-        text-align: right;
-        border-bottom: 1px dotted #ddd;
-    }
-    table td:last-child {
-        border-bottom: 0;
-    }
-    table td:before {
-        content: attr(data-label);
-        float: left;
-        text-transform: uppercase;
-        font-weight: bold;
-    }
 }

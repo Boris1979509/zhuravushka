@@ -4,13 +4,13 @@
 @section('content')
     <section id="search-wrap">
         <div class="container">
-            @if($products->count())
+            @if(isset($products) && $products->count())
                 <div class="card-container grid">
                     @include('shop.card')
-                    @if($products->total() > $products->count())
-                        <div class="paginator-wrap">{{ $products->links() }}</div>
-                    @endif
                 </div>
+                @if($products->total() > $products->count())
+                    <div class="paginator-wrap">{{ $products->links() }}</div>
+                @endif
             @else
                 @include('flash.index', ['info' => __('NotFound')])
             @endif

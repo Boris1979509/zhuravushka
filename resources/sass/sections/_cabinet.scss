@@ -56,7 +56,9 @@
                         overflow: hidden;
                         transition: max-height 0.2s ease-in-out;
                         box-sizing: border-box;
-                        margin-left: calc(23.4% - 10px);
+                        @include mq($min-width: "900px") {
+                            margin-left: calc(23.4% - 10px);
+                        }
                     }
 
                     &__item {

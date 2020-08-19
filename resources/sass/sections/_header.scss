@@ -189,41 +189,6 @@ header {
                         }
                     }
 
-                    .icon {
-                        height: 24px;
-                        width: 24px;
-                        display: inline-block;
-                        margin-right: 12px;
-                        position: relative;
-
-                        &.compare__icon {
-                            // background: url('../../images/icons/compare-icon.svg') no-repeat;
-                            &.active {
-                                path {
-                                    fill: $bg-color-icon-active;
-                                }
-                            }
-                        }
-
-                        &.favorite__icon {
-                            // background: url('../../images/icons/heart-icon.svg') no-repeat;
-                            &.active {
-                                path {
-                                    fill: $bg-color-icon-active;
-                                }
-                            }
-                        }
-
-                        &.cart__icon {
-                            // background: url('../../images/icons/cart-icon.svg') no-repeat;
-                            &.active {
-                                path {
-                                    fill: $bg-color-icon-active;
-                                }
-                            }
-                        }
-                    }
-
                     .qty {
                         vertical-align: top;
                     }
@@ -236,6 +201,40 @@ header {
         }
 
         /* End sub-header */
+    }
+}
+.icon {
+    height: 24px;
+    width: 24px;
+    display: inline-block;
+    margin-right: 12px;
+    position: relative;
+
+    &.compare__icon {
+        // background: url('../../images/icons/compare-icon.svg') no-repeat;
+        &.active {
+            path {
+                fill: $bg-color-icon-active;
+            }
+        }
+    }
+
+    &.favorite__icon {
+        // background: url('../../images/icons/heart-icon.svg') no-repeat;
+        &.active {
+            path {
+                fill: $bg-color-icon-active;
+            }
+        }
+    }
+
+    &.cart__icon {
+        // background: url('../../images/icons/cart-icon.svg') no-repeat;
+        &.active {
+            path {
+                fill: $bg-color-icon-active;
+            }
+        }
     }
 }
 

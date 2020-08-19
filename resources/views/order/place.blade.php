@@ -76,32 +76,34 @@
                     </div>
                     <div class="order-registration__contact-form">
                         <div class="title">{{ __('EnterContactInfo') }}</div>
-                        <div class="form-input">
-                            <input type="text" name="last_name" id="lastName" class="input"
-                                   placeholder="" value="{{ auth()->user()->last_name ?? '' }}" required>
-                            <label for="lastName">{{ __('LastName') }}<span class="require">*</span></label>
-                        </div>
-                        <div class="form-input">
-                            <input type="text" name="name" id="name" class="input"
-                                   placeholder="" value="{{ auth()->user()->name ?? ''}}" required>
-                            <label for="name">{{ __('Name') }}<span class="require">*</span></label>
-                        </div>
-                        <div class="form-input">
-                            <input type="text" name="middle_name" id="middleName" class="input"
-                                   placeholder="">
-                            <label for="middleName">{{ __('MiddleName') }}</label>
-                        </div>
-                        @guest
-                            @include('auth.phoneRequest')
-                        @endguest
-                        <div class="form-input">
-                            <input type="email" name="email" id="email" class="input" placeholder=""
-                                   value="{{ auth()->user()->email ?? '' }}" required>
-                            <label for="email">{{ __('E-Mail Address') }}<span class="require">*</span></label>
-                        </div>
-                        <div class="form-input">
-                    <textarea name="message" id="orderMessage" cols="30" rows="4"
+                        <div class="order-registration__form-block">
+                            <div class="form-input">
+                                <input type="text" name="last_name" id="lastName" class="input"
+                                       placeholder="" value="{{ auth()->user()->last_name ?? '' }}" required>
+                                <label for="lastName">{{ __('LastName') }}<span class="require">*</span></label>
+                            </div>
+                            <div class="form-input">
+                                <input type="text" name="name" id="name" class="input"
+                                       placeholder="" value="{{ auth()->user()->name ?? ''}}" required>
+                                <label for="name">{{ __('Name') }}<span class="require">*</span></label>
+                            </div>
+                            <div class="form-input">
+                                <input type="text" name="middle_name" id="middleName" class="input"
+                                       placeholder="">
+                                <label for="middleName">{{ __('MiddleName') }}</label>
+                            </div>
+                            @guest
+                                @include('auth.phoneRequest')
+                            @endguest
+                            <div class="form-input">
+                                <input type="email" name="email" id="email" class="input" placeholder=""
+                                       value="{{ auth()->user()->email ?? '' }}" required>
+                                <label for="email">{{ __('E-Mail Address') }}<span class="require">*</span></label>
+                            </div>
+                            <div class="form-input">
+                            <textarea name="message" id="orderMessage" cols="30" rows="4"
                               placeholder="{{ __('OrderMessage') }}"></textarea>
+                            </div>
                         </div>
                     </div>
                 </div>

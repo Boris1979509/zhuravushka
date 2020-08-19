@@ -8,9 +8,9 @@
                 <div class="compare__title"><h1>{{ __('Compare') }} <span
                             class="compare__count">({{ $compareCount }})</span>
                     </h1>
-                    @if($compareCount)
-                        @include('shop.inc.cardRender')
-                    @endif
+{{--                    @if($compareCount)--}}
+{{--                        @include('shop.inc.cardRender')--}}
+{{--                    @endif--}}
                 </div>
                 @if($compareCount)
                     <div class="card-container">

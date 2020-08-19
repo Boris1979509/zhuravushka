@@ -1,10 +1,5 @@
 .b-carousel {
-    $self: &;
-    width: 100%;
-    overflow: hidden;
     position: relative;
-    //grid-column: 2 / 4;
-    grid-area: Carousel;
 
     &:hover {
         cursor: pointer;
@@ -37,6 +32,10 @@
         &:hover {
             background: #fc8908;
             color: #fff;
+        }
+
+        @include mq($max-width: "767px") {
+            display: none;
         }
     }
 
@@ -72,31 +71,56 @@
         transform: translateX(-10px) translateY(calc(20px - 50%));
     }
 
-    &__wrap {
-        display: flex;
-        transition: transform .5s;
-        will-change: transform;
-        position: relative;
-        height: 100%;
-    }
-
-    &__item {
-        flex: 0 0 100%;
-        overflow: hidden;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-    }
-
     &__img {
         width: 100%;
         height: 100%;
         object-fit: cover;
         display: block;
+        @include mq($max-width: "500px") {
+            width: auto;
+        }
     }
+
     @include mq($max-width: "1199px") {
         margin-top: 20px;
+        margin-left: -15px;
+        margin-right: -15px;
     }
+
+    .home-slider {
+        &__rectangle {
+            z-index: 2;
+            position: absolute;
+            background-size: cover;
+            background: url("../../images/rectangle.png") no-repeat 0 0;
+            width: 100%;
+            height: 100%;
+            @include mq($max-width: "676px") {
+                background-size: 20% 100%;
+            }
+        }
+
+        &__info {
+            position: absolute;
+            top: 20%;
+            left: 1%;
+        }
+
+        &__title {
+            color: #fff;
+            font-size: 2rem;
+        }
+
+        &__subtitle {
+            color: #fff;
+            margin: 30px 0;
+            font-size: 1rem;
+            @include mq($max-width: "676px") {
+
+            }
+        }
+    }
+
 }
 
 

@@ -8,7 +8,9 @@
 
     display: grid;
     grid-template-columns: repeat(12, 1fr);
-    grid-template-areas: "Sticky Info" "Sticky Info" "Sticky Info" "Sticky Info";
+    //grid-template-areas: "Sticky Info" "Sticky Info" "Sticky Info" "Sticky Info";
+    grid-template-rows: max-content;
+    grid-row: auto;
     column-gap: 20px;
     margin-bottom: 40px;
 
@@ -38,7 +40,7 @@
         }
 
         .form-input {
-            width: 50%;
+            width: 100%;
         }
 
         input, textarea {
@@ -46,25 +48,20 @@
         }
 
         .request-block, .verify-block {
-            flex-wrap: nowrap !important;
-
-            #number-btn {
-                width: auto;
-                margin: 0 !important;
-            }
+            flex-flow: column;
 
             .form-input:first-child {
-                flex-basis: unset !important;
                 margin-bottom: 20px;
+                @include mq($max-width: "609px") {
+                    margin-bottom: 0;
+                }
             }
 
             .form-input:last-child {
-                flex-basis: 47% !important;
                 margin-top: 0 !important;
-            }
-
-            input {
-                width: 100% !important;
+                @include mq($max-width: "609px") {
+                    margin-bottom: 20px;
+                }
             }
         }
     }
@@ -87,11 +84,13 @@
     }
 
     .delivery-type, .payment-type {
-
-        justify-content: space-between;
-        flex-wrap: wrap;
         gap: 20px;
+        justify-content: space-between;
         display: flex;
+        @include mq($max-width: "767px") {
+            flex-flow: column;
+        }
+
 
         &__saving, &__express, &__cash, &__online, &__transport, &__pick-up {
             @include orderRadioInput;
@@ -104,7 +103,6 @@
             padding: 20px;
             display: flex;
             flex-wrap: wrap;
-            flex-basis: 42%;
 
             .title {
                 font-size: 1rem;
@@ -166,6 +164,9 @@
         .row {
             column-gap: 20px;
             flex-flow: inherit;
+            @include mq($max-width: "767px") {
+                flex-flow: column;
+            }
         }
     }
 
@@ -272,6 +273,7 @@
             max-height: 150px;
             overflow: auto;
             padding: 10px;
+
             .cart {
                 display: flex;
                 margin-bottom: 20px;
@@ -377,40 +379,40 @@
     }
 
     .sticky-content {
-        grid-area: Sticky;
+        //grid-area: Sticky;
+        grid-row: auto;
         grid-column: 1 / span 8;
+        @include mq($max-width: "1200px") {
+            grid-column: 1/span 12;
+        }
     }
 
     &__select-delivery {
         @extend %templateBlock;
-        //grid-area: Delivery;
-        //grid-column: 1 / span 8;
         margin-bottom: 20px;
     }
 
     &__select-address-delivery {
         @extend %templateBlock;
-        //grid-area: Address;
-        //grid-column: 1 / span 8;
         margin-bottom: 20px;
     }
 
     &__select-payment-method {
         @extend %templateBlock;
-        //grid-area: Payment;
-        //grid-column: 1 / span 8;
         margin-bottom: 20px;
     }
 
     &__contact-form {
         @extend %templateBlock;
-        //grid-area: Contact;
-        //grid-column: 1 / span 8;
     }
 
     &__info {
-        grid-area: Info;
+        //grid-area: Info;
         grid-column: 9 / 13;
+        @include mq($max-width: "1200px") {
+            grid-column: 1/span 12;
+            margin-top: 20px;
+        }
     }
 
 }

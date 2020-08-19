@@ -1,18 +1,19 @@
 .cabinet__sorting {
     @extend %templateFlex;
-    align-items: center;
-    padding-bottom: 15px;
-    border-bottom: 2px solid #DBDBDB;
-    margin-bottom: 30px;
+    @include mq($min-width: "767px") {
+        align-items: center;
+        padding-bottom: 15px;
+        border-bottom: 2px solid #DBDBDB;
+        margin-bottom: 30px;
+    }
 }
 
 .cabinet__sorting-options {
     @extend %templateFlex;
-    margin-top: 10px;
-    min-width: 60%;
-
-    .sort-in-stock {
-        align-self: center;
+    column-gap: 10px;
+    @include mq($max-width: "767px") {
+        justify-content: end;
+        row-gap: 5px;
     }
 }
 
@@ -35,6 +36,9 @@
             background: #0075d2;
             transition: width .3s ease 0s, left 0s ease 0s;
             width: 100%;
+            @include mq($max-width: "767px") {
+                bottom: -5px;
+            }
         }
     }
 }

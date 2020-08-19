@@ -3,34 +3,12 @@
         <div>
             <div class="home-slider__rectangle">
                 <div class="home-slider__info">
-                    <div class="home-slider__title">АКЦИЯ!!!</div>
-                    <p class="home-slider__subtitle">Успей все раскупить до конца акции!</p>
+                    <div class="home-slider__title">Скидка на все</div>
+                    <p class="home-slider__subtitle">Успей все раскупить до конца текущего года!</p>
                     <button class="btn btn-active home-slider__btn">Узнать подробнее...</button>
                 </div>
             </div>
-            <img src="{{ asset('images/homepage-slider/Rectangle1.jpg') }}" alt=""
-                 class="b-carousel__img">
-        </div>
-        <div>
-            <div class="home-slider__rectangle">
-                <div class="home-slider__info">
-                    <div class="home-slider__title">АКЦИЯ!!!</div>
-                    <p class="home-slider__subtitle">Успей все раскупить до конца акции!</p>
-                    <button class="btn btn-active home-slider__btn">Узнать подробнее...</button>
-                </div>
-            </div>
-            <img src="{{ asset('images/homepage-slider/Rectangle1.jpg') }}" alt=""
-                 class="b-carousel__img">
-        </div>
-        <div>
-            <div class="home-slider__rectangle">
-                <div class="home-slider__info">
-                    <div class="home-slider__title">АКЦИЯ!!!</div>
-                    <p class="home-slider__subtitle">Успей все раскупить до конца акции!</p>
-                    <button class="btn btn-active home-slider__btn">Узнать подробнее...</button>
-                </div>
-            </div>
-            <img src="{{ asset('images/homepage-slider/Rectangle1.jpg') }}" alt=""
+            <img src="{{ asset('images/banners/pdtV7oJ9y2Ge4vkFOepz2s5FZTz5vSGETjPfg7RQ.png') }}" alt=""
                  class="b-carousel__img">
         </div>
     </div>

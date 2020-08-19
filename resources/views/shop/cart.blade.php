@@ -15,7 +15,7 @@
                         <tr class="cart__product">
                             <td class="cart__img">
                                 <a href="{{ route('product', $product->slug) }}" target="_blank">
-                                    <img src="{{ fileExist("images/products/{$product->photo}.jpg") }}"
+                                    <img src="{{ fileExist("images/products/{$product->photo}") }}"
                                          alt="{{ $product->title }}"
                                          class="cart__image">
                                 </a>

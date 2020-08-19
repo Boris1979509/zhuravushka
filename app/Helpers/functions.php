@@ -64,14 +64,40 @@ if (!function_exists('limitMonth')) {
 }
 if (!function_exists('fileExist')) {
     /**
-     * @param $path
+     * @param string $name
      * @return string
      */
-    function fileExist($path): string
+    function fileExist($name): string
     {
-        if (file_exists(public_path($path))) {
-            return asset($path);
+
+        $info = pathinfo($name);
+        if (!empty($info['extension'])) {
+            // if the file already contains an extension returns it
+            return $name;
         }
+        $filename = $info['filename'];
+        $len = strlen($filename);
+        // open the folder
+        $dh = opendir($info['dirname']);
+        if (!$dh) {
+            return false;
+        }
+        // scan each file in the folder
+        while (($file = readdir($dh)) !== false) {
+            if (strncmp($file, $filename, $len) === 0) {
+                if (strlen($name) > $len) {
+                    // if name contains a directory part
+                    $name = substr($name, 0, strlen($name) - $len) . $file;
+                } else {
+                    // if the name is at the path root
+                    $name = $file;
+                }
+                closedir($dh);
+                return asset($name);
+            }
+        }
+        // file not found
+        closedir($dh);
         return asset('images/nophoto.png');
     }
 }
@@ -82,7 +108,7 @@ if (!function_exists('getIdsFromCollect')) {
      */
     function getIdsFromCollect($collect): array
     {
-        return $collect->map(function ($item) {
+        return $collect->map(static function ($item) {
             return $item->id;
         })->toArray();
     }

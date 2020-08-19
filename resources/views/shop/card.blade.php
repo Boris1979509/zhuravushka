@@ -7,7 +7,7 @@
         </div>
         <div class="card__body">
             <a href="{{ route('product', $productItem->slug) }}" title="{{ $productItem->title }}">
-                <img src="{{ fileExist("images/products/{$productItem->photo}.jpg") }}"
+                <img src="{{ fileExist('images/products/' . $productItem->photo) }}"
                      class="card__img-top"
                      alt="{{ $productItem->title }}">
             </a>

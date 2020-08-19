@@ -53,7 +53,7 @@ class SearchController extends Core
         }
 
         collect($result)->map(static function ($item) {
-            $item->photo = fileExist('images/products/' . $item->photo . '.jpg');
+            $item->photo = fileExist('images/products/' . $item->photo);
             $item->price = numberFormat($item->price);
         });
 

@@ -1,8 +1,6 @@
 @php /** @var User $user */use App\Models\User;@endphp
-<div class="content-block__item">
-    <button onclick="location.href='{{ route('cabinet.profile.edit') }}'"
-            class="btn btn-outline btn-go-on">{{ __('Edit') }}</button>
-</div>
+<button onclick="location.href='{{ route('cabinet.profile.edit') }}'"
+        class="btn btn-outline btn-go-on btn-edit-profile">{{ __('Edit') }}</button>
 <table class="table">
     <thead>
     <th>{{ __('LastName') }}</th>

@@ -20,9 +20,14 @@
     .guarantee {
         margin-top: 40px;
         @include guaranteeBlock;
-        .row {
-            flex-flow: unset;
 
+        .row {
+            flex-flow: row;
+            column-gap: 40px;
+            row-gap: 20px;
+            @include mq($max-width: "767px") {
+                flex-wrap: wrap;
+            }
         }
     }
 }

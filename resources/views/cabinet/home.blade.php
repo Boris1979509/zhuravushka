@@ -14,6 +14,9 @@
                        class="cabinet__home-link">{{ __('CabinetFeedBack') }}</a>
                     <a href="{{ route('cabinet.profile.home') }}"
                        class="cabinet__home-link">{{ __('ProfileSetting') }}</a>
+                    <div class="cabinet__home-link">
+                        @include('cabinet.logout.logout')
+                    </div>
                 </div>
             </div>
         </div>

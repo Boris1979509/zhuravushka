@@ -42,7 +42,7 @@
             </div>
         </div>
     </div>
-    @include('pages.hardware')
+{{--    @include('pages.hardware')--}}
 </section>
 
 

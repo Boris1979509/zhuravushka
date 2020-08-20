@@ -86,12 +86,11 @@
 @mixin guaranteeBlock {
     &__item {
         position: relative;
-        @media (min-width: 1200px) {
-            width: 50%;
-            margin-bottom: 40px;
-            &:not(:last-child) {
-                margin-right: 40px;
-            }
+        width: 50%;
+        margin-bottom: 40px;
+
+        @include mq($max-width: "767px") {
+            width: 100%;
         }
     }
 
@@ -172,10 +171,13 @@
             transition: max-height 0.2s ease-in-out;
             line-height: 1.5;
 
-            p:not(.article) {
-                padding: 10px 0;
+            &:last-child {
+                p:not(.article) {
+                    padding-top: 10px;
+                    padding-bottom: 10px;
+                }
 
-                &:last-child {
+                p:last-child {
                     padding-bottom: 40px;
                 }
             }
@@ -189,6 +191,9 @@
                 margin-top: 10px;
             }
         }
+    }
+    @include mq($max-width: "767px") {
+        width: 100%;
     }
 }
 
@@ -280,9 +285,10 @@ Add button icon
         @content;
     }
 }
+
 @mixin scrollbars($size, $foreground-color, $background-color: mix($bg-color, white, 10%)) {
     ::-webkit-scrollbar {
-        width:  $size;
+        width: $size;
         height: $size;
     }
 

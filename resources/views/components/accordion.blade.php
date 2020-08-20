@@ -2,19 +2,11 @@
 <div class="accordion">
     <button class="accordion__button-item">Доставка «Эконом» от 400 руб.</button>
     <div class="accordion__content">
-        <p class="article">Lorem ipsum dolor sit amet, consectetur adipisicing elit. Atque, corporis.</p>
-        <p>Lorem ipsum dolor sit amet, consectetur adipisicing elit. Alias aliquid aperiam at atque corporis cupiditate
-            eius impedit ipsum iusto omnis possimus quis quisquam quo quos ratione, sed tempora temporibus ullam vitae
-            voluptate! Asperiores assumenda at excepturi nam numquam ullam vel, voluptatem voluptatibus. Aliquam
-            assumenda corporis cupiditate, eum impedit omnis perspiciatis!</p>
+        @include('flash.index', ['info' => 'Информация временно отсутствует.'])
     </div>
     <button class="accordion__button-item">Доставка "Экспресс"</button>
     <div class="accordion__content">
-        <p>
-            Lorem ipsum dolor sit amet, consectetur adipisicing elit. Quas deleniti molestias necessitatibus quaerat
-            quos incidunt! Quas officiis repellat dolore omnis nihil quo, ratione cupiditate! Sed, deleniti, recusandae!
-            Animi, sapiente, nostrum?
-        </p>
+        @include('flash.index', ['info' => 'Информация временно отсутствует.'])
     </div>
     <button class="accordion__button-item active">Общие правила доставки</button>
     <div class="accordion__content">

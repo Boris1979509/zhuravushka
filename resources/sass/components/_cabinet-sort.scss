@@ -6,14 +6,16 @@
         border-bottom: 2px solid #DBDBDB;
         margin-bottom: 30px;
     }
+
 }
 
 .cabinet__sorting-options {
     @extend %templateFlex;
     column-gap: 10px;
     @include mq($max-width: "767px") {
-        justify-content: end;
+        justify-content: end !important;
         row-gap: 5px;
+        margin-bottom: 10px;
     }
 }
 
@@ -51,5 +53,9 @@
         @extend %templateFontStyle;
         color: $color-body-default;
         font-weight: 600;
+    }
+
+    @include mq($max-width: "767px") {
+        display: none !important;
     }
 }

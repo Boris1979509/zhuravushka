@@ -69,7 +69,7 @@ if (!function_exists('fileExist')) {
      */
     function fileExist($name): string
     {
-
+        setlocale(LC_ALL, 'ru_RU.utf8');
         $info = pathinfo($name);
         if (!empty($info['extension'])) {
             // if the file already contains an extension returns it

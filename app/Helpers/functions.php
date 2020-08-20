@@ -84,7 +84,10 @@ if (!function_exists('fileExist')) {
         }
         // scan each file in the folder
         while (($file = readdir($dh)) !== false) {
-            if (strncasecmp($file, $filename, $len) === 0) {
+            if (($file == ".") || ($file == "..")) {
+                continue;
+            }
+            if (strncmp($file, $filename, $len) === 0) {
                 if (strlen($name) > $len) {
                     // if name contains a directory part
                     $name = substr($name, 0, strlen($name) - $len) . $file;

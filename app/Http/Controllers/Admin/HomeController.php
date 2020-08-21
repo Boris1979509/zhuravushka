@@ -31,6 +31,8 @@ class HomeController extends Core
      */
     public function index(CartService $cartService)
     {
+        $this->data['users'] = $this->userRepository->all();
+        $this->data['posts'] = $this->blogPostRepository->all();
         return view('admin.home', $this->data, $cartService->getCart());
     }
 }

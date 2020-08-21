@@ -5,6 +5,8 @@
     <section id="search-wrap">
         <div class="container">
             @if(isset($products) && $products->count())
+                <span
+                    class="search-title">{{ '(' . $products->total() .  ') ' . __('SearchResult') . ' ' .  '"' . request()->get('search') . '"' }}</span>
                 <div class="card-container grid">
                     @include('shop.card')
                 </div>

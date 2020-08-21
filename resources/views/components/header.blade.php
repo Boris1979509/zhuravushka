@@ -66,8 +66,7 @@
                         <div class="search-dropdown" hidden>
                             <img src="{{ asset('images/triangle.png') }}" class="search-triangle">
                             <span class="search-title">{{ __('SearchResult') }}</span>
-                            <div class="search-result">
-                            </div>
+                            <div class="search-result"></div>
                         </div>
                     </div>
                     @include('components.sub-header-navbar')

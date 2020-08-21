@@ -87,9 +87,8 @@
     &__item {
         position: relative;
         width: 50%;
-        margin-bottom: 40px;
 
-        @include mq($max-width: "767px") {
+        @include mq($max-width: "900px") {
             width: 100%;
         }
     }

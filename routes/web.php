@@ -117,8 +117,25 @@ Route::group([
     'as'         => 'admin.',
     'middleware' => ['auth', 'can:admin-panel'],
 ], static function () {
+
     Route::get('/', 'HomeController@index')->name('home');
-    Route::resource('users', 'UsersController');
+    // Admin Users
+    Route::group([
+        'namespace' => 'Users',
+    ], static function () {
+        Route::resource('users', 'UsersController');
+    });
+    // Admin Blog
+    Route::group([
+        'namespace' => 'Blog',
+        'prefix'    => 'blog',
+        'as'        => 'blog.',
+    ], static function () {
+        $methods = ['index', 'edit', 'store', 'update', 'create'];
+        Route::resource('categories', 'CategoryController')->only($methods);
+        Route::resource('posts', 'PostController')->except('show');
+        Route::get('posts/{post}/restore', 'PostController@restore')->name('posts.restore');
+    });
 });
 
 

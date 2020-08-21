@@ -63,6 +63,11 @@
     .guarantee {
         color: $color-span;
         gap: 20px;
+        display: flex;
+        flex-flow: row;
+        @include mq($max-width: "900px") {
+            flex-flow: wrap;
+        }
         @include guaranteeBlock;
     }
 }

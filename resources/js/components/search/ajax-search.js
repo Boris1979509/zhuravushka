@@ -2,6 +2,7 @@ module.exports = ((formSearch) => {
     if (!formSearch) return;
     const searchDropDown = document.querySelector('.search-dropdown');
     const resultBlock = document.querySelector('.search-result');
+    const resultTitle = document.querySelector('.search-title');
     /**
      *
      * @param event
@@ -47,6 +48,7 @@ module.exports = ((formSearch) => {
                     </a>`;
         }).join('');
         if (result) {
+            resultTitle.innerHTML = `(${data.length}) результат поиска: "${value}"`;
             resultBlock.innerHTML = result;
             resultBlock.style = `height: ${document.documentElement.clientHeight - resultBlock.getBoundingClientRect().top + document.body.scrollTop}px; overflow-y: auto;`;
         } else {

@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
 /**
@@ -85,11 +86,20 @@ class Product extends Model
             $query->where('user_id', $user->id);
         });
     }
+
     /**
      * @return int
      */
     public function favoriteCount(): int
     {
         return $this->favorites()->count();
+    }
+
+    /**
+     * @return Relation
+     */
+    public function visits()
+    {
+        return visits($this)->relation();
     }
 }

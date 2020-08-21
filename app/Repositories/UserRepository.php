@@ -4,7 +4,9 @@
 namespace App\Repositories;
 
 use App\Models\User as Model;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Database\Eloquent\Builder;
+use Illuminate\Database\Eloquent\Collection;
 use Illuminate\Pagination\LengthAwarePaginator;
 
 class UserRepository extends CoreRepository
@@ -48,7 +50,7 @@ class UserRepository extends CoreRepository
     {
         return $this->startConditions()
             ->where('id', $user_id)
-            ->with(['orders' => static function ($query){
+            ->with(['orders' => static function ($query) {
                 $query->with('products');
             }])
             ->first();
@@ -61,5 +63,14 @@ class UserRepository extends CoreRepository
     {
         return $this->startConditions()
             ->OrderByDesc('id');
+    }
+
+    /**
+     * @return mixed
+     */
+    public function all()
+    {
+        return $this->startConditions()
+            ->count();
     }
 }

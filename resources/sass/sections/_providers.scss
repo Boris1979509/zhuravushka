@@ -6,6 +6,7 @@
 }
 
 #providers {
+    padding-bottom: 40px;
     .providers {
         &__primary-info-block {
             @extend %customFontsStyle;

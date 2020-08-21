@@ -48,4 +48,13 @@ class BlogPostRepository extends CoreRepository
             ->where('slug', $slug)
             ->firstOrFail();
     }
+
+    /**
+     * @return mixed
+     */
+    public function all()
+    {
+        return $this->startConditions()
+            ->count();
+    }
 }

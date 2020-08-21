@@ -35,7 +35,7 @@
                             выходя из дома.</p>
                     </div>
                 </div>
-                <div class="guarantee grid">
+                <div class="guarantee">
                     <div class="guarantee__item">
                         <div class="guarantee__item-icon">
                             <img src="{{ asset('images/icons/page-about/about-search.svg') }}" alt="Быстрый поиск">

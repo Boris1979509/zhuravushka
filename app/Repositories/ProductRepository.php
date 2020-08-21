@@ -58,6 +58,18 @@ class ProductRepository extends CoreRepository
             ->first();
     }
 
+    public function getMoreGoods($product)
+    {
+        $columns = ['*'];
+        return $this->startConditions()
+            ->select($columns)
+            ->where('id', '!=', $product->id)
+            ->where('price', '<>', 0)
+            ->where('category_id', $product->category_id)
+            ->limit(20)
+            ->get();
+    }
+
     /**
      * @param null $perPage
      * @param $array
@@ -90,7 +102,8 @@ class ProductRepository extends CoreRepository
     {
         return $this->startConditions()
             ->where('price', '<>', 0)
-            ->whereIn('id', $array)->get();
+            ->whereIn('id', $array)
+            ->get();
     }
 
     /**

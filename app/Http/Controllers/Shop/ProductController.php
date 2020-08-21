@@ -44,7 +44,9 @@ class ProductController extends Core
         if (!$product = $this->productRepository->getBySlug($slug)) {
             return abort(404);
         }
+
         $this->data['product'] = $product;
+        $this->data['moreGoods'] = $this->productRepository->getMoreGoods($product);
         $this->data['product']['old_price'] = $this->service->subtractPercent($product->price);
         return view('shop.product', $this->data, $cartService->getCart());
     }

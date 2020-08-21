@@ -2,7 +2,7 @@
     <div class="row">
         <section id="leader-sales">
             <div class="leader-sales">
-                <p class="leader-sales__title">Лидеры продаж <span class="see-all-link">Смотреть все</span></p>
+                <p class="leader-sales__title">{{ __('LeadersSales') }}<!--<span class="see-all-link">Смотреть все</span>--></p>
                 <div class="glider-contain">
                     <div class="glider" id="glider-leader-sales">
                         @include('shop.card')

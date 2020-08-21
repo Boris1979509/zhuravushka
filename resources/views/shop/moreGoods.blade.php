@@ -1,7 +1,7 @@
 <h3>{{ __('DontForgetToBuy') }}</h3>
 <div class="glider-contain">
     <div class="glider" id="more-goods">
-        @include('shop.card')
+        @include('shop.card', ['products' => $moreGoods])
     </div>
     <button aria-label="Previous" class="glider-prev" id="glider-prev-more-goods"></button>
     <button aria-label="Next" class="glider-next" id="glider-next-more-goods"></button>

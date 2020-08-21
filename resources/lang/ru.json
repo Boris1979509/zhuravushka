@@ -219,5 +219,9 @@
     "OldPassword": "Старый пароль",
     "Invalid old password specified": "Неверно указан старый пароль.",
     "DataUpdated": "Данные успешно обновлены.",
-    "SearchResult": "Результаты поиска:"
+    "SearchResult": "Результаты поиска:",
+    "Add to favourites": "В избранное",
+    "Add to compares": "В сравнение",
+    "ProductCode": "Код товара",
+    "LeadersSales": "Лидеры продаж"
 }

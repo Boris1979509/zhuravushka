@@ -1,8 +1,8 @@
 @extends('layouts.app')
+@section('description', __(''))
 @section('title', __('User') . ': ' . $user->name)
-
 @section('content')
-    <section id="admin-edit-user">
+    <section id="admin">
         <div class="container">
             <div class="admin-edit-user">
                 @include('admin.users._nav')
@@ -10,11 +10,11 @@
                 @php /** @var User $user */use App\Models\User; @endphp
                 <div class="nav-button">
                     <button onclick="window.location.href='{{ route('admin.users.edit', $user) }}'"
-                            class="btn btn-active">{{ __('Edit') }}</button>
+                            class="btn btn-outline btn-go-on">{{ __('Edit') }}</button>
                     <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="edit-user-form">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-cancel">{{ __('Delete') }}</button>
+                        <button class="btn btn-cancel btn-outline">{{ __('Delete') }}</button>
                     </form>
                 </div>
             </div>

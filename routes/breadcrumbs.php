@@ -21,7 +21,7 @@ Breadcrumbs::for('page.service', static function (Generator $trail) {
 // Page Blog
 Breadcrumbs::for('blog', static function (Generator $trail) {
     $trail->parent('home');
-    $trail->push('Советы', route('blog'));
+    $trail->push(__('Sovety'), route('blog'));
 });
 // Category Blog
 Breadcrumbs::for('blog.category', static function (Generator $trail, $categorySlug) {
@@ -180,4 +180,30 @@ Breadcrumbs::register('admin.users.edit', static function (Generator $crumbs, Us
 Breadcrumbs::register('search', static function (Generator $crumbs) {
     $crumbs->parent('home');
     $crumbs->push(__('Search'), route('search'));
+});
+// Admin Blog Category
+Breadcrumbs::for('admin.blog.categories.index', static function (Generator $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push(__('Categories'), route('admin.blog.categories.index'));
+});
+Breadcrumbs::for('admin.blog.categories.edit', static function (Generator $crumbs, $id) {
+    $crumbs->parent('admin.blog.categories.index');
+    $crumbs->push(__('Edit'), route('admin.blog.categories.edit', $id));
+});
+Breadcrumbs::for('admin.blog.categories.create', static function (Generator $crumbs) {
+    $crumbs->parent('admin.blog.categories.index');
+    $crumbs->push(__('Create'), route('admin.blog.categories.create'));
+});
+// Admin Blog Posts
+Breadcrumbs::for('admin.blog.posts.index', static function (Generator $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push(__('Posts'), route('admin.blog.posts.index'));
+});
+Breadcrumbs::for('admin.blog.posts.edit', static function (Generator $crumbs, $id) {
+    $crumbs->parent('admin.blog.posts.index');
+    $crumbs->push(__('Edit'), route('admin.blog.posts.edit', $id));
+});
+Breadcrumbs::for('admin.blog.posts.create', static function (Generator $crumbs) {
+    $crumbs->parent('admin.blog.posts.index');
+    $crumbs->push(__('Create'), route('admin.blog.posts.create'));
 });

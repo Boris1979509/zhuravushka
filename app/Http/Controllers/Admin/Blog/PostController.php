@@ -3,83 +3,121 @@
 namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
-use Illuminate\Http\Request;
+use App\Http\Controllers\Core;
+use App\Models\Blog\BlogPost;
+use Illuminate\Contracts\View\Factory;
+use Illuminate\Http\RedirectResponse;
+use App\Http\Requests\Admin\Blog\BlogPostUpdateRequest;
+use Illuminate\View\View;
+use App\Http\Requests\Admin\Blog\BlogPostCreateRequest;
 
-class PostController extends Controller
+class PostController extends Core
 {
     /**
-     * Display a listing of the resource.
-     *
-     * @return \Illuminate\Http\Response
+     * Per page
+     */
+    public const LIMIT = 20;
+    /**
+     * @var array
+     */
+    protected $data = [];
+
+    /**
+     * PostController constructor.
+     */
+    public function __construct()
+    {
+        parent::__construct();
+        $this->data['pages'] = $this->pageRepository->getAllPagesNav();
+        $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
+    }
+
+    /**
+     * @return Factory|View
      */
     public function index()
     {
-        //
+        $posts = $this->blogPostRepository->getAllWithPaginate(self::LIMIT, null, false);
+        return view('admin.blog.posts.index', compact('posts'), $this->data);
     }
 
     /**
-     * Show the form for creating a new resource.
-     *
-     * @return \Illuminate\Http\Response
+     * @return Factory|View
      */
     public function create()
     {
-        //
+        $item = new BlogPost();
+        $categoryList = $this->blogCategoryRepository->getForComboBox();
+        return view('admin.blog.posts.create', compact('item', 'categoryList'), $this->data);
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @param BlogPostCreateRequest $request
+     * @return RedirectResponse|null
      */
-    public function store(Request $request)
+    public function store(BlogPostCreateRequest $request): ?RedirectResponse
     {
-        //
+        if ($post = BlogPost::new($request)) {
+            return redirect()
+                ->route('admin.blog.posts.edit', $post->id)
+                ->with('success', __('Saved successfully'));
+        }
     }
 
     /**
-     * Display the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param BlogPost $post
+     * @return Factory|View
      */
-    public function show($id)
+    public function edit(BlogPost $post): View
     {
-        //
+        $item = $this->blogPostRepository->getEdit($post->id);
+        if (!$item) {
+            return redirect()->route('admin.blog.posts.index');
+        }
+        $categoryList = $this->blogCategoryRepository->getForComboBox();
+        return view('admin.blog.posts.edit', compact('item', 'categoryList'), $this->data);
+    }
+
+
+    public function update(BlogPostUpdateRequest $request, $id)
+    {
+        if (!$item = $this->blogPostRepository->getEdit($id)) {
+            return back()->with('error', $id . ' ' . __('Not found'))->withInput();
+        }
+
+        if ($item->update($request->all())) {
+            return redirect()
+                ->route('admin.blog.posts.edit', $id)
+                ->with('success', __('Updated successfully'));
+        }
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return RedirectResponse
      */
-    public function edit($id)
+    public function destroy($id): RedirectResponse
     {
-        //
+        // $item = BlogPost::find($id)->forceDelete();
+        // Soft deleted
+        if ($item = BlogPost::destroy($id)) {
+            return redirect()
+                ->route('admin.blog.posts.index')
+                ->with('success', __('Deleted successfully'));
+        }
     }
 
     /**
-     * Update the specified resource in storage.
-     *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param $id
+     * @return RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function restore($id): RedirectResponse
     {
-        //
-    }
-
-    /**
-     * Remove the specified resource from storage.
-     *
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
-     */
-    public function destroy($id)
-    {
-        //
+        $post = $this->blogPostRepository->getRestore($id);
+        if ($post->restore()) {
+            return redirect()
+                ->route('admin.blog.posts.index')
+                ->with('success', __('Restored successfully'));
+        }
     }
 }

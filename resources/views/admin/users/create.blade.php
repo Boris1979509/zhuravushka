@@ -1,8 +1,8 @@
 @extends('layouts.app')
+@section('description', __(''))
 @section('title', __('Create'))
-
 @section('content')
-    <section id="admin-create-user">
+    <section id="admin">
         <div class="container">
             <div class="admin-create-user">
                 @include('admin.users._nav')
@@ -36,7 +36,7 @@
                         @enderror
                     </div>
                     <div class="form-input">
-                        <button type="submit" class="btn btn-active">{{ __('Create') }}</button>
+                        <button type="submit" class="btn btn-go-on btn-outline">{{ __('Create') }}</button>
                     </div>
                 </form>
             </div>

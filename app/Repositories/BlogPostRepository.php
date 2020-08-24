@@ -18,19 +18,23 @@ class BlogPostRepository extends CoreRepository
 
     /**
      * @param null $perPage
-     * @param array $columns
      * @param null $id
+     * @param bool $published
      * @return LengthAwarePaginator
      */
-    public function getAllWithPaginate($perPage = null, $id = null, $columns = ['*']): LengthAwarePaginator
+    public function getAllWithPaginate($perPage = null, $id = null, $published = true): LengthAwarePaginator
     {
+        $columns = ['*'];
         $result = $this->startConditions()
             ->select($columns)
-            ->where(static function ($query) use ($id) {
+            ->where(static function ($query) use ($published, $id) {
                 if (!is_null($id)) {
                     $query->where('category_id', $id);
                 }
-                return $query->where('is_published', true);
+                if ($published) {
+                    return $query->where('is_published', true);
+                }
+                return $query;
             })
             ->orderBy('id', 'DESC')
             ->with(['category:title,id']) // LazyLoad
@@ -56,5 +60,24 @@ class BlogPostRepository extends CoreRepository
     {
         return $this->startConditions()
             ->count();
+    }
+    /**
+     * @param $id
+     * @return Model
+     */
+    public function getEdit($id): Model
+    {
+        return $this->startConditions()
+            ->find($id);
+    }
+
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getRestore($id)
+    {
+        return $this->startConditions()
+            ->where('id', $id);
     }
 }

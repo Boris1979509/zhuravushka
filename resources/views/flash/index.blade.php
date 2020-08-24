@@ -7,7 +7,8 @@
             <p>{{ session('info') ?? $info }}</p>
         </div>
         @if(session('info'))
-            <span class="close alert-info__icon-close" onclick="this.closest('.alert').remove();" title="{{ __('Close') }}"></span>
+            <span class="close alert-info__icon-close" onclick="this.closest('.alert').remove();"
+                  title="{{ __('Close') }}"></span>
         @endif
     </div>
 @endif
@@ -19,7 +20,10 @@
         <div class="alert-error__message">
             <p>{{ session('error') ?? $error }}</p>
         </div>
-        <span class="close alert-error__icon-close" onclick="this.closest('.alert').remove();" title="{{ __('Close') }}"></span>
+        @if(session('error'))
+            <span class="close alert-error__icon-close" onclick="this.closest('.alert').remove();"
+                  title="{{ __('Close') }}"></span>
+        @endif
     </div>
 @endif
 @if(session('success') || isset($success))
@@ -30,6 +34,9 @@
         <div class="alert-success__message">
             <p>{{ session('success') ?? $success }}</p>
         </div>
-        <span class="close alert-success__icon-close" onclick="this.closest('.alert').remove();" title="{{ __('Close') }}"></span>
+        @if(session('success'))
+            <span class="close alert-success__icon-close" onclick="this.closest('.alert').remove();"
+                  title="{{ __('Close') }}"></span>
+        @endif
     </div>
 @endif

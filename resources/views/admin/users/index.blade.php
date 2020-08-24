@@ -1,8 +1,8 @@
 @extends('layouts.app')
+@section('description', __(''))
 @section('title', __('Users'))
-
 @section('content')
-    <section id="admin-users">
+    <section id="admin">
         <div class="container">
             <div class="admin-users">
                 @include('admin.users._nav')
@@ -59,7 +59,7 @@
                     @foreach ($users as $user)
                         <tr>
                             <td>{{ $user->id }}</td>
-                            <td><a class="link" href="{{ route('admin.users.show', $user) }}">{{ $user->name }}</a></td>
+                            <td><a class="link edit" href="{{ route('admin.users.show', $user) }}">{{ $user->name }}</a></td>
                             <td>{{ $user->email }}</td>
                             <td>{{ $user->phone }}</td>
                             <td>
@@ -81,7 +81,9 @@
                     @endforeach
                     </tbody>
                 </table>
-                {{ $users->links() }}
+                @if($users->total() > $users->count())
+                    <div class="paginator-wrap">{{ $users->links() }}</div>
+                @endif
             </div>
         </div>
     </section>

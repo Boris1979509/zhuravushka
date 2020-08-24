@@ -3,22 +3,8 @@
     padding: 40px 0;
 }
 
-%link {
-    .link {
-        color: inherit;
-        font-size: 1rem !important;
-        transition: color .3s;
-
-        &:hover {
-            color: #0075d2;
-            text-decoration: underline;
-        }
-    }
-}
-
 #admin-users {
     @extend %main;
-    @extend %link;
 }
 
 #admin-create-user {
@@ -31,7 +17,6 @@
 
 #admin-edit-user {
     @extend %main;
-    @extend %link;
 
     .nav-button {
         display: flex;

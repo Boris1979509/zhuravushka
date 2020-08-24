@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 use App\Models\Blog\BlogCategory;
 use App\Models\Blog\BlogCategory as Model;
+use Illuminate\Support\Collection;
 
 
 class BlogCategoryRepository extends CoreRepository
@@ -32,6 +33,22 @@ class BlogCategoryRepository extends CoreRepository
                     ->groupBy('category_id');
             }])->get();
         return $result;
+    }
+
+    /**
+     * @return Collection
+     */
+    public function getForComboBox(): Collection
+    {
+        $columns = implode(', ', [
+            'id',
+            'CONCAT (id, ". ", title) AS id_title',
+        ]);
+
+        return $this->startConditions()
+            ->selectRaw($columns)
+            ->toBase()
+            ->get();
     }
 
     /**

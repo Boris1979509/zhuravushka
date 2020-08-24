@@ -2,6 +2,7 @@
 
 namespace App\Models\Blog;
 
+use App\Http\Requests\Admin\Blog\BlogPostCreateRequest;
 use Carbon\Carbon;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
@@ -35,6 +36,15 @@ class BlogPost extends Model
         'published_at',
         'excerpt',
     ];
+
+    /**
+     * @param BlogPostCreateRequest $request
+     * @return mixed
+     */
+    public static function new(BlogPostCreateRequest $request)
+    {
+        return static::create($request->input());
+    }
 
     /**
      * @return BelongsTo

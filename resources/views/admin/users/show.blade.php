@@ -14,7 +14,7 @@
                     <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="edit-user-form">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-cancel btn-outline">{{ __('Delete') }}</button>
+                        <button class="btn btn-cancel btn-outlineу">{{ __('Delete') }}</button>
                     </form>
                 </div>
             </div>

@@ -25,7 +25,7 @@
                     <textarea class="input" name="content"
                               id="content" cols="30"
                               rows="10">{{ old('content', $item->content) }}</textarea>
-                    @error('content_raw')
+                    @error('content')
                     <div class="invalid-feedback">{{ $message }}</div>
                     @enderror
                 </div>
@@ -41,6 +41,7 @@
                     <select name="category_id" id="category_id"
                             class="input">
                         @php /** @var BlogCategory $categoryItem*/use App\Models\Blog\BlogCategory; @endphp
+                        <option>{{ __('SelectInList') }}</option>
                         @foreach($categoryList as $categoryItem)
                             <option value="{{ $categoryItem->id }}"
                                     @if($item->category_id === $categoryItem->id) selected @endif>{{
@@ -48,6 +49,9 @@
                             </option>
                         @endforeach
                     </select>
+                    @error('category_id')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-input">
                     <label for="excerpt" class="form-input-label">{{ __('Excerpt') }}</label>
@@ -63,7 +67,7 @@
                     <input type="hidden" name="is_published" value="0">
                     <input type="checkbox" class="form-check-input" name="is_published" id="is_published"
                            value="1" @if($item->is_published) checked='checked' @endif>
-                    <label for="is_published" class="form-check-label">{{ __('Published') }}</label>
+                    <label for="is_published" class="form-check-label">{{ __('PublishedAt') }}</label>
                 </div>
             </div>
         </div>

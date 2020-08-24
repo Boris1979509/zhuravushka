@@ -181,19 +181,7 @@ Breadcrumbs::register('search', static function (Generator $crumbs) {
     $crumbs->parent('home');
     $crumbs->push(__('Search'), route('search'));
 });
-// Admin Blog Category
-Breadcrumbs::for('admin.blog.categories.index', static function (Generator $crumbs) {
-    $crumbs->parent('admin.home');
-    $crumbs->push(__('Categories'), route('admin.blog.categories.index'));
-});
-Breadcrumbs::for('admin.blog.categories.edit', static function (Generator $crumbs, $id) {
-    $crumbs->parent('admin.blog.categories.index');
-    $crumbs->push(__('Edit'), route('admin.blog.categories.edit', $id));
-});
-Breadcrumbs::for('admin.blog.categories.create', static function (Generator $crumbs) {
-    $crumbs->parent('admin.blog.categories.index');
-    $crumbs->push(__('Create'), route('admin.blog.categories.create'));
-});
+
 // Admin Blog Posts
 Breadcrumbs::for('admin.blog.posts.index', static function (Generator $crumbs) {
     $crumbs->parent('admin.home');
@@ -206,4 +194,17 @@ Breadcrumbs::for('admin.blog.posts.edit', static function (Generator $crumbs, $i
 Breadcrumbs::for('admin.blog.posts.create', static function (Generator $crumbs) {
     $crumbs->parent('admin.blog.posts.index');
     $crumbs->push(__('Create'), route('admin.blog.posts.create'));
+});
+// Admin Blog Category
+Breadcrumbs::for('admin.blog.categories.index', static function (Generator $crumbs) {
+    $crumbs->parent('admin.blog.posts.index');
+    $crumbs->push(__('Categories'), route('admin.blog.categories.index'));
+});
+Breadcrumbs::for('admin.blog.categories.edit', static function (Generator $crumbs, $id) {
+    $crumbs->parent('admin.blog.categories.index');
+    $crumbs->push(__('Edit'), route('admin.blog.categories.edit', $id));
+});
+Breadcrumbs::for('admin.blog.categories.create', static function (Generator $crumbs) {
+    $crumbs->parent('admin.blog.categories.index');
+    $crumbs->push(__('Create'), route('admin.blog.categories.create'));
 });

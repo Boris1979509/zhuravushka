@@ -24,6 +24,7 @@
     a {
         &.btn {
             height: auto !important;
+            width: max-content;
 
             &::before {
                 transform: translateY(3px);
@@ -149,6 +150,10 @@
 
     .mt-1 {
         margin-top: 1rem !important;
+    }
+
+    .item-remove {
+        opacity: .5;
     }
 
 }

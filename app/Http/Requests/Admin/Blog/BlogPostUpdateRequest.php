@@ -26,8 +26,8 @@ class BlogPostUpdateRequest extends FormRequest
         return [
             'title'       => 'required|min:5|max:200',
             'excerpt'     => 'nullable|max:500|min:3',
-            'content_raw' => 'required|string|min:3|max:10000',
-            'category_id' => 'required|integer|exists:blog_categories,id',
+            'content'     => 'required|string|min:3|max:10000',
+            'category_id' => 'required|exists:blog_categories,id',
         ];
     }
 
@@ -45,8 +45,10 @@ class BlogPostUpdateRequest extends FormRequest
     public function attributes(): array
     {
         return [
-            'content' => __('Article'),
-            'title'   => __('Title'),
+            'category_id' => __('Category'),
+            'content'     => __('Article'),
+            'title'       => __('Title'),
+            'excerpt'     => __('Excerpt'),
         ];
     }
 }

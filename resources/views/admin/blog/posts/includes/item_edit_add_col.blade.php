@@ -1,6 +1,6 @@
 @php /** @var App\Models\Blog\BlogPost $item */@endphp
 <div>
-    <div>
+    <div class="form-input">
         <button type="submit" class="btn btn-outline btn-go-on">{{ __('Save') }}</button>
     </div>
     @if($item->exists)

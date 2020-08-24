@@ -75,8 +75,9 @@
     "Category": "Категория",
     "Author": "Автор",
     "Title": "Заголовок",
-    "Published": "Опубликовано",
-    "Unpublished": "Не опубликовано",
+    "Published": "Статья опубликована.",
+    "PublishedAt": "Опубликовать",
+    "Unpublished": "Статья не опубликована.",
     "Excerpt": "Выдержка",
     "Article": "Статья",
     "Created": "Создано",
@@ -224,5 +225,9 @@
     "Add to compares": "В сравнение",
     "ProductCode": "Код товара",
     "LeadersSales": "Лидеры продаж",
-    "Blog": "Блог"
+    "Blog": "Блог",
+    "Updated successfully": "Успешно обновлено.",
+    "Confirm deletion": "Подтвердите удаление",
+    "No parent": "Без родителя",
+    "Category is deleted": "Категория была удалена."
 }

@@ -5,6 +5,7 @@ namespace App\Repositories;
 
 use App\Models\Blog\BlogCategory;
 use App\Models\Blog\BlogCategory as Model;
+use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Support\Collection;
 
 
@@ -60,5 +61,33 @@ class BlogCategoryRepository extends CoreRepository
         return $this->startConditions()
             ->where('slug', $slug)
             ->firstOrFail();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function getWithTrashed()
+    {
+        return $this->startConditions()
+            ->withTrashed()->get();
+    }
+
+    /**
+     * @param integer $id
+     * @return Model
+     */
+    public function getEdit($id): Model
+    {
+        return $this->startConditions()
+            ->find($id);
+    }
+    /**
+     * @param $id
+     * @return mixed
+     */
+    public function getRestore($id)
+    {
+        return $this->startConditions()
+            ->where('id', $id);
     }
 }

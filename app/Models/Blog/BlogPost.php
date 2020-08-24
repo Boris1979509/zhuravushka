@@ -65,11 +65,10 @@ class BlogPost extends Model
     }
 
     /**
-     * Accessor
      * @return string
      */
     public function getLimitContentAttribute(): string
     {
-        return Str::limit($this->content, 150, '...');
+        return Str::limit($this->content, 150);
     }
 }

@@ -1,27 +1,27 @@
 @extends('layouts.app')
 @section('description', __(''))
-@section('title', __(''))
+@section('title', __('Edit'))
 @section('content')
     <section id="admin">
         <div class="container">
-            <div class="admin-posts">
+            <div class="admin-posts-categories">
                 @include('admin.blog.posts._nav')
-                <h1>{{ __('Create') }}</h1>
-                @php /** @var App\Models\Blog\BlogPost $item */@endphp
-                <form action="{{ route('admin.blog.posts.update', $item->id) }}" method="POST">
+                <h1>{{ __('Edit') }}</h1>
+                @php /** @var App\Models\Blog\BlogCategory $item */@endphp
+                <form action="{{ route('admin.blog.categories.update', $item->id) }}" method="POST">
                     @method('PATCH')
                     @csrf
-                    <div class="post-wrap">
-                        <div class="post-content">
-                            @include('admin.blog.posts.includes.item_edit_main_col')
+                    <div class="posts-category-wrap">
+                        <div class="category-content">
+                            @include('admin.blog.categories.includes.item_edit_main_col')
                         </div>
-                        <div class="post-info">
-                            @include('admin.blog.posts.includes.item_edit_add_col')
+                        <div class="category-info">
+                            @include('admin.blog.categories.includes.item_edit_add_col')
                         </div>
                     </div>
                 </form>
                 {{-- DELETE --}}
-                <form action="{{ route('admin.blog.posts.destroy', $item->id) }}" method="POST">
+                <form action="{{ route('admin.blog.categories.destroy', $item->id) }}" method="POST">
                     @method('DELETE')
                     @csrf
                     <div class="">

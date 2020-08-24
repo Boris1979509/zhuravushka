@@ -43,6 +43,20 @@ class BlogPostRepository extends CoreRepository
     }
 
     /**
+     * @param int|null $perPage
+     * @return mixed
+     */
+    public function getAllWithTrashed($perPage = null)
+    {
+        return $this->startConditions()
+            ->orderBy('id', 'DESC')
+            ->with(['category' => static function ($query) {
+                $query->withTrashed();
+            }])->withTrashed()
+            ->paginate($perPage);
+    }
+
+    /**
      * @param string $slug
      * @return mixed
      */
@@ -61,6 +75,7 @@ class BlogPostRepository extends CoreRepository
         return $this->startConditions()
             ->count();
     }
+
     /**
      * @param $id
      * @return Model

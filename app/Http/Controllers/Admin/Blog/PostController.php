@@ -37,7 +37,7 @@ class PostController extends Core
      */
     public function index()
     {
-        $posts = $this->blogPostRepository->getAllWithPaginate(self::LIMIT, null, false);
+        $posts = $this->blogPostRepository->getAllWithTrashed(self::LIMIT);
         return view('admin.blog.posts.index', compact('posts'), $this->data);
     }
 

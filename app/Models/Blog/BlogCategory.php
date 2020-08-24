@@ -53,4 +53,12 @@ class BlogCategory extends Model
     {
         return $this->posts->count ?? null;
     }
+
+    /**
+     * @return mixed|null
+     */
+    public function getParentTitleAttribute()
+    {
+        return $this->parent->title ?? null;
+    }
 }

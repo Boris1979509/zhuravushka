@@ -2,6 +2,10 @@
 
 namespace App\Providers;
 
+use App\Models\Blog\BlogCategory;
+use App\Models\Blog\BlogPost;
+use App\Observers\BlogCategoryObserver;
+use App\Observers\BlogPostObserver;
 use App\Repositories\OrderRepository;
 use App\Repositories\ProductCategoryRepository;
 use Illuminate\Support\ServiceProvider;
@@ -59,5 +63,7 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         Date::setlocale(config('app.locale'));
+        BlogPost::observe(BlogPostObserver::class);
+        BlogCategory::observe(BlogCategoryObserver::class);
     }
 }

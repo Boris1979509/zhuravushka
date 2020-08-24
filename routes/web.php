@@ -131,10 +131,11 @@ Route::group([
         'prefix'    => 'blog',
         'as'        => 'blog.',
     ], static function () {
-        $methods = ['index', 'edit', 'store', 'update', 'create'];
+        $methods = ['index', 'edit', 'store', 'update', 'create', 'destroy'];
         Route::resource('categories', 'CategoryController')->only($methods);
         Route::resource('posts', 'PostController')->except('show');
-        Route::get('posts/{post}/restore', 'PostController@restore')->name('posts.restore');
+        Route::get('posts/{post}/restore', 'PostController@restore')->name('post.restore');
+        Route::get('categories/{category}/restore', 'CategoryController@restore')->name('category.restore');
     });
 });
 

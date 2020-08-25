@@ -64,8 +64,16 @@
                     @enderror
                 </div>
                 <div class="form-input">
-                    <label for="image" class="form-input-label">@lang('Select image')</label>
+                    @if($item->exists && $item->image)
+                        <div class="image-thumb">
+                            <img src="{{ asset('images/blog/' . $item->image) }}" alt="">
+                        </div>
+                    @endif
+                    <label for="image" class="form-input-label">@lang('Image')</label>
                     <input type="file" name="image" id="image" accept="image/*">
+                    @error('image')
+                    <div class="invalid-feedback">{{ $message }}</div>
+                    @enderror
                 </div>
                 <div class="form-input">
                     <input type="hidden" name="is_published" value="0">

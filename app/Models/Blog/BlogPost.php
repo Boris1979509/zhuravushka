@@ -18,6 +18,7 @@ use Illuminate\Support\Str;
  * @property string $content
  * @property bool $is_published
  * @property string $published_at
+ * @property string $image
  * @property BlogCategory $category_id
  * @property-read  BlogCategory $date_format
  * @property-read  BlogCategory $limit_content
@@ -32,6 +33,7 @@ class BlogPost extends Model
         'slug',
         'content',
         'is_published',
+        'image',
         'deleted_at',
         'published_at',
         'excerpt',
@@ -43,7 +45,7 @@ class BlogPost extends Model
      */
     public static function new(BlogPostCreateRequest $request)
     {
-        return static::create($request->input());
+        return static::create($request->all());
     }
 
     /**

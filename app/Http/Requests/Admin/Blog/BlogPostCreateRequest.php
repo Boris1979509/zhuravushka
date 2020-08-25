@@ -24,11 +24,11 @@ class BlogPostCreateRequest extends FormRequest
     public function rules(): array
     {
         return [
-            'title'       => 'required|min:5|max:200|unique:blog_posts',
+            'title'       => 'required|unique:blog_posts|min:5|max:200|unique:blog_posts',
             'excerpt'     => 'nullable|max:500|min:3',
             'content'     => 'required|string|min:3|max:10000',
             'category_id' => 'required|exists:blog_categories,id',
-            'image'       => 'required|mimes:jpeg,jpg|dimensions:min_width=1000,min_height:400',
+            'image'       => 'required|mimes:jpeg,jpg,png|dimensions:min_width=1000,min_height=200',
         ];
     }
 
@@ -50,6 +50,7 @@ class BlogPostCreateRequest extends FormRequest
             'content'     => __('Article'),
             'title'       => __('Title'),
             'excerpt'     => __('Excerpt'),
+            'image'       => __('Image'),
         ];
     }
 }

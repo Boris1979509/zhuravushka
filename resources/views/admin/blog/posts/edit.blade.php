@@ -8,7 +8,7 @@
                 @include('admin.blog.posts._nav')
                 <h1>{{ __('Create') }}</h1>
                 @php /** @var App\Models\Blog\BlogPost $item */@endphp
-                <form action="{{ route('admin.blog.posts.update', $item->id) }}" method="POST">
+                <form action="{{ route('admin.blog.posts.update', $item->id) }}" method="POST" enctype="multipart/form-data">
                     @method('PATCH')
                     @csrf
                     <div class="post-wrap">

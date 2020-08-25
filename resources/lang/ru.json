@@ -229,5 +229,8 @@
     "Updated successfully": "Успешно обновлено.",
     "Confirm deletion": "Подтвердите удаление",
     "No parent": "Без родителя",
-    "Category is deleted": "Категория была удалена."
+    "Category is deleted": "Категория была удалена.",
+    "Image": "Картинка",
+    "Read more": "Читать полностью",
+    "allBlogCategories": "Все советы"
 }

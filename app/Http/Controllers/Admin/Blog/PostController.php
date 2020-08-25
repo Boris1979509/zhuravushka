@@ -84,11 +84,14 @@ class PostController extends Core
         if (!$item = $this->blogPostRepository->getEdit($id)) {
             return back()->with('error', $id . ' ' . __('Not found'))->withInput();
         }
-
-        if ($item->update($request->all())) {
+        $request = is_null($request->file('image')) ? $request->except('image') : $request->all();
+        try {
+            $item->update($request);
             return redirect()
                 ->route('admin.blog.posts.edit', $id)
                 ->with('success', __('Updated successfully'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 

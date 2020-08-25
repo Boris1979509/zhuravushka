@@ -64,6 +64,10 @@
                     @enderror
                 </div>
                 <div class="form-input">
+                    <label for="image" class="form-input-label">@lang('Select image')</label>
+                    <input type="file" name="image" id="image" accept="image/*">
+                </div>
+                <div class="form-input">
                     <input type="hidden" name="is_published" value="0">
                     <input type="checkbox" class="form-check-input" name="is_published" id="is_published"
                            value="1" @if($item->is_published) checked='checked' @endif>

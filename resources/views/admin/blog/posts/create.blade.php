@@ -7,7 +7,7 @@
             <div class="admin-posts">
                 @include('admin.blog.posts._nav')
                 <h1>{{ __('Create') }}</h1>
-                <form action="{{ route('admin.blog.posts.store') }}" method="POST">
+                <form action="{{ route('admin.blog.posts.store') }}" method="POST" enctype="multipart/form-data">
                     @csrf
                     <div>
                         <div>

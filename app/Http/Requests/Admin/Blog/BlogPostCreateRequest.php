@@ -28,6 +28,7 @@ class BlogPostCreateRequest extends FormRequest
             'excerpt'     => 'nullable|max:500|min:3',
             'content'     => 'required|string|min:3|max:10000',
             'category_id' => 'required|exists:blog_categories,id',
+            'image'       => 'required|mimes:jpeg,jpg|dimensions:min_width=1000,min_height:400',
         ];
     }
 

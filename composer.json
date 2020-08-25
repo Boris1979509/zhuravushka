@@ -20,7 +20,8 @@
         "laravel/framework": "^7.0",
         "laravel/tinker": "^2.0",
         "laravel/ui": "^2.1",
-        "makkinga/laravel-carbon-helper": "^1.0"
+        "makkinga/laravel-carbon-helper": "^1.0",
+        "spatie/laravel-sitemap": "^5.7"
     },
     "require-dev": {
         "barryvdh/laravel-debugbar": "^3.3",

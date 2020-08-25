@@ -1,2 +1,8 @@
 User-agent: *
-Disallow:
+Disallow: /admin
+Disallow: /login
+Disallow: /password/reset
+Disallow: /search
+
+Sitemap: https://xn--80aabqvgezrjl8m.xn--p1ai/sitemap.xml
+Host: xn--80aabqvgezrjl8m.xn--p1ai

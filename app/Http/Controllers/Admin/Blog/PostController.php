@@ -56,12 +56,14 @@ class PostController extends Core
      */
     public function store(BlogPostCreateRequest $request): ?RedirectResponse
     {
-        if ($post = BlogPost::new($request)) {
+        try {
+            $post = BlogPost::new($request);
             return redirect()
                 ->route('admin.blog.posts.edit', $post)
                 ->with('success', __('Saved successfully'));
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
-        return redirect()->back()->with('error', 'Update error');
     }
 
     /**

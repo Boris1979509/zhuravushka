@@ -61,6 +61,7 @@ class PostController extends Core
                 ->route('admin.blog.posts.edit', $post)
                 ->with('success', __('Saved successfully'));
         }
+        return redirect()->back()->with('error', 'Update error');
     }
 
     /**

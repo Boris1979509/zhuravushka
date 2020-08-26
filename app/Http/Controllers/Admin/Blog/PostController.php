@@ -2,7 +2,6 @@
 
 namespace App\Http\Controllers\Admin\Blog;
 
-use App\Http\Controllers\Controller;
 use App\Http\Controllers\Core;
 use App\Models\Blog\BlogPost;
 use Illuminate\Contracts\View\Factory;
@@ -57,13 +56,10 @@ class PostController extends Core
      */
     public function store(BlogPostCreateRequest $request): ?RedirectResponse
     {
-        try {
-            $post = BlogPost::new($request);
+        if ($post = BlogPost::new($request)) {
             return redirect()
                 ->route('admin.blog.posts.edit', $post)
                 ->with('success', __('Saved successfully'));
-        } catch (\Exception $e) {
-            return redirect()->back()->with('error', $e->getMessage());
         }
     }
 
@@ -85,14 +81,12 @@ class PostController extends Core
 
     public function update(BlogPostUpdateRequest $request, BlogPost $post)
     {
-        if (!$item = $this->blogPostRepository->getEdit($post->id)) {
-            return back()->with('error', $post->id . ' ' . __('Not found'));
-        }
+        $item = $this->blogPostRepository->getEdit($post->id);
         $request = is_null($request->file('image')) ? $request->except('image') : $request->all();
         try {
             $item->update($request);
             return redirect()
-                ->route('admin.blog.posts.edit', $post->id)
+                ->route('admin.blog.posts.edit', $post)
                 ->with('success', __('Updated successfully'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());

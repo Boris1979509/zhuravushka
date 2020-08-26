@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Admin\Blog;
 
 use App\Http\Controllers\Controller;
 use App\Http\Controllers\Core;
+use App\Http\Requests\Admin\Blog\BlogCategoryCreateRequest;
+use App\Http\Requests\Admin\Blog\BlogCategoryUpdateRequest;
 use App\Models\Blog\BlogCategory;
 use App\Models\Blog\BlogPost;
 use App\Repositories\BlogPostRepository;
@@ -44,9 +46,9 @@ class CategoryController extends Core
      */
     public function create()
     {
-        $item = new BlogCategory();
+        $category = new BlogCategory();
         $categoryList = $this->blogCategoryRepository->getForComboBox();
-        return view('admin.blog.categories.create', compact('item', 'categoryList'), $this->data);
+        return view('admin.blog.categories.create', compact('category', 'categoryList'), $this->data);
     }
 
 
@@ -54,13 +56,16 @@ class CategoryController extends Core
      * @param BlogCategoryCreateRequest $request
      * @return RedirectResponse
      */
-    public function store(BlogCategoryCreateRequest $request): ?RedirectResponse
+    public function store(BlogCategoryCreateRequest $request)
     {
-        if ($category = app(BlogCategory::class)->create($request->all())) {
-            return redirect()
-                ->route('admin.blog.categories.edit', $category->id)
-                ->with('success', __('Saved successfully'));
+        try {
+            BlogCategory::new($request);
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
         }
+        return redirect()
+            ->route('admin.blog.categories.index')
+            ->with('success', __('Saved successfully'));
     }
 
 
@@ -71,23 +76,31 @@ class CategoryController extends Core
 
 
     /**
-     * @param $id
+     * @param BlogCategory $category
      * @return Factory|View
      */
-    public function edit($id)
+    public function edit(BlogCategory $category)
     {
-        $item = $this->blogCategoryRepository->getEdit($id);
-        if (!$item) {
-            return redirect()->route('admin.blog.categories.index');
-        }
         $categoryList = $this->blogCategoryRepository->getForComboBox();
-        return view('admin.blog.categories.edit', compact('item', 'categoryList'), $this->data);
+        return view('admin.blog.categories.edit', compact('category', 'categoryList'), $this->data);
     }
 
 
-    public function update(Request $request, $id)
+    /**
+     * @param BlogCategoryUpdateRequest $request
+     * @param BlogCategory $category
+     * @return RedirectResponse
+     */
+    public function update(BlogCategoryUpdateRequest $request, BlogCategory $category)
     {
-        //
+        try {
+            $category->update($request->all());
+        } catch (\Exception $e) {
+            return redirect()->back()->with('error', $e->getMessage());
+        }
+        return redirect()
+            ->route('admin.blog.categories.edit', $category)
+            ->with('success', __('Saved successfully'));
     }
 
     /**
@@ -101,15 +114,16 @@ class CategoryController extends Core
         }
 
         try {
-            $item->posts()->update(['is_published' => 0, 'published_at' => null]);
-            $item->posts()->delete();
+            // $item->posts()->update(['is_published' => 0, 'published_at' => null]);
+            // $item->posts()->delete();
             $item->delete();
+            return redirect()
+                ->route('admin.blog.categories.index')
+                ->with('success', __('Deleted successfully'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());
         }
-        return redirect()
-            ->route('admin.blog.categories.index')
-            ->with('success', __('Deleted successfully'));
+
     }
 
     /**

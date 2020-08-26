@@ -6,10 +6,10 @@ use App\Http\Controllers\Core;
 use App\Http\Requests\Admin\Users\UpdateRequest;
 use App\Models\User;
 use Exception;
+use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
 use Illuminate\Http\Request;
 use App\Http\Requests\Admin\Users\CreateRequest;
-use Illuminate\Http\Response;
 use Illuminate\View\View;
 
 class UsersController extends Core
@@ -74,8 +74,6 @@ class UsersController extends Core
     }
 
     /**
-     * Store a newly created resource in storage.
-     *
      * @param CreateRequest $request
      * @return RedirectResponse
      */
@@ -91,8 +89,6 @@ class UsersController extends Core
     }
 
     /**
-     * Display the specified resource.
-     *
      * @param User $user
      * @return View
      */
@@ -102,47 +98,48 @@ class UsersController extends Core
     }
 
     /**
-     * Show the form for editing the specified resource.
-     *
      * @param User $user
-     * @return Response
+     * @return Factory|View
      */
-    public function edit(User $user): Response
+    public function edit(User $user): View
     {
-        //$roles = User::rolesList();
-
-        return view('admin.users.edit', compact('user'));
+        $roles = User::rolesList();
+        return view('admin.users.edit', compact('user', 'roles'), $this->data);
     }
 
     /**
-     * Update the specified resource in storage.
-     *
      * @param UpdateRequest $request
      * @param User $user
-     * @return Response
+     * @return RedirectResponse
      */
-    public function update(UpdateRequest $request, User $user): Response
+    public function update(UpdateRequest $request, User $user): RedirectResponse
     {
-        $user->update($request->only(['name', 'email', 'phone']));
+        $result = $user->update($request->only([
+            'name',
+            'last_name',
+            'middle_name',
+            'email',
+            'phone'
+        ]));
 
-//        if ($request['role'] !== $user->role) {
-//            $user->changeRole($request['role']);
-//        }
-
-        return redirect()->route('admin.users.show', $user);
+        if ($request['role'] !== $user->role) {
+            $user->changeRole($request['role']);
+        }
+        if ($result) {
+            return redirect()->route('admin.users.show', $user)->with('success', __('Updated successfully'));
+        } else {
+            return redirect()->route('admin.users.show', $user)->with('error', __('Update error'));
+        }
     }
 
     /**
-     * Remove the specified resource from storage.
-     *
      * @param User $user
-     * @return Response
+     * @return RedirectResponse
      * @throws Exception
      */
-    public function destroy(User $user): Response
+    public function destroy(User $user)
     {
         $user->delete();
-
         return redirect()->route('admin.users.index');
     }
 }

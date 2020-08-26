@@ -41,7 +41,7 @@
                                         </div>
                                     @endif
                                 </td>
-                                <td>{{ $post->published_at ? parseDate(carbon($post->published_at))->format('j F, Y') : __('Unpublished') }}</td>
+                                <td>{!! $post->published_at ? parseDate(carbon($post->published_at))->format('j F, Y') : '<span class="badge-info">' . __('Unpublished') . '</span>' !!}</td>
                             </tr>
                         @endforeach
                         </tbody>

@@ -8,7 +8,7 @@
                 @include('admin.users._nav')
                 <h1>{{ __('Users') }}</h1>
                 <button onclick="window.location.href='{{ route('admin.users.create') }}'"
-                        class="btn btn-outline w-2">{{ __('Create') }}</button>
+                        class="btn btn-outline">{{ __('Create') }}</button>
                 <form action="?" method="GET">
                     <div class="filter">
                         <div class="form-input">
@@ -40,7 +40,7 @@
                         </div>
                     </div>
                     <div class="form-input">
-                        <button type="submit" class="btn btn-outline btn-go-on ml w-2">{{ __('Search') }}</button>
+                        <button type="submit" class="btn btn-outline btn-go-on ml">{{ __('Search') }}</button>
                     </div>
                 </form>
                 <table class="table">

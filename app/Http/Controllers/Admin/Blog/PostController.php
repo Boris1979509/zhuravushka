@@ -79,16 +79,16 @@ class PostController extends Core
     }
 
 
-    public function update(BlogPostUpdateRequest $request, $id)
+    public function update(BlogPostUpdateRequest $request, BlogPost $post)
     {
-        if (!$item = $this->blogPostRepository->getEdit($id)) {
-            return back()->with('error', $id . ' ' . __('Not found'))->withInput();
+        if (!$item = $this->blogPostRepository->getEdit($post->id)) {
+            return back()->with('error', $post->id . ' ' . __('Not found'));
         }
         $request = is_null($request->file('image')) ? $request->except('image') : $request->all();
         try {
             $item->update($request);
             return redirect()
-                ->route('admin.blog.posts.edit', $id)
+                ->route('admin.blog.posts.edit', $post->id)
                 ->with('success', __('Updated successfully'));
         } catch (\Exception $e) {
             return redirect()->back()->with('error', $e->getMessage());

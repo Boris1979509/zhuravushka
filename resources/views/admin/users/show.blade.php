@@ -7,6 +7,7 @@
             <div class="admin-edit-user">
                 @include('admin.users._nav')
                 <h1>{{ __('User') . ': ' . $user->name }}</h1>
+                @include('flash.index')
                 @php /** @var User $user */use App\Models\User; @endphp
                 <div class="nav-button">
                     <button onclick="window.location.href='{{ route('admin.users.edit', $user) }}'"
@@ -14,7 +15,7 @@
                     <form method="POST" action="{{ route('admin.users.destroy', $user) }}" class="edit-user-form">
                         @csrf
                         @method('DELETE')
-                        <button class="btn btn-cancel btn-outlineу">{{ __('Delete') }}</button>
+                        <button class="btn btn-cancel btn-outline" onclick="clicked(this.form); return false">{{ __('Delete') }}</button>
                     </form>
                 </div>
             </div>
@@ -62,4 +63,15 @@
             </table>
         </div>
     </section>
+@endsection
+@section('script')
+    <script>
+        function clicked(form) {
+            if (confirm('{{ __('Confirm deletion') }}')) {
+                form.submit();
+            } else {
+                return false;
+            }
+        }
+    </script>
 @endsection

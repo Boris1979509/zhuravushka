@@ -7,8 +7,9 @@
             <div class="admin-posts-categories">
                 @include('admin.blog.posts._nav')
                 <h1>{{ __('Edit') }}</h1>
-                @php /** @var App\Models\Blog\BlogCategory $item */@endphp
-                <form action="{{ route('admin.blog.categories.update', $item->id) }}" method="POST">
+                @include('flash.index')
+                @php /** @var App\Models\Blog\BlogCategory $category */@endphp
+                <form action="{{ route('admin.blog.categories.update', $category) }}" method="POST">
                     @method('PATCH')
                     @csrf
                     <div class="posts-category-wrap">
@@ -21,12 +22,12 @@
                     </div>
                 </form>
                 {{-- DELETE --}}
-                <form action="{{ route('admin.blog.categories.destroy', $item->id) }}" method="POST">
+                <form action="{{ route('admin.blog.categories.destroy', $category) }}" method="POST">
                     @method('DELETE')
                     @csrf
                     <div class="">
                         <button type="submit" onclick="clicked(this.form); return false"
-                                class="btn btn-cancel btn-outline">{{ __('Delete') }}</button>
+                                class="btn btn-cancel btn-outline ml">{{ __('Delete') }}</button>
                     </div>
                 </form>
             </div>

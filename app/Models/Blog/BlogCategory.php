@@ -2,6 +2,7 @@
 
 namespace App\Models\Blog;
 
+use App\Http\Requests\Admin\Blog\BlogCategoryCreateRequest;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\HasOne;
@@ -60,5 +61,14 @@ class BlogCategory extends Model
     public function getParentTitleAttribute()
     {
         return $this->parent->title ?? null;
+    }
+
+    /**
+     * @param BlogCategoryCreateRequest $request
+     * @return mixed
+     */
+    public static function new(BlogCategoryCreateRequest $request)
+    {
+        return static::create($request->all());
     }
 }

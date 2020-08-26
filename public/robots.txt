@@ -1,7 +1,9 @@
 User-agent: *
 Disallow: /admin
 Disallow: /login
-Disallow: /password/reset
+Disallow: /compare
+Disallow: /favorite
+Disallow: /cart
 Disallow: /search
 
 Sitemap: https://xn--80aabqvgezrjl8m.xn--p1ai/sitemap.xml

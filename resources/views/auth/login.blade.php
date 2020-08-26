@@ -32,7 +32,7 @@
     </div>
     <div class="form-input password-request">
         @if (Route::has('password.request'))
-            <a class="link password-request__link" href="{{ route('password.request') }}">
+            <a rel="nofollow" class="link password-request__link" href="{{ route('password.request') }}">
                 {{ __('Forgot Your Password?') }}
             </a>
         @endif

@@ -198,5 +198,6 @@ return [
         'new_password'          => 'Новый пароль',
         'old_password'          => 'Старый пароль',
         'password_confirmation'   => 'Подтверждение пароля',
+        'parent_id'               => 'Родитель',
     ],
 ];

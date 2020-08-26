@@ -24,9 +24,9 @@
                 <form action="{{ route('admin.blog.posts.destroy', $item->id) }}" method="POST">
                     @method('DELETE')
                     @csrf
-                    <div class="">
+                    <div class="form-input">
                         <button type="submit" onclick="clicked(this.form); return false"
-                                class="btn btn-cancel btn-outline">{{ __('Delete') }}</button>
+                                class="btn btn-cancel btn-outline ml">{{ __('Delete') }}</button>
                     </div>
                 </form>
             </div>

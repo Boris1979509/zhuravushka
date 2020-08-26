@@ -96,7 +96,7 @@ class ParseCatalog extends Command
     private function getFileName(): string
     {
         $file = $this->argument('file');
-        return storage_path('app/Catalog/' . $file);
+        return storage_path('app/catalog/' . $file);
     }
 
     /**

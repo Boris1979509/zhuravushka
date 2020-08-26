@@ -21,7 +21,7 @@ class BlogCategoryCreateRequest extends FormRequest
      *
      * @return array
      */
-    public function rules()
+    public function rules(): array
     {
         return [
             'title'       => 'required|string|min:5|max:200|unique:blog_categories,title',

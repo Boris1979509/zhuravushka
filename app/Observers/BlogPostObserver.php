@@ -67,7 +67,7 @@ class BlogPostObserver
     /**
      * @param BlogPost $blogPost
      */
-    private function storeImage(BlogPost $blogPost)
+    private function storeImage(BlogPost $blogPost): void
     {
         if ($blogPost->image instanceof UploadedFile) {
             $image = Image::make($blogPost->image);

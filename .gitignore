@@ -13,3 +13,6 @@ Homestead.yaml
 npm-debug.log
 yarn-error.log
 /public/images/products
+/public/images/blog
+/public/sitemap.xml
+/public/robots.txt

@@ -8,7 +8,6 @@
                 @include('admin.orders._nav')
                 <h1>{{ __('AdminOrders') }}</h1>
                 @include('flash.index')
-                @php /** @var Order $orderItem */use App\Models\Shop\Order; @endphp
                 @include('cabinet.order.order')
             </div>
         </div>

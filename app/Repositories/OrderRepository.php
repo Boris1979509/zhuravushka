@@ -86,11 +86,14 @@ class OrderRepository extends CoreRepository
 
     /**
      * @param null|integer $per_page
+     * @param array $columns
      * @return LengthAwarePaginator
      */
-    public function getAllOrders($per_page = null)
+    public function getAllOrders($per_page = null, $columns = ['*'])
     {
         return $this->startConditions()
+            ->select($columns)
+            ->where('total_cost', '<>', 0)
             ->with(['products', 'user'])
             ->paginate($per_page);
     }

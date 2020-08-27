@@ -1,6 +1,6 @@
 <div class="cabinet-orders">
     <div class="cabinet-orders__item">
-        @forelse($user->orders as $order)
+        @forelse($orders as $order)
             <div class="content-block">
                 <div class="content-block__item">
                     <div class="content-block__title-prop">{{ __('CabinetNumberOrder') }}</div>

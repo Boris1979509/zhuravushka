@@ -7,7 +7,7 @@
                 <h1>{{ __('CabinetOrder') }}</h1>
                 @include('flash.index')
                 @include('cabinet.order._nav')
-                @include('cabinet.order.order')
+                @include('cabinet.order.order', ['orders' => $user->orders])
             </div>
         </div>
     </section>

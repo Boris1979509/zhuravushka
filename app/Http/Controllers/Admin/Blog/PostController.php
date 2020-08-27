@@ -70,8 +70,7 @@ class PostController extends Core
      * @param BlogPost $post
      * @return Factory|View
      */
-    public
-    function edit(BlogPost $post): View
+    public function edit(BlogPost $post): View
     {
         $item = $this->blogPostRepository->getEdit($post->id);
         if (!$item) {
@@ -100,8 +99,7 @@ class PostController extends Core
      * @param $id
      * @return RedirectResponse
      */
-    public
-    function destroy($id): RedirectResponse
+    public function destroy($id): RedirectResponse
     {
         // $item = BlogPost::find($id)->forceDelete();
         // Soft deleted
@@ -116,8 +114,7 @@ class PostController extends Core
      * @param $id
      * @return RedirectResponse
      */
-    public
-    function restore($id): RedirectResponse
+    public function restore($id): RedirectResponse
     {
         $post = $this->blogPostRepository->getRestore($id);
         if ($post->restore()) {

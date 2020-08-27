@@ -100,5 +100,9 @@
         @extend %templateFontStyle;
         font-size: 1rem !important;
         text-decoration: underline;
+
+        &:hover {
+            color: #0075D2;
+        }
     }
 }

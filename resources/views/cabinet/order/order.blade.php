@@ -1,6 +1,10 @@
+@php
+    /** @var Product $product */use App\Models\Shop\Product;
+    /** @var Order $order */use App\Models\Shop\Order;
+@endphp
 <div class="cabinet-orders">
     <div class="cabinet-orders__item">
-        @forelse($orders as $order)
+        @forelse($user->orders as $order)
             <div class="content-block">
                 <div class="content-block__item">
                     <div class="content-block__title-prop">{{ __('CabinetNumberOrder') }}</div>
@@ -55,7 +59,7 @@
                                         <td class="content-block__title-value total">{{ numberFormat($product->price) }}
                                             <span class="rub">₽</span>
                                         </td>
-                                        <td class="content-block__title-value total">{{ $product->pivot->count }}</td>
+                                        <td class="content-block__title-value total">{{ $product->pivot->count . ' ' . $product->unit_pricing_base_measure }}</td>
                                         <td class="content-block__title-value total">{{ numberFormat($product->getItemTotalSum()) }}
                                             <span class="rub">₽</span>
                                         </td>

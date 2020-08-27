@@ -81,6 +81,7 @@ class OrderRepository extends CoreRepository
     public function all()
     {
         return $this->startConditions()
+            ->where('total_cost', '<>', 0)
             ->count();
     }
 
@@ -89,7 +90,7 @@ class OrderRepository extends CoreRepository
      * @param array $columns
      * @return LengthAwarePaginator
      */
-    public function getAllOrders($per_page = null, $columns = ['*'])
+    public function getAllOrders($per_page = null, $columns = ['*']): LengthAwarePaginator
     {
         return $this->startConditions()
             ->select($columns)

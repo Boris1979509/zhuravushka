@@ -8,14 +8,12 @@
                 @include('flash.index')
                 <div class="admin__home">
                     <a href="{{ route('admin.users.index') }}"
-                       class="admin__home-link">{{ __('Users') }}<span class="count">{{ $users }}</span></a>
+                       class="admin__home-link">{{ __('Users') }} ({{ $users }})</a>
                     <a href="{{ route('admin.blog.posts.index') }}"
-                       class="admin__home-link">{{ __('Blog') }}<span class="count">{{ $posts }}</span></a>
+                       class="admin__home-link">{{ __('Blog') }} ({{ $posts }})</a>
                     <a href="{{ route('admin.orders.index') }}"
-                       class="admin__home-link">{{ __('AdminOrders') }}<span class="count">{{ $orders }}</span></a>
-                    <div class="admin__home-link">
-                        @include('cabinet.logout.logout')
-                    </div>
+                       class="admin__home-link">{{ __('AdminOrders') }} ({{ $orders }})</a>
+                    @include('cabinet.logout.logout')
                 </div>
             </div>
         </div>

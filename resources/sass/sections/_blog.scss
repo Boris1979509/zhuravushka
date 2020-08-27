@@ -48,7 +48,7 @@
     }
 
     &__image {
-        margin-right: 40px;
+        margin-right: 30px;
         @include mq($max-width: "766px") {
             margin-right: 0;
         }

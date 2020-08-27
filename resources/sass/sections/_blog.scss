@@ -48,15 +48,22 @@
     }
 
     &__item-image {
-        min-width: 300px;
-        max-width: 300px;
+        width: 100%;
         height: auto;
+        @include mq($min-width: "767px") {
+            min-width: 300px;
+            max-width: 300px;
+        }
     }
 
     &__body {
         .published {
             @extend %templateFontStyle;
             color: #9C9C9C !important;
+        }
+
+        @include mq($max-width: "766px") {
+            margin-top: 20px;
         }
     }
 

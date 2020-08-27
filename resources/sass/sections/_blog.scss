@@ -29,7 +29,11 @@
         display: flex;
         flex-wrap: nowrap;
         padding: 30px 0;
-        border-bottom: 1px solid #CCCCCC;
+
+        &:not(:last-child) {
+            border-bottom: 1px solid #CCCCCC;
+            padding-bottom: 0;
+        }
 
         &:first-child {
             padding-top: 0;
@@ -87,7 +91,6 @@
             margin-top: 10px;
             @extend %templateFontStyle;
             font-size: 1rem !important;
-            line-height: 1.8 !important;
         }
     }
 

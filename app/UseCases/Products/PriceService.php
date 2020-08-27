@@ -10,6 +10,7 @@ class PriceService
      * Percent
      */
     public const PERCENT = 15; // %
+    public const MIN_SUM = 1000;
 
     /**
      * @param $price
@@ -18,10 +19,9 @@ class PriceService
     public function subtractPercent($price)
     {
         if ($price instanceof Collection) {
-            $price->each(function ($item) {
+            return $price->each(function ($item) {
                 $item->old_price = $this->math($item->price);
             });
-            return $price;
         }
         return $this->math($price);
     }
@@ -32,7 +32,7 @@ class PriceService
      */
     private function math($price): ?float
     {
-        if ($price) {
+        if ($price && $price >= self::MIN_SUM) {
             return round($price + ($price * (self::PERCENT / 100)));
         }
         return null;

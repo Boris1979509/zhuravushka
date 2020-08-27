@@ -125,6 +125,7 @@ Route::group([
     ], static function () {
         Route::resource('users', 'UsersController');
     });
+
     // Admin Blog
     Route::group([
         'namespace' => 'Blog',
@@ -136,6 +137,13 @@ Route::group([
         Route::resource('posts', 'PostController')->except('show');
         Route::get('posts/{post}/restore', 'PostController@restore')->name('post.restore');
         Route::get('categories/{category}/restore', 'CategoryController@restore')->name('category.restore');
+    });
+    // Admin Orders
+    Route::group([
+        'namespace' => 'Orders',
+        'as' => 'orders.',
+    ], static function () {
+        Route::get('orders', 'OrderController@index')->name('index');
     });
 });
 

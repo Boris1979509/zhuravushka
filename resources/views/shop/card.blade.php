@@ -17,18 +17,20 @@
                class="link card__link">{{ $productItem->title }}</a>
         </div>
         <div class="card__footer">
-            @include('shop.priceBlock', ['product' => $productItem])
-            <form action="{{ route('cart.add', $productItem) }}" method="POST" class="addCart">
-                @csrf
-                <div class="product-qty">
-                    <div class="product-qty__qty">
-                        <span class="product-qty__minus"></span>
-                        <input type="text" class="product-qty__input" value="1" name="qty">
-                        <span class="product-qty__plus"></span>
+            <div>
+                @include('shop.priceBlock', ['product' => $productItem])
+                <form action="{{ route('cart.add', $productItem) }}" method="POST" class="addCart">
+                    @csrf
+                    <div class="product-qty">
+                        <div class="product-qty__qty">
+                            <span class="product-qty__minus"></span>
+                            <input type="text" class="product-qty__input" value="1" name="qty">
+                            <span class="product-qty__plus"></span>
+                        </div>
+                        <button class="btn btn-active btn-add">{{ __('CartButtonAdd') }}</button>
                     </div>
-                    <button class="btn btn-active btn-add">{{ __('CartButtonAdd') }}</button>
-                </div>
-            </form>
+                </form>
+            </div>
         </div>
     </div>
 @endforeach

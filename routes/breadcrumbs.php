@@ -208,3 +208,8 @@ Breadcrumbs::for('admin.blog.categories.create', static function (Generator $cru
     $crumbs->parent('admin.blog.categories.index');
     $crumbs->push(__('Create'), route('admin.blog.categories.create'));
 });
+// Admin Orders
+Breadcrumbs::for('admin.orders.index', static function (Generator $crumbs) {
+    $crumbs->parent('admin.home');
+    $crumbs->push(__('AdminOrders'), route('admin.orders.index'));
+});

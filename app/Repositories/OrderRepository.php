@@ -4,6 +4,8 @@
 namespace App\Repositories;
 
 use App\Models\Shop\Order as Model;
+use Illuminate\Contracts\Pagination\LengthAwarePaginator;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Collection;
 
 class OrderRepository extends CoreRepository
@@ -39,8 +41,8 @@ class OrderRepository extends CoreRepository
     {
         return $this->startConditions()
             ->where([
-                'order_status'         => Model::STATUS_NO_PAID,
-                'acquiring_order_id'   => $acquiringOrderId,
+                'order_status' => Model::STATUS_NO_PAID,
+                'acquiring_order_id' => $acquiringOrderId,
                 'confirm_payment_code' => $confirmOrderPaymentCode,
             ])->with('products')
             ->first();
@@ -55,8 +57,8 @@ class OrderRepository extends CoreRepository
     {
         return $this->startConditions()
             ->where([
-                'acquiring_order_id'  => $acquiringOrderId,
-                'order_status'        => Model::STATUS_NO_PAID,
+                'acquiring_order_id' => $acquiringOrderId,
+                'order_status' => Model::STATUS_NO_PAID,
                 'cancel_payment_code' => $cancelOrderPaymentCode,
             ])->first();
     }
@@ -71,5 +73,25 @@ class OrderRepository extends CoreRepository
             ->where('id', $id)
             ->with('products')
             ->first();
+    }
+
+    /**
+     * @return mixed
+     */
+    public function all()
+    {
+        return $this->startConditions()
+            ->count();
+    }
+
+    /**
+     * @param null|integer $per_page
+     * @return LengthAwarePaginator
+     */
+    public function getAllOrders($per_page = null)
+    {
+        return $this->startConditions()
+            ->with(['products', 'user'])
+            ->paginate($per_page);
     }
 }

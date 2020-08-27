@@ -11,6 +11,8 @@
                        class="admin__home-link">{{ __('Users') }}<span class="count">{{ $users }}</span></a>
                     <a href="{{ route('admin.blog.posts.index') }}"
                        class="admin__home-link">{{ __('Blog') }}<span class="count">{{ $posts }}</span></a>
+                    <a href="{{ route('admin.orders.index') }}"
+                       class="admin__home-link">{{ __('AdminOrders') }}<span class="count">{{ $orders }}</span></a>
                     <div class="admin__home-link">
                         @include('cabinet.logout.logout')
                     </div>

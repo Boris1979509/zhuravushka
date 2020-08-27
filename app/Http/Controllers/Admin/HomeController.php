@@ -33,6 +33,7 @@ class HomeController extends Core
     {
         $this->data['users'] = $this->userRepository->all();
         $this->data['posts'] = $this->blogPostRepository->all();
+        $this->data['orders'] = $this->orderRepository->all();
         return view('admin.home', $this->data, $cartService->getCart());
     }
 }

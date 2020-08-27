@@ -32,6 +32,9 @@
 
         &:not(:last-child) {
             border-bottom: 1px solid #CCCCCC;
+        }
+
+        &:last-child {
             padding-bottom: 0;
         }
 
@@ -100,6 +103,7 @@
         @extend %templateFontStyle;
         font-size: 1rem !important;
         text-decoration: underline;
+        transition: color 2s;
 
         &:hover {
             color: #0075D2;

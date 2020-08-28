@@ -175,7 +175,7 @@ class CartService
     }
 
     /**
-     * @param $price
+     * @param float $price
      * @return string
      */
     private function numberFormat($price): string

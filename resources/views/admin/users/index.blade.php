@@ -13,24 +13,24 @@
                     <div class="filter">
                         <div class="form-input">
                             <label for="id" class="form-input-label">{{ __('ID') }}</label>
-                            <input id="id" class="input" name="id" value="{{ request('id') }}" required>
+                            <input id="id" class="input" name="id" value="{{ request('id') }}">
                         </div>
                         <div class="form-input">
                             <label for="name" class="form-input-label">{{ __('Name') }}</label>
-                            <input id="name" class="input" name="name" value="{{ request('name') }}" required>
+                            <input id="name" class="input" name="name" value="{{ request('name') }}">
                         </div>
                         <div class="form-input">
                             <label for="email" class="form-input-label">{{ __('Email') }}</label>
-                            <input id="email" class="input" name="email" value="{{ request('email') }}" required>
+                            <input id="email" class="input" name="email" value="{{ request('email') }}">
                         </div>
                         <div class="form-input">
                             <label for="phone" class="form-input-label">{{ __('Phone') }}</label>
                             <input type="tel" name="phone" id="phone" class="input mask-input"
-                                   value="{{ request('phone') }}" required>
+                                   value="{{ request('phone') }}">
                         </div>
                         <div class="form-input">
                             <label for="role" class="form-input-label">{{ __('Role') }}</label>
-                            <select id="role" class="input" name="role" required>
+                            <select id="role" class="input" name="role">
                                 @foreach ($roles as $role => $label)
                                     <option value="{{ $role }}" @if ($role === request('role')) selected @endif>{{
                                         $label }}

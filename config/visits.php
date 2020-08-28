@@ -11,7 +11,7 @@ return [
     |
     */
     'engine' => 'eloquent',
-    'connection' => 'laravel-visits',
+    'connection' => env('DB_DATABASE'),
 
 
     /*
@@ -72,7 +72,7 @@ return [
     | stop recording specific items (can be any of these: 'country', 'refer', 'periods', 'operatingSystem', 'language')
     |
     */
-    'global_ignore' => ['country'],
+    'global_ignore' => [],
 
 ];
 

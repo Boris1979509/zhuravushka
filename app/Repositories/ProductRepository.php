@@ -30,7 +30,7 @@ class ProductRepository extends CoreRepository
         return $this->startConditions()
             ->select($columns)
             ->where('price', '<>', 0)
-            ->with('category', 'favorites')
+            ->with(['category', 'favorites'])
             ->take(20)->get();
     }
 

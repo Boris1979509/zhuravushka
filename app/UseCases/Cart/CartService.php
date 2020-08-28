@@ -175,12 +175,14 @@ class CartService
     }
 
     /**
-     * @param $str
+     * @param $price
      * @return string
      */
-    private function numberFormat($str): string
+    private function numberFormat($price): string
     {
-        return number_format($str, 0, '', ' ');
+        $value = number_format($price, 2, '.', ' ');
+        $value = str_replace('.00', '', $value);
+        return $value;
     }
 
     /**

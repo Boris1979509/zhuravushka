@@ -45,7 +45,7 @@ class Product extends Model
         'category_id',
     ];
     protected $casts = [
-        'price' => 'integer',
+        'price' => 'float',
         'quantity' => 'integer'
     ];
 

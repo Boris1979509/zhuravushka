@@ -1,24 +1,27 @@
 @if(isset($children))
     @foreach($children->take(1) as $childrenItem)
-        @foreach($childrenItem->Products->take(8) as $productItem)
-            <div>
-                <div class="card">
-                    <div class="card__body">
-                        <a href="{{ route('product', $productItem->slug) }}" title="{{ $productItem->title }}">
-                            <img src="{{ fileExist("images/products/{$productItem->photo}") }}"
-                                 class="card__img-top"
-                                 alt="{{ $productItem->title }}">
-                        </a>
-                    </div>
-                    <div class="card__title">
-                        <a href="{{ route('product', $productItem->slug) }}"
-                           class="link card__link">{{ $productItem->title }}</a>
-                    </div>
-                    <div class="card__footer">
-                        @include('shop.priceBlock', ['product' => $productItem])
+        @foreach($childrenItem->products->take(8) as $productItem)
+            @dump($productItem->price)
+            @if($productItem->price !== 0)
+                <div>
+                    <div class="card">
+                        <div class="card__body">
+                            <a href="{{ route('product', $productItem->slug) }}" title="{{ $productItem->title }}">
+                                <img src="{{ fileExist("images/products/{$productItem->photo}") }}"
+                                     class="card__img-top"
+                                     alt="{{ $productItem->title }}">
+                            </a>
+                        </div>
+                        <div class="card__title">
+                            <a href="{{ route('product', $productItem->slug) }}"
+                               class="link card__link">{{ $productItem->title }}</a>
+                        </div>
+                        <div class="card__footer">
+                            @include('shop.priceBlock', ['product' => $productItem])
+                        </div>
                     </div>
                 </div>
-            </div>
+            @endif
         @endforeach
     @endforeach
 @endif

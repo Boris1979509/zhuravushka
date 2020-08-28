@@ -28,12 +28,19 @@ if (!function_exists('cart')) {
 }
 if (!function_exists('numberFormat')) {
     /**
-     * @param string $str
+     * @param $price
+     * @param null|string $unit
      * @return string
      */
-    function numberFormat($str): string
+    function numberFormat($price, $unit = null): string
     {
-        return number_format($str, 0, '', ' ');
+        $value = number_format($price, 2, '.', ' ');
+        $value = str_replace('.00', '', $value);
+
+        if (!is_null($unit)) {
+            $value .= ' ' . $unit;
+        }
+        return $value;
     }
 }
 if (!function_exists('parseDate')) {

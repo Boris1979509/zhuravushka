@@ -53,9 +53,9 @@ class Order extends Model
     }
 
     /**
-     * @return string
+     * @return int|float
      */
-    public function getTotalSum(): string
+    public function getTotalSum()
     {
         $total = 0;
         /** @var Product $item */

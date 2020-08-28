@@ -46,7 +46,7 @@
             </svg>
             <span class="badge cart__qty">{{ cart() ? $order->cartCount() : 0 }}</span>
         </div>
-        <span class="sub-header__label cart-total-sum">{{ cart() ? $order->getTotalSum() : 0 }}
+        <span class="sub-header__label cart-total-sum">{{ cart() ? numberFormat($order->getTotalSum()) : 0 }}
             <span class="rub">₽</span>
         </span>
     </a>

@@ -1,6 +1,6 @@
 @if(isset($children))
     @foreach($children->take(1) as $childrenItem)
-        @foreach($childrenItem->products->take(8) as $productItem))
+        @foreach($childrenItem->products->take(8) as $productItem)
         <div>
             <div class="card">
                 <div class="card__body">

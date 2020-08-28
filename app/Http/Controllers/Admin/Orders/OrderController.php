@@ -14,7 +14,7 @@ class OrderController extends Core
     /**
      * Per page
      */
-    public const PER_PAGE = 20;
+    public const PER_PAGE = 5;
     /**
      * @var array $data
      */

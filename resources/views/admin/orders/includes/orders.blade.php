@@ -84,11 +84,12 @@
                     <img src="{{ asset('images/icons/alerts/info.svg') }}" alt="info">
                 </div>
                 <div class="alert-info__message">
-                    <p>{{ __('OrdersNotFound') }}
-                        <a href="{{ route('catalog') }}" class="link">{{ __('MakeFirstOrder') }}</a>
-                    </p>
+                    <p>{{ __('OrdersNotFound') }}</p>
                 </div>
             </div>
         @endforelse
+        @if($orders->total() > $orders->count())
+            <div class="paginator-wrap">{{ $orders->links() }}</div>
+        @endif
     </div>
 </div>

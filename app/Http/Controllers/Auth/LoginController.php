@@ -62,15 +62,17 @@ class LoginController extends Core
         if ($authenticate) {
             $request->session()->regenerate();
             $this->clearLoginAttempts($request);
+            /** Admin or User */
+            $home = auth()->user()->isAdmin() ? 'admin.home' : 'cabinet.order';
 
             if ($request->wantsJson()) {
                 session()->flash('success', __('Welcome') . auth()->user()->name);
-                $this->data = ['url' => route('cabinet.order')];
+                $this->data['url'] = route($home);
                 return response()->json($this->data);
             }
 
             return redirect()
-                ->intended(route('cabinet.order'))
+                ->intended(route($home))
                 ->with('success', __('Welcome') . auth()->user()->name);
         }
 

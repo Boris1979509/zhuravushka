@@ -7,6 +7,7 @@ use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\Relations\BelongsTo;
 use Illuminate\Database\Eloquent\Relations\BelongsToMany;
+use Illuminate\Database\Eloquent\Relations\HasMany;
 use Illuminate\Database\Eloquent\Relations\Relation;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
@@ -101,5 +102,13 @@ class Product extends Model
     public function visits()
     {
         return visits($this)->relation();
+    }
+
+    /**
+     * @return HasMany
+     */
+    public function attributes()
+    {
+        return $this->hasMany(ProductAttribute::class, 'product_id');
     }
 }

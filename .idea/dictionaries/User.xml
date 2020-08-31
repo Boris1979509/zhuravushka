@@ -5,10 +5,14 @@
       <w>csrf</w>
       <w>dostavka</w>
       <w>enderror</w>
+      <w>endforelse</w>
       <w>fillable</w>
+      <w>forelse</w>
       <w>instagram</w>
       <w>maxlen</w>
+      <w>mbstring</w>
       <w>metalla</w>
+      <w>multibyte</w>
       <w>navbar</w>
       <w>oplata</w>
       <w>rezka</w>
@@ -16,6 +20,7 @@
       <w>soveti</w>
       <w>sovety</w>
       <w>stroyka</w>
+      <w>ucfirst</w>
       <w>uslugi</w>
       <w>zhuravushka</w>
     </words>

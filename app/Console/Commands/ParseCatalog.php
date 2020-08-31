@@ -32,6 +32,9 @@ class ParseCatalog extends Command
 
     public function handle(): bool
     {
+        DB::table('product_categories')->truncate();
+        DB::table('products')->truncate();
+        DB::table('product_attributes')->truncate();
 
         $path = $this->getFileName(); // get file path
         $catalog = json_decode(file_get_contents($path), true);
@@ -66,20 +69,25 @@ class ParseCatalog extends Command
                 foreach ($catalog as $key => $catalogItem) {
                     foreach ($categories as $categoryItem) {
                         if ($categoryItem->title === $catalogItem[self::FIELDS_MAP[1]['name']]) {
-                            DB::table('Products')->insert([
+                            $price = (float) str_replace(' ', '', $catalogItem['Цена']);
+                            $product_id = DB::table('products')->insertGetId([
                                 'title'                     => $name = $catalogItem['Товар'],
                                 'slug'                      => Str::slug($name),
                                 'code'                      => $code = trim($catalogItem['Код']),
                                 'photo'                     => $code,
-                                'article'                   => $catalogItem['Артикул'],
+                                'article'                   => trim($catalogItem['Артикул']),
                                 'quantity'                  => $catalogItem['КоличествоОстаток'],
-                                'price'                     => $catalogItem['Цена'],
+                                'price'                     => $price,
                                 'description'               => $catalogItem['Описание'],
                                 'category_id'               => $categoryItem->id,
                                 'unit_pricing_base_measure' => $catalogItem['ЕдИзмерения'],
                                 'created_at'                => Carbon::now(),
                                 'updated_at'                => Carbon::now(),
                             ]);
+                            if (!empty($attributes = $catalogItem['СвойствоЗначение'])) {
+                                $attrData = $this->attr($attributes, $categoryItem->id, $product_id);
+                                DB::table('product_attributes')->insert($attrData);
+                            }
                         }
                     }
                 }
@@ -112,5 +120,30 @@ class ParseCatalog extends Command
             $i++;
         }
         return $arrayTemp;
+    }
+
+    /**
+     * @param string $attributes
+     * @param int $category_id
+     * @param int $product_id
+     * @return array
+     */
+    private function attr($attributes, $category_id, $product_id)
+    {
+        $chars = ['{', '}']; // символы для удаления
+        $str2 = str_replace($chars, '', $attributes);
+        $arr = [];
+        foreach (explode(';', $str2) as $item) {
+            $parts = explode('|', $item);
+            $arr[] = [
+                'attr_name'   => trim($parts[0]),
+                'attr_value'  => $parts[1],
+                'category_id' => $category_id,
+                'product_id'  => $product_id,
+                'created_at'  => Carbon::now(),
+                'updated_at'  => Carbon::now(),
+            ];
+        }
+        return $arr;
     }
 }

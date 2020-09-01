@@ -3,14 +3,14 @@
         <ul>
             <li class="tabs-nav__item active">{{ __('InfoProduct') }}</li>
             <li class="tabs-nav__item">@lang('Comments') <span class="count">0</span></li>
-            <li class="tabs-nav__item">@lang('Soveti') <span class="count">0</span></li>
+            <li class="tabs-nav__item">@lang('Sovety') <span class="count">0</span></li>
         </ul>
     </nav>
 
     <div class="tabs-content">
         <div class="tabs-content__item">
-            @if($product->attributes)
-                <h2 class="tabs-content__title">Характеристики</h2>
+            @if($product->attributes->count())
+                <h2 class="tabs-content__title">@lang('Specifications')</h2>
                 <table class="table characteristics">
                     <tbody>
                     @foreach ($product->attributes as $attr)

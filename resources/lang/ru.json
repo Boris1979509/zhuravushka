@@ -22,6 +22,7 @@
     "EnterAddressDeliveryTitle": "Введите адрес доставки",
     "SpecifyDeliveryAddress": "Укажите адрес доставки",
     "NoComments": "Отзывов нет.",
+    "Comments": "Отзывы",
     "City": "Город",
     "Street": "Улица",
     "HouseNumber": "Дом",
@@ -235,5 +236,6 @@
     "Read more": "Читать полностью",
     "AdminOrders": "Заказы",
     "allBlogCategories": "Все советы",
-    "Information is temporarily unavailable": "Информация временно отсутствует."
+    "Information is temporarily unavailable": "Информация временно отсутствует.",
+    "Specifications": "Характеристики"
 }

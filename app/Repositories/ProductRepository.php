@@ -95,13 +95,12 @@ class ProductRepository extends CoreRepository
     }
 
     /**
-     * @param $array
+     * @param array $array
      * @return Collection
      */
     public function whereInProducts($array): Collection
     {
         return $this->startConditions()
-            ->where('price', '<>', 0)
             ->whereIn('id', $array)
             ->get();
     }

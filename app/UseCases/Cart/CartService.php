@@ -175,8 +175,8 @@ class CartService
     }
 
     /**
-     * @param float $price
-     * @return string
+     * @param float|integer $price
+     * @return mixed
      */
     private function numberFormat($price): string
     {

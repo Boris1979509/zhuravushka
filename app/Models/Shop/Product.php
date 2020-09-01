@@ -17,12 +17,12 @@ use Illuminate\Database\Eloquent\SoftDeletes;
  * @property integer $id
  * @property string $title
  * @property string $code
- * @property float $price
+ * @property float|int $price
  * @property string $photo
  * @property string $photo_thumb
  * @property integer $category_id
  * @property string $description
- * @property integer $quantity
+ * @property integer|int $quantity
  * @property BelongsToMany $pivot
  * @property string $unit_pricing_base_measure
  */
@@ -46,8 +46,8 @@ class Product extends Model
         'category_id',
     ];
     protected $casts = [
-        'price' => 'float',
-        'quantity' => 'integer'
+        'price'    => 'float',
+        'quantity' => 'float',
     ];
 
     /**

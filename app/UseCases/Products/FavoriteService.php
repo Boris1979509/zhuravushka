@@ -106,7 +106,7 @@ class FavoriteService
             return Auth::user()->favorites;
         }
         if (!is_null($favorites = session('favorites'))) {
-            return $this->productRepository->whereInProducts($favorites);
+           // return $this->productRepository->whereInProducts($favorites);
         }
         return false;
     }

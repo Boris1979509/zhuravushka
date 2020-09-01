@@ -69,7 +69,7 @@ class ParseCatalog extends Command
                 foreach ($catalog as $key => $catalogItem) {
                     foreach ($categories as $categoryItem) {
                         if ($categoryItem->title === $catalogItem[self::FIELDS_MAP[1]['name']]) {
-                            $price = (float) str_replace(' ', '', $catalogItem['Цена']);
+                            $price = preg_replace('/[^x\d|*\.]/', '', $catalogItem['Цена']);
                             $product_id = DB::table('products')->insertGetId([
                                 'title'                     => $name = $catalogItem['Товар'],
                                 'slug'                      => Str::slug($name),

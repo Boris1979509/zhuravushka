@@ -28,7 +28,7 @@ if (!function_exists('cart')) {
 }
 if (!function_exists('numberFormat')) {
     /**
-     * @param $price
+     * @param integer|float $price
      * @param null|string $unit
      * @return string
      */

@@ -2,23 +2,28 @@
     <nav class="tabs-nav">
         <ul>
             <li class="tabs-nav__item active">{{ __('InfoProduct') }}</li>
-            <li class="tabs-nav__item">Отзывы <span class="count">0</span></li>
-            <li class="tabs-nav__item">Советы <span class="count">0</span></li>
+            <li class="tabs-nav__item">@lang('Comments') <span class="count">0</span></li>
+            <li class="tabs-nav__item">@lang('Soveti') <span class="count">0</span></li>
         </ul>
     </nav>
 
     <div class="tabs-content">
         <div class="tabs-content__item">
-            <div class="characteristics"><h2>Характеристики</h2>
-                @forelse ($product->attributes as $attr)
-                    <div class="characteristics__props">
-                        <p class="characteristics__props-name">{{ mb_ucfirst($attr->attr_name) }}</p>
-                        <p class="characteristics__props-value">{{ $attr->attr_value }}</p>
-                    </div>
-                @empty
-                    @include('flash.index', ['info' => __('During the adding process')])
-                @endforelse
-            </div>
+            @if($product->attributes)
+                <h2 class="tabs-content__title">Характеристики</h2>
+                <table class="table characteristics">
+                    <tbody>
+                    @foreach ($product->attributes as $attr)
+                        <tr class="characteristics__props">
+                            <td class="characteristics__props-name">{{ mb_ucfirst($attr->attr_name) }}</td>
+                            <td class="characteristics__props-value">{{ $attr->attr_value }}</td>
+                        </tr>
+                    @endforeach
+                    </tbody>
+                </table>
+            @else
+                @include('flash.index', ['info' => __('During the adding process')])
+            @endif
         </div>
         <div class="tabs-content__item">
             @include('flash.index', ['info' => __('NoComments')])

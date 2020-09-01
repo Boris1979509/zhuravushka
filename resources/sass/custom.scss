@@ -8,18 +8,21 @@ h1 {
     font-weight: 600;
     font-size: 2rem;
     margin-bottom: 30px;
+    line-height: 1;
 }
 
 h2 {
     font-weight: 600;
     font-size: 1.5rem;
     margin-bottom: 30px;
+    line-height: 1;
 }
 
 h3 {
     font-weight: 600;
     font-size: 1.3rem;
     margin-bottom: 30px;
+    line-height: 1;
 }
 
 .full-height {
@@ -272,6 +275,7 @@ table {
     thead {
         tr {
             border-bottom: 1px solid #e8e9eb;
+
             th {
                 padding: 12px 16px;
                 font-weight: bold;
@@ -281,9 +285,11 @@ table {
     }
 
     tbody {
-        tr {
+        tr:not(:last-child) {
             border-bottom: 1px solid #e8e9eb;
+        }
 
+        tr {
             &:hover {
                 background: #f2f2f2;
             }
@@ -312,7 +318,7 @@ table {
         display: block;
         margin-bottom: -1px;
     }
-    table td {
+    table td:not(:last-child) {
         display: block;
         text-align: right;
         border-bottom: 1px dotted #ddd;

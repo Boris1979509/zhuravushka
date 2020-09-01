@@ -105,7 +105,7 @@ class CompareService
         }
         $compares = session('compares');
         if (!is_null($compares) && $compares > 0) {
-            //return $this->productRepository->whereInProducts($compares);
+            return $this->productRepository->whereInProducts($compares);
         }
         return false;
     }

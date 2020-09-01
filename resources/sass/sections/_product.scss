@@ -10,12 +10,11 @@
     }
 
     .characteristics {
-        margin: 30px 0;
+        margin: 20px 0 0 0;
 
         &__props {
             display: flex;
             font-size: 1rem;
-            line-height: 1.5;
             letter-spacing: $letter-spacing-3;
 
         }
@@ -227,6 +226,10 @@
                 border: 1px solid #ccc;
             }
 
+            &__title {
+                margin-bottom: 10px !important;
+            }
+
             &__item {
                 font-size: 1rem;
                 line-height: 1.8;
@@ -236,11 +239,19 @@
                 .description {
                     margin-bottom: 15px;
                 }
+            }
 
-                .characteristics {
-                    &__props-value {
-                        width: 50%;
-                        margin-left: auto;
+            .characteristics {
+                margin: 0 !important;
+
+                .characteristics__props-value {
+                    width: initial;
+                    margin-left: auto;
+                }
+
+                @include mq($max-width: "767px") {
+                    td {
+                        border-bottom: 0;
                     }
                 }
             }

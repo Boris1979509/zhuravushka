@@ -3,6 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Shop\ProductCategory;
+use App\Models\Shop\ProductProperties;
 use Carbon\Carbon;
 use Doctrine\DBAL\Query\QueryException;
 use Illuminate\Console\Command;
@@ -11,6 +12,10 @@ use Illuminate\Support\Facades\DB;
 
 class ParseCatalog extends Command
 {
+    /**
+     * File with category properties
+     */
+    public const PROPERTY_NAME_FILE = 'properties.json';
     /**
      * The name and signature of the console command.
      *
@@ -29,12 +34,45 @@ class ParseCatalog extends Command
         ['name' => 'ГруппаКатегории'],
         ['name' => 'Категория'],
     ];
+    /**
+     * Properties names
+     */
+    public const FIELDS_MAP_PROPERTIES = [
+        ['name' => 'Свойство'],
+        ['name' => 'СписокВозможныхЗначенийСвойств'],
+    ];
+    /**
+     * Clear tables
+     */
+    public const TABLES = [
+        ['name' => 'product_properties'],
+        ['name' => 'product_property_values'],
+        ['name' => 'products'],
+        ['name' => 'product_attributes'],
+    ];
 
     public function handle(): bool
     {
         DB::table('product_categories')->truncate();
         DB::table('products')->truncate();
         DB::table('product_attributes')->truncate();
+        DB::table('product_properties')->truncate();
+        DB::table('product_property_values')->truncate();
+
+        $pathPropertiesFile = $this->getProductCategoryProperties(self::PROPERTY_NAME_FILE);
+        $propertiesFile = json_decode(file_get_contents($pathPropertiesFile), true);
+        $dataPr = [];
+        $dataVal = [];
+        foreach ($propertiesFile as $propertyItemInFile) {
+            $dataPr[trim($propertyItemInFile[self::FIELDS_MAP_PROPERTIES[0]['name']])] = [
+                'title' => $name = $propertyItemInFile[self::FIELDS_MAP_PROPERTIES[0]['name']],
+                'slug' => Str::slug($name),
+                'created_at' => Carbon::now(),
+                'updated_at' => Carbon::now(),
+            ];
+        }
+        DB::table('product_properties')->insert($this->arrayDefaultKey($dataPr));
+
 
         $path = $this->getFileName(); // get file path
         $catalog = json_decode(file_get_contents($path), true);
@@ -42,7 +80,7 @@ class ParseCatalog extends Command
         $data = [];
         foreach ($catalog as $catalogItem) {
             $data[$catalogItem[self::FIELDS_MAP[0]['name']]] = [
-                'title'     => $name = $catalogItem[self::FIELDS_MAP[0]['name']],
+                'title'     => $name = trim($catalogItem[self::FIELDS_MAP[0]['name']]),
                 'slug'      => Str::slug($name),
                 'parent_id' => 0,
             ];
@@ -56,7 +94,7 @@ class ParseCatalog extends Command
                 foreach ($catalog as $catalogItem) {
                     if ($categoryItem->title === $catalogItem[self::FIELDS_MAP[0]['name']]) {
                         $data[$catalogItem[self::FIELDS_MAP[1]['name']]] = [
-                            'title'     => $name = $catalogItem[self::FIELDS_MAP[1]['name']],
+                            'title'     => $name = trim($catalogItem[self::FIELDS_MAP[1]['name']]),
                             'slug'      => Str::slug($name),
                             'parent_id' => $categoryItem->id,
                         ];
@@ -65,11 +103,9 @@ class ParseCatalog extends Command
             }
             $result = DB::table('product_categories')->insert($this->arrayDefaultKey($data));
             if ($result) {
-                $categories = ProductCategory::all();
                 foreach ($catalog as $key => $catalogItem) {
                     foreach ($categories as $categoryItem) {
                         if ($categoryItem->title === $catalogItem[self::FIELDS_MAP[1]['name']]) {
-                            $price = preg_replace('/[^x\d|*\.]/', '', $catalogItem['Цена']);
                             $product_id = DB::table('products')->insertGetId([
                                 'title'                     => $name = $catalogItem['Товар'],
                                 'slug'                      => Str::slug($name),
@@ -77,7 +113,7 @@ class ParseCatalog extends Command
                                 'photo'                     => $code,
                                 'article'                   => trim($catalogItem['Артикул']),
                                 'quantity'                  => $catalogItem['КоличествоОстаток'],
-                                'price'                     => $price,
+                                'price'                     => $catalogItem['Цена'],
                                 'description'               => $catalogItem['Описание'],
                                 'category_id'               => $categoryItem->id,
                                 'unit_pricing_base_measure' => $catalogItem['ЕдИзмерения'],
@@ -91,10 +127,30 @@ class ParseCatalog extends Command
                         }
                     }
                 }
-
                 $this->info('Successfully parsed.');
                 return true;
             }
+//            /**
+//             * Product property values
+//             */
+//            foreach (ProductProperties::all() as $propertyItem) {
+//                foreach ($propertiesFile as $propertyItemInFile) {
+//                    $title = $propertyItemInFile[self::FIELDS_MAP[1]['name']];
+//                    if ($propertyItem->title === $title) {
+//                        foreach (explode('|', $propertyItemInFile[self::FIELDS_MAP_PROPERTIES[1]['name']]) as $itemValue) {
+//                            $dataVal[trim($itemValue)] = [
+//                                'title' => trim($itemValue),
+//                                'slug' => Str::slug($itemValue),
+//                                'property_id' => $propertyItem->id,
+//                                'category_id' => (new ProductCategory)->select('id')->where('title', $title)->first(),
+//                                'created_at'  => Carbon::now(),
+//                                'updated_at'  => Carbon::now(),
+//                            ];
+//                        }
+//                    }
+//                }
+//            }
+//            DB::table('product_property_values')->insert($this->arrayDefaultKey($dataVal));
         }
     }
 
@@ -105,6 +161,15 @@ class ParseCatalog extends Command
     {
         $file = $this->argument('file');
         return storage_path('app/catalog/' . $file);
+    }
+
+    /**
+     * @param string $fileName
+     * @return string
+     */
+    private function getProductCategoryProperties($fileName)
+    {
+        return storage_path('app/catalog/' . $fileName);
     }
 
     /**

@@ -45,7 +45,9 @@ class ProductCategoryController extends Core
      */
     public function category(ProductsFilterRequest $request, $slug, CartService $cartService)
     {
+
         $category = $this->productCategoryRepository->getBySlug($slug);
+        dd($category->properties);
         $categoryIds = $this->getAllCategoryIds($category);
 
         $this->data['products'] = $this->productRepository

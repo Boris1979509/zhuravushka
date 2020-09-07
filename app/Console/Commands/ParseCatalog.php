@@ -3,7 +3,7 @@
 namespace App\Console\Commands;
 
 use App\Models\Shop\ProductCategory;
-use App\Models\Shop\ProductProperties;
+use App\Models\Shop\ProductProperty;
 use Carbon\Carbon;
 use Doctrine\DBAL\Query\QueryException;
 use Illuminate\Console\Command;
@@ -58,11 +58,12 @@ class ParseCatalog extends Command
         DB::table('product_attributes')->truncate();
         DB::table('product_properties')->truncate();
         DB::table('product_property_values')->truncate();
+        DB::table('category_property')->truncate();
 
         $pathPropertiesFile = $this->getProductCategoryProperties(self::PROPERTY_NAME_FILE);
         $propertiesFile = json_decode(file_get_contents($pathPropertiesFile), true);
         $dataPr = [];
-        $dataVal = [];
+
         foreach ($propertiesFile as $propertyItemInFile) {
             $dataPr[trim($propertyItemInFile[self::FIELDS_MAP_PROPERTIES[0]['name']])] = [
                 'title' => $name = $propertyItemInFile[self::FIELDS_MAP_PROPERTIES[0]['name']],
@@ -71,8 +72,29 @@ class ParseCatalog extends Command
                 'updated_at' => Carbon::now(),
             ];
         }
-        DB::table('product_properties')->insert($this->arrayDefaultKey($dataPr));
-
+        /**
+         * Product property values
+         */
+        if(DB::table('product_properties')->insert($this->arrayDefaultKey($dataPr))) {
+            $dataVal = [];
+            foreach (ProductProperty::all() as $propertyItem) {
+                foreach ($propertiesFile as $propertyItemInFile) {
+                    $title = trim($propertyItemInFile[self::FIELDS_MAP_PROPERTIES[0]['name']]);
+                    if ($propertyItem->title === $title) {
+                        foreach (explode('|', $propertyItemInFile[self::FIELDS_MAP_PROPERTIES[1]['name']]) as $itemValue) {
+                            $dataVal[trim($itemValue)] = [
+                                'title' => trim($itemValue),
+                                'slug' => Str::slug($itemValue),
+                                'product_property_id' => $propertyItem->id,
+                                'created_at' => Carbon::now(),
+                                'updated_at' => Carbon::now(),
+                            ];
+                        }
+                    }
+                }
+            }
+            DB::table('product_property_values')->insert($this->arrayDefaultKey($dataVal));
+        }
 
         $path = $this->getFileName(); // get file path
         $catalog = json_decode(file_get_contents($path), true);
@@ -89,8 +111,7 @@ class ParseCatalog extends Command
         $result = DB::table('product_categories')->insert($this->arrayDefaultKey($data));
         if ($result) {
             $data = [];
-            $categories = ProductCategory::all();
-            foreach ($categories as $categoryItem) {
+            foreach (ProductCategory::all() as $categoryItem) {
                 foreach ($catalog as $catalogItem) {
                     if ($categoryItem->title === $catalogItem[self::FIELDS_MAP[0]['name']]) {
                         $data[$catalogItem[self::FIELDS_MAP[1]['name']]] = [
@@ -104,7 +125,7 @@ class ParseCatalog extends Command
             $result = DB::table('product_categories')->insert($this->arrayDefaultKey($data));
             if ($result) {
                 foreach ($catalog as $key => $catalogItem) {
-                    foreach ($categories as $categoryItem) {
+                    foreach (ProductCategory::all() as $categoryItem) {
                         if ($categoryItem->title === $catalogItem[self::FIELDS_MAP[1]['name']]) {
                             $product_id = DB::table('products')->insertGetId([
                                 'title'                     => $name = $catalogItem['Товар'],
@@ -125,33 +146,20 @@ class ParseCatalog extends Command
                                 DB::table('product_attributes')->insert($attrData);
                             }
                         }
+                        foreach ($propertiesFile as $pr) {
+                            if ($categoryItem->title === trim($pr[self::FIELDS_MAP[1]['name']])) {
+                                DB::table('category_property')->insert([
+                                    'category_id' => $categoryItem->id,
+                                    'product_property_id' => DB::table('product_properties')->select('id')->where('title', trim($pr[self::FIELDS_MAP_PROPERTIES[0]['name']]))->first()->id,
+                                ]);
+                            }
+                        }
                     }
                 }
-                $this->info('Successfully parsed.');
-                return true;
             }
-//            /**
-//             * Product property values
-//             */
-//            foreach (ProductProperties::all() as $propertyItem) {
-//                foreach ($propertiesFile as $propertyItemInFile) {
-//                    $title = $propertyItemInFile[self::FIELDS_MAP[1]['name']];
-//                    if ($propertyItem->title === $title) {
-//                        foreach (explode('|', $propertyItemInFile[self::FIELDS_MAP_PROPERTIES[1]['name']]) as $itemValue) {
-//                            $dataVal[trim($itemValue)] = [
-//                                'title' => trim($itemValue),
-//                                'slug' => Str::slug($itemValue),
-//                                'property_id' => $propertyItem->id,
-//                                'category_id' => (new ProductCategory)->select('id')->where('title', $title)->first(),
-//                                'created_at'  => Carbon::now(),
-//                                'updated_at'  => Carbon::now(),
-//                            ];
-//                        }
-//                    }
-//                }
-//            }
-//            DB::table('product_property_values')->insert($this->arrayDefaultKey($dataVal));
         }
+        $this->info('Successfully parsed.');
+        return true;
     }
 
     /**
@@ -201,8 +209,8 @@ class ParseCatalog extends Command
         foreach (explode(';', $str2) as $item) {
             $parts = explode('|', $item);
             $arr[] = [
-                'attr_name'   => trim($parts[0]),
-                'attr_value'  => $parts[1],
+                'product_property_id'        => DB::table('product_properties')->select('id')->where('title', trim($parts[0]))->first()->id,
+                'product_property_value_id'  => DB::table('product_property_values')->select('id')->where('title', trim($parts[1]))->first()->id,
                 'category_id' => $category_id,
                 'product_id'  => $product_id,
                 'created_at'  => Carbon::now(),

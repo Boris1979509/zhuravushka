@@ -17,8 +17,7 @@ class CreateProductPropertyValuesTable extends Migration
             $table->id();
             $table->string('title');
             $table->string('slug');
-            $table->integer('category_id')->references('id')->on('product_categories')->onDelete('CASCADE');
-            $table->integer('property_id')->references('id')->on('product_properties')->onDelete('CASCADE');
+            $table->bigInteger('product_property_id')->references('id')->on('product_properties')->onDelete('CASCADE');
             $table->timestamps();
             $table->softDeletes();
         });

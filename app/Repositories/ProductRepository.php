@@ -53,7 +53,9 @@ class ProductRepository extends CoreRepository
         $columns = ['*'];
         return $this->startConditions()
             ->select($columns)
-            ->with(['category', 'visits', 'attributes'])
+            ->with(['category', 'visits', 'attributes' => function($query){
+                $query->with(['property','value']);
+            }])
             ->where('slug', $slug)
             ->first();
     }

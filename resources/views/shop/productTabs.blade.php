@@ -15,8 +15,8 @@
                     <tbody>
                     @foreach ($product->attributes as $attr)
                         <tr class="characteristics__props">
-                            <td class="characteristics__props-name">{{ mb_ucfirst($attr->attr_name) }}</td>
-                            <td class="characteristics__props-value">{{ $attr->attr_value }}</td>
+                            <td class="characteristics__props-name">{{ mb_ucfirst($attr->property->title) }}</td>
+                            <td class="characteristics__props-value">{{ $attr->value->title }}</td>
                         </tr>
                     @endforeach
                     </tbody>

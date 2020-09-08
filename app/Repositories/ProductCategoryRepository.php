@@ -68,7 +68,7 @@ class ProductCategoryRepository extends CoreRepository
         return $this->startConditions()
             ->select($columns)
             ->where('slug', $slug)
-            ->with(['parent', 'properties', 'children' => static function ($query) {
+            ->with(['parent', 'children' => static function ($query) {
                 $query->withCount('products as productCount');
             }])
             ->first();

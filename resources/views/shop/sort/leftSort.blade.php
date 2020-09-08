@@ -24,30 +24,22 @@
             </ul>
         @endif
     </div>
-    <div class="catalog__brand">
-        <div class="catalog__brand-title">{{ __('BrandTitle') }}</div>
-        <div class="catalog__brand__wrapper" @if(!request()->has('brand')) hidden @endif>
-            <ul>
+    @foreach($attributes as $itemAttribute)
+        <div class="catalog__brand">
+            <div class="catalog__brand-title">{{ $itemAttribute->property->title }}</div>
+            <div class="catalog__brand__wrapper" @if(!request()->has('brand')) hidden @endif>
                 <div class="catalog__word__wrap">
-                    <div class="form-input">
-                        <input type="checkbox" id="ladogaz" name="brand[]" value="ladogaz"
-                               class="catalog__brand-input">
-                        <label for="ladogaz">Ладогаз</label>
-                    </div>
-                    <div class="form-input">
-                        <input type="checkbox" id="lemax" name="brand[]" value="lemax"
-                               class="catalog__brand-input">
-                        <label for="lemax">ЛЕМАКС</label>
-                    </div>
-                    <div class="form-input">
-                        <input type="checkbox" name="brand[]" id="ariston" value="ariston"
-                               class="catalog__brand-input">
-                        <label for="ariston">Ariston</label>
-                    </div>
+                    @foreach($itemAttribute->property->values as $itemValue)
+                        <div class="form-input">
+                            <input type="checkbox" id="ladogaz" name="brand[]" value="ladogaz"
+                                   class="catalog__brand-input">
+                            <label for="ladogaz">{{ $itemValue->title }}</label>
+                        </div>
+                    @endforeach
                 </div>
-            </ul>
+            </div>
         </div>
-    </div>
+    @endforeach
     <div class="catalog__confirm">
         <div class="catalog__confirm__wrapper">
             <button type="submit" class="btn btn-outline btn__confirm">{{ __('Apply') }}</button>

@@ -50,11 +50,4 @@ class ProductCategory extends Model
     {
         return $this->hasMany(Product::class, 'category_id', 'id');
     }
-    /**
-     * @return HasMany
-     */
-    public function properties(): HasMany
-    {
-        return $this->hasMany(CategoryProperty::class, 'category_id', 'id');
-    }
 }

@@ -82,13 +82,15 @@ class ParseCatalog extends Command
                     $title = trim($propertyItemInFile[self::FIELDS_MAP_PROPERTIES[0]['name']]);
                     if ($propertyItem->title === $title) {
                         foreach (explode('|', $propertyItemInFile[self::FIELDS_MAP_PROPERTIES[1]['name']]) as $itemValue) {
-                            $dataVal[trim($itemValue)] = [
-                                'title' => trim($itemValue),
-                                'slug' => Str::slug($itemValue),
-                                'product_property_id' => $propertyItem->id,
-                                'created_at' => Carbon::now(),
-                                'updated_at' => Carbon::now(),
-                            ];
+                            if(!empty($itemValue)) {
+                                $dataVal[trim($itemValue)] = [
+                                    'title' => trim($itemValue),
+                                    'slug' => Str::slug($itemValue),
+                                    'product_property_id' => $propertyItem->id,
+                                    'created_at' => Carbon::now(),
+                                    'updated_at' => Carbon::now(),
+                                ];
+                            }
                         }
                     }
                 }
@@ -122,6 +124,7 @@ class ParseCatalog extends Command
                     }
                 }
             }
+
             $result = DB::table('product_categories')->insert($this->arrayDefaultKey($data));
             if ($result) {
                 foreach ($catalog as $key => $catalogItem) {
@@ -146,18 +149,19 @@ class ParseCatalog extends Command
                                 DB::table('product_attributes')->insert($attrData);
                             }
                         }
-                        foreach ($propertiesFile as $pr) {
-                            if ($categoryItem->title === trim($pr[self::FIELDS_MAP[1]['name']])) {
-                                DB::table('category_property')->insert([
-                                    'category_id' => $categoryItem->id,
-                                    'product_property_id' => DB::table('product_properties')->select('id')->where('title', trim($pr[self::FIELDS_MAP_PROPERTIES[0]['name']]))->first()->id,
-                                ]);
-                            }
-                        }
+//                        foreach ($propertiesFile as $pr) {
+//                            if ($categoryItem->title === trim($pr[self::FIELDS_MAP[1]['name']])) {
+//                                DB::table('category_property')->insert([
+//                                    'category_id' => $categoryItem->id,
+//                                    'product_property_id' => DB::table('product_properties')->select('id')->where('title', trim($pr[self::FIELDS_MAP_PROPERTIES[0]['name']]))->first()->id,
+//                                ]);
+//                            }
+//                        }
                     }
                 }
             }
         }
+
         $this->info('Successfully parsed.');
         return true;
     }
@@ -208,14 +212,18 @@ class ParseCatalog extends Command
         $arr = [];
         foreach (explode(';', $str2) as $item) {
             $parts = explode('|', $item);
-            $arr[] = [
-                'product_property_id'        => DB::table('product_properties')->select('id')->where('title', trim($parts[0]))->first()->id,
-                'product_property_value_id'  => DB::table('product_property_values')->select('id')->where('title', trim($parts[1]))->first()->id,
-                'category_id' => $category_id,
-                'product_id'  => $product_id,
-                'created_at'  => Carbon::now(),
-                'updated_at'  => Carbon::now(),
-            ];
+            $product_property_id = DB::table('product_properties')->where('title', trim($parts[0]))->first();
+            $product_property_value_id = DB::table('product_property_values')->where('title', trim($parts[1]))->first();
+            if($product_property_value_id && $product_property_id) {
+                $arr[] = [
+                    'product_property_id' => $product_property_id->id,
+                    'product_property_value_id' => $product_property_value_id->id,
+                    'category_id' => $category_id,
+                    'product_id' => $product_id,
+                    'created_at' => Carbon::now(),
+                    'updated_at' => Carbon::now(),
+                ];
+            }
         }
         return $arr;
     }

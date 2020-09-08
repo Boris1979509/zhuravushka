@@ -4,6 +4,8 @@ namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Core;
 use App\Http\Requests\ProductsFilterRequest;
+use App\Models\Shop\ProductAttribute;
+use App\Models\Shop\ProductProperty;
 use App\UseCases\Cart\CartService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Http\RedirectResponse;
@@ -47,7 +49,18 @@ class ProductCategoryController extends Core
     {
 
         $category = $this->productCategoryRepository->getBySlug($slug);
-        dd($category->properties);
+        //$attributes = $category->attributes()->select('product_property_id')->with('property')->distinct()->get();
+//        $result = $attributes->map(function ($item) {
+//            return [
+//                'title' => $item->property->title,
+//                'slug' => $item->property->slug,
+//                'values' => ProductAttribute::where('product_property_id', $item->property->id)
+//                    ->pluck('product_property_value_id')
+//                    ->unique()
+//            ];
+//        });
+
+        dd($this->productAttributeRepository->getProperties($category->id));
         $categoryIds = $this->getAllCategoryIds($category);
 
         $this->data['products'] = $this->productRepository
@@ -75,7 +88,7 @@ class ProductCategoryController extends Core
             return redirect()->route('category', $slug)->with('info', __('NotFound'));
         }
         //dd($this->data['products']);
-        return view('shop.category', $this->data, $cartService->getCart());
+        return view('shop.category', $this->data + $cartService->getCart(), compact('attributes'));
     }
 
     /**

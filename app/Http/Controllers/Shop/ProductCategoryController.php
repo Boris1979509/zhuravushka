@@ -49,18 +49,7 @@ class ProductCategoryController extends Core
     {
 
         $category = $this->productCategoryRepository->getBySlug($slug);
-        //$attributes = $category->attributes()->select('product_property_id')->with('property')->distinct()->get();
-//        $result = $attributes->map(function ($item) {
-//            return [
-//                'title' => $item->property->title,
-//                'slug' => $item->property->slug,
-//                'values' => ProductAttribute::where('product_property_id', $item->property->id)
-//                    ->pluck('product_property_value_id')
-//                    ->unique()
-//            ];
-//        });
-
-        dd($this->productAttributeRepository->getProperties($category->id));
+        $attributes = $this->productAttributeRepository->getAttributes($category->id);
         $categoryIds = $this->getAllCategoryIds($category);
 
         $this->data['products'] = $this->productRepository

@@ -29,7 +29,7 @@ require('./components/form/mask/phone-mask');
 require('./components/form/label/label-input-focus');
 require('./components/form/radio/order-radio-input');
 require('./components/mode-tile/tile');
-require('./components/catalog-filter/brands');
+require('./components/catalog-filter/attributes');
 //require('./components/alerts/close');
 require('./components/alerts/flash');
 require('./components/login/login');

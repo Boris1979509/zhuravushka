@@ -25,15 +25,15 @@
         @endif
     </div>
     @foreach($attributes as $itemAttribute)
-        <div class="catalog__brand">
-            <div class="catalog__brand-title">{{ $itemAttribute->property->title }}</div>
-            <div class="catalog__brand__wrapper" @if(!request()->has('brand')) hidden @endif>
-                <div class="catalog__word__wrap">
-                    @foreach($itemAttribute->property->values as $itemValue)
+        <div class="catalog__attributes">
+            <div class="catalog__attributes-title">{{ $itemAttribute['property']->title }}</div>
+            <div class="catalog__attributes__wrapper" @if(!request()->has($itemAttribute['property']->slug)) hidden @endif>
+                <div class="catalog__attributes__word__wrap">
+                    @foreach($itemAttribute['values'] as $itemValue)
                         <div class="form-input">
-                            <input type="checkbox" id="ladogaz" name="brand[]" value="ladogaz"
-                                   class="catalog__brand-input">
-                            <label for="ladogaz">{{ $itemValue->title }}</label>
+                            <input type="checkbox" id="{{ $itemValue->slug }}" name="{{ $itemValue->slug }}"
+                                   class="catalog__attributes-input" title="{{ $itemValue->title }}">
+                            <label for="{{ $itemValue->slug }}">{{ $itemValue->title }}</label>
                         </div>
                     @endforeach
                 </div>

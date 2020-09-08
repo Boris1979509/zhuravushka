@@ -22,19 +22,37 @@ class ProductAttributeRepository extends CoreRepository
      * @param $categoryId
      * @return mixed
      */
-    public function getProperties($categoryId)
+    public function getAttributes($categoryId)
     {
-        // SELECT DISTINCT `product_property_id` FROM `product_attributes` WHERE `category_id` = 35
-        // SELECT DISTINCT `product_property_value_id` FROM `product_attributes` WHERE `category_id` = 35 AND `product_property_id` = 9;
-        // SELECT DISTINCT `product_property_value_id` FROM `product_attributes` WHERE `category_id` = 35 GROUP by `product_property_value_id`;
-        return $this->startConditions()
+        $properties = $this->startConditions()
             ->select('product_property_id')
             ->where('category_id', $categoryId)
             ->with('property')
             ->groupBy('product_property_id')
             ->distinct()
-            ->toSql();
+            ->get();
+        $ids = $properties->map(static function ($item) {
+            return $item->property->id;
+        });
+        $values = $this->startConditions()
+            ->select('product_property_value_id')
+            ->where('category_id', $categoryId)
+            ->whereIn('product_property_id', $ids)
+            ->with('value')
+            ->groupBy('product_property_value_id')
+            ->distinct()
+            ->get();
 
+        $data = [];
+        foreach ($properties as $prKey => $prItem) {
+            foreach ($values as $valItem) {
+                if ($prItem->property->id === $valItem->value->product_property_id) {
+                    $data[$prKey]['property'] = $prItem->property;
+                    $data[$prKey]['values'][] = $valItem->value;
+                }
+            }
+        }
+        return $data;
     }
 
 }

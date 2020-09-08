@@ -190,7 +190,7 @@
             }
         }
 
-        &__price, &__brand {
+        &__price, &__attributes {
             padding: 15px;
             border: 1px solid #ccc;
             width: 100%;
@@ -220,7 +220,7 @@
             text-indent: 0;
         }
 
-        &__brand {
+        &__attributes {
             margin-top: -1px;
 
             padding: 0 !important;
@@ -234,17 +234,31 @@
                 .form-input {
                     margin-bottom: 10px !important;
                 }
+
+                label {
+                    font-size: 0.9rem;
+                    vertical-align: top;
+                }
             }
         }
 
-        &__brand-title {
+        &__attributes-input {
+            cursor: pointer;
+        }
+
+        &__attributes-title {
             cursor: pointer;
             background-size: auto;
             background: url('../../images/icons/catalog/arrow-down.svg') no-repeat top 50% right 15px;
             padding: 15px;
+            transition: background-color .3s;
+
+            &:hover, &.active {
+                background-color: #f4f4f4;
+            }
         }
 
-        &__brand-title, &__price-title {
+        &__attributes-title, &__price-title {
             font-size: 0.875rem;
             line-height: 1.3;
         }

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Core;
 use App\Http\Requests\ProductsFilterRequest;
+use App\Models\Shop\Product;
 use App\Models\Shop\ProductAttribute;
 use App\Models\Shop\ProductProperty;
 use App\UseCases\Cart\CartService;
@@ -47,8 +48,8 @@ class ProductCategoryController extends Core
      */
     public function category(ProductsFilterRequest $request, $slug, CartService $cartService)
     {
-
         $category = $this->productCategoryRepository->getBySlug($slug);
+
         $attributes = $this->productAttributeRepository->getAttributes($category->id);
         $categoryIds = $this->getAllCategoryIds($category);
 
@@ -64,8 +65,8 @@ class ProductCategoryController extends Core
         // Sort by price from && to
         $this->sortByPrice($request, $categoryIds ?: $category->id);
 
-        // Sort by brands
-        $this->sortByBrands($request, $categoryIds ?: $category);
+        // Sort by Attributes
+        $this->sortAttributes($request, $categoryIds ?: $category);
 
         $this->data['category'] = $category;
 
@@ -167,12 +168,29 @@ class ProductCategoryController extends Core
     /**
      * Sort brands
      * @param $request
-     * @param $id
+     * @param $category
      */
-    private function sortByBrands($request, $id): void
+    private function sortAttributes($request, $category): void
     {
-        if ($request->has('brand')) {
-            $request->input('brand');
+        $query = ProductAttribute::OrderByDesc('id');
+        $productIds = [];
+        $values = [];
+        foreach ($request->input() as $key => $name) {
+            if ($result = ProductProperty::all()->where('slug', $key)->first()) {
+                //$values = call_user_func_array("array_merge", $values);
+                $values[] = $name;
+            }
         }
+        $query->select('product_id')
+            ->where('category_id', $category->id)
+            ->whereIn('product_property_value_id', $values);
+        //continue;
+
+        $data = $query->get();
+        dd($data);
+//        $this->data['products'] = Product::whereIn('id', $productIds)
+//            ->paginate(15)
+//            ->withPath('?' . $request->getQueryString());
     }
+
 }

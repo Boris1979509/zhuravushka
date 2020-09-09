@@ -28,7 +28,7 @@ class ProductProperty extends Model
     /**
      * @return HasMany
      */
-    public function properties()
+    public function properties(): hasMany
     {
         return $this->hasMany(ProductAttribute::class, 'product_property_id');
     }

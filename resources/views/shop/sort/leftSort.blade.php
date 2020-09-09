@@ -26,13 +26,17 @@
     </div>
     @foreach($attributes as $itemAttribute)
         <div class="catalog__attributes">
-            <div class="catalog__attributes-title">{{ $itemAttribute['property']->title }}</div>
-            <div class="catalog__attributes__wrapper" @if(!request()->has($itemAttribute['property']->slug)) hidden @endif>
+            <div
+                class="catalog__attributes-title @if(request()->has($itemAttribute['property']->slug)) active @endif">{{ $itemAttribute['property']->title }}</div>
+            <div class="catalog__attributes__wrapper"
+                 @if(!request()->has($itemAttribute['property']->slug)) hidden @endif>
                 <div class="catalog__attributes__word__wrap">
                     @foreach($itemAttribute['values'] as $itemValue)
                         <div class="form-input">
-                            <input type="checkbox" id="{{ $itemValue->slug }}" name="{{ $itemValue->slug }}"
-                                   class="catalog__attributes-input" title="{{ $itemValue->title }}">
+                            <input type="checkbox" id="{{ $itemValue->slug }}"
+                                   name="{{ $itemAttribute['property']->slug . '[]' }}" value="{{ $itemValue->id }}"
+                                   class="catalog__attributes-input" title="{{ $itemValue->title }}"
+                                   @if(in_array($itemValue->id, (array) request()->input($itemAttribute['property']->slug))) checked @endif>
                             <label for="{{ $itemValue->slug }}">{{ $itemValue->title }}</label>
                         </div>
                     @endforeach

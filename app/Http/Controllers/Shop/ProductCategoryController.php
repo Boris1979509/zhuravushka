@@ -172,25 +172,42 @@ class ProductCategoryController extends Core
      */
     private function sortAttributes($request, $category): void
     {
-        $query = ProductAttribute::OrderByDesc('id');
-        $productIds = [];
+        $query = ProductAttribute::query();
+        $properties = ProductProperty::all();
+
         $values = [];
+        $query->select('product_id')->where('category_id', $category->id);
         foreach ($request->input() as $key => $name) {
-            if ($result = ProductProperty::all()->where('slug', $key)->first()) {
-                //$values = call_user_func_array("array_merge", $values);
+            if ($result = $properties->where('slug', $key)->first()) {
                 $values[] = $name;
             }
         }
-        $query->select('product_id')
-            ->where('category_id', $category->id)
-            ->whereIn('product_property_value_id', $values);
-        //continue;
+        if (!empty($values)) {
+            $values = array_merge(...$values);
+            $query->where(static function ($query) use ($values) {
+                $query->whereIn('product_property_value_id', $values);
+            });
 
-        $data = $query->get();
-        dd($data);
-//        $this->data['products'] = Product::whereIn('id', $productIds)
-//            ->paginate(15)
-//            ->withPath('?' . $request->getQueryString());
+
+            //
+
+//            SELECT `product_id`
+//FROM `product_attributes`
+//WHERE `category_id` = 101
+//            AND `product_property_value_id` IN (63, 52)
+//GROUP BY `product_id`
+//having count(distinct `product_property_value_id`) = 2
+            $query->groupBy('product_id')
+                ->havingRaw('count(*) = ' . count($values));
+            $data = $query->get();
+
+            $productIds = $data->map(static function ($item) {
+                return $item->product_id;
+            });
+            $this->data['products'] = Product::whereIn('id', $productIds)
+                ->paginate(15)
+                ->withPath('?' . $request->getQueryString());
+        }
     }
 
 }

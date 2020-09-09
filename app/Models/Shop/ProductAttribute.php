@@ -27,7 +27,7 @@ class ProductAttribute extends Model
     /**
      * @return BelongsTo
      */
-    public function property()
+    public function property(): BelongsTo
     {
         return $this->belongsTo(ProductProperty::class, 'product_property_id');
     }
@@ -35,9 +35,15 @@ class ProductAttribute extends Model
     /**
      * @return BelongsTo
      */
-    public function value()
+    public function value(): BelongsTo
     {
         return $this->belongsTo(ProductPropertyValue::class, 'product_property_value_id');
     }
-
+    /**
+     * @return BelongsTo
+     */
+    public function product(): BelongsTo
+    {
+        return $this->belongsTo(Product::class, 'product_id');
+    }
 }

@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 use App\Models\Shop\ProductAttribute as Model;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Support\Collection;
 
 
@@ -53,6 +54,14 @@ class ProductAttributeRepository extends CoreRepository
             }
         }
         return $data;
+    }
+    /**
+     * @return Builder
+     */
+    public function query(): Builder
+    {
+        return $this->startConditions()
+            ->newQuery();
     }
 
 }

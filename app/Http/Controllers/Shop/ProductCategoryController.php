@@ -6,10 +6,14 @@ use App\Http\Controllers\Core;
 use App\Http\Requests\ProductsFilterRequest;
 use App\Models\Shop\Product;
 use App\Models\Shop\ProductAttribute;
+use App\Models\Shop\ProductCategory;
 use App\Models\Shop\ProductProperty;
+use App\Repositories\ProductAttributeRepository;
 use App\UseCases\Cart\CartService;
 use Illuminate\Contracts\View\Factory;
+use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
+use Illuminate\Support\Facades\DB;
 use Illuminate\View\View;
 
 class ProductCategoryController extends Core
@@ -48,9 +52,11 @@ class ProductCategoryController extends Core
      */
     public function category(ProductsFilterRequest $request, $slug, CartService $cartService)
     {
+
         $category = $this->productCategoryRepository->getBySlug($slug);
 
-        $attributes = $this->productAttributeRepository->getAttributes($category->id);
+        $attributes = $this->productAttributeRepository->getAttributes($category->parent ? $category->parent->id : $category->id);
+
         $categoryIds = $this->getAllCategoryIds($category);
 
         $this->data['products'] = $this->productRepository
@@ -62,11 +68,8 @@ class ProductCategoryController extends Core
         // Sort
         $this->sort($request, $categoryIds ?: $category);
 
-        // Sort by price from && to
-        $this->sortByPrice($request, $categoryIds ?: $category->id);
-
         // Sort by Attributes
-        $this->sortAttributes($request, $categoryIds ?: $category);
+        $this->sortAttributes($request, $category->parent ? $category->parent->id : $category->id);
 
         $this->data['category'] = $category;
 
@@ -77,7 +80,6 @@ class ProductCategoryController extends Core
         if (!$this->data['products']->total()) {
             return redirect()->route('category', $slug)->with('info', __('NotFound'));
         }
-        //dd($this->data['products']);
         return view('shop.category', $this->data + $cartService->getCart(), compact('attributes'));
     }
 
@@ -129,85 +131,110 @@ class ProductCategoryController extends Core
     }
 
     /**
-     * Sort price inputs
-     * @param $request
-     * @param $id
+     * @param ProductsFilterRequest $request
+     * @param int $categoryId
      */
-    private function sortByPrice($request, $id): void
+    private function sortAttributes(ProductsFilterRequest $request, int $categoryId): void
     {
-        /**
-         * Price from
-         */
+        if(!$request->isMethod('post')) return;
+        $query = $this->productAttributeRepository->query(); // Builder
+        $query->select('product_id')->where('category_id', $categoryId);
+
+        /* Sort attributes */
+        if (!empty($values = $this->getAttributes($request))) {
+            $query->where(static function ($query) use ($values) {
+                $query->whereIn('product_property_value_id', $values);
+                foreach ($values as $key => $value) {
+                    if (count($value) > 1) {
+                        $query->orWhere(function ($query) use ($value) {
+                            $query->whereIn('product_property_value_id', $value);
+                        });
+                    }
+                }
+            });
+            $query->groupBy('product_id')
+                ->havingRaw('count(*) = ' . count($values));
+        }
+        /* End sort attributes */
+
+        /* Sort price from */
         if ($request->anyFilled('priceFrom')) {
-            $num = $request->input('priceFrom');
-            $this->data['products'] = $this->productRepository
-                ->getPriceSort($id, $num, $opr = '>=', self::PAGE_LIMIT)
-                ->withPath('?' . $request->getQueryString());
+            $this->sortPriceFrom($query, $request);
         }
-        /**
-         * Price to
-         */
+
+        /* Sort price to */
         if ($request->anyFilled('priceTo')) {
-            $num = $request->input('priceTo');
-            $this->data['products'] = $this->productRepository
-                ->getPriceSort($id, $num, $opr = '<=', self::PAGE_LIMIT)
-                ->withPath('?' . $request->getQueryString());
+            $this->sortPriceTo($query, $request);
         }
-        /**
-         * Price to && Price From
-         */
-        if ($request->anyFilled('priceTo') && $request->anyFilled('priceFrom')) {
-            $priceFrom = $request->input('priceFrom');
-            $priceTo = $request->input('priceTo');
-            $this->data['products'] = $this->productRepository
-                ->getPriceSort($id, [$priceFrom, $priceTo], null, self::PAGE_LIMIT)
-                ->withPath('?' . $request->getQueryString());
+
+        /* Price from && Price to */
+        if ($request->anyFilled('priceFrom') && $request->anyFilled('priceTo')) {
+            $this->sortPriceFromAndTo($query, $request);
         }
+
+        $result = $query->get();
+        /* Product id's */
+        $productIds = $result->map(static function ($item) {
+            return $item->product_id;
+        });
+
+        $this->data['products'] = $this->productRepository
+            ->getFiltersAttributes($productIds, self::PAGE_LIMIT)
+            ->withPath('?' . $request->getQueryString());
+
     }
 
     /**
-     * Sort brands
-     * @param $request
-     * @param $category
+     * @param ProductsFilterRequest $request
+     * @return array
      */
-    private function sortAttributes($request, $category): void
-    {
-        $query = ProductAttribute::query();
+    private function getAttributes(ProductsFilterRequest $request){
         $properties = ProductProperty::all();
 
         $values = [];
-        $query->select('product_id')->where('category_id', $category->id);
         foreach ($request->input() as $key => $name) {
-            if ($result = $properties->where('slug', $key)->first()) {
+            if ($properties->where('slug', $key)->first()) {
                 $values[] = $name;
             }
         }
-        if (!empty($values)) {
-            $values = array_merge(...$values);
-            $query->where(static function ($query) use ($values) {
-                $query->whereIn('product_property_value_id', $values);
-            });
+        return $values;
+    }
 
+    /**
+     * @param Builder $query
+     * @param ProductsFilterRequest $request
+     */
+    private function sortPriceFrom(Builder $query, ProductsFilterRequest $request)
+    {
+        $from = $request->input('priceFrom');
+        $query->whereHas('product', function ($query) use ($from) {
+            $query->where('price', '>=', $from);
+        });
+    }
 
-            //
+    /**
+     * @param Builder $query
+     * @param ProductsFilterRequest $request
+     */
+    private function sortPriceTo(Builder $query, ProductsFilterRequest $request)
+    {
+        $to = $request->input('priceTo');
+        $query->whereHas('product', function ($query) use ($to) {
+            $query->where('price', '<=', $to);
+        });
+    }
 
-//            SELECT `product_id`
-//FROM `product_attributes`
-//WHERE `category_id` = 101
-//            AND `product_property_value_id` IN (63, 52)
-//GROUP BY `product_id`
-//having count(distinct `product_property_value_id`) = 2
-            $query->groupBy('product_id')
-                ->havingRaw('count(*) = ' . count($values));
-            $data = $query->get();
-
-            $productIds = $data->map(static function ($item) {
-                return $item->product_id;
-            });
-            $this->data['products'] = Product::whereIn('id', $productIds)
-                ->paginate(15)
-                ->withPath('?' . $request->getQueryString());
-        }
+    /**
+     * @param Builder $query
+     * @param ProductsFilterRequest $request
+     */
+    private function sortPriceFromAndTo(Builder $query, ProductsFilterRequest $request)
+    {
+        $from = $request->input('priceFrom');
+        $to = $request->input('priceTo');
+        $query->whereHas('product', function ($query) use ($from, $to) {
+            $query->whereBetween('price', [$from, $to]);
+        });
     }
 
 }

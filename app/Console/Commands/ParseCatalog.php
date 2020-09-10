@@ -214,11 +214,12 @@ class ParseCatalog extends Command
             $parts = explode('|', $item);
             $product_property_id = DB::table('product_properties')->where('title', trim($parts[0]))->first();
             $product_property_value_id = DB::table('product_property_values')->where('title', trim($parts[1]))->first();
+            $category = DB::table('product_categories')->where('id', $category_id)->where('parent_id', '<>', 0)->first();
             if($product_property_value_id && $product_property_id) {
                 $arr[] = [
                     'product_property_id' => $product_property_id->id,
                     'product_property_value_id' => $product_property_value_id->id,
-                    'category_id' => $category_id,
+                    'category_id' => $category->parent_id,
                     'product_id' => $product_id,
                     'created_at' => Carbon::now(),
                     'updated_at' => Carbon::now(),

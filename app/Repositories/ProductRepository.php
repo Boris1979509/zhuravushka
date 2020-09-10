@@ -194,4 +194,17 @@ class ProductRepository extends CoreRepository
         return $this->startConditions()
             ->where('id', $product_id)->first();
     }
+
+    /**
+     * @param array $productIds
+     * @param integer $perPage
+     * @return mixed
+     */
+    public function getFiltersAttributes($productIds, $perPage = null)
+    {
+        return $this->startConditions()
+            ->whereIn('id', $productIds)
+            ->orderBy('price')
+            ->paginate($perPage);
+    }
 }

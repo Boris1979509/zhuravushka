@@ -63,11 +63,12 @@ class CartService
             $result = ['status' => 'success', 'message' => 'Товар ' . $product->title . ' упешно добавлен в корзину.'];
             $this->order->products()->attach($product);
         }
-
-        return [
-                'cartItemTotalSum' => $this->numberFormat($this->order->products()->find($product)->getItemTotalSum()),
-                'dataMsg'          => $result,
-            ] + $this->getCart();
+        if ($request->wantsJson()) {
+            return [
+                    'cartItemTotalSum' => $this->numberFormat($this->order->products()->find($product)->getItemTotalSum()),
+                    'dataMsg' => $result,
+                ] + $this->getCart();
+        }
     }
 
     /**

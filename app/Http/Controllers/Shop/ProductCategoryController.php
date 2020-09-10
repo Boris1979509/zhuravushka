@@ -80,7 +80,7 @@ class ProductCategoryController extends Core
         if (!$this->data['products']->total()) {
             return redirect()->route('category', $slug)->with('info', __('NotFound'));
         }
-        return view('shop.category', $this->data + $cartService->getCart(), compact('attributes'));
+        return view('shop.category', array_merge($this->data, $cartService->getCart()), compact('attributes'));
     }
 
     /**
@@ -136,7 +136,9 @@ class ProductCategoryController extends Core
      */
     private function sortAttributes(ProductsFilterRequest $request, int $categoryId): void
     {
-        if(!$request->isMethod('post')) return;
+        if (!$request->input('start_filter')) {
+            return;
+        }
         $query = $this->productAttributeRepository->query(); // Builder
         $query->select('product_id')->where('category_id', $categoryId);
 
@@ -146,7 +148,7 @@ class ProductCategoryController extends Core
                 $query->whereIn('product_property_value_id', $values);
                 foreach ($values as $key => $value) {
                     if (count($value) > 1) {
-                        $query->orWhere(function ($query) use ($value) {
+                        $query->orWhere(static function ($query) use ($value) {
                             $query->whereIn('product_property_value_id', $value);
                         });
                     }
@@ -188,7 +190,8 @@ class ProductCategoryController extends Core
      * @param ProductsFilterRequest $request
      * @return array
      */
-    private function getAttributes(ProductsFilterRequest $request){
+    private function getAttributes(ProductsFilterRequest $request): array
+    {
         $properties = ProductProperty::all();
 
         $values = [];
@@ -204,10 +207,10 @@ class ProductCategoryController extends Core
      * @param Builder $query
      * @param ProductsFilterRequest $request
      */
-    private function sortPriceFrom(Builder $query, ProductsFilterRequest $request)
+    private function sortPriceFrom(Builder $query, ProductsFilterRequest $request): void
     {
         $from = $request->input('priceFrom');
-        $query->whereHas('product', function ($query) use ($from) {
+        $query->whereHas('product', static function ($query) use ($from) {
             $query->where('price', '>=', $from);
         });
     }
@@ -216,10 +219,10 @@ class ProductCategoryController extends Core
      * @param Builder $query
      * @param ProductsFilterRequest $request
      */
-    private function sortPriceTo(Builder $query, ProductsFilterRequest $request)
+    private function sortPriceTo(Builder $query, ProductsFilterRequest $request): void
     {
         $to = $request->input('priceTo');
-        $query->whereHas('product', function ($query) use ($to) {
+        $query->whereHas('product', static function ($query) use ($to) {
             $query->where('price', '<=', $to);
         });
     }
@@ -228,11 +231,11 @@ class ProductCategoryController extends Core
      * @param Builder $query
      * @param ProductsFilterRequest $request
      */
-    private function sortPriceFromAndTo(Builder $query, ProductsFilterRequest $request)
+    private function sortPriceFromAndTo(Builder $query, ProductsFilterRequest $request): void
     {
         $from = $request->input('priceFrom');
         $to = $request->input('priceTo');
-        $query->whereHas('product', function ($query) use ($from, $to) {
+        $query->whereHas('product', static function ($query) use ($from, $to) {
             $query->whereBetween('price', [$from, $to]);
         });
     }

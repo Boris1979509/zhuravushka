@@ -17,6 +17,7 @@ class CreateProductAttributesTable extends Migration
             $table->id();
             $table->bigInteger('product_id')->references('id')->on('products')->onDelete('CASCADE');
             $table->bigInteger('category_id')->references('id')->on('product_categories')->onDelete('CASCADE');
+            $table->bigInteger('category_parent__id');
             $table->bigInteger('product_property_id')->references('id')->on('product_properties')->onDelete('CASCADE');
             $table->bigInteger('product_property_value_id')->references('id')->on('product_property_values')->onDelete('CASCADE');
             $table->timestamps();

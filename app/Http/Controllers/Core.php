@@ -9,6 +9,7 @@ use App\Repositories\OrderRepository;
 use App\Repositories\PageRepository;
 use App\Repositories\ProductAttributeRepository;
 use App\Repositories\ProductCategoryRepository;
+use App\Repositories\ProductPropertyValueRepository;
 use App\Repositories\ProductRepository;
 use App\Repositories\UserRepository;
 
@@ -46,6 +47,10 @@ abstract class Core extends Controller
      * @var ProductAttributeRepository $productAttributeRepository
      */
     protected $productAttributeRepository;
+    /**
+     * @var ProductPropertyValueRepository $productPropertyValueRepository
+     */
+    protected $productPropertyValueRepository;
 
     public function __construct()
     {
@@ -57,6 +62,7 @@ abstract class Core extends Controller
         $this->orderRepository = app(OrderRepository::class);
         $this->userRepository = app(UserRepository::class);
         $this->productAttributeRepository = app(ProductAttributeRepository::class);
+        $this->productPropertyValueRepository = app(ProductPropertyValueRepository::class);
     }
 
     /**

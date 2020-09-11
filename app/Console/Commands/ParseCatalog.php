@@ -72,31 +72,7 @@ class ParseCatalog extends Command
                 'updated_at' => Carbon::now(),
             ];
         }
-        /**
-         * Product property values
-         */
-        if(DB::table('product_properties')->insert($this->arrayDefaultKey($dataPr))) {
-            $dataVal = [];
-            foreach (ProductProperty::all() as $propertyItem) {
-                foreach ($propertiesFile as $propertyItemInFile) {
-                    $title = trim($propertyItemInFile[self::FIELDS_MAP_PROPERTIES[0]['name']]);
-                    if ($propertyItem->title === $title) {
-                        foreach (explode('|', $propertyItemInFile[self::FIELDS_MAP_PROPERTIES[1]['name']]) as $itemValue) {
-                            if(!empty($itemValue)) {
-                                $dataVal[trim($itemValue)] = [
-                                    'title' => trim($itemValue),
-                                    'slug' => Str::slug($itemValue),
-                                    'product_property_id' => $propertyItem->id,
-                                    'created_at' => Carbon::now(),
-                                    'updated_at' => Carbon::now(),
-                                ];
-                            }
-                        }
-                    }
-                }
-            }
-            DB::table('product_property_values')->insert($this->arrayDefaultKey($dataVal));
-        }
+        $productPropertiesTable = DB::table('product_properties')->insert($this->arrayDefaultKey($dataPr));
 
         $path = $this->getFileName(); // get file path
         $catalog = json_decode(file_get_contents($path), true);
@@ -110,8 +86,8 @@ class ParseCatalog extends Command
             ];
         }
 
-        $result = DB::table('product_categories')->insert($this->arrayDefaultKey($data));
-        if ($result) {
+        $productCategoriesTable = DB::table('product_categories')->insert($this->arrayDefaultKey($data));
+        if ($productCategoriesTable) {
             $data = [];
             foreach (ProductCategory::all() as $categoryItem) {
                 foreach ($catalog as $catalogItem) {
@@ -125,8 +101,37 @@ class ParseCatalog extends Command
                 }
             }
 
-            $result = DB::table('product_categories')->insert($this->arrayDefaultKey($data));
-            if ($result) {
+            $subProductCategoriesTable = DB::table('product_categories')->insert($this->arrayDefaultKey($data));
+            if ($subProductCategoriesTable) {
+                /**
+                 * Product property values
+                 */
+                if ($productPropertiesTable) {
+                    $dataVal = [];
+                    foreach (ProductProperty::all() as $propertyItem) {
+                        foreach ($propertiesFile as $propertyItemInFile) {
+                            $title = trim($propertyItemInFile[self::FIELDS_MAP_PROPERTIES[0]['name']]);
+                            if ($propertyItem->title === $title) {
+                                $category = DB::table('product_categories')->where('title', trim($propertyItemInFile[self::FIELDS_MAP[0]['name']]))->where('parent_id', 0)->first();
+                                $subCategory = DB::table('product_categories')->where('title', trim($propertyItemInFile[self::FIELDS_MAP[1]['name']]))->where('parent_id', '<>', 0)->first();
+                                foreach (explode('|', $propertyItemInFile[self::FIELDS_MAP_PROPERTIES[1]['name']]) as $itemValue) {
+                                    if (!empty($itemValue)) {
+                                        $dataVal[] = [
+                                            'title' => $name = trim($itemValue),
+                                            'slug' => Str::slug($name),
+                                            'product_property_id' => $propertyItem->id,
+                                            'category_id' => $category->id,
+                                            'sub_category_id' => $subCategory->id,
+                                            'created_at' => Carbon::now(),
+                                            'updated_at' => Carbon::now(),
+                                        ];
+                                    }
+                                }
+                            }
+                        }
+                    }
+                    DB::table('product_property_values')->insert($this->arrayDefaultKey($dataVal));
+                }
                 foreach ($catalog as $key => $catalogItem) {
                     foreach (ProductCategory::all() as $categoryItem) {
                         if ($categoryItem->title === $catalogItem[self::FIELDS_MAP[1]['name']]) {
@@ -149,14 +154,6 @@ class ParseCatalog extends Command
                                 DB::table('product_attributes')->insert($attrData);
                             }
                         }
-//                        foreach ($propertiesFile as $pr) {
-//                            if ($categoryItem->title === trim($pr[self::FIELDS_MAP[1]['name']])) {
-//                                DB::table('category_property')->insert([
-//                                    'category_id' => $categoryItem->id,
-//                                    'product_property_id' => DB::table('product_properties')->select('id')->where('title', trim($pr[self::FIELDS_MAP_PROPERTIES[0]['name']]))->first()->id,
-//                                ]);
-//                            }
-//                        }
                     }
                 }
             }

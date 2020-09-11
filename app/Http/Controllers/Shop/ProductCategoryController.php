@@ -8,6 +8,7 @@ use App\Models\Shop\Product;
 use App\Models\Shop\ProductAttribute;
 use App\Models\Shop\ProductCategory;
 use App\Models\Shop\ProductProperty;
+use App\Models\Shop\ProductPropertyValue;
 use App\Repositories\ProductAttributeRepository;
 use App\UseCases\Cart\CartService;
 use Illuminate\Contracts\View\Factory;
@@ -55,8 +56,8 @@ class ProductCategoryController extends Core
 
         $category = $this->productCategoryRepository->getBySlug($slug);
 
-        $attributes = $this->productAttributeRepository->getAttributes($category->parent ? $category->parent->id : $category->id);
-
+        $attributes = $this->productPropertyValueRepository->getAttributes($category);
+dd($attributes);
         $categoryIds = $this->getAllCategoryIds($category);
 
         $this->data['products'] = $this->productRepository

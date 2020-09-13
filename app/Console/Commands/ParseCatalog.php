@@ -66,8 +66,8 @@ class ParseCatalog extends Command
 
         foreach ($propertiesFile as $propertyItemInFile) {
             $dataPr[trim($propertyItemInFile[self::FIELDS_MAP_PROPERTIES[0]['name']])] = [
-                'title' => $name = $propertyItemInFile[self::FIELDS_MAP_PROPERTIES[0]['name']],
-                'slug' => Str::slug($name),
+                'title'      => $name = $propertyItemInFile[self::FIELDS_MAP_PROPERTIES[0]['name']],
+                'slug'       => Str::slug($name),
                 'created_at' => Carbon::now(),
                 'updated_at' => Carbon::now(),
             ];
@@ -117,13 +117,13 @@ class ParseCatalog extends Command
                                 foreach (explode('|', $propertyItemInFile[self::FIELDS_MAP_PROPERTIES[1]['name']]) as $itemValue) {
                                     if (!empty($itemValue)) {
                                         $dataVal[] = [
-                                            'title' => $name = trim($itemValue),
-                                            'slug' => Str::slug($name),
+                                            'title'               => $name = trim($itemValue),
+                                            'slug'                => Str::slug($name),
                                             'product_property_id' => $propertyItem->id,
-                                            'category_id' => $category->id,
-                                            'sub_category_id' => $subCategory->id,
-                                            'created_at' => Carbon::now(),
-                                            'updated_at' => Carbon::now(),
+                                            'category_id'         => $category->id,
+                                            'sub_category_id'     => $subCategory->id,
+                                            'created_at'          => Carbon::now(),
+                                            'updated_at'          => Carbon::now(),
                                         ];
                                     }
                                 }
@@ -202,7 +202,7 @@ class ParseCatalog extends Command
      * @param int $product_id
      * @return array
      */
-    private function attr($attributes, $category_id, $product_id)
+    private function attr($attributes, $category_id, $product_id): array
     {
         $chars = ['{', '}']; // символы для удаления
         $str2 = str_replace($chars, '', $attributes);
@@ -212,14 +212,14 @@ class ParseCatalog extends Command
             $product_property_id = DB::table('product_properties')->where('title', trim($parts[0]))->first();
             $product_property_value_id = DB::table('product_property_values')->where('title', trim($parts[1]))->first();
             $category = DB::table('product_categories')->where('id', $category_id)->where('parent_id', '<>', 0)->first();
-            if($product_property_value_id && $product_property_id) {
+            if ($product_property_value_id && $product_property_id) {
                 $arr[] = [
-                    'product_property_id' => $product_property_id->id,
+                    'product_property_id'       => $product_property_id->id,
                     'product_property_value_id' => $product_property_value_id->id,
-                    'category_id' => $category->parent_id,
-                    'product_id' => $product_id,
-                    'created_at' => Carbon::now(),
-                    'updated_at' => Carbon::now(),
+                    'category_id'               => $category->parent_id,
+                    'product_id'                => $product_id,
+                    'created_at'                => Carbon::now(),
+                    'updated_at'                => Carbon::now(),
                 ];
             }
         }

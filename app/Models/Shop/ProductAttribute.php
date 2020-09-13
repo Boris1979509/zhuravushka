@@ -39,6 +39,7 @@ class ProductAttribute extends Model
     {
         return $this->belongsTo(ProductPropertyValue::class, 'product_property_value_id');
     }
+
     /**
      * @return BelongsTo
      */

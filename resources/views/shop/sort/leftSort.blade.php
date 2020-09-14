@@ -44,7 +44,6 @@
             </div>
         </div>
     @endforeach
-    <input type="hidden" name="start_filter" value="true">
     <div class="catalog__confirm">
         <div class="catalog__confirm__wrapper">
             <button type="submit" class="btn btn-outline btn__confirm">{{ __('Apply') }}</button>

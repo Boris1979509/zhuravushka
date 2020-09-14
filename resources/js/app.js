@@ -33,7 +33,7 @@ require('./components/catalog-filter/attributes');
 //require('./components/alerts/close');
 require('./components/alerts/flash');
 require('./components/login/login');
-require('./components/modals/webDevModal');
+//require('./components/modals/webDevModal');
 require('./components/verify-phone/phone');
 require('./components/register/register');
 require('./components/order-register/orderRegister');

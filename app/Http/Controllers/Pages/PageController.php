@@ -64,7 +64,6 @@ class PageController extends Core
         }
 
         $this->data['page'] = $page;
-        $this->data['pagesNavMenu'] = $this->data['pages']->where('parent_id', 0);
         $this->data['subPage'] = ($page->children) ? $page->children->first() : $page->parent->children->first();
         return view('page', $this->data, $cartService->getCart());
     }

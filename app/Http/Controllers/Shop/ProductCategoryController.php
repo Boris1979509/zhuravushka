@@ -70,7 +70,7 @@ class ProductCategoryController extends Core
         $this->sort($request, $categoryIds ?: $category);
 
         // Sort by Attributes
-        $this->sortAttributes($request, $category->parent ? $category->parent->id : $category->id);
+        $this->sortAttributes($request, $category);
 
         $this->data['category'] = $category;
 
@@ -143,7 +143,13 @@ class ProductCategoryController extends Core
         if ($priceFrom || $priceTo || $dataAttr) {
 
             $query = $this->productAttributeRepository->query(); // Builder
-            $query->select('product_id')->where('category_id', $category);
+            $query->select('product_id');
+
+            if ($category->parent) {
+                $query->where('sub_category_id', $category->id);
+            } else {
+                $query->where('category_id', $category->id);
+            }
 
             /* Sort attributes */
             if ($dataAttr) {

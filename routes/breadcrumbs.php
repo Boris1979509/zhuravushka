@@ -13,6 +13,11 @@ use App\Models\User;
 Breadcrumbs::for('home', static function (Generator $trail) {
     $trail->push('Главная', route('home'));
 });
+// 404
+Breadcrumbs::for('errors.404', function ($trail) {
+    $trail->parent('home');
+    $trail->push(__('Page Not Found'));
+});
 // Page Service
 Breadcrumbs::for('page.service', static function (Generator $trail) {
     $trail->parent('home');

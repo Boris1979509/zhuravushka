@@ -58,7 +58,6 @@ class ParseCatalog extends Command
         DB::table('product_attributes')->truncate();
         DB::table('product_properties')->truncate();
         DB::table('product_property_values')->truncate();
-        DB::table('category_property')->truncate();
 
         $pathPropertiesFile = $this->getProductCategoryProperties(self::PROPERTY_NAME_FILE);
         $propertiesFile = json_decode(file_get_contents($pathPropertiesFile), true);
@@ -217,6 +216,7 @@ class ParseCatalog extends Command
                     'product_property_id'       => $product_property_id->id,
                     'product_property_value_id' => $product_property_value_id->id,
                     'category_id'               => $category->parent_id,
+                    'sub_category_id'           => $category_id,
                     'product_id'                => $product_id,
                     'created_at'                => Carbon::now(),
                     'updated_at'                => Carbon::now(),

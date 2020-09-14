@@ -1,13 +1,10 @@
 @extends('layouts.app')
 @section('description', '')
-@section('title', __('404'))
+@section('title', __('Page Not Found'))
 @section('content')
-    <section id="compare">
-        <div class="container">
-            <h1>{{ __('404') }}</h1>
-            <div class="row">
-                <img src="{{ asset('images/404.png') }}" alt="{{ __('404') }}">
-            </div>
+    <div class="container">
+        <div class="row">
+            <img src="{{ asset('images/404.png') }}" alt="{{ __('Page Not Found') }}">
         </div>
-    </section>
+    </div>
 @endsection

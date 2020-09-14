@@ -143,61 +143,69 @@ class ProductCategoryController extends Core
         if ($priceFrom || $priceTo || $dataAttr) {
 
             $query = $this->productAttributeRepository->query(); // Builder
-            $query->select('product_id');
 
+            $categoryQuery = null;
             if ($category->parent) {
-                $query->where('sub_category_id', $category->id);
+                $categoryQuery = [
+                    'sub_category_id' => $category->id,
+                ];
             } else {
-                $query->where('category_id', $category->id);
+                $categoryQuery = [
+                    'category_id' => $category->id,
+                ];
             }
+            $query->select('product_id')->where($categoryQuery);
 
-            /* Sort attributes */
-            if ($dataAttr) {
-                $query->where(static function ($query) use ($dataAttr) {
-                    foreach ($dataAttr as $key => $property) {
-                        if ($key > 0) {
-                            $query->orWhere(static function ($query) use ($property) {
+            if ($query->exists()) {
+
+                /* Sort attributes */
+                if ($dataAttr) {
+                    $query->where(static function ($query) use ($dataAttr) {
+                        foreach ($dataAttr as $key => $property) {
+                            if ($key > 0) {
+                                $query->orWhere(static function ($query) use ($property) {
+                                    $query->where('product_property_id', $property['property_id']);
+                                    $query->whereIn('product_property_value_id', $property['values'][0]);
+                                });
+                            } else {
                                 $query->where('product_property_id', $property['property_id']);
                                 $query->whereIn('product_property_value_id', $property['values'][0]);
-                            });
-                        } else {
-                            $query->where('product_property_id', $property['property_id']);
-                            $query->whereIn('product_property_value_id', $property['values'][0]);
+                            }
                         }
-                    }
+                    });
+                    $query->groupBy('product_id')
+                        ->havingRaw('count(*) = 1');
+                }
+
+                /* End sort attributes */
+
+                /* Sort price from */
+                if ($priceFrom) {
+                    $this->sortPriceFrom($query, $request);
+                }
+
+                /* Sort price to */
+                if ($priceTo) {
+                    $this->sortPriceTo($query, $request);
+                }
+
+                /* Price from && Price to */
+                if ($priceFrom && $priceTo) {
+                    $this->sortPriceFromAndTo($query, $request);
+                }
+
+                $result = $query->get();
+
+                /* Product id's */
+                $productIds = $result->map(static function ($item) {
+                    return $item->product_id;
                 });
-                $query->groupBy('product_id')
-                    ->havingRaw('count(*) = 1');
+
+                $this->data['products'] = $this->productRepository
+                    ->getFiltersAttributes($productIds, self::PAGE_LIMIT)
+                    ->withPath('?' . $request->getQueryString());
+
             }
-
-            /* End sort attributes */
-
-            /* Sort price from */
-            if ($priceFrom) {
-                $this->sortPriceFrom($query, $request);
-            }
-
-            /* Sort price to */
-            if ($priceTo) {
-                $this->sortPriceTo($query, $request);
-            }
-
-            /* Price from && Price to */
-            if ($priceFrom && $priceTo) {
-                $this->sortPriceFromAndTo($query, $request);
-            }
-
-            $result = $query->get();
-
-            /* Product id's */
-            $productIds = $result->map(static function ($item) {
-                return $item->product_id;
-            });
-
-            $this->data['products'] = $this->productRepository
-                ->getFiltersAttributes($productIds, self::PAGE_LIMIT)
-                ->withPath('?' . $request->getQueryString());
-
         }
     }
 

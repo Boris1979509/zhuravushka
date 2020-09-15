@@ -33,11 +33,11 @@
                 <div class="catalog__attributes__word__wrap">
                     @foreach($itemAttribute->values as $itemValue)
                         <div class="form-input">
-                            <input type="checkbox" id="{{ $itemValue->slug }}"
-                                   name="{{ $itemAttribute->slug . '[]' }}" value="{{ $itemValue->id }}"
-                                   class="catalog__attributes-input" title="{{ $itemValue->title }}"
-                                   @if(in_array($itemValue->id, (array) request()->input($itemAttribute->slug))) checked @endif>
-                            <label for="{{ $itemValue->slug }}">{{ $itemValue->title }}</label>
+                            <input type="checkbox" id="{{ $itemValue->value->slug }}"
+                                   name="{{ $itemAttribute->slug . '[]' }}" value="{{ $itemValue->value->id }}"
+                                   class="catalog__attributes-input" title="{{ $itemValue->value->title }}"
+                                   @if(in_array($itemValue->value->id, (array) request()->input($itemAttribute->slug))) checked @endif>
+                            <label for="{{ $itemValue->value->slug }}">{{ $itemValue->value->title }}</label>
                         </div>
                     @endforeach
                 </div>

@@ -4,6 +4,7 @@
 namespace App\Repositories;
 
 use App\Models\Shop\Product as Model;
+use App\Models\Shop\ProductCategory;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\Pagination\LengthAwarePaginator;
 use Illuminate\Database\Eloquent\Builder;
@@ -156,24 +157,23 @@ class ProductRepository extends CoreRepository
     }
 
     /**
-     * @param integer $id
+     * @param mixed $category
      * @param integer|array $num
      * @param string $opr
      * @param null|integer $perPage
      * @return LengthAwarePaginator
      */
-    public function getPriceSort($id, $num, $opr = null, $perPage = null): LengthAwarePaginator
+    public function getPriceSort($category, $num, $opr = null, $perPage = null): LengthAwarePaginator
     {
         $columns = ['*'];
 
         return $this->query()
             ->select($columns)
-            ->where(static function ($query) use ($id) {
-                if (is_int($id)) {
-                    return $query->where('category_id', $id);
+            ->where(static function ($query) use ($category) {
+                if ($category instanceof ProductCategory) {
+                    return $query->where('category_id', $category->id);
                 }
-
-                $query->whereIn('category_id', $id);
+                $query->whereIn('category_id', $category);
             })
             ->where(static function ($query) use ($num, $opr) {
                 if (is_array($num)) {

@@ -4,17 +4,13 @@ namespace App\Http\Controllers\Shop;
 
 use App\Http\Controllers\Core;
 use App\Http\Requests\ProductsFilterRequest;
-use App\Models\Shop\Product;
-use App\Models\Shop\ProductAttribute;
 use App\Models\Shop\ProductCategory;
 use App\Models\Shop\ProductProperty;
-use App\Models\Shop\ProductPropertyValue;
-use App\Repositories\ProductAttributeRepository;
 use App\UseCases\Cart\CartService;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Database\Eloquent\Builder;
 use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Collection;
 use Illuminate\View\View;
 
 class ProductCategoryController extends Core
@@ -56,7 +52,7 @@ class ProductCategoryController extends Core
 
         $category = $this->productCategoryRepository->getBySlug($slug);
 
-        $attributes = $this->productPropertyValueRepository->getAttributes($category);
+        $attributes = $this->productAttributeRepository->getAttributes($category);
 
         $categoryIds = $this->getAllCategoryIds($category);
 
@@ -69,8 +65,11 @@ class ProductCategoryController extends Core
         // Sort
         $this->sort($request, $categoryIds ?: $category);
 
+        // Sort by price
+        $this->sortByPrice($request, $categoryIds ?: $category);
+
         // Sort by Attributes
-        $this->sortAttributes($request, $category);
+        $this->sortAttributes($request, $categoryIds ?: $category);
 
         $this->data['category'] = $category;
 
@@ -133,50 +132,38 @@ class ProductCategoryController extends Core
 
     /**
      * @param ProductsFilterRequest $request
-     * @param $category
+     * @param mixed $category
      */
     private function sortAttributes(ProductsFilterRequest $request, $category): void
     {
         $dataAttr = $this->getAttributes($request);
         $priceFrom = $request->anyFilled('priceFrom');
         $priceTo = $request->anyFilled('priceTo');
+        $query = null;
         if ($priceFrom || $priceTo || $dataAttr) {
 
             $query = $this->productAttributeRepository->query(); // Builder
 
-            $categoryQuery = null;
-            if ($category->parent) {
-                $categoryQuery = [
-                    'sub_category_id' => $category->id,
-                ];
-            } else {
-                $categoryQuery = [
-                    'category_id' => $category->id,
-                ];
+            $query->select('product_id');
+            if ($category instanceof ProductCategory) {
+                $query->where('category_id', $category->parent_id)
+                    ->where('sub_category_id', $category->id);
             }
-            $query->select('product_id')->where($categoryQuery);
+            if ($category instanceof Collection) {
+                $query->whereIn('sub_category_id', $category);
+            }
 
             if ($query->exists()) {
 
                 /* Sort attributes */
                 if ($dataAttr) {
                     $query->where(static function ($query) use ($dataAttr) {
-                        foreach ($dataAttr as $key => $property) {
-                            if ($key > 0) {
-                                $query->orWhere(static function ($query) use ($property) {
-                                    $query->where('product_property_id', $property['property_id']);
-                                    $query->whereIn('product_property_value_id', $property['values'][0]);
-                                });
-                            } else {
-                                $query->where('product_property_id', $property['property_id']);
-                                $query->whereIn('product_property_value_id', $property['values'][0]);
-                            }
-                        }
+                        $query->whereIn('product_property_id', $dataAttr['property_id']);
+                        $query->whereIn('product_property_value_id', array_merge(...$dataAttr['values']));
                     });
                     $query->groupBy('product_id')
-                        ->havingRaw('count(*) = 1');
+                        ->havingRaw('count(*) = ' . count($dataAttr['property_id']));
                 }
-
                 /* End sort attributes */
 
                 /* Sort price from */
@@ -221,10 +208,8 @@ class ProductCategoryController extends Core
         $data = [];
         foreach ($request->input() as $key => $name) {
             if ($property = $properties->where('slug', $key)->first()) {
-                $data[] = [
-                    'property_id' => $property->id,
-                    'values'      => [$name],
-                ];
+                $data['property_id'][] = $property->id;
+                $data['values'][] = $name;
             }
         }
         return $data;
@@ -268,6 +253,38 @@ class ProductCategoryController extends Core
         $query->whereHas('product', static function ($query) use ($from, $to) {
             $query->whereBetween('price', [$from, $to]);
         });
+    }
+
+    /**
+     * Sort price inputs
+     * @param ProductsFilterRequest $request
+     * @param mixed $category
+     */
+    private function sortByPrice(ProductsFilterRequest $request, $category)
+    {
+        $result = null; // Result data
+
+        if ($request->anyFilled('priceFrom')) {
+            $from = $request->input('priceFrom');
+            $result = $this->productRepository
+                ->getPriceSort($category, $from, '>=', self::PAGE_LIMIT);
+        }
+
+        if ($request->anyFilled('priceTo')) {
+            $to = $request->input('priceTo');
+            $result = $this->productRepository
+                ->getPriceSort($category, $to, '<=', self::PAGE_LIMIT);
+        }
+
+        if ($request->anyFilled('priceTo') && $request->anyFilled('priceFrom')) {
+            $from = $request->input('priceFrom');
+            $to = $request->input('priceTo');
+            $result = $this->productRepository
+                ->getPriceSort($category, [$from, $to], null, self::PAGE_LIMIT);
+        }
+        if($result){
+            $this->data['products'] = $result->withPath('?' . $request->getQueryString());
+        }
     }
 
 }

@@ -21,26 +21,6 @@
                             <p class="characteristics__props-name">{{ __('ProductCode') }}</p>
                             <p class="characteristics__props-value">{{ $product->code }}</p>
                         </div>
-                        <!--<div class="characteristics__props">
-                            <p class="characteristics__props-name">Бренд</p>
-                            <p class="characteristics__props-value">Ariston</p>
-                        </div>
-                        <div class="characteristics__props">
-                            <p class="characteristics__props-name">Расположение</p>
-                            <p class="characteristics__props-value">вертикальное</p>
-                        </div>
-                        <div class="characteristics__props">
-                            <p class="characteristics__props-name">Мощность</p>
-                            <p class="characteristics__props-value">1500 Вт</p>
-                        </div>
-                        <div class="characteristics__props">
-                            <p class="characteristics__props-name">Объем бака</p>
-                            <p class="characteristics__props-value">50 л</p>
-                        </div>
-                        <div class="characteristics__props">
-                            <p class="characteristics__props-name">Вес</p>
-                            <p class="characteristics__props-value">17 кг</p>
-                        </div>-->
                     </div>
                 </div>
                 <div class="product__actions-container">

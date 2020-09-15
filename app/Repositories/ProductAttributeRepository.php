@@ -20,15 +20,22 @@ class ProductAttributeRepository extends CoreRepository
     }
 
     /**
-     * @param $categoryId
+     * @param $category
      * @return mixed
      */
-    public function getAttributes($categoryId)
+    public function getAttributes($category)
     {
         $properties = $this->startConditions()
             ->select('product_property_id')
-            ->where('category_id', $categoryId)
-            ->with('property')
+            ->where(static function ($query) use ($category) {
+                if ($category->children->count()) {
+                    return $query->where('category_id', $category->id)
+                        ->whereIn('sub_category_id', $category->children);
+                }
+                $query->where('category_id', $category->parent_id)
+                    ->where('sub_category_id', $category->id);
+
+            })->with('property')
             ->groupBy('product_property_id')
             ->distinct()
             ->get();
@@ -37,23 +44,33 @@ class ProductAttributeRepository extends CoreRepository
         });
         $values = $this->startConditions()
             ->select('product_property_value_id')
-            ->where('category_id', $categoryId)
+            ->where(static function ($query) use ($category) {
+                if ($category->children->count()) {
+                    return $query->where('category_id', $category->id)
+                        ->whereIn('sub_category_id', $category->children);
+                }
+                $query->where('category_id', $category->parent_id)
+                    ->where('sub_category_id', $category->id);
+
+            })
             ->whereIn('product_property_id', $ids)
             ->with('value')
             ->groupBy('product_property_value_id')
             ->distinct()
             ->get();
 
-        $data = [];
-        foreach ($properties as $prKey => $prItem) {
-            foreach ($values as $valItem) {
-                if ($prItem->property->id === $valItem->value->product_property_id) {
-                    $data[$prKey]['property'] = $prItem->property;
-                    $data[$prKey]['values'][] = $valItem->value;
+        $resultData = [];
+        foreach ($properties as $key => $itemProp) {
+            $arr = [];
+            foreach ($values as $k => $itemVal) {
+                $resultData[$key] = $itemProp->property;
+                if ($itemProp->property->id === $itemVal->value->product_property_id) {
+                    $arr[] = $itemVal;
+                    $resultData[$key]['values'] = $arr;
                 }
             }
         }
-        return $data;
+        return $resultData;
     }
     /**
      * @return Builder

@@ -247,6 +247,7 @@
                 .characteristics__props-value {
                     width: initial;
                     margin-left: auto;
+                    text-align: right;
                 }
 
                 @include mq($max-width: "767px") {

@@ -27,23 +27,21 @@
                                 <div class="row">
                                     <div class="form-input">
                                         <input type="text" class="input" name="city" id="city">
-                                        <label for="city">{{ __('City') }}<span class="require">*</span></label>
+                                        <label for="city">{{ __('City') }}</label>
                                     </div>
                                     <div class="form-input">
                                         <input type="text" class="input" name="street" id="street">
-                                        <label for="street">{{ __('Street') }}<span class="require">*</span></label>
+                                        <label for="street">{{ __('Street') }}</label>
                                     </div>
                                 </div>
                                 <div class="row">
                                     <div class="form-input">
                                         <input type="number" class="input" name="house_number" id="houseNumber">
-                                        <label for="houseNumber">{{ __('HouseNumber') }}<span
-                                                class="require">*</span></label>
+                                        <label for="houseNumber">{{ __('HouseNumber') }}</label>
                                     </div>
                                     <div class="form-input">
                                         <input type="number" class="input" name="apartment" id="apartment">
-                                        <label for="apartment">{{ __('Apartment') }}<span
-                                                class="require">*</span></label>
+                                        <label for="apartment">{{ __('Apartment') }}</label>
                                     </div>
                                 </div>
                             <!--<button type="submit"

@@ -29,9 +29,11 @@ class ProductPropertyValueRepository extends CoreRepository
             ->select('product_property_id')
             ->where(static function ($query) use ($category) {
                 if ($category->children->count()) {
-                    return $query->where('category_id', $category->id);
+                    return $query->where('category_id', $category->id)
+                    ->whereIn('sub_category_id', $category->children);
                 }
-                $query->where('sub_category_id', $category->id);
+                $query->where('category_id', $category->parent_id)
+                    ->where('sub_category_id', $category->id);
 
             })->with('property')
             ->groupBy('product_property_id')
@@ -42,9 +44,11 @@ class ProductPropertyValueRepository extends CoreRepository
             ->select('title', 'id', 'product_property_id', 'slug')
             ->where(static function ($query) use ($category) {
                 if ($category->children->count()) {
-                    return $query->where('category_id', $category->id);
+                    return $query->where('category_id', $category->id)
+                        ->whereIn('sub_category_id', $category->children);
                 }
-                $query->where('sub_category_id', $category->id);
+                $query->where('category_id', $category->parent_id)
+                    ->where('sub_category_id', $category->id);
             })->get();
 
         $resultData = [];

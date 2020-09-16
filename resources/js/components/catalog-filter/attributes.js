@@ -15,11 +15,15 @@ module.exports = (() => {
     const form = catalogSubsection.querySelector('form');
 
     /* Send show filter */
-    function show_filter() {
+    const show_filter = () => {
         form.submit();
     }
-
-    function position(element) {
+    /**
+     *
+     * @param element
+     * @returns {string}
+     */
+    const position = (element) => {
         return (element.offsetTop - 10) + 'px';
     }
 

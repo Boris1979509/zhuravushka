@@ -24,26 +24,28 @@
             </ul>
         @endif
     </div>
-    @foreach($attributes as $itemAttribute)
-        <div class="catalog__attributes">
-            <div
-                class="catalog__attributes-title @if(request()->has($itemAttribute->slug)) active @endif">{{ $itemAttribute->title }}</div>
-            <div class="catalog__attributes__wrapper"
-                 @if(!request()->has($itemAttribute->slug)) hidden @endif>
-                <div class="catalog__attributes__word__wrap">
-                    @foreach($itemAttribute->values as $itemValue)
-                        <div class="form-input">
-                            <input type="checkbox" id="{{ $itemValue->value->slug }}"
-                                   name="{{ $itemAttribute->slug . '[]' }}" value="{{ $itemValue->value->id }}"
-                                   class="catalog__attributes-input" title="{{ $itemValue->value->title }}"
-                                   @if(in_array($itemValue->value->id, (array) request()->input($itemAttribute->slug))) checked @endif>
-                            <label for="{{ $itemValue->value->slug }}">{{ $itemValue->value->title }}</label>
-                        </div>
-                    @endforeach
+    @if(!empty($attributes))
+        @foreach($attributes as $itemAttribute)
+            <div class="catalog__attributes">
+                <div
+                    class="catalog__attributes-title @if(request()->has($itemAttribute->slug)) active @endif">{{ $itemAttribute->title }}</div>
+                <div class="catalog__attributes__wrapper"
+                     @if(!request()->has($itemAttribute->slug)) hidden @endif>
+                    <div class="catalog__attributes__word__wrap">
+                        @foreach($itemAttribute->values as $itemValue)
+                            <div class="form-input">
+                                <input type="checkbox" id="{{ $itemValue->value->slug }}"
+                                       name="{{ $itemAttribute->slug . '[]' }}" value="{{ $itemValue->value->id }}"
+                                       class="catalog__attributes-input" title="{{ $itemValue->value->title }}"
+                                       @if(in_array($itemValue->value->id, (array) request()->input($itemAttribute->slug))) checked @endif>
+                                <label for="{{ $itemValue->value->slug }}">{{ $itemValue->value->title }}</label>
+                            </div>
+                        @endforeach
+                    </div>
                 </div>
             </div>
-        </div>
-    @endforeach
+        @endforeach
+    @endif
     <div class="catalog__confirm">
         <div class="catalog__confirm__wrapper">
             <button type="submit" class="btn btn-outline btn__confirm">{{ __('Apply') }}</button>

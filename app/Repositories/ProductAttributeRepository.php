@@ -25,13 +25,10 @@ class ProductAttributeRepository extends CoreRepository
      */
     public function getAttributes($category)
     {
+        if ($category->children->count()) return null;
         $properties = $this->startConditions()
             ->select('product_property_id')
             ->where(static function ($query) use ($category) {
-                if ($category->children->count()) {
-                    return $query->where('category_id', $category->id)
-                        ->whereIn('sub_category_id', $category->children);
-                }
                 $query->where('category_id', $category->parent_id)
                     ->where('sub_category_id', $category->id);
 
@@ -45,10 +42,6 @@ class ProductAttributeRepository extends CoreRepository
         $values = $this->startConditions()
             ->select('product_property_value_id')
             ->where(static function ($query) use ($category) {
-                if ($category->children->count()) {
-                    return $query->where('category_id', $category->id)
-                        ->whereIn('sub_category_id', $category->children);
-                }
                 $query->where('category_id', $category->parent_id)
                     ->where('sub_category_id', $category->id);
 
@@ -72,6 +65,7 @@ class ProductAttributeRepository extends CoreRepository
         }
         return $resultData;
     }
+
     /**
      * @return Builder
      */

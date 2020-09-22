@@ -6,8 +6,7 @@ module.exports = (() => {
     catalogAttributes.forEach((item) => {
         item.addEventListener('click', () => {
             item.classList.toggle('active');
-            const contentValues = item.nextElementSibling;
-            contentValues.toggleAttribute('hidden');
+            item.nextElementSibling.firstElementChild.toggleAttribute('hidden');
         });
     });
 
@@ -21,28 +20,43 @@ module.exports = (() => {
     /**
      *
      * @param element
+     * @param wrap
      * @returns {string}
      */
-    const position = (element) => {
-        return (element.offsetTop - 10) + 'px';
+    const position = (element, wrap) => {
+        const h = element.clientHeight;
+        return (((element.getBoundingClientRect().top) - (wrap.getBoundingClientRect().top)) - (h / 2)) + "px";
+    }
+    /**
+     *
+     * @param element
+     */
+    const createElement = (element) => {
+        if (window.matchMedia('(min-width: 767px)').matches) {
+
+            const wrap = element.closest('.catalog__attributes__parent');
+
+            const a = document.createElement('a');
+            /* create element */
+            a.setAttribute('class', 'filter-label');
+            a.setAttribute('href', 'javascript:void()');
+            a.innerHTML = 'Показать';
+
+            setTimeout(() => {
+                a.style.top = position(element.closest('.form-input'), wrap);
+                wrap.appendChild(a);
+                a.addEventListener('click', show_filter);
+            }, 500);
+            setTimeout(() => {
+                a.remove();
+            }, 5000);
+        }
     }
 
     checkboxes.forEach((item) => {
         item.addEventListener('change', (event) => {
             if (event.target.checked) {
-                const element = event.target;
-                /* create element */
-                const a = document.createElement('a');
-                a.setAttribute('class', 'filter-label');
-                a.setAttribute('href', 'javascript:void()');
-                a.innerHTML = 'Показать';
-                setTimeout(() => {
-                    catalogSubsection.appendChild(a).style.top = position(element.closest('.form-input'));
-                    a.addEventListener('click', show_filter);
-                }, 500);
-                setTimeout(() => {
-                    a.remove();
-                }, 5000);
+                createElement(event.target);
             }
         });
     });

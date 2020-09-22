@@ -29,9 +29,9 @@
             <div class="catalog__attributes">
                 <div
                     class="catalog__attributes-title @if(request()->has($itemAttribute->slug)) active @endif">{{ $itemAttribute->title }}</div>
-                <div class="catalog__attributes__wrapper"
-                     @if(!request()->has($itemAttribute->slug)) hidden @endif>
-                    <div class="catalog__attributes__word__wrap">
+                <div class="catalog__attributes__parent">
+                    <div class="catalog__attributes__wrapper"
+                         @if(!request()->has($itemAttribute->slug)) hidden @endif>
                         @foreach($itemAttribute->values as $itemValue)
                             <div class="form-input">
                                 <input type="checkbox" id="{{ $itemValue->value->slug }}"

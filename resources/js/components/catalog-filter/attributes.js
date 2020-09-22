@@ -24,25 +24,36 @@ module.exports = (() => {
      * @returns {string}
      */
     const position = (element) => {
-        return (element.offsetTop - 10) + 'px';
+        return (element.offsetTop + 5) + 'px';
+    }
+    /**
+     *
+     * @param element
+     */
+    const createElement = (element) => {
+        if (window.matchMedia('(min-width: 767px)').matches) {
+            const wrap = element.closest('.catalog__attributes__wrapper');
+            const a = document.createElement('a');
+            /* create element */
+            a.setAttribute('class', 'filter-label');
+            a.setAttribute('href', 'javascript:void()');
+            a.innerHTML = 'Показать';
+
+            setTimeout(() => {
+                a.style.top = position(element.closest('.form-input'));
+                wrap.appendChild(a);
+                a.addEventListener('click', show_filter);
+            }, 500);
+            setTimeout(() => {
+                a.remove();
+            }, 5000);
+        }
     }
 
     checkboxes.forEach((item) => {
         item.addEventListener('change', (event) => {
             if (event.target.checked) {
-                const element = event.target;
-                /* create element */
-                const a = document.createElement('a');
-                a.setAttribute('class', 'filter-label');
-                a.setAttribute('href', 'javascript:void()');
-                a.innerHTML = 'Показать';
-                setTimeout(() => {
-                    catalogSubsection.appendChild(a).style.top = position(element.closest('.form-input'));
-                    a.addEventListener('click', show_filter);
-                }, 500);
-                setTimeout(() => {
-                    a.remove();
-                }, 5000);
+                createElement(event.target);
             }
         });
     });

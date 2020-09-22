@@ -108,6 +108,7 @@
                 margin-bottom: 20px;
                 margin-right: 0;
             }
+
             .filter-label {
                 box-sizing: border-box;
                 position: absolute;
@@ -116,7 +117,7 @@
                 padding: 10px;
                 border-radius: 4px;
                 // box-shadow: 0 0 10px rgba(114, 114, 114, 0.45);
-                z-index: 1;
+                z-index: 4;
                 font-size: .9rem;
                 text-decoration: none;
                 color: #fff;
@@ -252,8 +253,9 @@
                 padding: 15px 15px 5px 15px;
                 border-top: 1px solid #ccc;
                 margin-top: 0 !important;
-                max-height: 200px;
-                overflow-x: hidden;
+                position: relative;
+                //max-height: 200px;
+                //overflow-x: hidden;
 
                 .form-input {
                     margin-bottom: 10px !important;
@@ -263,6 +265,10 @@
                     font-size: 0.9rem;
                     vertical-align: top;
                 }
+            }
+
+            &__word__wrap {
+                position: relative;
             }
         }
 

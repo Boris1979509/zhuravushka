@@ -15,3 +15,5 @@ yarn-error.log
 /public/images/products
 /public/images/blog
 /public/sitemap.xml
+.idea
+

@@ -23,6 +23,7 @@
     },
     "dependencies": {
         "sass-mediaqueries": "^1.6.1",
-        "tiny-slider": "^2.9.3"
+        "tiny-slider": "^2.9.3",
+        "vanilla-lazyload": "^17.1.2"
     }
 }

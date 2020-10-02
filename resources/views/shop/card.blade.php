@@ -6,9 +6,10 @@
             @include('shop.cardIconCompare')
         </div>
         <div class="card__body">
+            <div class="preload"></div>
             <a href="{{ route('product', $productItem->slug) }}" title="{{ $productItem->title }}">
-                <img src="{{ fileExist('images/products/' . $productItem->photo) }}"
-                     class="card__img-top"
+                <img data-src="{{ fileExist('images/products/' . $productItem->photo) }}"
+                     class="card__img-top lazy-load"
                      alt="{{ $productItem->title }}">
             </a>
         </div>

@@ -1,1 +1,6 @@
-window.exports = window.addEventListener('load', addCardTitleHeight, loadUnderOrder);
+const onloadMyFunction = () => {
+    addCardTitleHeight();
+    loadUnderOrder();
+}
+
+window.exports = window.addEventListener('load', onloadMyFunction);

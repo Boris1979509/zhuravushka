@@ -2,8 +2,9 @@ module.exports = ((LazyLoad) => {
     const callback_loaded = (element) => {
         const parent = element.closest('.card__body');
         const preload = parent.querySelector('.preload');
-        preload.classList.add('fade');
+
         setTimeout(() => {
+            preload.classList.add('fade');
             preload.remove();
         }, 1000);
     }

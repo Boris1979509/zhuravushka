@@ -48,20 +48,23 @@ module.exports = ((formSearch) => {
                     </a>`;
         }).join('');
         if (result) {
-            resultTitle.innerHTML = `(${data.length}) результат поиска: "${value}"`;
+            resultTitle.innerHTML = `(${matchArray.length}) результат поиска: "${value}"`;
             resultBlock.innerHTML = result;
-            resultBlock.style = `height: ${document.documentElement.clientHeight - resultBlock.getBoundingClientRect().top + document.body.scrollTop}px; overflow-y: auto;`;
+            resultBlock.style = `max-height: ${document.documentElement.clientHeight - resultBlock.getBoundingClientRect().top + document.body.scrollTop}px; overflow-y: auto;`;
         } else {
+            resultTitle.innerHTML = '';
             resultBlock.innerHTML = `<p>Ничего не найдено.</p>`;
             resultBlock.removeAttribute('style');
         }
     }
 
     const searchRequest = (e) => {
-        xmlHttpRequest('/autocomplete', {search: e.target.value}, (data) => {
-            displayMatches(e.target.value, data);
-            searchDropDown.removeAttribute('hidden');
-        });
+        if(e.target.value) {
+            xmlHttpRequest('/autocomplete', {search: e.target.value}, (data) => {
+                displayMatches(e.target.value, data);
+                searchDropDown.removeAttribute('hidden');
+            });
+        }
     };
     formSearch.search.addEventListener('keyup', searchRequest);
     formSearch.search.addEventListener('onchange', searchRequest);

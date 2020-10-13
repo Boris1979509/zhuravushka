@@ -7,9 +7,10 @@
     <div class="container">
         <div class="product-wrap">
             <div class="product">
-                <div class="product__photo-container">
-                    <img src="{{ fileExist("images/products/{$product->photo}") }}" alt="{{ $product->title }}"
-                         class="product__img">
+                <div class="product__photo-container container-preload-lazy-load">
+                    <div class="preload"></div>
+                    <img data-src="{{ fileExist("images/products/{$product->photo}") }}" alt="{{ $product->title }}"
+                         class="product__img lazy-load">
                 </div>
                 <div class="product__all">
                     <h1>{{ $product->title }}</h1>

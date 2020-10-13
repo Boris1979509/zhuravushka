@@ -16,7 +16,7 @@ import cartRemove from './components/cart/remove';
 import flash from './components/alerts/flash';
 import validator from './components/validate-errors/validator';
 import countIcons from './components/card/countIcons';
-import LazyLoad from 'vanilla-lazyload';
+
 //import close from './components/alerts/close';
 
 require('./components/sticky-header/sticky');
@@ -41,57 +41,12 @@ require('./components/order-register/orderRegister');
 require('./components/sticky-bar/sticky-bar');
 require('./components/search/search');
 require('./components/search/ajax-search');
-require('./components/search/ajax-search');
-require('./components/lazy-load')(LazyLoad);
 
-
+import lazyLoad from './components/lazy-load';
 import btnAdd from './components/card/btnAdd';
 import btnQty from './components/card/btnQty';
 import addCardTitleHeight from './components/card/card-title';
 import underOrder from './components/cart/underOrder';
-
-// (function () {
-//     function logElementEvent(eventName, element) {
-//         const dataSrc = element.getAttribute("data-src");
-//         if(dataSrc){
-//             element.src = "https://www.heritage.org/index/htmp/ims/load0.gif";
-//         }
-//         return element;
-//     }
-//
-//     var callback_enter = function (element) {
-//         logElementEvent("🔑 ENTERED", element);
-//     };
-//     var callback_exit = function (element) {
-//         logElementEvent("🚪 EXITED", element);
-//     };
-//     var callback_loading = function (element) {
-//         logElementEvent("⌚ LOADING", element);
-//     };
-//     var callback_loaded = function (element) {
-//         logElementEvent("👍 LOADED", element);
-//     };
-//     var callback_error = function (element) {
-//         logElementEvent("💀 ERROR", element);
-//         element.src =
-//             "https://via.placeholder.com/440x560/?text=Error+Placeholder";
-//     };
-//     var callback_finish = function () {
-//         logElementEvent("✔️ FINISHED", document.documentElement);
-//     };
-//     var callback_cancel = function (element) {
-//         logElementEvent("🔥 CANCEL", element);
-//     };
-//
-//     var ll = new LazyLoad({
-//         threshold: 0,
-//         elements_selector: '.lazy-load',
-//         callback_loading: callback_loading,
-//         callback_loaded: callback_loaded,
-//         callback_error: callback_error,
-//         callback_finish: callback_finish
-//     });
-// })();
 
 
 require('./events/_load');

@@ -5,7 +5,7 @@
             @include('shop.cardIconFavorite')
             @include('shop.cardIconCompare')
         </div>
-        <div class="card__body">
+        <div class="card__body container-preload-lazy-load">
             <div class="preload"></div>
             <a href="{{ route('product', $productItem->slug) }}" title="{{ $productItem->title }}">
                 <img data-src="{{ fileExist('images/products/' . $productItem->photo) }}"

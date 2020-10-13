@@ -13,11 +13,12 @@
                     <tbody>
                     @foreach ($order->products as $product)
                         <tr class="cart__product">
-                            <td class="cart__img">
+                            <td class="cart__img container-preload-lazy-load">
+                                <div class="preload"></div>
                                 <a href="{{ route('product', $product->slug) }}" target="_blank">
-                                    <img src="{{ fileExist("images/products/{$product->photo}") }}"
+                                    <img data-src="{{ fileExist("images/products/{$product->photo}") }}"
                                          alt="{{ $product->title }}"
-                                         class="cart__image">
+                                         class="cart__image lazy-load">
                                 </a>
                             </td>
                             <td class="cart__name">

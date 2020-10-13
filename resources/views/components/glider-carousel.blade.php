@@ -3,7 +3,7 @@
         @foreach($childrenItem->products->take(8) as $productItem)
         <div>
             <div class="card">
-                <div class="card__body">
+                <div class="card__body container-preload-lazy-load">
                     <div class="preload"></div>
                     <a href="{{ route('product', $productItem->slug) }}" title="{{ $productItem->title }}">
                         <img data-src="{{ fileExist("images/products/{$productItem->photo}") }}"

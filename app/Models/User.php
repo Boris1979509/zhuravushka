@@ -80,7 +80,7 @@ class User extends Authenticatable
     {
         return [
             self::ROLE_USER      => __('User'),
-            self::ROLE_MODERATOR => __('Moderator'),
+            //self::ROLE_MODERATOR => __('Moderator'),
             self::ROLE_ADMIN     => __('Admin'),
         ];
     }
@@ -231,4 +231,18 @@ class User extends Authenticatable
         return $this->hasMany(Order::class);
     }
 
+    /**
+     * if registration by email
+     * @return void
+     */
+    public function verify(): void
+    {
+        if (!$this->isWait()) {
+            throw new \DomainException('User is already verified.');
+        }
+        $this->update([
+            'status'       => self::STATUS_ACTIVE,
+            'verify_token' => null,
+        ]);
+    }
 }

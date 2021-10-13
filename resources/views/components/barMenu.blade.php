@@ -1,7 +1,8 @@
 <div class="catalog">
     <div class="catalog__list grid">
-        @php /** @var ProductCategory $categoryItem */use App\Models\Shop\ProductCategory;
-            $productCategories = (isset($take)) ? $productCategories->take($take) : $productCategories
+        @php /** @var ProductCategory $categoryItem */use App\Models\Shop\ProductCategory;use Illuminate\Support\Collection;
+        /** @var  Collection $productCategories */
+            $productCategories = isset($take) ? $productCategories->take($take) : $productCategories
         @endphp
         @foreach($productCategories as $categoryItem)
             <div class="catalog__item">

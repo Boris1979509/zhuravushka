@@ -5,15 +5,9 @@ namespace App\Http\Controllers\Auth;
 use App\Http\Controllers\Core;
 use App\Http\Requests\Auth\RegisterRequest;
 use App\Providers\RouteServiceProvider;
-use App\Models\User;
-use App\UseCases\Auth\PhoneService;
 use App\UseCases\Auth\RegisterService;
 use App\UseCases\Cart\CartService;
-use Illuminate\Contracts\View\Factory;
-use Illuminate\Foundation\Auth\RegistersUsers;
 use Illuminate\Http\JsonResponse;
-use Illuminate\Http\RedirectResponse;
-use Illuminate\Support\Facades\Hash;
 use Illuminate\View\View;
 use Throwable;
 
@@ -78,9 +72,6 @@ class RegisterController extends Core
      */
     private function phoneVerified(): bool
     {
-        if (session('verified') && session('phone')) {
-            return true;
-        }
-        return false;
+        return session('verified') && session('phone') ? true : false;
     }
 }

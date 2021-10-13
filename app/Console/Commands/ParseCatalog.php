@@ -175,7 +175,7 @@ class ParseCatalog extends Command
      * @param string $fileName
      * @return string
      */
-    private function getProductCategoryProperties($fileName)
+    private function getProductCategoryProperties($fileName): string
     {
         return storage_path('app/catalog/' . $fileName);
     }

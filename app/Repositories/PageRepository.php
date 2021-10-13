@@ -45,7 +45,7 @@ class PageRepository extends CoreRepository
 
     /**
      * Load Home page
-     * @param $page
+     * @param string $page
      * @return mixed
      */
     public function getFirstPage(string $page)

@@ -7,6 +7,9 @@ use Illuminate\Console\Command;
 
 class RoleCommand extends Command
 {
+    /**
+     * @var string
+     */
     protected $signature = 'user:role {email} {role}';
 
     protected $description = 'Set role for user';

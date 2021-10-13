@@ -3,11 +3,9 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Core;
-use App\Repositories\UserRepository;
 use App\UseCases\Cart\CartService;
 use Illuminate\Contracts\View\Factory;
-use Illuminate\Support\Facades\Auth;
-use Illuminate\Support\Facades\Redirect;
+use Illuminate\Support\Facades\Cache;
 use Illuminate\View\View;
 use App\UseCases\Products\PriceService;
 
@@ -17,23 +15,22 @@ class PageController extends Core
      * @var array $data
      */
     protected $data = [];
-    /**
-     * Home page
-     */
-    public const HOME_PAGE_NAME = 'home';
-    /**
-     * @var PriceService $service
-     */
-    private $service;
 
+    public const HOME_PAGE_NAME = 'home';
+
+    /**
+     * PageController constructor.
+     * @param PriceService $service
+     */
     public function __construct(PriceService $service)
     {
         parent::__construct();
-        $this->service = $service;
-        $this->data['pages'] = $this->pageRepository->getAllPagesNav();
-        $this->data['productCategories'] = $this->productCategoryRepository->getAllProductCategories();
-        $this->data['products'] = $this->service->subtractPercent($this->productRepository->getAllProducts());
-        $this->data['homePageTop'] = $this->productCategoryRepository->getHomePageTop();
+        $this->data = [
+            'pages'             => $this->pageRepository->getAllPagesNav(),
+            'productCategories' => $this->productCategoryRepository->getAllProductCategories(),
+            'products'          => $service->subtractPercent($this->productRepository->getAllProducts()),
+            'homePageTop'       => $this->productCategoryRepository->getHomePageTop(),
+        ];
     }
 
     /**
@@ -58,8 +55,7 @@ class PageController extends Core
      */
     public function page(string $slug, CartService $cartService)
     {
-        $page = $this->pageRepository->getFirstPageBySlug($slug);
-        if (!$page) {
+        if (!$page = $this->pageRepository->getFirstPageBySlug($slug)) {
             return abort(404);
         }
 

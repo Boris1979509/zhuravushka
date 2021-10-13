@@ -8,7 +8,7 @@ use App\Mail\SuccessfulRegistration;
 use App\UseCases\Auth\PhoneService;
 use Illuminate\Auth\Events\Registered;
 use Illuminate\Contracts\Events\Dispatcher;
-use Illuminate\Contracts\Mail\Mailer;
+use Illuminate\Contracts\Mail\Mailer as MailerInterface;
 use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Str;
 
@@ -27,7 +27,7 @@ class RegisterService
      */
     private $service;
 
-    public function __construct(Mailer $mailer, Dispatcher $dispatcher, PhoneService $service)
+    public function __construct(MailerInterface $mailer, Dispatcher $dispatcher, PhoneService $service)
     {
         $this->mailer = $mailer;
         $this->dispatcher = $dispatcher;
@@ -46,7 +46,7 @@ class RegisterService
             'phone_verified_status' => User::STATUS_ACTIVE,
             'phone_verify_token'    => session('token'),
             'password'              => Hash::make($request['password']),
-            'delivery_place'        => $request['address'],
+            //'delivery_place'        => $request['address'],
             'role'                  => User::ROLE_USER,
         ]);
 
@@ -54,12 +54,16 @@ class RegisterService
         $this->dispatcher->dispatch(new Registered($user));
     }
 
-//    public function verify($id): void
-//    {
-//        /** @var User $user */
-//        $user = User::findOrFail($id);
-//        $user->verify();
-//    }
+    /**
+     * If register by email
+     * @param int $id
+     */
+    public function verify(int $id): void
+    {
+        /** @var User $user */
+        $user = User::findOrFail($id);
+        $user->verify();
+    }
     /**
      * @return void
      */
